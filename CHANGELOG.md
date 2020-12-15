@@ -2,16 +2,16 @@
 
 ## 0.9.0)
 
-0.9.0 is a big step towards full integration of Syft and Govulners into Nextlinux Engine as planned for 1.0. In this release, Syft is used for all package identification, and
-a new API is also added to support uploads of Syft results into the system but with less analysis depth than an in-deployment analysis. This release 
+0.9.0 is a big step towards full integration of Gosbom and Govulners into Nextlinux Engine as planned for 1.0. In this release, Gosbom is used for all package identification, and
+a new API is also added to support uploads of Gosbom results into the system but with less analysis depth than an in-deployment analysis. This release 
 also involves an API update to 0.1.16 and a db schema update to 0.0.14, and resolves a long-standing issue with db varchar field lengths in the
 policy engine.
 
-+ Added - New APIs for uploading externally run Syft analysis of an image to generate an SBoM and importing results as an image into engine. Fixes #783
++ Added - New APIs for uploading externally run Gosbom analysis of an image to generate an SBoM and importing results as an image into engine. Fixes #783
 + Added - Support for analysis archive rules to trigger based on total number of images in each account. Fixes #700
 + Added - Exclusion filters for analysis archive rules. Fixes #699
 + Added - Ability to exclude paths from vulnerability.packages rules using path regex. Fixes #229
-+ Added - Integrates new Syft tool (https://github.com/nextlinux/gosbom) as package bill of materials analyzer. Fixes #679, #685, #682
++ Added - Integrates new Gosbom tool (https://github.com/nextlinux/gosbom) as package bill of materials analyzer. Fixes #679, #685, #682
 + Added - Ability to set an expiration for individual whitelist rules. Fixes #178, 
 + Added - Ability to test webhook delivery via API call and provide schemas for webhook payloads. Fixes #489, #490
 + Added - Success and error counters in prometheus metrics exported by analyzers ("nextlinux_analysis_success" and "nextlinux_analysis_error")  

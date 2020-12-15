@@ -2617,7 +2617,7 @@ paths:
       x-swagger-router-controller: nextlinux_engine.services.apiext.api.controllers.image_imports
       operationId: create_operation
       x-nextlinux-authz-action: importImage
-      summary: "Begin the import of an image analyzed by Syft into the system"
+      summary: "Begin the import of an image analyzed by Gosbom into the system"
       produces:
         - "application/json"
       responses:
@@ -2714,7 +2714,7 @@ paths:
       x-swagger-router-controller: nextlinux_engine.services.apiext.api.controllers.image_imports
       operationId: import_image_packages
       x-nextlinux-authz-action: importImage
-      summary: "Begin the import of an image analyzed by Syft into the system"
+      summary: "Begin the import of an image analyzed by Gosbom into the system"
       produces:
         - "application/json"
       consumes:
@@ -2764,7 +2764,7 @@ paths:
       x-swagger-router-controller: nextlinux_engine.services.apiext.api.controllers.image_imports
       operationId: import_image_dockerfile
       x-nextlinux-authz-action: importImage
-      summary: "Begin the import of an image analyzed by Syft into the system"
+      summary: "Begin the import of an image analyzed by Gosbom into the system"
       produces:
         - "application/json"
       consumes:

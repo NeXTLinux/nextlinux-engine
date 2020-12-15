@@ -45,9 +45,9 @@
 &lt;h3 id="change-fixes">Change Fixes&lt;/h3>
 &lt;ul>
 &lt;li>Policy-engine feeds no longer fail for GitHub group.&lt;/li>
-&lt;li>Images failing analysis due to specific unexpected python package format issue fixed in Syft to ensure analysis can complete.&lt;/li>
+&lt;li>Images failing analysis due to specific unexpected python package format issue fixed in Gosbom to ensure analysis can complete.&lt;/li>
 &lt;li>Content hints now correctly scan non-OS packages for vulnerabilities.&lt;/li>
-&lt;li>The Syft invocation during image analysis now uses the analyzer unpack directory consistent with other analysis data IO instead of the OS default temp directory.&lt;/li>
+&lt;li>The Gosbom invocation during image analysis now uses the analyzer unpack directory consistent with other analysis data IO instead of the OS default temp directory.&lt;/li>
 &lt;/ul>
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
@@ -136,7 +136,7 @@
 &lt;p>DB Schema version - 0.0.15&lt;/p>
 &lt;p>This release contains a database schema update, but no data migration only new tables added.&lt;/p>
 &lt;h3 id="configurable-vulnerability-providers">Configurable Vulnerability Providers&lt;/h3>
-&lt;p>0.10.0 is a significant release for Engine as it now has both &lt;a href="https://github.com/nextlinux/gosbom">Syft&lt;/a> and &lt;a href="https://github.com/nextlinux/grype">Govulners&lt;/a>
+&lt;p>0.10.0 is a significant release for Engine as it now has both &lt;a href="https://github.com/nextlinux/gosbom">Gosbom&lt;/a> and &lt;a href="https://github.com/nextlinux/grype">Govulners&lt;/a>
 integrations in place to move to a unified vulnerability scanning core across local tools as well as stateful Engine services.
 This release adds &lt;a href="https://github.com/nextlinux/grype">Govulners&lt;/a> integration as a new vulnerability scanning option in the policy
 engine. There is now a configuration option for specifying a vulnerability scanning provider in the policy engine service
@@ -155,7 +155,7 @@ supported for the Govulners provider. They will return incorrect results when us
 &lt;h3 id="owned-package-filtering-control">Owned Package Filtering Control&lt;/h3>
 &lt;p>A new configuration option:
 &lt;code>services.analyzer.enable_owned_package_filtering: &amp;lt;bool&amp;gt;&lt;/code> is now available in the analyzer service configuration. By default,
-the analyzer will filter packages that are determined by Syft to be &amp;ldquo;owned&amp;rdquo; by a parent package when that packages is a
+the analyzer will filter packages that are determined by Gosbom to be &amp;ldquo;owned&amp;rdquo; by a parent package when that packages is a
 distro-managed package and it installs the child package entirely. That behavior can be disabled by setting this configuration value to &amp;ldquo;false&amp;rdquo;.
 The filtering removes false positives associated with packages installed by yum, apt, or apkg, that also install language packages like python, npms, or gems
 that have backports applied by the distro maintainer but no corresponding language package version change other than the parent package version.
@@ -211,7 +211,7 @@ the actual 1.0 release and formal timeline announcement. For 0.10.0, there are n
 &lt;/ul>
 &lt;h3 id="improved">Improved&lt;/h3>
 &lt;ul>
-&lt;li>Improved - Reduced false positive matches for vulnerabilities in java artifacts by update to CPE generation logic via Syft upgrade to 0.15.1&lt;/li>
+&lt;li>Improved - Reduced false positive matches for vulnerabilities in java artifacts by update to CPE generation logic via Gosbom upgrade to 0.15.1&lt;/li>
 &lt;li>Improved - Better vulnerability listing performance by removing unnecessary CPE hashing&lt;/li>
 &lt;/ul>
 &lt;p>Additional minor fixes and enhancements&lt;/p>
@@ -281,7 +281,7 @@ the actual 1.0 release and formal timeline announcement. For 0.10.0, there are n
 &lt;ul>
 &lt;li>Improved - Updated output messages and description for vulnerability_data_unavailable trigger and stale_feeds_data trigger to clarify only OS packages impacted. Fixes #879&lt;/li>
 &lt;li>Improved - Do not allow selectors to be empty unless using max_images_per_account_rule. Fixes #863&lt;/li>
-&lt;li>Improved - Updates Syft to version 0.12.4 to fix several issues in image analysis including empty package names/versions in invalid package.json files and java jar parent references being Nil.&lt;/li>
+&lt;li>Improved - Updates Gosbom to version 0.12.4 to fix several issues in image analysis including empty package names/versions in invalid package.json files and java jar parent references being Nil.&lt;/li>
 &lt;li>Improved - Require user to set explicit default admin password at bootstrap instead of defaulting to a value if none found. Fixes #810&lt;/li>
 &lt;li>Improved - Update PyYAML to 5.4.1&lt;/li>
 &lt;li>Improved - Update Passlib to 1.7.4&lt;/li>
@@ -311,8 +311,8 @@ the actual 1.0 release and formal timeline announcement. For 0.10.0, there are n
 &lt;p>Nextlinux Engine 0.9.0, features, bug fixes, and improvements. The latest summary can always be found in the Nextlinux Engine &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
 &lt;p>&lt;em>NOTE: this release does involve a database schema update including column updates for some tables that may be quite large for some deployments, schedule
 downtime appropriately as it may take minutes to an hour depending on your database size and number of images you&amp;rsquo;ve analyzed and are present in the DB&lt;/em>&lt;/p>
-&lt;p>Engine 0.9.0 begins the migration of image inspection and vulnerability scanning to the &lt;a href="https://github.com/nextlinux/Syft">Syft&lt;/a> and &lt;a href="https://github.com/nextlinux/Govulners">Govulners&lt;/a> tools
-which allow re-use of that logic outside of a deployed stateful system. Engine now consumes Syft internally for generating container bills-of-materials for all
+&lt;p>Engine 0.9.0 begins the migration of image inspection and vulnerability scanning to the &lt;a href="https://github.com/nextlinux/Gosbom">Gosbom&lt;/a> and &lt;a href="https://github.com/nextlinux/Govulners">Govulners&lt;/a> tools
+which allow re-use of that logic outside of a deployed stateful system. Engine now consumes Gosbom internally for generating container bills-of-materials for all
 OS and application packages.&lt;/p>
 &lt;h3 id="new-api-revision">New API Revision&lt;/h3>
 &lt;p>The API is updated to version &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/v0.9.0/nextlinux_engine/services/apiext/swagger/swagger.yaml">0.1.16&lt;/a>&lt;/p>
@@ -321,11 +321,11 @@ OS and application packages.&lt;/p>
 &lt;h2 id="changes-of-note">Changes of Note&lt;/h2>
 &lt;h3 id="added">Added&lt;/h3>
 &lt;ul>
-&lt;li>New APIs for uploading externally run Syft analysis of an image to generate an SBoM and importing results as an image into engine. Fixes #783&lt;/li>
+&lt;li>New APIs for uploading externally run Gosbom analysis of an image to generate an SBoM and importing results as an image into engine. Fixes #783&lt;/li>
 &lt;li>Support for analysis archive rules to trigger based on total number of images in each account. Fixes #700&lt;/li>
 &lt;li>Exclusion filters for analysis archive rules to allow specific registries or repos to be excluded from a broader rule. Fixes #699&lt;/li>
 &lt;li>Ability to exclude paths from vulnerability.packages rules using path regex. Fixes #229&lt;/li>
-&lt;li>Integrates new Syft tool (&lt;a href="https://github.com/nextlinux/gosbom">https://github.com/nextlinux/gosbom&lt;/a>) as package bill of materials analyzer. Fixes #679, #685, #682&lt;/li>
+&lt;li>Integrates new Gosbom tool (&lt;a href="https://github.com/nextlinux/gosbom">https://github.com/nextlinux/gosbom&lt;/a>) as package bill of materials analyzer. Fixes #679, #685, #682&lt;/li>
 &lt;li>Ability to set an expiration for individual whitelist rules. Fixes #178,&lt;/li>
 &lt;li>Ability to test webhook delivery via API call and provide schemas for webhook payloads. Fixes #489, #490&lt;/li>
 &lt;li>Success and error counters in prometheus metrics exported by analyzers (&amp;ldquo;nextlinux_analysis_success&amp;rdquo; and &amp;ldquo;nextlinux_analysis_error&amp;rdquo;)&lt;/li>

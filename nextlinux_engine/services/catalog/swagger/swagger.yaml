@@ -12,14 +12,14 @@ info:
 #host: "localhost:83"
 basePath: "/"
 tags:
-- name: "catalog"
-  description: "Catalog Service"
-  externalDocs:
-    description: "Find out more"
-    url: "http://next-linux.systems"
+  - name: "catalog"
+    description: "Catalog Service"
+    externalDocs:
+      description: "Find out more"
+      url: "http://next-linux.systems"
 schemes:
-- "https"
-- "http"
+  - "https"
+  - "http"
 
 paths:
   /health:
@@ -45,12 +45,12 @@ paths:
   /status:
     get:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Get the status of the service"
       description: ""
       operationId: "status"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -60,31 +60,31 @@ paths:
   /repo:
     post:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Add repo to watch to the DB"
       description: ""
       operationId: "repo_post"
       parameters:
-      - name: 'regrepo'
-        in: query
-        type: string
-        description: "full regrepo to add e.g. docker.io/library/alpine"
-        required: true
-      - name: 'autosubscribe'
-        in: query
-        type: boolean
-        description: "flag to enable/disable auto tag_update activation when new images from a repo are added"
-        required: false
-      - name: 'lookuptag'
-        in: query
-        type: string
-        description: "specify a tag to use for scanning a repo (default is 'latest')"
-        required: false
-      - name: 'dryrun'
-        in: query
-        type: boolean
-        description: "flag to return tags in the repository without actually watching the repository, default is false"
-        required: false
+        - name: "regrepo"
+          in: query
+          type: string
+          description: "full regrepo to add e.g. docker.io/library/alpine"
+          required: true
+        - name: "autosubscribe"
+          in: query
+          type: boolean
+          description: "flag to enable/disable auto tag_update activation when new images from a repo are added"
+          required: false
+        - name: "lookuptag"
+          in: query
+          type: string
+          description: "specify a tag to use for scanning a repo (default is 'latest')"
+          required: false
+        - name: "dryrun"
+          in: query
+          type: boolean
+          description: "flag to return tags in the repository without actually watching the repository, default is false"
+          required: false
       responses:
         200:
           description: "success"
@@ -94,27 +94,27 @@ paths:
   /summaries/imagetags:
     get:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Get image digest and tags summary list from DB"
       description: ""
       operationId: "image_tags_get"
       parameters:
-      - name: 'image_status'
-        in: query
-        type: array
-        items:
-          type: string
-          enum:
-          - all
-          - active
-          - deleting
-        collectionFormat: csv
-        required: false
-        default:
-        - active
-        description: "Filter images in one or more states such as active, deleting. Defaults to active images only if unspecified"
+        - name: "image_status"
+          in: query
+          type: array
+          items:
+            type: string
+            enum:
+              - all
+              - active
+              - deleting
+          collectionFormat: csv
+          required: false
+          default:
+            - active
+          description: "Filter images in one or more states such as active, deleting. Defaults to active images only if unspecified"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -124,60 +124,60 @@ paths:
   /images:
     get:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Get image records from DB"
       description: ""
       operationId: "list_images"
       parameters:
-      - name: 'tag'
-        in: query
-        type: string
-        description: "tag of image to get"
-        required: false
-      - name: 'digest'
-        in: query
-        type: string
-        description: "digest of image to get"
-        required: false
-      - name: 'imageId'
-        in: query
-        type: string
-        description: "imageId of image to get"
-        required: false
-      - name: 'registry_lookup'
-        in: query
-        type: boolean
-        description: "force registry lookup"
-        required: false
-        default: false
-      - name: 'history'
-        in: query
-        type: boolean
-        description: "get all matching records for given tag"
-        required: false
-        default: false
-      - name: 'image_status'
-        in: query
-        required: false
-        type: string
-        description: Filter by image_status value on the record. Default if omitted is 'active'.
-        enum:
-          - all
-          - active
-          - deleting
-        default: active
-      - name: 'analysis_status'
-        in: query
-        required: false
-        type: string
-        description: Filter by analysis_status value on the record.
-        enum:
-          - not_analyzed
-          - analyzed
-          - analyzing
-          - analysis_failed
+        - name: "tag"
+          in: query
+          type: string
+          description: "tag of image to get"
+          required: false
+        - name: "digest"
+          in: query
+          type: string
+          description: "digest of image to get"
+          required: false
+        - name: "imageId"
+          in: query
+          type: string
+          description: "imageId of image to get"
+          required: false
+        - name: "registry_lookup"
+          in: query
+          type: boolean
+          description: "force registry lookup"
+          required: false
+          default: false
+        - name: "history"
+          in: query
+          type: boolean
+          description: "get all matching records for given tag"
+          required: false
+          default: false
+        - name: "image_status"
+          in: query
+          required: false
+          type: string
+          description: Filter by image_status value on the record. Default if omitted is 'active'.
+          enum:
+            - all
+            - active
+            - deleting
+          default: active
+        - name: "analysis_status"
+          in: query
+          required: false
+          type: string
+          description: Filter by analysis_status value on the record.
+          enum:
+            - not_analyzed
+            - analyzed
+            - analyzing
+            - analysis_failed
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -186,43 +186,43 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.default_controller"
     post:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Add image records to catalog db"
       description: ""
       operationId: "add_image"
       parameters:
-      - name: 'tag'
-        in: query
-        type: string
-        description: "tag of image to add"
-        required: false
-      - name: 'digest'
-        in: query
-        type: string
-        description: "digest of image to add"
-        required: false
-      - name: 'created_at'
-        in: query
-        type: integer
-        description: "created_at timestamp override"
-        required: false
-      - name: from_archive
-        in: query
-        type: boolean
-        description: If set, add the image from the image archive rather than running a new analysis. In this case, other params such as metadata and tag are ignored and only the digest is used.
-      - name: allow_dockerfile_update
-        in: query
-        type: boolean
-        description: Explicitly allow the update of a dockerfile for an image that has already been analyzed (similar to the 'force' option in the external api call, but scoped only to the dockerfile). Defaults to false.
-        required: false
-      - name: image_metadata
-        in: body
-        schema:
-          $ref: "#/definitions/ImageAddMetadata"
-        description: "object describing image to add"
-        required: true
+        - name: "tag"
+          in: query
+          type: string
+          description: "tag of image to add"
+          required: false
+        - name: "digest"
+          in: query
+          type: string
+          description: "digest of image to add"
+          required: false
+        - name: "created_at"
+          in: query
+          type: integer
+          description: "created_at timestamp override"
+          required: false
+        - name: from_archive
+          in: query
+          type: boolean
+          description: If set, add the image from the image archive rather than running a new analysis. In this case, other params such as metadata and tag are ignored and only the digest is used.
+        - name: allow_dockerfile_update
+          in: query
+          type: boolean
+          description: Explicitly allow the update of a dockerfile for an image that has already been analyzed (similar to the 'force' option in the external api call, but scoped only to the dockerfile). Defaults to false.
+          required: false
+        - name: image_metadata
+          in: body
+          schema:
+            $ref: "#/definitions/ImageAddMetadata"
+          description: "object describing image to add"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -231,26 +231,26 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.default_controller"
     delete:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Bulk delete images from DB"
       description: ""
       operationId: "delete_images_async"
       parameters:
-      - name: 'imageDigests'
-        in: query
-        required: true
-        x-nullable: false
-        type: array
-        items:
-          type: string
-        collectionFormat: csv
-      - name: 'force'
-        in: query
-        type: boolean
-        description: "force delete"
-        required: false
+        - name: "imageDigests"
+          in: query
+          required: true
+          x-nullable: false
+          type: array
+          items:
+            type: string
+          collectionFormat: csv
+        - name: "force"
+          in: query
+          type: boolean
+          description: "force delete"
+          required: false
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -262,18 +262,18 @@ paths:
   /images/{imageDigest}:
     get:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Get image records from DB"
       description: ""
       operationId: "get_image"
       parameters:
-      - name: 'imageDigest'
-        in: path
-        type: string
-        description: "imageDigest of image to get"
-        required: true
+        - name: "imageDigest"
+          in: path
+          type: string
+          description: "imageDigest of image to get"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -282,23 +282,23 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.default_controller"
     delete:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Delete image record from DB"
       description: ""
       operationId: "delete_image"
       parameters:
-      - name: 'imageDigest'
-        in: path
-        type: string
-        description: "imageDigest of image to delete"
-        required: true
-      - name: 'force'
-        in: query
-        type: boolean
-        description: "force delete"
-        required: false
+        - name: "imageDigest"
+          in: path
+          type: string
+          description: "imageDigest of image to delete"
+          required: true
+        - name: "force"
+          in: query
+          type: boolean
+          description: "force delete"
+          required: false
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -307,24 +307,24 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.default_controller"
     put:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Update image record from DB"
       description: ""
       operationId: "update_image"
       parameters:
-      - name: 'imageDigest'
-        in: path
-        type: string
-        description: "imageDigest of image to update"
-        required: true
-      - name: image
-        in: body
-        schema:
-          type: object
-        description: "image record to update"
-        required: true
+        - name: "imageDigest"
+          in: path
+          type: string
+          description: "imageDigest of image to update"
+          required: true
+        - name: image
+          in: body
+          schema:
+            type: object
+          description: "image record to update"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -339,12 +339,12 @@ paths:
       description: ""
       operationId: "get_image_content"
       parameters:
-        - name: 'image_digest'
+        - name: "image_digest"
           in: path
           type: string
           description: "imageDigest of image to get"
           required: true
-        - name: 'content_type'
+        - name: "content_type"
           in: path
           type: string
           description: "image content type to retrieve"
@@ -360,23 +360,23 @@ paths:
   /registry_lookup:
     get:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Get image info from registry"
       description: ""
       operationId: "registry_lookup"
       parameters:
-      - name: 'tag'
-        in: query
-        type: string
-        description: "tag of image to lookup"
-        required: false
-      - name: 'digest'
-        in: query
-        type: string
-        description: "digest of image to lookup"
-        required: false
+        - name: "tag"
+          in: query
+          type: string
+          description: "tag of image to lookup"
+          required: false
+        - name: "digest"
+          in: query
+          type: string
+          description: "digest of image to lookup"
+          required: false
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -384,44 +384,44 @@ paths:
             type: object
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.default_controller"
 
-#  /import:
-#    post:
-#      tags:
-#      - "catalog"
-#      summary: "Import raw nextlinux image record into DB"
-#      description: ""
-#      operationId: "image_import"
-#      parameters:
-#      - name: 'bodycontent'
-#        in: body
-#        schema:
-#          type: object
-#        description: "image record to update"
-#        required: true
-#      produces:
-#      - "application/json"
-#      responses:
-#        200:
-#          description: "success"
-#          schema:
-#            type: object
-#      x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.default_controller"
+  #  /import:
+  #    post:
+  #      tags:
+  #      - "catalog"
+  #      summary: "Import raw nextlinux image record into DB"
+  #      description: ""
+  #      operationId: "image_import"
+  #      parameters:
+  #      - name: 'bodycontent'
+  #        in: body
+  #        schema:
+  #          type: object
+  #        description: "image record to update"
+  #        required: true
+  #      produces:
+  #      - "application/json"
+  #      responses:
+  #        200:
+  #          description: "success"
+  #          schema:
+  #            type: object
+  #      x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.default_controller"
 
   /policies:
     get:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Get policy records from DB"
       description: ""
       operationId: "list_policies"
       parameters:
-      - name: active
-        in: query
-        type: boolean
-        required: false
-        description: "Filter policy bundles by active status"
+        - name: active
+          in: query
+          type: boolean
+          required: false
+          description: "Filter policy bundles by active status"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -430,19 +430,19 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.policies"
     post:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Add policy record to DB"
       description: ""
       operationId: "add_policy"
       parameters:
-      - name: bodycontent
-        in: body
-        schema:
-          type: object
-        description: "image record to update"
-        required: true
+        - name: bodycontent
+          in: body
+          schema:
+            type: object
+          description: "image record to update"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -452,18 +452,18 @@ paths:
   /policies/{policyId}:
     get:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Get policy record from DB"
       description: "Get a single policy bundle"
       operationId: "get_policy"
       parameters:
-      - name: policyId
-        in: path
-        type: string
-        description: "policy id of object to get"
-        required: True
+        - name: policyId
+          in: path
+          type: string
+          description: "policy id of object to get"
+          required: True
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -472,23 +472,23 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.policies"
     delete:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Delete policy record from DB"
       description: ""
       operationId: "delete_policy"
       parameters:
-      - name: policyId
-        in: path
-        type: string
-        description: "policy object to delete"
-        required: true
-      - name: 'cleanup_evals'
-        in: query
-        type: boolean
-        description: "delete all policy eval records associated with policyId on deletion"
-        required: true
+        - name: policyId
+          in: path
+          type: string
+          description: "policy object to delete"
+          required: true
+        - name: "cleanup_evals"
+          in: query
+          type: boolean
+          description: "delete all policy eval records associated with policyId on deletion"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -497,23 +497,23 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.policies"
     put:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Update policy record from DB"
       description: ""
       operationId: "update_policy"
       parameters:
-      - name: policyId
-        in: path
-        type: string
-        required: true
-      - name: bodycontent
-        in: body
-        schema:
-          type: object
-        description: "Policy bundle content"
-        required: true
+        - name: policyId
+          in: path
+          type: string
+          required: true
+        - name: bodycontent
+          in: body
+          schema:
+            type: object
+          description: "Policy bundle content"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -523,41 +523,41 @@ paths:
   /evals:
     get:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Get eval records from DB"
       description: ""
       operationId: "get_evals"
       parameters:
-      - name: policyId
-        type: string
-        in: query
-        required: false
-      - name: imageDigest
-        type: string
-        in: query
-        required: false
-      - name: tag
-        type: string
-        in: query
-        required: false
-      - name: evalId
-        type: string
-        in: query
-        required: false
-      - name: newest_only
-        type: boolean
-        required: false
-        in: query
-      - name: interactive
-        type: boolean
-        required: false
-        in: query
-      - name: history_only
-        type: boolean
-        required: false
-        in: query
+        - name: policyId
+          type: string
+          in: query
+          required: false
+        - name: imageDigest
+          type: string
+          in: query
+          required: false
+        - name: tag
+          type: string
+          in: query
+          required: false
+        - name: evalId
+          type: string
+          in: query
+          required: false
+        - name: newest_only
+          type: boolean
+          required: false
+          in: query
+        - name: interactive
+          type: boolean
+          required: false
+          in: query
+        - name: history_only
+          type: boolean
+          required: false
+          in: query
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -566,19 +566,19 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.policy_evaluations"
     delete:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Delete eval record from DB"
       description: ""
       operationId: "delete_eval"
       parameters:
-      - name: 'bodycontent'
-        in: body
-        schema:
-          type: object
-        description: "eval object to delete"
-        required: true
+        - name: "bodycontent"
+          in: body
+          schema:
+            type: object
+          description: "eval object to delete"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -587,19 +587,19 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.policy_evaluations"
     put:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Update eval record from DB"
       description: ""
       operationId: "update_eval"
       parameters:
-      - name: 'bodycontent'
-        in: body
-        schema:
-          type: object
-        description: "eval record to update"
-        required: true
+        - name: "bodycontent"
+          in: body
+          schema:
+            type: object
+          description: "eval record to update"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -608,19 +608,19 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.policy_evaluations"
     post:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Add eval record to DB"
       description: ""
       operationId: "add_eval"
       parameters:
-      - name: 'bodycontent'
-        in: body
-        schema:
-          type: object
-        description: "eval record to add"
-        required: true
+        - name: "bodycontent"
+          in: body
+          schema:
+            type: object
+          description: "eval record to add"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -630,24 +630,24 @@ paths:
   /objects/{bucket}/{archiveid}:
     get:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Get document from object store"
       description: ""
       operationId: "get_object"
       parameters:
-      - name: 'bucket'
-        in: path
-        type: string
-        description: "bucket"
-        required: true
-      - name: 'archiveid'
-        in: path
-        type: string
-        format: path
-        description: "archiveid"
-        required: true
+        - name: "bucket"
+          in: path
+          type: string
+          description: "bucket"
+          required: true
+        - name: "archiveid"
+          in: path
+          type: string
+          format: path
+          description: "archiveid"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -656,29 +656,29 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.objects"
     post:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Add document to object store"
       description: ""
       operationId: "create_object"
       parameters:
-      - name: 'bucket'
-        in: path
-        type: string
-        description: "bucket"
-        required: true
-      - name: 'archiveid'
-        in: path
-        type: string
-        description: "archiveid"
-        required: true
-      - name: 'bodycontent'
-        in: body
-        schema:
-          type: object
-        description: "document to object store"
-        required: true
+        - name: "bucket"
+          in: path
+          type: string
+          description: "bucket"
+          required: true
+        - name: "archiveid"
+          in: path
+          type: string
+          description: "archiveid"
+          required: true
+        - name: "bodycontent"
+          in: body
+          schema:
+            type: object
+          description: "document to object store"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -687,23 +687,23 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.objects"
     delete:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Delete a document from archive"
       description: ""
       operationId: "delete_object"
       parameters:
-      - name: 'bucket'
-        in: path
-        type: string
-        description: "bucket"
-        required: true
-      - name: 'archiveid'
-        in: path
-        type: string
-        description: "archiveid"
-        required: true
+        - name: "bucket"
+          in: path
+          type: string
+          description: "bucket"
+          required: true
+        - name: "archiveid"
+          in: path
+          type: string
+          description: "archiveid"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -713,23 +713,23 @@ paths:
   /archive/{bucket}/{archiveid}:
     get:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Get document from archive"
       description: ""
       operationId: "get_archive"
       parameters:
-      - name: 'bucket'
-        in: path
-        type: string
-        description: "bucket"
-        required: true
-      - name: 'archiveid'
-        in: path
-        type: string
-        description: "archiveid"
-        required: true
+        - name: "bucket"
+          in: path
+          type: string
+          description: "bucket"
+          required: true
+        - name: "archiveid"
+          in: path
+          type: string
+          description: "archiveid"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -738,29 +738,29 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.data_archive"
     post:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Add document to archive"
       description: ""
       operationId: "create_archive"
       parameters:
-      - name: 'bucket'
-        in: path
-        type: string
-        description: "bucket"
-        required: true
-      - name: 'archiveid'
-        in: path
-        type: string
-        description: "archiveid"
-        required: true
-      - name: 'bodycontent'
-        in: body
-        schema:
-          type: object
-        description: "document to archive"
-        required: true
+        - name: "bucket"
+          in: path
+          type: string
+          description: "bucket"
+          required: true
+        - name: "archiveid"
+          in: path
+          type: string
+          description: "archiveid"
+          required: true
+        - name: "bodycontent"
+          in: body
+          schema:
+            type: object
+          description: "document to archive"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -769,23 +769,23 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.data_archive"
     delete:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Delete a document from archive"
       description: ""
       operationId: "delete_archive"
       parameters:
-      - name: 'bucket'
-        in: path
-        type: string
-        description: "bucket"
-        required: true
-      - name: 'archiveid'
-        in: path
-        type: string
-        description: "archiveid"
-        required: true
+        - name: "bucket"
+          in: path
+          type: string
+          description: "bucket"
+          required: true
+        - name: "archiveid"
+          in: path
+          type: string
+          description: "archiveid"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -795,23 +795,23 @@ paths:
   /subscriptions:
     get:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Get subscription records from DB"
       description: ""
       operationId: "subscriptions_get"
       parameters:
-      - name: 'subscription_key'
-        in: query
-        type: string
-        description: "filter only subscriptions matching key"
-        required: false
-      - name: 'subscription_type'
-        in: query
-        type: string
-        description: "filter only subscriptions matching type"
-        required: false
+        - name: "subscription_key"
+          in: query
+          type: string
+          description: "filter only subscriptions matching key"
+          required: false
+        - name: "subscription_type"
+          in: query
+          type: string
+          description: "filter only subscriptions matching type"
+          required: false
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -820,19 +820,19 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.default_controller"
     post:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Add subscription record to DB"
       description: ""
       operationId: "subscriptions_post"
       parameters:
-      - name: 'bodycontent'
-        in: body
-        schema:
-          type: object
-        description: "subscription object to add"
-        required: true
+        - name: "bodycontent"
+          in: body
+          schema:
+            type: object
+          description: "subscription object to add"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -843,18 +843,18 @@ paths:
   /subscriptions/{subscriptionId}:
     get:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Get subscription records from DB"
       description: ""
       operationId: "subscriptions_subscriptionId_get"
       parameters:
-      - name: 'subscriptionId'
-        in: path
-        type: string
-        description: "subscription Id object to get"
-        required: true
+        - name: "subscriptionId"
+          in: path
+          type: string
+          description: "subscription Id object to get"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -863,18 +863,18 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.default_controller"
     delete:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Delete subscription records from DB"
       description: ""
       operationId: "subscriptions_subscriptionId_delete"
       parameters:
-      - name: 'subscriptionId'
-        in: path
-        type: string
-        description: "subscription Id object to delete"
-        required: true
+        - name: "subscriptionId"
+          in: path
+          type: string
+          description: "subscription Id object to delete"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -883,24 +883,24 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.default_controller"
     put:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Add subscription record to DB"
       description: ""
       operationId: "subscriptions_subscriptionId_put"
       parameters:
-      - name: 'subscriptionId'
-        in: path
-        type: string
-        description: "subscription Id of object to update"
-        required: true
-      - name: 'bodycontent'
-        in: body
-        schema:
-          type: object
-        description: "subscription object to update"
-        required: true
+        - name: "subscriptionId"
+          in: path
+          type: string
+          description: "subscription Id of object to update"
+          required: true
+        - name: "bodycontent"
+          in: body
+          schema:
+            type: object
+          description: "subscription object to update"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -911,66 +911,66 @@ paths:
   /events:
     get:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Get event records from DB"
       description: ""
       operationId: "events_get"
       parameters:
-      - name: source_servicename
-        in: query
-        type: string
-        description: ""
-        required: false
-      - name: source_hostid
-        in: query
-        type: string
-        description: ""
-        required: false
-      - name: resource_type
-        in: query
-        type: string
-        description: ""
-        required: false
-      - name: event_type
-        in: query
-        type: string
-        description: Filter events by a prefix match on the event type (e.g. "user.image.")
-        required: false
-        pattern: '^[a-z0-9-_.*]+$'
-      - name: resource_id
-        in: query
-        type: string
-        description: ""
-        required: false
-      - name: level
-        in: query
-        type: string
-        description: ""
-        required: false
-      - name: since
-        in: query
-        type: string
-        description: ""
-        required: false
-      - name: before
-        in: query
-        type: string
-        description: ""
-        required: false
-      - name: page
-        in: query
-        type: integer
-        description: ""
-        required: false
-        default: 1
-      - name: limit
-        in: query
-        type: integer
-        description: ""
-        required: false
-        default: 100
+        - name: source_servicename
+          in: query
+          type: string
+          description: ""
+          required: false
+        - name: source_hostid
+          in: query
+          type: string
+          description: ""
+          required: false
+        - name: resource_type
+          in: query
+          type: string
+          description: ""
+          required: false
+        - name: event_type
+          in: query
+          type: string
+          description: Filter events by a prefix match on the event type (e.g. "user.image.")
+          required: false
+          pattern: "^[a-z0-9-_.*]+$"
+        - name: resource_id
+          in: query
+          type: string
+          description: ""
+          required: false
+        - name: level
+          in: query
+          type: string
+          description: ""
+          required: false
+        - name: since
+          in: query
+          type: string
+          description: ""
+          required: false
+        - name: before
+          in: query
+          type: string
+          description: ""
+          required: false
+        - name: page
+          in: query
+          type: integer
+          description: ""
+          required: false
+          default: 1
+        - name: limit
+          in: query
+          type: integer
+          description: ""
+          required: false
+          default: 100
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -979,28 +979,28 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.default_controller"
     delete:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Delete events from DB "
       description: ""
       operationId: "events_delete"
       parameters:
-      - name: 'since'
-        in: query
-        type: string
-        description: ""
-        required: false
-      - name: 'before'
-        in: query
-        type: string
-        description: ""
-        required: false
-      - name: level
-        in: query
-        type: string
-        description: ""
-        required: false
+        - name: "since"
+          in: query
+          type: string
+          description: ""
+          required: false
+        - name: "before"
+          in: query
+          type: string
+          description: ""
+          required: false
+        - name: level
+          in: query
+          type: string
+          description: ""
+          required: false
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -1009,19 +1009,19 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.default_controller"
     post:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Add event record to DB"
       description: ""
       operationId: "events_post"
       parameters:
-      - name: 'bodycontent'
-        in: body
-        schema:
-          type: object
-        description: "event record to be created"
-        required: true
+        - name: "bodycontent"
+          in: body
+          schema:
+            type: object
+          description: "event record to be created"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -1032,18 +1032,18 @@ paths:
   /events/{eventId}:
     get:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Get an event record from DB"
       description: ""
       operationId: "events_eventId_get"
       parameters:
-      - name: eventId
-        in: path
-        type: string
-        description: "uuid of the event to describe"
-        required: true
+        - name: eventId
+          in: path
+          type: string
+          description: "uuid of the event to describe"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -1052,18 +1052,18 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.default_controller"
     delete:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Delete event record from DB"
       description: ""
       operationId: "events_eventId_delete"
       parameters:
-      - name: 'eventId'
-        in: path
-        type: string
-        description: "uuid of the event to delete"
-        required: true
+        - name: "eventId"
+          in: path
+          type: string
+          description: "uuid of the event to delete"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -1072,12 +1072,12 @@ paths:
   /users:
     get:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Get user records from DB"
       description: ""
       operationId: "users_get"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -1088,18 +1088,18 @@ paths:
   /users/{inuserId}:
     get:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Get user records from DB"
       description: ""
       operationId: "users_userId_get"
       parameters:
-      - name: 'inuserId'
-        in: path
-        type: string
-        description: "user Id object to get"
-        required: true
+        - name: "inuserId"
+          in: path
+          type: string
+          description: "user Id object to get"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -1108,18 +1108,18 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.default_controller"
     delete:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Delete user records from DB"
       description: ""
       operationId: "users_userId_delete"
       parameters:
-      - name: 'inuserId'
-        in: path
-        type: string
-        description: "user Id object to delete"
-        required: true
+        - name: "inuserId"
+          in: path
+          type: string
+          description: "user Id object to delete"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -1130,12 +1130,12 @@ paths:
   /system/registries:
     get:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Get registry records from DB"
       description: ""
       operationId: "system_registries_get"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -1144,24 +1144,24 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.default_controller"
     post:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Add registry record to DB"
       description: ""
       operationId: "system_registries_post"
       parameters:
-      - name: 'validate'
-        in: query
-        type: boolean
-        description: "flag to determine whether or not to validate registry/credential at registry add time"
-        required: false
-      - name: 'bodycontent'
-        in: body
-        schema:
-          type: object
-        description: "registry object to add"
-        required: true
+        - name: "validate"
+          in: query
+          type: boolean
+          description: "flag to determine whether or not to validate registry/credential at registry add time"
+          required: false
+        - name: "bodycontent"
+          in: body
+          schema:
+            type: object
+          description: "registry object to add"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -1172,19 +1172,19 @@ paths:
   /system/registries/{registry}:
     get:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Get registry records from DB"
       description: ""
       operationId: "system_registries_registry_get"
       parameters:
-      - name: 'registry'
-        in: path
-        type: string
-        description: "registry Id object to get"
-        required: true
-        format: path
+        - name: "registry"
+          in: path
+          type: string
+          description: "registry Id object to get"
+          required: true
+          format: path
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -1193,19 +1193,19 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.default_controller"
     delete:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Delete registry records from DB"
       description: ""
       operationId: "system_registries_registry_delete"
       parameters:
-      - name: 'registry'
-        in: path
-        type: string
-        description: "registry Id object to delete"
-        required: true
-        format: path
+        - name: "registry"
+          in: path
+          type: string
+          description: "registry Id object to delete"
+          required: true
+          format: path
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -1214,30 +1214,30 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.default_controller"
     put:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Add registry record to DB"
       description: ""
       operationId: "system_registries_registry_put"
       parameters:
-      - name: 'registry'
-        in: path
-        type: string
-        description: "registry Id of object to update"
-        required: true
-        format: path
-      - name: 'validate'
-        in: query
-        type: boolean
-        description: "flag to determine whether or not to validate registry/credential at registry update time"
-        required: false
-      - name: 'bodycontent'
-        in: body
-        schema:
-          type: object
-        description: "registry object to update"
-        required: true
+        - name: "registry"
+          in: path
+          type: string
+          description: "registry Id of object to update"
+          required: true
+          format: path
+        - name: "validate"
+          in: query
+          type: boolean
+          description: "flag to determine whether or not to validate registry/credential at registry update time"
+          required: false
+        - name: "bodycontent"
+          in: body
+          schema:
+            type: object
+          description: "registry object to update"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -1248,12 +1248,12 @@ paths:
   /system:
     get:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Get system routes"
       description: ""
       operationId: "system_get"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -1264,12 +1264,12 @@ paths:
   /system/services:
     get:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Get system services list"
       description: ""
       operationId: "system_services_get"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -1280,18 +1280,18 @@ paths:
   /system/services/{servicename}:
     get:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Get hostIds for all hosts servicing servicename services"
       description: ""
       operationId: "system_services_servicename_get"
       parameters:
-      - name: 'servicename'
-        in: path
-        type: string
-        description: "service name"
-        required: true
+        - name: "servicename"
+          in: path
+          type: string
+          description: "service name"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -1302,23 +1302,23 @@ paths:
   /system/services/{servicename}/{hostId}:
     get:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Get services running on hostId"
       description: ""
       operationId: "system_services_servicename_hostId_get"
       parameters:
-      - name: 'servicename'
-        in: path
-        type: string
-        description: "service name"
-        required: true
-      - name: 'hostId'
-        in: path
-        type: string
-        description: "host ID"
-        required: true
+        - name: "servicename"
+          in: path
+          type: string
+          description: "service name"
+          required: true
+        - name: "hostId"
+          in: path
+          type: string
+          description: "host ID"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -1327,23 +1327,23 @@ paths:
       x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.default_controller"
     delete:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Delete registry records from DB"
       description: ""
       operationId: "system_services_servicename_hostId_delete"
       parameters:
-      - name: 'servicename'
-        in: path
-        type: string
-        description: "service name"
-        required: true
-      - name: 'hostId'
-        in: path
-        type: string
-        description: "host ID"
-        required: true
+        - name: "servicename"
+          in: path
+          type: string
+          description: "service name"
+          required: true
+        - name: "hostId"
+          in: path
+          type: string
+          description: "host ID"
+          required: true
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -1354,12 +1354,12 @@ paths:
   /system/subscriptions:
     get:
       tags:
-      - "catalog"
+        - "catalog"
       summary: "Get subscription types"
       description: ""
       operationId: "system_subscriptions_get"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         200:
           description: "success"
@@ -1554,26 +1554,26 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-# TODO: Add content fetch for an archive. Also add ability to load a previouisly fetched archive back into the system.
-#  /archives/images/data/{imageDigest}/export:
-#    get:
-#      tags:
-#        - "catalog"
-#      summary: "Return the archive content, as a tar.gz file"
-#      description: "Retrieves the content of the archive, as a gzipped tar file. This is potentially a multi-mb data transfer"
-#      operationId: "get_archived_image_content"
-#      parameters:
-#        - name: 'imageDigest'
-#          in: path
-#          type: string
-#          description: "imageDigest of image to get"
-#          required: true
-#      produces:
-#        - "application/gzip"
-#      responses:
-#        200:
-#          description: "success"
-#      x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.analysis_archive"
+  # TODO: Add content fetch for an archive. Also add ability to load a previouisly fetched archive back into the system.
+  #  /archives/images/data/{imageDigest}/export:
+  #    get:
+  #      tags:
+  #        - "catalog"
+  #      summary: "Return the archive content, as a tar.gz file"
+  #      description: "Retrieves the content of the archive, as a gzipped tar file. This is potentially a multi-mb data transfer"
+  #      operationId: "get_archived_image_content"
+  #      parameters:
+  #        - name: 'imageDigest'
+  #          in: path
+  #          type: string
+  #          description: "imageDigest of image to get"
+  #          required: true
+  #      produces:
+  #        - "application/gzip"
+  #      responses:
+  #        200:
+  #          description: "success"
+  #      x-swagger-router-controller: "nextlinux_engine.services.catalog.api.controllers.analysis_archive"
   /archives/images/data/{imageDigest}/import:
     post:
       summary: Import a previously exported archive tarball into the system.
@@ -1590,7 +1590,7 @@ paths:
           description: The gzipped-tarball, .tar.gz, to be loaded
           type: file
           required: true
-        - name: 'imageDigest'
+        - name: "imageDigest"
           in: path
           type: string
           description: "imageDigest of image to import"
@@ -1606,7 +1606,7 @@ paths:
       x-swagger-router-controller: nextlinux_engine.services.catalog.api.controllers.imports
       operationId: create_operation
       x-nextlinux-authz-action: importImage
-      summary: "Begin the import of an image analyzed by Syft into the system"
+      summary: "Begin the import of an image analyzed by Gosbom into the system"
       produces:
         - "application/json"
       responses:
@@ -1698,7 +1698,7 @@ paths:
       x-swagger-router-controller: nextlinux_engine.services.catalog.api.controllers.imports
       operationId: list_import_packages
       x-nextlinux-authz-action: importImage
-      summary: "Begin the import of an image analyzed by Syft into the system"
+      summary: "Begin the import of an image analyzed by Gosbom into the system"
       produces:
         - "application/json"
       parameters:
@@ -1717,7 +1717,7 @@ paths:
       x-swagger-router-controller: nextlinux_engine.services.catalog.api.controllers.imports
       operationId: import_image_packages
       x-nextlinux-authz-action: importImage
-      summary: "Begin the import of an image analyzed by Syft into the system"
+      summary: "Begin the import of an image analyzed by Gosbom into the system"
       produces:
         - "application/json"
       consumes:
@@ -1744,7 +1744,7 @@ paths:
       x-swagger-router-controller: nextlinux_engine.services.catalog.api.controllers.imports
       operationId: import_image_dockerfile
       x-nextlinux-authz-action: importImage
-      summary: "Begin the import of an image analyzed by Syft into the system"
+      summary: "Begin the import of an image analyzed by Gosbom into the system"
       produces:
         - "application/json"
       consumes:
@@ -1765,7 +1765,7 @@ paths:
       x-swagger-router-controller: nextlinux_engine.services.catalog.api.controllers.imports
       operationId: list_import_dockerfiles
       x-nextlinux-authz-action: importImage
-      summary: "Begin the import of an image analyzed by Syft into the system"
+      summary: "Begin the import of an image analyzed by Gosbom into the system"
       produces:
         - "application/json"
       parameters:
@@ -1809,7 +1809,7 @@ paths:
       x-swagger-router-controller: nextlinux_engine.services.catalog.api.controllers.imports
       operationId: list_import_manifests
       x-nextlinux-authz-action: importImage
-      summary: "Begin the import of an image analyzed by Syft into the system"
+      summary: "Begin the import of an image analyzed by Gosbom into the system"
       produces:
         - "application/json"
       parameters:
@@ -1851,7 +1851,7 @@ paths:
       x-swagger-router-controller: nextlinux_engine.services.catalog.api.controllers.imports
       operationId: list_import_parent_manifests
       x-nextlinux-authz-action: importImage
-      summary: "Begin the import of an image analyzed by Syft into the system"
+      summary: "Begin the import of an image analyzed by Gosbom into the system"
       produces:
         - "application/json"
       parameters:
@@ -1892,7 +1892,7 @@ paths:
       x-swagger-router-controller: nextlinux_engine.services.catalog.api.controllers.imports
       operationId: list_import_image_configs
       x-nextlinux-authz-action: importImage
-      summary: "Begin the import of an image analyzed by Syft into the system"
+      summary: "Begin the import of an image analyzed by Gosbom into the system"
       produces:
         - "application/json"
       parameters:
@@ -2019,10 +2019,10 @@ definitions:
         description: The archival status
         type: string
         enum:
-        - archiving
-        - archived
-        - deleting
-        - deleted
+          - archiving
+          - archived
+          - deleting
+          - deleted
       image_detail:
         description: List of tags associated with the image digest
         type: array
@@ -2164,7 +2164,7 @@ definitions:
       tag_history:
         type: array
         items:
-          $ref: '#/definitions/TagEntry'
+          $ref: "#/definitions/TagEntry"
     description: A summary of an image identity, including digest, id (if available), and any tags known to have ever been mapped to the digest
   ServiceVersion:
     type: object
@@ -2401,4 +2401,3 @@ definitions:
         additionalProperties: true
     additionalProperties: false
     type: object
-
