@@ -1,26 +1,21 @@
-import json
-import hashlib
-import time
-import base64
-import re
 
 from dateutil import parser as dateparser
 
-import nextlinux_engine.apis.authorization
-import nextlinux_engine.common
-import nextlinux_engine.configuration.localconfig
-import nextlinux_engine.common.helpers
-import nextlinux_engine.common.images
-import nextlinux_engine.subsys.object_store.manager
-from nextlinux_engine.auth import aws_ecr
-import nextlinux_engine.services.catalog
-import nextlinux_engine.utils
+import anchore_engine.apis.authorization
+import anchore_engine.common
+import anchore_engine.configuration.localconfig
+import anchore_engine.common.helpers
+import anchore_engine.common.images
+import anchore_engine.subsys.object_store.manager
+from anchore_engine.auth import aws_ecr
+import anchore_engine.services.catalog
+import anchore_engine.utils
 
-from nextlinux_engine import utils as nextlinux_utils
-from nextlinux_engine.subsys import taskstate, logger, notifications, object_store
-import nextlinux_engine.subsys.metrics
-from nextlinux_engine.clients import docker_registry
-from nextlinux_engine.db import (
+from anchore_engine import utils as anchore_utils
+from anchore_engine.subsys import taskstate, logger, notifications, object_store
+import anchore_engine.subsys.metrics
+from anchore_engine.clients import docker_registry
+from anchore_engine.db import (
     db_subscriptions,
     db_catalog_image,
     db_policybundle,
@@ -29,13 +24,13 @@ from nextlinux_engine.db import (
     db_registries,
     db_services,
 )
-from nextlinux_engine.clients.services import internal_client_for
-from nextlinux_engine.clients.services.policy_engine import PolicyEngineClient
-from nextlinux_engine.apis.exceptions import BadRequest, NextlinuxApiError
-import nextlinux_engine.subsys.events
-from nextlinux_engine.db import session_scope
+from anchore_engine.clients.services import internal_client_for
+from anchore_engine.clients.services.policy_engine import PolicyEngineClient
+from anchore_engine.apis.exceptions import BadRequest, AnchoreApiError
+import anchore_engine.subsys.events
+from anchore_engine.db import session_scope
 from collections import namedtuple
-from nextlinux_engine.util.docker import DockerImageReference
+from anchore_engine.util.docker import DockerImageReference
 
 DeleteImageResponse = namedtuple("DeleteImageResponse", ["digest", "status", "detail"])
 
@@ -89,7 +84,7 @@ def registry_lookup(dbsession, request_inputs):
                 input_string = params[t]
                 if input_string:
                     input_type = t
-                    image_info = nextlinux_engine.common.images.get_image_info(
+                    image_info = anchore_engine.common.images.get_image_info(
                         userId,
                         "docker",
                         input_string,
@@ -112,7 +107,7 @@ def registry_lookup(dbsession, request_inputs):
                         + str(err)
                     )
 
-                digest, manifest = nextlinux_engine.common.images.lookup_registry_image(
+                digest, manifest = anchore_engine.common.images.lookup_registry_image(
                     userId, image_info, registry_creds
                 )
                 return_object["digest"] = (
@@ -124,7 +119,7 @@ def registry_lookup(dbsession, request_inputs):
                 httpcode = 404
                 raise Exception("cannot lookup image in registry - detail: " + str(err))
     except Exception as err:
-        return_object = nextlinux_engine.common.helpers.make_response_error(
+        return_object = anchore_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
 
@@ -161,7 +156,7 @@ def repo(dbsession, request_inputs, bodycontent={}):
 
     try:
         if method == "POST":
-            image_info = nextlinux_engine.common.images.get_image_info(
+            image_info = anchore_engine.common.images.get_image_info(
                 userId,
                 "docker",
                 fulltag,
@@ -265,17 +260,17 @@ def repo(dbsession, request_inputs, bodycontent={}):
                     )
             except Exception as err:
                 logger.exception(
-                    "could not add the required subscription to nextlinux-engine"
+                    "could not add the required subscription to anchore-engine"
                 )
                 httpcode = 500
                 raise Exception(
-                    "could not add the required subscription to nextlinux-engine"
+                    "could not add the required subscription to anchore-engine"
                 )
 
             if not subscription_records:
                 httpcode = 500
                 raise Exception(
-                    "unable to add/update subscripotion records in nextlinux-engine"
+                    "unable to add/update subscripotion records in anchore-engine"
                 )
 
             return_object = subscription_records
@@ -292,14 +287,14 @@ def repo(dbsession, request_inputs, bodycontent={}):
 
             # check and kick a repo watcher task if necessary
             try:
-                rc = nextlinux_engine.services.catalog.schedule_watcher("repo_watcher")
+                rc = anchore_engine.services.catalog.schedule_watcher("repo_watcher")
                 logger.debug("scheduled repo_watcher task")
             except Exception as err:
                 logger.warn("failed to schedule repo_watcher task: " + str(err))
                 pass
 
     except Exception as err:
-        return_object = nextlinux_engine.common.helpers.make_response_error(
+        return_object = anchore_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
 
@@ -316,7 +311,7 @@ def image_tags(account_id, dbsession, image_status):
         )
         httpcode = 200
     except Exception as err:
-        return_object = nextlinux_engine.common.helpers.make_response_error(
+        return_object = anchore_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
 
@@ -356,7 +351,7 @@ def image(dbsession, request_inputs, bodycontent=None):
                 input_string = params[t]
                 if input_string:
                     input_type = t
-                    image_info = nextlinux_engine.common.images.get_image_info(
+                    image_info = anchore_engine.common.images.get_image_info(
                         userId,
                         "docker",
                         input_string,
@@ -396,7 +391,7 @@ def image(dbsession, request_inputs, bodycontent=None):
                                 + str(err)
                             )
                         try:
-                            image_info = nextlinux_engine.common.images.get_image_info(
+                            image_info = anchore_engine.common.images.get_image_info(
                                 userId,
                                 "docker",
                                 input_string,
@@ -405,7 +400,7 @@ def image(dbsession, request_inputs, bodycontent=None):
                             )
                         except Exception as err:
                             fail_event = (
-                                nextlinux_engine.subsys.events.ImageRegistryLookupFailed(
+                                anchore_engine.subsys.events.ImageRegistryLookupFailed(
                                     user_id=userId,
                                     image_pull_string=input_string,
                                     data=err.__dict__,
@@ -552,7 +547,7 @@ def image(dbsession, request_inputs, bodycontent=None):
                         "INPUT IMAGE INFO OVERRIDES: {}".format(image_info_overrides)
                     )
                     try:
-                        image_info = nextlinux_engine.common.images.get_image_info(
+                        image_info = anchore_engine.common.images.get_image_info(
                             userId,
                             "docker",
                             input_string,
@@ -561,7 +556,7 @@ def image(dbsession, request_inputs, bodycontent=None):
                         )
                     except Exception as err:
                         fail_event = (
-                            nextlinux_engine.subsys.events.ImageRegistryLookupFailed(
+                            anchore_engine.subsys.events.ImageRegistryLookupFailed(
                                 user_id=userId,
                                 image_pull_string=input_string,
                                 data=err.__dict__,
@@ -634,7 +629,7 @@ def image(dbsession, request_inputs, bodycontent=None):
                     if image_records:
                         image_record = image_records[0]
 
-            except NextlinuxApiError:
+            except AnchoreApiError:
                 raise
             except Exception as err:
                 logger.exception("Error adding image")
@@ -648,15 +643,15 @@ def image(dbsession, request_inputs, bodycontent=None):
                 httpcode = 404
                 raise Exception("could not add input image")
 
-    except NextlinuxApiError as err:
+    except AnchoreApiError as err:
         logger.exception("Error processing image request")
-        return_object = nextlinux_engine.common.helpers.make_response_error(
+        return_object = anchore_engine.common.helpers.make_response_error(
             err.message, in_httpcode=err.__response_code__
         )
         httpcode = err.__response_code__
     except Exception as err:
         logger.exception("Error processing image request")
-        return_object = nextlinux_engine.common.helpers.make_response_error(
+        return_object = anchore_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
 
@@ -713,7 +708,7 @@ def image_imageDigest(dbsession, request_inputs, imageDigest, bodycontent=None):
                 raise Exception("image not found")
 
     except Exception as err:
-        return_object = nextlinux_engine.common.helpers.make_response_error(
+        return_object = anchore_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
 
@@ -749,7 +744,7 @@ def subscriptions(dbsession, request_inputs, subscriptionId=None, bodycontent=No
                 if subscription_type_filter:
                     if (
                         subscription_type_filter
-                        not in nextlinux_engine.common.subscription_types
+                        not in anchore_engine.common.subscription_types
                     ):
                         httpcode = 400
                         raise Exception(
@@ -795,7 +790,7 @@ def subscriptions(dbsession, request_inputs, subscriptionId=None, bodycontent=No
                 subscription_key = subscriptiondata["subscription_key"]
             if "subscription_type" in subscriptiondata:
                 subscription_type = subscriptiondata["subscription_type"]
-                if subscription_type not in nextlinux_engine.common.subscription_types:
+                if subscription_type not in anchore_engine.common.subscription_types:
                     httpcode = 400
                     raise Exception(
                         "%s is not a supported subscription type" % subscription_type
@@ -851,7 +846,7 @@ def subscriptions(dbsession, request_inputs, subscriptionId=None, bodycontent=No
                     subscription_type = subscriptiondata["subscription_type"]
                     if (
                         subscription_type
-                        not in nextlinux_engine.common.subscription_types
+                        not in anchore_engine.common.subscription_types
                     ):
                         httpcode = 400
                         raise Exception(
@@ -890,7 +885,7 @@ def subscriptions(dbsession, request_inputs, subscriptionId=None, bodycontent=No
 
     except Exception as err:
         logger.exception("Error handling subscriptions")
-        return_object = nextlinux_engine.common.helpers.make_response_error(
+        return_object = anchore_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
 
@@ -1058,7 +1053,7 @@ def events(dbsession, request_inputs, bodycontent=None):
 
     except Exception as err:
         logger.exception("Error in events handler")
-        return_object = nextlinux_engine.common.helpers.make_response_error(
+        return_object = anchore_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
 
@@ -1097,7 +1092,7 @@ def events_eventId(dbsession, request_inputs, eventId):
                 httpcode = 200
 
     except Exception as err:
-        return_object = nextlinux_engine.common.helpers.make_response_error(
+        return_object = anchore_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
 
@@ -1117,7 +1112,7 @@ def system(dbsession, request_inputs):
         httpcode = 200
         return_object = ["services", "registries"]
     except Exception as err:
-        return_object = nextlinux_engine.common.helpers.make_response_error(
+        return_object = anchore_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
 
@@ -1138,7 +1133,7 @@ def system_services(dbsession, request_inputs):
         return_object = service_records
         httpcode = 200
     except Exception as err:
-        return_object = nextlinux_engine.common.helpers.make_response_error(
+        return_object = anchore_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
 
@@ -1162,7 +1157,7 @@ def system_services_servicename(dbsession, request_inputs, inservicename):
                 return_object.append(service_record)
         httpcode = 200
     except Exception as err:
-        return_object = nextlinux_engine.common.helpers.make_response_error(
+        return_object = anchore_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
 
@@ -1206,11 +1201,11 @@ def system_services_servicename_hostId(
                 + str(inservicename)
                 + "/"
                 + str(inhostId)
-                + ") not found in nextlinux-engine"
+                + ") not found in anchore-engine"
             )
 
     except Exception as err:
-        return_object = nextlinux_engine.common.helpers.make_response_error(
+        return_object = anchore_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
 
@@ -1253,7 +1248,7 @@ def system_registries(dbsession, request_inputs, bodycontent={}):
                 httpcode = 500
                 raise Exception("registry already exists in DB")
 
-            localconfig = nextlinux_engine.configuration.localconfig.get_config()
+            localconfig = anchore_engine.configuration.localconfig.get_config()
             if (
                 registrydata["registry_user"] == "awsauto"
                 or registrydata["registry_pass"] == "awsauto"
@@ -1313,7 +1308,7 @@ def system_registries(dbsession, request_inputs, bodycontent={}):
             return_object = registry_records
             httpcode = 200
     except Exception as err:
-        return_object = nextlinux_engine.common.helpers.make_response_error(
+        return_object = anchore_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
 
@@ -1406,7 +1401,7 @@ def system_registries_registry(dbsession, request_inputs, registry, bodycontent=
                 httpcode = 404
                 raise Exception("could not find existing registry to update")
 
-            localconfig = nextlinux_engine.configuration.localconfig.get_config()
+            localconfig = anchore_engine.configuration.localconfig.get_config()
             if (
                 registrydata["registry_user"] == "awsauto"
                 or registrydata["registry_pass"] == "awsauto"
@@ -1452,7 +1447,7 @@ def system_registries_registry(dbsession, request_inputs, registry, bodycontent=
                     raise Exception(str(rc))
 
     except Exception as err:
-        return_object = nextlinux_engine.common.helpers.make_response_error(
+        return_object = anchore_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
 
@@ -1469,10 +1464,10 @@ def system_subscriptions(dbsession, request_inputs):
     httpcode = 500
 
     try:
-        return_object = nextlinux_engine.common.subscription_types
+        return_object = anchore_engine.common.subscription_types
         httpcode = 200
     except Exception as err:
-        return_object = nextlinux_engine.common.helpers.make_response_error(
+        return_object = anchore_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
 
@@ -1488,9 +1483,9 @@ def perform_vulnerability_scan(
     # prepare inputs
     obj_store = None
     try:
-        obj_store = nextlinux_engine.subsys.object_store.manager.get_manager()
+        obj_store = anchore_engine.subsys.object_store.manager.get_manager()
 
-        localconfig = nextlinux_engine.configuration.localconfig.get_config()
+        localconfig = anchore_engine.configuration.localconfig.get_config()
         verify = localconfig["internal_ssl_verify"]
         image_record = db_catalog_image.get(imageDigest, userId, session=dbsession)
 
@@ -1553,7 +1548,7 @@ def perform_vulnerability_scan(
 
         vdiff = {}
         if last_vuln_result and curr_vuln_result:
-            vdiff = nextlinux_utils.process_cve_status(
+            vdiff = anchore_utils.process_cve_status(
                 old_cves_result=last_vuln_result["legacy_report"],
                 new_cves_result=curr_vuln_result["legacy_report"],
             )
@@ -1593,7 +1588,7 @@ def perform_vulnerability_scan(
                 if annotations:
                     npayload["annotations"] = annotations
 
-                success_event = nextlinux_engine.subsys.events.TagVulnerabilityUpdated(
+                success_event = anchore_engine.subsys.events.TagVulnerabilityUpdated(
                     user_id=userId, full_tag=scantag, data=npayload
                 )
                 try:
@@ -1622,7 +1617,7 @@ def perform_policy_evaluation(
     obj_store = None
 
     try:
-        obj_store = nextlinux_engine.subsys.object_store.manager.get_manager()
+        obj_store = anchore_engine.subsys.object_store.manager.get_manager()
         image_record = db_catalog_image.get(imageDigest, userId, session=dbsession)
 
         annotations = {}
@@ -1708,7 +1703,7 @@ def perform_policy_evaluation(
                 [policyId, userId, imageDigest, fulltag, str(curr_final_action)]
             ).encode("utf8")
         ).hexdigest()
-        curr_evaluation_record = nextlinux_engine.common.helpers.make_eval_record(
+        curr_evaluation_record = anchore_engine.common.helpers.make_eval_record(
             userId,
             evalId,
             policyId,
@@ -1789,7 +1784,7 @@ def perform_policy_evaluation(
                     # new method
                     npayload["subscription_type"] = "policy_eval"
                     success_event = (
-                        nextlinux_engine.subsys.events.TagPolicyEvaluationUpdated(
+                        anchore_engine.subsys.events.TagPolicyEvaluationUpdated(
                             user_id=userId, full_tag=fulltag, data=npayload
                         )
                     )
@@ -1817,7 +1812,7 @@ def add_or_update_image(
     digests=[],
     parentdigest=None,
     created_at=None,
-    nextlinux_data=None,
+    anchore_data=None,
     dockerfile=None,
     dockerfile_mode=None,
     manifest=None,
@@ -1833,12 +1828,12 @@ def add_or_update_image(
         + " digests="
         + str(digests)
     )
-    obj_store = nextlinux_engine.subsys.object_store.manager.get_manager()
+    obj_store = anchore_engine.subsys.object_store.manager.get_manager()
 
     # input to this section is imageId, list of digests and list of tags (full dig/tag strings with reg/repo[:@]bleh)
     image_ids = {}
     for d in digests:
-        image_info = nextlinux_engine.utils.parse_dockerimage_string(d)
+        image_info = anchore_engine.utils.parse_dockerimage_string(d)
         registry = image_info["registry"]
         repo = image_info["repo"]
         digest = image_info["digest"]
@@ -1853,7 +1848,7 @@ def add_or_update_image(
             image_ids[registry][repo]["digests"].append(digest)
 
     for d in tags:
-        image_info = nextlinux_engine.utils.parse_dockerimage_string(d)
+        image_info = anchore_engine.utils.parse_dockerimage_string(d)
         registry = image_info["registry"]
         repo = image_info["repo"]
         digest = image_info["tag"]
@@ -1865,8 +1860,8 @@ def add_or_update_image(
         if digest not in image_ids[registry][repo]["tags"]:
             image_ids[registry][repo]["tags"].append(digest)
 
-    if not dockerfile and nextlinux_data:
-        a = nextlinux_data[0]
+    if not dockerfile and anchore_data:
+        a = anchore_data[0]
         try:
             dockerfile = base64.b64encode(
                 a["image"]["imagedata"]["image_report"]["dockerfile_contents"]
@@ -1875,7 +1870,7 @@ def add_or_update_image(
             dockerfile_mode = a["image"]["imagedata"]["image_report"]["dockerfile_mode"]
         except Exception as err:
             logger.warn(
-                "could not extract dockerfile_contents from input nextlinux_data - exception: "
+                "could not extract dockerfile_contents from input anchore_data - exception: "
                 + str(err)
             )
             dockerfile = None
@@ -1892,7 +1887,7 @@ def add_or_update_image(
                 fulldigest = registry + "/" + repo + "@" + d
                 for t in tags:
                     fulltag = registry + "/" + repo + ":" + t
-                    new_image_record = nextlinux_engine.common.images.make_image_record(
+                    new_image_record = anchore_engine.common.images.make_image_record(
                         userId,
                         "docker",
                         None,
@@ -1919,14 +1914,14 @@ def add_or_update_image(
                             "image_status", None
                         )
 
-                        if nextlinux_data:
+                        if anchore_data:
                             rc = obj_store.put_document(
-                                userId, "analysis_data", imageDigest, nextlinux_data
+                                userId, "analysis_data", imageDigest, anchore_data
                             )
 
                             image_content_data = {}
                             localconfig = (
-                                nextlinux_engine.configuration.localconfig.get_config()
+                                anchore_engine.configuration.localconfig.get_config()
                             )
                             all_content_types = localconfig.get(
                                 "image_content_types", []
@@ -1935,8 +1930,8 @@ def add_or_update_image(
                                 try:
                                     image_content_data[
                                         content_type
-                                    ] = nextlinux_engine.common.helpers.extract_analyzer_content(
-                                        nextlinux_data, content_type, manifest=manifest
+                                    ] = anchore_engine.common.helpers.extract_analyzer_content(
+                                        anchore_data, content_type, manifest=manifest
                                     )
                                 except:
                                     image_content_data[content_type] = {}
@@ -1953,8 +1948,8 @@ def add_or_update_image(
                                 logger.debug(
                                     "adding image analysis data to image_record"
                                 )
-                                nextlinux_engine.common.helpers.update_image_record_with_analysis_data(
-                                    new_image_record, nextlinux_data
+                                anchore_engine.common.helpers.update_image_record_with_analysis_data(
+                                    new_image_record, anchore_data
                                 )
                             except Exception as err:
                                 logger.warn(
@@ -1993,7 +1988,7 @@ def add_or_update_image(
                                 parent_manifest = json.dumps({})
 
                         except Exception as err:
-                            raise nextlinux_engine.common.helpers.make_nextlinux_exception(
+                            raise anchore_engine.common.helpers.make_anchore_exception(
                                 err,
                                 input_message="cannot add image, failed to update archive/DB",
                                 input_httpcode=500,
@@ -2001,7 +1996,7 @@ def add_or_update_image(
 
                     else:
                         # Update existing image record
-                        new_image_detail = nextlinux_engine.common.images.clean_docker_image_details_for_update(
+                        new_image_detail = anchore_engine.common.images.clean_docker_image_details_for_update(
                             new_image_record["image_detail"]
                         )
 
@@ -2080,7 +2075,7 @@ def add_or_update_image(
                             if not parent_manifest:
                                 parent_manifest = json.dumps({})
                         except Exception as err:
-                            raise nextlinux_engine.common.helpers.make_nextlinux_exception(
+                            raise anchore_engine.common.helpers.make_anchore_exception(
                                 err,
                                 input_message="cannot add image, failed to update archive/DB",
                                 input_httpcode=500,
@@ -2164,7 +2159,7 @@ def _image_deletion_checks_and_prep(userId, image_record, dbsession, force=False
 
 
 def _delete_image_for_real(userId, image_record, dbsession, image_ids, image_fulltags):
-    obj_store = nextlinux_engine.subsys.object_store.manager.get_manager()
+    obj_store = anchore_engine.subsys.object_store.manager.get_manager()
     imageDigest = image_record["imageDigest"]
 
     logger.debug("DELETEing image from catalog")
@@ -2271,7 +2266,7 @@ def delete_images_async(account_id, db_session, image_digests, force=False):
         httpcode = 200
     except Exception as err:
         httpcode = 500
-        return_object = nextlinux_engine.common.helpers.make_response_error(
+        return_object = anchore_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
 
@@ -2380,7 +2375,7 @@ def do_archive_delete(userId, archive_document, session, force=False):
     httpcode = 500
 
     try:
-        obj_store = nextlinux_engine.subsys.object_store.manager.get_manager()
+        obj_store = anchore_engine.subsys.object_store.manager.get_manager()
         rc = obj_store.delete(
             userId, archive_document["bucket"], archive_document["archiveId"]
         )
