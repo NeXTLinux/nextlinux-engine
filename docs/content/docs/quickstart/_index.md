@@ -215,10 +215,10 @@ Now that you have Nextlinux Engine running, you can begin to learning more about
 
 1. Download the example prometheus configuration into the same directory as the docker-compose.yaml file, with name _nextlinux-prometheus.yml_
 
-   ```
-   curl -O https://docs.next-linux.systems/current/docs/quickstart/nextlinux-prometheus.yml
-   docker-compose up -d
-   ```
+    ```
+    curl -O https://docs.anchore.com/current/docs/quickstart/anchore-prometheus.yml
+    docker-compose up -d
+    ```
 
    You should see a new container started and can access prometheus via your browser on `http://localhost:9090`
 
@@ -253,9 +253,9 @@ Now that you have Nextlinux Engine running, you can begin to learning more about
 
 1. Download the nginx configuration into the same directory as the docker-compose.yaml file, with name _nextlinux-swaggerui-nginx.conf_
 
-   ```
-   curl -O https://docs.next-linux.systems/current/docs/quickstart/nextlinux-swaggerui-nginx.conf
-   docker-compose up -d
-   ```
+    ```
+    curl -O https://docs.anchore.com/current/docs/quickstart/anchore-swaggerui-nginx.conf
+    docker-compose up -d
+    ```
 
    You should see a new container started and can access prometheus via your browser on `http://localhost:8080/ui/`
