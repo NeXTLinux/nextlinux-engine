@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 # This is a docker-compose file for development purposes. It refereneces unstable developer builds from the HEAD of master branch in https://github.com/nextlinux/nextlinux-engine
 # For a compose file intended for use with a released version, see https://docs.next-linux.systems/current/docs/engine/quickstart/
+=======
+# This is a docker-compose file for development purposes. It refereneces unstable developer builds from the HEAD of master branch in https://github.com/anchore/anchore-engine
+# For a compose file intended for use with a released version, see https://engine.anchore.io/docs/quickstart/
+>>>>>>> 98b54aa5 (Updated additional engine doc links)
 #
 ---
 version: '2.1'
