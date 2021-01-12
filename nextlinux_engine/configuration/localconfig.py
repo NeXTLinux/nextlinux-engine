@@ -122,6 +122,17 @@ CRED_CACHE_TTL = int(os.getenv("NEXTLINUX_INTERNAL_CRED_CACHE_TTL", 600))
 CRED_CACHE_LOCK_WAIT_SEC = int(
     os.getenv("NEXTLINUX_INTERNAL_CRED_CACHE_WAIT_SEC", 3))
 
+ANALYZER_SEARCH_PATHS = ["anchore_engine.analyzers"]
+
+
+def register_analyzers(module_path):
+    global ANALYZER_SEARCH_PATHS
+    ANALYZER_SEARCH_PATHS.append(module_path)
+
+
+def analyzer_paths():
+    return ANALYZER_SEARCH_PATHS
+
 
 def update_merge(base, override):
     if not isinstance(base, dict) or not isinstance(override, dict):
