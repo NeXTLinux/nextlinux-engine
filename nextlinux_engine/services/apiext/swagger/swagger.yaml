@@ -1249,7 +1249,7 @@ paths:
         200:
           description: Registry configuration
           schema:
-            $ref: "#/definitions/RegistryConfiguration"
+            $ref: "#/definitions/RegistryConfigurationList"
     put:
       tags:
         - Registries
@@ -5106,4 +5106,3 @@ definitions:
         additionalProperties: true
     additionalProperties: false
     type: object
-
