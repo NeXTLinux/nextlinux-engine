@@ -73,12 +73,12 @@ COPY --from=nextlinux-engine-builder /nextlinux_engine/bin/syft /nextlinux_engin
 
 # Container metadata section
 
-MAINTAINER dev@nextlinux.com
+MAINTAINER dev@next-linux.systems
 
 LABEL nextlinux_cli_commit=$CLI_COMMIT \
       nextlinux_commit=$NEXTLINUX_COMMIT \
       name="nextlinux-engine" \
-      maintainer="dev@nextlinux.com" \
+      maintainer="dev@next-linux.systems" \
       vendor="Nextlinux Inc." \
       version=$NEXTLINUX_ENGINE_VERSION \
       release=$NEXTLINUX_ENGINE_RELEASE \

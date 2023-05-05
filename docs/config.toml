@@ -57,7 +57,7 @@ anchor = "smart"
 
 [params]
 copyright = "Nextlinux Inc"
-privacy_policy = "https://nextlinux.com/privacy"
+privacy_policy = "https://next-linux.systems/privacy"
 github_repo = "https://github.com/nextlinux/nextlinux-engine"
 
 # Google Custom Search Engine ID. Remove or comment out to disable search.
@@ -83,7 +83,7 @@ no = 'Sorry to hear that. Please <a href="https://github.com/nextlinux/nextlinux
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
   name = "Slack"
-  url = "https://nextlinux.com/slack"
+  url = "https://next-linux.systems/slack"
   icon = "fab fa-slack"
     desc = "Chat with other users and project developers!"
 
@@ -95,6 +95,6 @@ no = 'Sorry to hear that. Please <a href="https://github.com/nextlinux/nextlinux
 
 [[params.links.developer]]
   name = "Nextlinux, Inc."
-  url = "https://nextlinux.com"
+  url = "https://next-linux.systems"
   icon = "fas fa-university"
     desc = "Nextlinux Company Site"

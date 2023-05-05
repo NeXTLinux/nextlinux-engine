@@ -28,7 +28,7 @@ Registries can be added using the following syntax.
 
 `nextlinux-cli registry add REGISTRY USERNAME PASSWORD`
 
-The REGISTRY parameter should include the fully qualified hostname and port number of the registry. For example: registry.nextlinux.com:5000
+The REGISTRY parameter should include the fully qualified hostname and port number of the registry. For example: registry.next-linux.systems:5000
 
 Nextlinux Engine will only pull images from a TLS/SSL enabled registry. If the registry is protected with a self signed certificate or a certificated signed by an unknown certificate authority then the `--insecure` parameter can be passed which instructs the Nextlinux Engine not to validate the certificate.
 

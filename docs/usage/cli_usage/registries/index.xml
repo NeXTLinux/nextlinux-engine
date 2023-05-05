@@ -31,7 +31,7 @@ registry.example.com johndoe
 &lt;h3 id="adding-a-registry">Adding a Registry&lt;/h3>
 &lt;p>Registries can be added using the following syntax.&lt;/p>
 &lt;p>&lt;code>nextlinux-cli registry add REGISTRY USERNAME PASSWORD&lt;/code>&lt;/p>
-&lt;p>The REGISTRY parameter should include the fully qualified hostname and port number of the registry. For example: registry.nextlinux.com:5000&lt;/p>
+&lt;p>The REGISTRY parameter should include the fully qualified hostname and port number of the registry. For example: registry.next-linux.systems:5000&lt;/p>
 &lt;p>Nextlinux Engine will only pull images from a TLS/SSL enabled registry. If the registry is protected with a self signed certificate or a certificated signed by an unknown certificate authority then the &lt;code>--insecure&lt;/code> parameter can be passed which instructs the Nextlinux Engine not to validate the certificate.&lt;/p>
 &lt;p>Most Docker V2 compatible registries require username and password for authentication. Amazon ECR, Google GCR and Microsoft Azure include support
 for their own native credentialing. See Working with &lt;a href="/docs/usage/cli_usage/registries/ecr_configuration/">AWS ECR Registry Credentials&lt;/a>,
@@ -76,12 +76,12 @@ MY_AWS_SECRET_ACCESS_KEY / --registry-type=awsecr
 &lt;p>When launching the EC2 instance that will run the Nextlinux Engine you need to specify a role that includes the &lt;em>AmazonEC2ContainerRegistryReadOnly&lt;/em> policy.&lt;/p>
 &lt;p>While this is best performed using a CloudFormation template, you can manually configure from the launch instance wizard.&lt;/p>
 &lt;p>&lt;strong>Step 1:&lt;/strong> Select &lt;em>Create new IAM role.&lt;/em>&lt;/p>
-&lt;p>&lt;img src="https://nextlinux.com/wp-content/uploads/2018/01/pasted-image-0.png" alt="logo">&lt;/p>
+&lt;p>&lt;img src="https://next-linux.systems/wp-content/uploads/2018/01/pasted-image-0.png" alt="logo">&lt;/p>
 &lt;p>&lt;strong>Step 2:&lt;/strong> Under type of trusted entity select &lt;em>EC2&lt;/em>.&lt;/p>
-&lt;p>&lt;img src="https://nextlinux.com/wp-content/uploads/2018/01/pasted-image-0-5.png" alt="logo">&lt;/p>
+&lt;p>&lt;img src="https://next-linux.systems/wp-content/uploads/2018/01/pasted-image-0-5.png" alt="logo">&lt;/p>
 &lt;p>Ensure that the &lt;em>AmazonEC2ContainerRegistryReadOnly&lt;/em> policy is selected.&lt;/p>
 &lt;p>&lt;strong>Step 3:&lt;/strong> Attach Permissions to the Role.&lt;/p>
-&lt;p>&lt;img src="https://nextlinux.com/wp-content/uploads/2018/01/pasted-image-0-2.png" alt="logo">&lt;/p>
+&lt;p>&lt;img src="https://next-linux.systems/wp-content/uploads/2018/01/pasted-image-0-2.png" alt="logo">&lt;/p>
 &lt;p>&lt;strong>Step 4:&lt;/strong> Name the role.&lt;/p>
 &lt;p>Give a name to the role and add this role to the Instance you are launching.&lt;/p>
 &lt;p>On the running EC2 instance you can manually verify that the instance has inherited the correct role by running the following command:&lt;/p>

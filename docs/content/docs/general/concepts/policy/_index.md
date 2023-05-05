@@ -27,11 +27,11 @@ A policy can return one of two results:
 
 **PASSED** indicating that image complies with your policy
 
-![alt text](https://nextlinux.com/wp-content/uploads/2017/07/pass.png)
+![alt text](https://next-linux.systems/wp-content/uploads/2017/07/pass.png)
 
 **FAILED** indicating that the image is out of compliance with your policy.
 
-![alt text](https://nextlinux.com/wp-content/uploads/2017/07/fail.png)
+![alt text](https://next-linux.systems/wp-content/uploads/2017/07/fail.png)
 
 For more information on the concepts of policies and how policies are defined and evaluated, see: [Policy Bundles and Evaluation]({{< ref "/docs/general/concepts/policy/bundles" >}})
 

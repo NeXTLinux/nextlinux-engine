@@ -25,7 +25,7 @@ The following instructions assume you are using a system running Docker v1.12 or
 ### Step 1: Download the docker-compose.yaml file and start.
 
 ```
-# curl -O https://docs.nextlinux.com/current/docs/quickstart/docker-compose.yaml
+# curl -O https://docs.next-linux.systems/current/docs/quickstart/docker-compose.yaml
 # docker-compose up -d
 ```
 
@@ -216,7 +216,7 @@ Now that you have Nextlinux Engine running, you can begin to learning more about
 1. Download the example prometheus configuration into the same directory as the docker-compose.yaml file, with name _nextlinux-prometheus.yml_
 
    ```
-   curl -O https://docs.nextlinux.com/current/docs/quickstart/nextlinux-prometheus.yml
+   curl -O https://docs.next-linux.systems/current/docs/quickstart/nextlinux-prometheus.yml
    docker-compose up -d
    ```
 
@@ -254,7 +254,7 @@ Now that you have Nextlinux Engine running, you can begin to learning more about
 1. Download the nginx configuration into the same directory as the docker-compose.yaml file, with name _nextlinux-swaggerui-nginx.conf_
 
    ```
-   curl -O https://docs.nextlinux.com/current/docs/quickstart/nextlinux-swaggerui-nginx.conf
+   curl -O https://docs.next-linux.systems/current/docs/quickstart/nextlinux-swaggerui-nginx.conf
    docker-compose up -d
    ```
 

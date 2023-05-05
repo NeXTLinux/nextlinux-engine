@@ -83,9 +83,9 @@
 &lt;p>&lt;img src="NextlinuxPolicyEval.png" alt="alt text">&lt;/p>
 &lt;p>A policy can return one of two results:&lt;/p>
 &lt;p>&lt;strong>PASSED&lt;/strong> indicating that image complies with your policy&lt;/p>
-&lt;p>&lt;img src="https://nextlinux.com/wp-content/uploads/2017/07/pass.png" alt="alt text">&lt;/p>
+&lt;p>&lt;img src="https://next-linux.systems/wp-content/uploads/2017/07/pass.png" alt="alt text">&lt;/p>
 &lt;p>&lt;strong>FAILED&lt;/strong> indicating that the image is out of compliance with your policy.&lt;/p>
-&lt;p>&lt;img src="https://nextlinux.com/wp-content/uploads/2017/07/fail.png" alt="alt text">&lt;/p>
+&lt;p>&lt;img src="https://next-linux.systems/wp-content/uploads/2017/07/fail.png" alt="alt text">&lt;/p>
 &lt;p>For more information on the concepts of policies and how policies are defined and evaluated, see: &lt;a href="/docs/general/concepts/policy/bundles/">Policy Bundles and Evaluation&lt;/a>&lt;/p>
 &lt;h3 id="next-steps">Next Steps&lt;/h3>
 &lt;p>Read more on &lt;a href="/docs/general/concepts/policy/policies/">Policies&lt;/a>&lt;/p></description>

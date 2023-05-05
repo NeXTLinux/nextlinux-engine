@@ -7,7 +7,7 @@ version = version.version
 package_name = "nextlinux_engine"
 description = "Nextlinux Engine"
 long_description = open("README.md").read()
-url = "http://www.nextlinux.com"
+url = "http://www.next-linux.systems"
 
 with open("requirements.txt") as f:
     requirements = f.read().splitlines()
@@ -37,7 +37,7 @@ packages.append("twisted.plugins")
 setup(
     name="nextlinux_engine",
     author="Nextlinux Inc.",
-    author_email="dev@nextlinux.com",
+    author_email="dev@next-linux.systems",
     license="Apache License 2.0",
     description=description,
     long_description=long_description,

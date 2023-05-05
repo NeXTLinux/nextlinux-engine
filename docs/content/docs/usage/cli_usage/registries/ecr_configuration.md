@@ -27,17 +27,17 @@ While this is best performed using a CloudFormation template, you can manually c
 
 **Step 1:** Select *Create new IAM role.*
 
-![logo](https://nextlinux.com/wp-content/uploads/2018/01/pasted-image-0.png)
+![logo](https://next-linux.systems/wp-content/uploads/2018/01/pasted-image-0.png)
 
 **Step 2:**  Under type of trusted entity select *EC2*.
 
-![logo](https://nextlinux.com/wp-content/uploads/2018/01/pasted-image-0-5.png)
+![logo](https://next-linux.systems/wp-content/uploads/2018/01/pasted-image-0-5.png)
 
 Ensure that the *AmazonEC2ContainerRegistryReadOnly* policy is selected.
 
 **Step 3:**  Attach Permissions to the Role.
 
-![logo](https://nextlinux.com/wp-content/uploads/2018/01/pasted-image-0-2.png)
+![logo](https://next-linux.systems/wp-content/uploads/2018/01/pasted-image-0-2.png)
 
 **Step 4:** Name the role.
 

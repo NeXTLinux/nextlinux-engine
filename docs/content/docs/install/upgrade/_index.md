@@ -57,7 +57,7 @@ For the latest upgrade instructions using the Helm chart, please refer to the of
 4. Download the latest docker-compose.yaml
 
 ```
-# curl https://docs.nextlinux.com/current/docs/quickstart/docker-compose.yaml
+# curl https://docs.next-linux.systems/current/docs/quickstart/docker-compose.yaml
 ```
 
 5. Review the latest docker-compose.yaml and merge any edits/changes from your original docker-compose.yaml.backup to the latest docker-compose.yaml

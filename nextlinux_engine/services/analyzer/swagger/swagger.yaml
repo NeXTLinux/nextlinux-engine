@@ -6,7 +6,7 @@ info:
   version: "0.9.0"
   title: "Image Analyzer"
   contact:
-    email: "dev@nextlinux.com"
+    email: "dev@next-linux.systems"
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
@@ -20,7 +20,7 @@ tags:
   description: "Image Analyzer"
   externalDocs:
     description: "Find out more"
-    url: "http://nextlinux.com"
+    url: "http://next-linux.systems"
 
 schemes:
 - "https"

@@ -31,7 +31,7 @@ if [[ "${CI:-false}" == true ]]; then
     test "${DOCKER_PASS:?'Missing required environment variable: DOCKER_PASS'}"
 
     # Create k8s secret using $DOCKER_USER & $DOCKER_PASS and set as default imagePullCreds
-    kubectl create secret docker-registry nextlinux-enterprise-pullcreds --docker-server=docker.io --docker-username="${DOCKER_USER}" --docker-password="${DOCKER_PASS}" --docker-email=nextlinuxci@nextlinux.com
+    kubectl create secret docker-registry nextlinux-enterprise-pullcreds --docker-server=docker.io --docker-username="${DOCKER_USER}" --docker-password="${DOCKER_PASS}" --docker-email=nextlinuxci@next-linux.systems
     kubectl patch serviceaccount default --type=merge --patch '{"imagePullSecrets":[{"name": "nextlinux-enterprise-pullcreds"}]}'
 fi
 
