@@ -4,10 +4,10 @@ import hashlib
 import re
 import urllib.parse
 
-from anchore_engine import utils
-from anchore_engine.subsys import logger
+from nextlinux_engine import utils
+from nextlinux_engine.subsys import logger
 from .interface import ObjectStorageDriver
-from anchore_engine.subsys.object_store.exc import ObjectKeyNotFoundError
+from nextlinux_engine.subsys.object_store.exc import ObjectKeyNotFoundError
 
 
 class FilesystemObjectStorageDriver(ObjectStorageDriver):
@@ -61,7 +61,7 @@ class FilesystemObjectStorageDriver(ObjectStorageDriver):
                 raise Exception(
                     "found unknown files in archive data volume ("
                     + str(self.data_volume)
-                    + ") - data_volume must be set to a directory used only for anchore-engine archive documents: unknown files found: "
+                    + ") - data_volume must be set to a directory used only for nextlinux-engine archive documents: unknown files found: "
                     + str(unknowns)
                 )
 

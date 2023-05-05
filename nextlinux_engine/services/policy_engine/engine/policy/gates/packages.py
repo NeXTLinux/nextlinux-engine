@@ -1,6 +1,6 @@
 import enum
-from anchore_engine.services.policy_engine.engine.policy.gate import BaseTrigger, Gate
-from anchore_engine.services.policy_engine.engine.policy.params import (
+from nextlinux_engine.services.policy_engine.engine.policy.gate import BaseTrigger, Gate
+from nextlinux_engine.services.policy_engine.engine.policy.params import (
     NameVersionStringListParameter,
     CommaDelimitedStringListParameter,
     EnumCommaDelimStringListParameter,
@@ -8,9 +8,9 @@ from anchore_engine.services.policy_engine.engine.policy.params import (
     TypeValidator,
     TriggerParameter,
 )
-from anchore_engine.db import ImagePackage, ImagePackageManifestEntry
-from anchore_engine.util.packages import compare_package_versions
-from anchore_engine.subsys import logger
+from nextlinux_engine.db import ImagePackage, ImagePackageManifestEntry
+from nextlinux_engine.util.packages import compare_package_versions
+from nextlinux_engine.subsys import logger
 
 
 class VerifyTrigger(BaseTrigger):

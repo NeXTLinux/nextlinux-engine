@@ -7,14 +7,14 @@ import hashlib
 import inspect
 import enum
 
-import anchore_engine
-from anchore_engine.utils import ensure_str, ensure_bytes
-from anchore_engine.subsys import logger
-from anchore_engine.services.policy_engine.engine.policy.params import (
+import nextlinux_engine
+from nextlinux_engine.utils import ensure_str, ensure_bytes
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.services.policy_engine.engine.policy.params import (
     TriggerParameter,
     LinkedValidator,
 )
-from anchore_engine.services.policy_engine.engine.policy.exceptions import (
+from nextlinux_engine.services.policy_engine.engine.policy.exceptions import (
     ParameterValueInvalidError,
     InvalidParameterError,
     TriggerEvaluationError,
@@ -285,7 +285,7 @@ class BaseTrigger(LifecycleMixin):
                 if attr.kind == "data"
                 and isinstance(
                     attr.object,
-                    anchore_engine.services.policy_engine.engine.policy.params.TriggerParameter,
+                    nextlinux_engine.services.policy_engine.engine.policy.params.TriggerParameter,
                 )
             ]
         }
@@ -302,7 +302,7 @@ class BaseTrigger(LifecycleMixin):
 
     def legacy_str(self):
         """
-        Returns a string in the format of the old anchore gate file outputs:
+        Returns a string in the format of the old nextlinux gate file outputs:
         <TRIGGER> <MSG>
         :return: str
         """

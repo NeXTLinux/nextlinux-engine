@@ -3,8 +3,8 @@ import time
 
 from sqlalchemy import asc
 
-from anchore_engine import db
-from anchore_engine.db import QueueItem
+from nextlinux_engine import db
+from nextlinux_engine.db import QueueItem
 
 
 def add(queueId, userId, dataId, data, tries, max_tries, session=None):

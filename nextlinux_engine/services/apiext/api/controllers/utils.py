@@ -7,9 +7,9 @@ These functions may raise/use api exception types
 import copy
 import jsonschema
 import re
-from anchore_engine.apis.exceptions import BadRequest
-from anchore_engine.utils import parse_dockerimage_string
-from anchore_engine.subsys import logger
+from nextlinux_engine.apis.exceptions import BadRequest
+from nextlinux_engine.utils import parse_dockerimage_string
+from nextlinux_engine.subsys import logger
 
 REGISTRY_TAG_SOURCE_SCHEMA_DEFINITION_NAME = "RegistryTagSource"
 REGISTRY_DIGEST_SOURCE_SCHEMA_DEFINITION_NAME = "RegistryDigestSource"

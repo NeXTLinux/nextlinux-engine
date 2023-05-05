@@ -3,15 +3,15 @@ import os
 import re
 import tempfile
 
-import anchore_engine.configuration.localconfig
-from anchore_engine.utils import (
+import nextlinux_engine.configuration.localconfig
+from nextlinux_engine.utils import (
     run_command,
     run_command_list,
     manifest_to_digest,
     NextlinuxException,
 )
-from anchore_engine.subsys import logger
-from anchore_engine.common.errors import NextlinuxError
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.common.errors import NextlinuxError
 from urllib.request import urlretrieve
 
 
@@ -23,7 +23,7 @@ def manifest_to_digest_shellout(rawmanifest):
         os.write(fd, rawmanifest.encode("utf-8"))
         os.close(fd)
 
-        localconfig = anchore_engine.configuration.localconfig.get_config()
+        localconfig = nextlinux_engine.configuration.localconfig.get_config()
         global_timeout = localconfig.get("skopeo_global_timeout", 0)
         try:
             global_timeout = int(global_timeout)
@@ -122,7 +122,7 @@ def download_image(
         else:
             cachestr = ""
 
-        localconfig = anchore_engine.configuration.localconfig.get_config()
+        localconfig = nextlinux_engine.configuration.localconfig.get_config()
         global_timeout = localconfig.get("skopeo_global_timeout", 0)
         try:
             global_timeout = int(global_timeout)
@@ -320,7 +320,7 @@ def get_repo_tags_skopeo(
         else:
             tlsverifystr = "--tls-verify=false"
 
-        localconfig = anchore_engine.configuration.localconfig.get_config()
+        localconfig = nextlinux_engine.configuration.localconfig.get_config()
         global_timeout = localconfig.get("skopeo_global_timeout", 0)
         try:
             global_timeout = int(global_timeout)
@@ -393,7 +393,7 @@ def get_image_manifest_skopeo_raw(pullstring, user=None, pw=None, verify=True):
         else:
             tlsverifystr = "--tls-verify=false"
 
-        localconfig = anchore_engine.configuration.localconfig.get_config()
+        localconfig = nextlinux_engine.configuration.localconfig.get_config()
         global_timeout = localconfig.get("skopeo_global_timeout", 0)
         try:
             global_timeout = int(global_timeout)
@@ -549,7 +549,7 @@ class SkopeoError(NextlinuxException):
         out=None,
         msg="Error encountered in skopeo operation",
     ):
-        from anchore_engine.common.errors import NextlinuxError
+        from nextlinux_engine.common.errors import NextlinuxError
 
         self.cmd = " ".join(cmd) if isinstance(cmd, list) else cmd
         self.exitcode = rc

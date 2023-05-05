@@ -1,4 +1,4 @@
-from anchore_engine.analyzers.utils import dig
+from nextlinux_engine.analyzers.utils import dig
 
 
 def save_entry(findings, engine_entry, pkg_key=None):
@@ -33,7 +33,7 @@ def translate_and_save_entry(findings, artifact):
     # these fields SHOULD be in the main section, however, there are multiple java packages found
     # where this information is thrown into named subsections.
 
-    # Today anchore-engine reads key-value pairs in all sections into one large map --this behavior is replicated here.
+    # Today nextlinux-engine reads key-value pairs in all sections into one large map --this behavior is replicated here.
 
     values = {}
 

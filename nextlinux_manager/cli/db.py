@@ -1,14 +1,14 @@
 import click
 
-from anchore_engine.subsys import logger
-from anchore_manager.util.db import (
+from nextlinux_engine.subsys import logger
+from nextlinux_manager.util.db import (
     db_context,
     init_db_context,
     db_preflight,
     do_upgrade,
 )
-from anchore_manager.util.logging import log_config, log_error
-from anchore_manager.util.proc import ExitCode, doexit, fail_exit
+from nextlinux_manager.util.logging import log_config, log_error
+from nextlinux_manager.util.proc import ExitCode, doexit, fail_exit
 
 config = {}
 module = None
@@ -56,7 +56,7 @@ def db(ctx_config, db_connect, db_use_ssl, db_retries, db_timeout, db_connect_ti
 
 @db.command(
     name="upgrade",
-    short_help="Upgrade DB to version compatible with installed anchore-engine code.",
+    short_help="Upgrade DB to version compatible with installed nextlinux-engine code.",
 )
 @click.option(
     "--dontask", is_flag=True, help="Perform upgrade (if necessary) without prompting."
@@ -76,7 +76,7 @@ def upgrade(dontask, skip_db_compat_check):
     if not dontask:
         try:
             answer = input(
-                "Performing this operation requires *all* anchore-engine services to be stopped - proceed? (y/N)"
+                "Performing this operation requires *all* nextlinux-engine services to be stopped - proceed? (y/N)"
             )
         except:
             answer = "n"

@@ -1,8 +1,8 @@
 import operator
 import os
 
-from anchore_engine.configuration.localconfig import get_config
-from anchore_engine.subsys import logger
+from nextlinux_engine.configuration.localconfig import get_config
+from nextlinux_engine.subsys import logger
 
 
 def handle_layer_cache():
@@ -23,7 +23,7 @@ def handle_layer_cache():
     except Exception as err:
         logger.warn("could not get tmp_dir from localconfig - exception: " + str(err))
         tmpdir = "/tmp"
-    use_cache_dir = os.path.join(tmpdir, "anchore_layercache")
+    use_cache_dir = os.path.join(tmpdir, "nextlinux_layercache")
     if os.path.exists(use_cache_dir):
         totalsize = 0
         layertimes = {}

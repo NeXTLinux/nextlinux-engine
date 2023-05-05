@@ -7,12 +7,12 @@ import json
 import subprocess
 import stat
 
-import anchore_engine.analyzers.utils
+import nextlinux_engine.analyzers.utils
 
 analyzer_name = "file_list"
 
 try:
-    config = anchore_engine.analyzers.utils.init_analyzer_cmdline(
+    config = nextlinux_engine.analyzers.utils.init_analyzer_cmdline(
         sys.argv, analyzer_name
     )
 except Exception as err:
@@ -24,10 +24,10 @@ imgid = config["imgid_full"]
 outputdir = config["dirs"]["outputdir"]
 unpackdir = config["dirs"]["unpackdir"]
 
-meta = anchore_engine.analyzers.utils.get_distro_from_squashtar(
+meta = nextlinux_engine.analyzers.utils.get_distro_from_squashtar(
     os.path.join(unpackdir, "squashed.tar"), unpackdir=unpackdir
 )
-distrodict = anchore_engine.analyzers.utils.get_distro_flavor(
+distrodict = nextlinux_engine.analyzers.utils.get_distro_flavor(
     meta["DISTRO"], meta["DISTROVERS"], likedistro=meta["LIKEDISTRO"]
 )
 
@@ -37,14 +37,14 @@ outfiles = {}
 try:
     allfiles = {}
     fmap = {}
-    if os.path.exists(unpackdir + "/anchore_allfiles.json"):
-        with open(unpackdir + "/anchore_allfiles.json", "r") as FH:
+    if os.path.exists(unpackdir + "/nextlinux_allfiles.json"):
+        with open(unpackdir + "/nextlinux_allfiles.json", "r") as FH:
             allfiles = json.loads(FH.read())
     else:
-        fmap, allfiles = anchore_engine.analyzers.utils.get_files_from_squashtar(
+        fmap, allfiles = nextlinux_engine.analyzers.utils.get_files_from_squashtar(
             os.path.join(unpackdir, "squashed.tar")
         )
-        with open(unpackdir + "/anchore_allfiles.json", "w") as OFH:
+        with open(unpackdir + "/nextlinux_allfiles.json", "w") as OFH:
             OFH.write(json.dumps(allfiles))
 
     # fileinfo
@@ -60,10 +60,10 @@ except Exception as err:
 
 if simplefiles:
     ofile = os.path.join(outputdir, "files.all")
-    anchore_engine.analyzers.utils.write_kvfile_fromdict(ofile, simplefiles)
+    nextlinux_engine.analyzers.utils.write_kvfile_fromdict(ofile, simplefiles)
 
 if outfiles:
     ofile = os.path.join(outputdir, "files.allinfo")
-    anchore_engine.analyzers.utils.write_kvfile_fromdict(ofile, outfiles)
+    nextlinux_engine.analyzers.utils.write_kvfile_fromdict(ofile, outfiles)
 
 sys.exit(0)

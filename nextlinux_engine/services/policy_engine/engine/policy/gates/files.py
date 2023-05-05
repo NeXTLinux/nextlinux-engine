@@ -1,17 +1,17 @@
 import re
 import stat
 import base64
-from anchore_engine.utils import ensure_str, ensure_bytes
-from anchore_engine.services.policy_engine.engine.policy.gate import Gate, BaseTrigger
-from anchore_engine.subsys import logger
-from anchore_engine.services.policy_engine.engine.policy.params import (
+from nextlinux_engine.utils import ensure_str, ensure_bytes
+from nextlinux_engine.services.policy_engine.engine.policy.gate import Gate, BaseTrigger
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.services.policy_engine.engine.policy.params import (
     PipeDelimitedStringListParameter,
     TriggerParameter,
     TypeValidator,
     EnumStringParameter,
     BooleanStringParameter,
 )
-from anchore_engine.db import AnalysisArtifact
+from nextlinux_engine.db import AnalysisArtifact
 
 
 class ContentMatchTrigger(BaseTrigger):

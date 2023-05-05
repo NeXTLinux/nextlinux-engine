@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 import os
-from anchore_engine.analyzers import utils as analyzer_utils
+from nextlinux_engine.analyzers import utils as analyzer_utils
 
 
 class Analyzer(ABC):

@@ -6,9 +6,9 @@ Provides a unified abstraction of the ArchivedImage and ArchivedImageDocker tabl
 from sqlalchemy import or_, func, and_
 from sqlalchemy.orm import Session, lazyload
 
-from anchore_engine.db import ArchivedImage, ArchivedImageDocker
-from anchore_engine.subsys import logger
-from anchore_engine.utils import epoch_to_rfc3339
+from nextlinux_engine.db import ArchivedImage, ArchivedImageDocker
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.utils import epoch_to_rfc3339
 
 
 def summarize(session: Session):

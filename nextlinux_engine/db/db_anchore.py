@@ -1,5 +1,5 @@
-from anchore_engine import db
-from anchore_engine.db import Nextlinux
+from nextlinux_engine import db
+from nextlinux_engine.db import Nextlinux
 
 
 # for the Nextlinux class/table

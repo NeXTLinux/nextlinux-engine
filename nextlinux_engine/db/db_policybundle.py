@@ -1,6 +1,6 @@
-from anchore_engine import db
-from anchore_engine.db.entities.common import anchore_now
-from anchore_engine.db import PolicyBundle
+from nextlinux_engine import db
+from nextlinux_engine.db.entities.common import nextlinux_now
+from nextlinux_engine.db import PolicyBundle
 
 
 # specific DB interface helpers for the 'policybundle' table
@@ -28,7 +28,7 @@ def add(policyId, userId, active, inobj, session=None):
     else:
         # Force an update here to cover updates even if content doesn't change.
         # This is probably worth revisiting later, to use a content digest to ensure changes actually
-        inobj["last_updated"] = anchore_now()
+        inobj["last_updated"] = nextlinux_now()
         our_result.update(inobj)
 
     return True

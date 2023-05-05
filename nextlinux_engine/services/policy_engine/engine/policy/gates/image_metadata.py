@@ -1,9 +1,9 @@
 import re
-from anchore_engine.services.policy_engine.engine.policy.gate import BaseTrigger, Gate
-from anchore_engine.services.policy_engine.engine.policy.gates.util import (
+from nextlinux_engine.services.policy_engine.engine.policy.gate import BaseTrigger, Gate
+from nextlinux_engine.services.policy_engine.engine.policy.gates.util import (
     CheckOperation,
 )
-from anchore_engine.services.policy_engine.engine.policy.params import (
+from nextlinux_engine.services.policy_engine.engine.policy.params import (
     EnumStringParameter,
     TypeValidator,
     TriggerParameter,
@@ -11,7 +11,7 @@ from anchore_engine.services.policy_engine.engine.policy.params import (
     RegexParamValidator,
     IntegerValidator,
 )
-from anchore_engine.utils import convert_bytes_size, BYTES_REGEX
+from nextlinux_engine.utils import convert_bytes_size, BYTES_REGEX
 
 
 class ImageMetadataAttributeCheckTrigger(BaseTrigger):

@@ -2,8 +2,8 @@ import time
 
 from sqlalchemy import desc
 
-from anchore_engine import db
-from anchore_engine.db import PolicyEval
+from nextlinux_engine import db
+from nextlinux_engine.db import PolicyEval
 
 # specific DB interface helpers for the 'policyeval' table
 

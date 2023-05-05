@@ -1,9 +1,9 @@
 """
 Interface to the accounts table. Data format is dicts, not objects.
 """
-from anchore_engine.db import Account, AccountTypes, AccountStates
-from anchore_engine.db.entities.common import anchore_now
-from anchore_engine.configuration.localconfig import ADMIN_ACCOUNT_NAME
+from nextlinux_engine.db import Account, AccountTypes, AccountStates
+from nextlinux_engine.db.entities.common import nextlinux_now
+from nextlinux_engine.configuration.localconfig import ADMIN_ACCOUNT_NAME
 
 
 class AccountNotFoundError(Exception):
@@ -57,8 +57,8 @@ def add(
     accnt.state = state
     accnt.type = account_type
     accnt.email = email
-    accnt.created_at = anchore_now()
-    accnt.last_updated = anchore_now()
+    accnt.created_at = nextlinux_now()
+    accnt.last_updated = nextlinux_now()
     session.add(accnt)
     return accnt.to_dict()
 

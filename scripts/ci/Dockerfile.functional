@@ -19,8 +19,8 @@ ARG GID_DOCKER
 
 RUN groupadd -g ${GID_CI} ci -f && \
     groupadd -g ${GID_DOCKER} docker -f &&\
-    usermod -a -G "${GID_CI},${GID_DOCKER}" anchore
+    usermod -a -G "${GID_CI},${GID_DOCKER}" nextlinux
 
-USER anchore
+USER nextlinux
 
 RUN pip3 install --user tox

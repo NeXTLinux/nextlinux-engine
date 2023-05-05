@@ -1,8 +1,8 @@
 import hashlib
 import time
 
-from anchore_engine import db
-from anchore_engine.db import Subscription
+from nextlinux_engine import db
+from nextlinux_engine.db import Subscription
 
 
 def _compute_subscription_id(userId, subscription_key, subscription_type):

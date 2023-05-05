@@ -8,76 +8,76 @@ import time
 import pkg_resources
 from sqlalchemy.exc import IntegrityError
 
-import anchore_engine.clients.services.common
-import anchore_engine.common
+import nextlinux_engine.clients.services.common
+import nextlinux_engine.common
 
-# anchore modules
-import anchore_engine.common.helpers
-import anchore_engine.common.images
-import anchore_engine.configuration.localconfig
-import anchore_engine.subsys.events as events
-import anchore_engine.subsys.metrics
-import anchore_engine.subsys.servicestatus
-from anchore_engine import db
-from anchore_engine.clients import docker_registry
-from anchore_engine.clients.services import internal_client_for
-from anchore_engine.clients.services import simplequeue
-from anchore_engine.clients.services.simplequeue import SimpleQueueClient
-from anchore_engine.common.helpers import make_policy_record
-from anchore_engine.db import (
+# nextlinux modules
+import nextlinux_engine.common.helpers
+import nextlinux_engine.common.images
+import nextlinux_engine.configuration.localconfig
+import nextlinux_engine.subsys.events as events
+import nextlinux_engine.subsys.metrics
+import nextlinux_engine.subsys.servicestatus
+from nextlinux_engine import db
+from nextlinux_engine.clients import docker_registry
+from nextlinux_engine.clients.services import internal_client_for
+from nextlinux_engine.clients.services import simplequeue
+from nextlinux_engine.clients.services.simplequeue import SimpleQueueClient
+from nextlinux_engine.common.helpers import make_policy_record
+from nextlinux_engine.db import (
     db_catalog_image,
     db_policybundle,
     db_queues,
     db_registries,
     db_subscriptions,
-    db_anchore,
+    db_nextlinux,
     db_services,
     AccountStates,
     AccountTypes,
 )
-from anchore_engine.service import ApiService, LifeCycleStages
-from anchore_engine.services.catalog import archiver
-from anchore_engine.services.catalog import catalog_impl
-from anchore_engine.services.catalog.exceptions import (
+from nextlinux_engine.service import ApiService, LifeCycleStages
+from nextlinux_engine.services.catalog import archiver
+from nextlinux_engine.services.catalog import catalog_impl
+from nextlinux_engine.services.catalog.exceptions import (
     TagManifestParseError,
     TagManifestNotFoundError,
     PolicyBundleValidationError,
 )
-from anchore_engine.services.catalog.image_content.get_image_content import (
+from nextlinux_engine.services.catalog.image_content.get_image_content import (
     ImageManifestContentGetter,
     ImageDockerfileContentGetter,
     ImageContentGetter,
 )
-from anchore_engine.db.entities.catalog import (
+from nextlinux_engine.db.entities.catalog import (
     ImageImportContent,
     ImageImportOperation,
     ImportState,
 )
-from anchore_engine.subsys import (
+from nextlinux_engine.subsys import (
     notifications,
     taskstate,
     logger,
     archive,
     object_store,
 )
-from anchore_engine.subsys.identities import manager_factory
-from anchore_engine.services.catalog import archiver
-from anchore_engine.subsys.object_store.config import (
+from nextlinux_engine.subsys.identities import manager_factory
+from nextlinux_engine.services.catalog import archiver
+from nextlinux_engine.subsys.object_store.config import (
     DEFAULT_OBJECT_STORE_MANAGER_ID,
     ANALYSIS_ARCHIVE_MANAGER_ID,
     ALT_OBJECT_STORE_CONFIG_KEY,
 )
-from anchore_engine.common.schemas import (
+from nextlinux_engine.common.schemas import (
     QueueMessage,
     AnalysisQueueMessage,
     ImportQueueMessage,
     ImportManifest,
 )
-from anchore_engine.subsys.object_store.config import (
+from nextlinux_engine.subsys.object_store.config import (
     DEFAULT_OBJECT_STORE_MANAGER_ID,
     ALT_OBJECT_STORE_CONFIG_KEY,
 )
-from anchore_engine.utils import NextlinuxException
+from nextlinux_engine.utils import NextlinuxException
 
 
 ##########################################################
@@ -215,16 +215,16 @@ def handle_account_resource_cleanup(*args, **kwargs):
     except:
         pass
 
-    if anchore_engine.subsys.metrics.is_enabled() and handler_success:
-        anchore_engine.subsys.metrics.summary_observe(
-            "anchore_monitor_runtime_seconds",
+    if nextlinux_engine.subsys.metrics.is_enabled() and handler_success:
+        nextlinux_engine.subsys.metrics.summary_observe(
+            "nextlinux_monitor_runtime_seconds",
             time.time() - timer,
             function=watcher,
             status="success",
         )
     else:
-        anchore_engine.subsys.metrics.summary_observe(
-            "anchore_monitor_runtime_seconds",
+        nextlinux_engine.subsys.metrics.summary_observe(
+            "nextlinux_monitor_runtime_seconds",
             time.time() - timer,
             function=watcher,
             status="fail",
@@ -243,7 +243,7 @@ def handle_vulnerability_scan(*args, **kwargs):
     logger.debug("FIRING: " + str(watcher))
 
     try:
-        all_ready = anchore_engine.clients.services.common.check_services_ready(
+        all_ready = nextlinux_engine.clients.services.common.check_services_ready(
             ["policy_engine"]
         )
         if not all_ready:
@@ -277,7 +277,7 @@ def handle_vulnerability_scan(*args, **kwargs):
                     )
                 for subscription_record in subscription_records:
                     if subscription_record["active"]:
-                        image_info = anchore_engine.common.images.get_image_info(
+                        image_info = nextlinux_engine.common.images.get_image_info(
                             userId,
                             "docker",
                             subscription_record["subscription_key"],
@@ -372,16 +372,16 @@ def handle_vulnerability_scan(*args, **kwargs):
     except:
         pass
 
-    if anchore_engine.subsys.metrics.is_enabled() and handler_success:
-        anchore_engine.subsys.metrics.summary_observe(
-            "anchore_monitor_runtime_seconds",
+    if nextlinux_engine.subsys.metrics.is_enabled() and handler_success:
+        nextlinux_engine.subsys.metrics.summary_observe(
+            "nextlinux_monitor_runtime_seconds",
             time.time() - timer,
             function=watcher,
             status="success",
         )
     else:
-        anchore_engine.subsys.metrics.summary_observe(
-            "anchore_monitor_runtime_seconds",
+        nextlinux_engine.subsys.metrics.summary_observe(
+            "nextlinux_monitor_runtime_seconds",
             time.time() - timer,
             function=watcher,
             status="fail",
@@ -401,16 +401,16 @@ def handle_service_watcher(*args, **kwargs):
     while True:
         logger.debug("FIRING: service watcher")
 
-        localconfig = anchore_engine.configuration.localconfig.get_config()
+        localconfig = nextlinux_engine.configuration.localconfig.get_config()
         verify = localconfig["internal_ssl_verify"]
 
         with db.session_scope() as dbsession:
             mgr = manager_factory.for_session(dbsession)
-            event_account = anchore_engine.configuration.localconfig.ADMIN_ACCOUNT_NAME
+            event_account = nextlinux_engine.configuration.localconfig.ADMIN_ACCOUNT_NAME
 
-            anchore_services = db_services.get_all(session=dbsession)
+            nextlinux_services = db_services.get_all(session=dbsession)
             # update the global latest service record dict in services.common
-            # latest_service_records.update({"service_records": copy.deepcopy(anchore_services)})
+            # latest_service_records.update({"service_records": copy.deepcopy(nextlinux_services)})
 
             # fields to update each tick:
             #
@@ -420,14 +420,14 @@ def handle_service_watcher(*args, **kwargs):
             # short_description(api return)
             #
 
-            for service in anchore_services:
+            for service in nextlinux_services:
                 event = None
                 service_update_record = {}
                 if (
                     service["servicename"] == "catalog"
                     and service["hostid"] == localconfig["host_id"]
                 ):
-                    status = anchore_engine.subsys.servicestatus.get_status(service)
+                    status = nextlinux_engine.subsys.servicestatus.get_status(service)
                     service_update_record.update(
                         {
                             "heartbeat": int(time.time()),
@@ -680,7 +680,7 @@ def handle_repo_watcher(*args, **kwargs):
                 stored_repotags = subscription_value.get("repotags", [])
 
                 fulltag = regrepo + ":" + subscription_value.get("lookuptag", "latest")
-                image_info = anchore_engine.common.images.get_image_info(
+                image_info = nextlinux_engine.common.images.get_image_info(
                     userId,
                     "docker",
                     fulltag,
@@ -727,7 +727,7 @@ def handle_repo_watcher(*args, **kwargs):
                             logger.debug("found new tag in repo: " + str(fulltag))
                             try:
                                 new_image_info = (
-                                    anchore_engine.common.images.get_image_info(
+                                    nextlinux_engine.common.images.get_image_info(
                                         userId,
                                         "docker",
                                         fulltag,
@@ -798,7 +798,7 @@ def handle_repo_watcher(*args, **kwargs):
                                 )
                                 # add the subscription records with the configured default activations
 
-                                for stype in anchore_engine.common.subscription_types:
+                                for stype in nextlinux_engine.common.subscription_types:
                                     activate = False
                                     if stype == "repo_update":
                                         continue
@@ -852,16 +852,16 @@ def handle_repo_watcher(*args, **kwargs):
     except:
         pass
 
-    if anchore_engine.subsys.metrics.is_enabled() and handler_success:
-        anchore_engine.subsys.metrics.summary_observe(
-            "anchore_monitor_runtime_seconds",
+    if nextlinux_engine.subsys.metrics.is_enabled() and handler_success:
+        nextlinux_engine.subsys.metrics.summary_observe(
+            "nextlinux_monitor_runtime_seconds",
             time.time() - timer,
             function=watcher,
             status="success",
         )
     else:
-        anchore_engine.subsys.metrics.summary_observe(
-            "anchore_monitor_runtime_seconds",
+        nextlinux_engine.subsys.metrics.summary_observe(
+            "nextlinux_monitor_runtime_seconds",
             time.time() - timer,
             function=watcher,
             status="fail",
@@ -889,7 +889,7 @@ def handle_image_watcher(*args, **kwargs):
 
     for account in accounts:
         userId = account["name"]
-        if account["type"] == AccountTypes.service:  # userId == 'anchore-system':
+        if account["type"] == AccountTypes.service:  # userId == 'nextlinux-system':
             continue
 
         with db.session_scope() as dbsession:
@@ -938,7 +938,7 @@ def handle_image_watcher(*args, **kwargs):
                 logger.debug("checking image latest info from registry: " + fulltag)
 
                 try:
-                    image_info = anchore_engine.common.images.get_image_info(
+                    image_info = nextlinux_engine.common.images.get_image_info(
                         userId,
                         "docker",
                         fulltag,
@@ -1159,16 +1159,16 @@ def handle_image_watcher(*args, **kwargs):
     except:
         pass
 
-    if anchore_engine.subsys.metrics.is_enabled() and handler_success:
-        anchore_engine.subsys.metrics.summary_observe(
-            "anchore_monitor_runtime_seconds",
+    if nextlinux_engine.subsys.metrics.is_enabled() and handler_success:
+        nextlinux_engine.subsys.metrics.summary_observe(
+            "nextlinux_monitor_runtime_seconds",
             time.time() - timer,
             function=watcher,
             status="success",
         )
     else:
-        anchore_engine.subsys.metrics.summary_observe(
-            "anchore_monitor_runtime_seconds",
+        nextlinux_engine.subsys.metrics.summary_observe(
+            "nextlinux_monitor_runtime_seconds",
             time.time() - timer,
             function=watcher,
             status="fail",
@@ -1233,7 +1233,7 @@ def handle_policyeval(*args, **kwargs):
     logger.debug("FIRING: " + str(watcher))
 
     try:
-        all_ready = anchore_engine.clients.services.common.check_services_ready(
+        all_ready = nextlinux_engine.clients.services.common.check_services_ready(
             ["policy_engine", "simplequeue"]
         )
         if not all_ready:
@@ -1267,7 +1267,7 @@ def handle_policyeval(*args, **kwargs):
                     )
                 for subscription_record in subscription_records:
                     if subscription_record["active"]:
-                        image_info = anchore_engine.common.images.get_image_info(
+                        image_info = nextlinux_engine.common.images.get_image_info(
                             userId,
                             "docker",
                             subscription_record["subscription_key"],
@@ -1358,16 +1358,16 @@ def handle_policyeval(*args, **kwargs):
     except:
         pass
 
-    if anchore_engine.subsys.metrics.is_enabled() and handler_success:
-        anchore_engine.subsys.metrics.summary_observe(
-            "anchore_monitor_runtime_seconds",
+    if nextlinux_engine.subsys.metrics.is_enabled() and handler_success:
+        nextlinux_engine.subsys.metrics.summary_observe(
+            "nextlinux_monitor_runtime_seconds",
             time.time() - timer,
             function=watcher,
             status="success",
         )
     else:
-        anchore_engine.subsys.metrics.summary_observe(
-            "anchore_monitor_runtime_seconds",
+        nextlinux_engine.subsys.metrics.summary_observe(
+            "nextlinux_monitor_runtime_seconds",
             time.time() - timer,
             function=watcher,
             status="fail",
@@ -1385,7 +1385,7 @@ def handle_analyzer_queue(*args, **kwargs):
     timer = time.time()
     logger.debug("FIRING: " + str(watcher))
 
-    localconfig = anchore_engine.configuration.localconfig.get_config()
+    localconfig = nextlinux_engine.configuration.localconfig.get_config()
 
     obj_mgr = object_store.get_manager()
 
@@ -1409,7 +1409,7 @@ def handle_analyzer_queue(*args, **kwargs):
     except:
         fair_share_enabled = True
 
-    all_ready = anchore_engine.clients.services.common.check_services_ready(
+    all_ready = nextlinux_engine.clients.services.common.check_services_ready(
         ["policy_engine", "simplequeue"]
     )
     if not all_ready:
@@ -1582,16 +1582,16 @@ def handle_analyzer_queue(*args, **kwargs):
     except:
         pass
 
-    if anchore_engine.subsys.metrics.is_enabled() and handler_success:
-        anchore_engine.subsys.metrics.summary_observe(
-            "anchore_monitor_runtime_seconds",
+    if nextlinux_engine.subsys.metrics.is_enabled() and handler_success:
+        nextlinux_engine.subsys.metrics.summary_observe(
+            "nextlinux_monitor_runtime_seconds",
             time.time() - timer,
             function=watcher,
             status="success",
         )
     else:
-        anchore_engine.subsys.metrics.summary_observe(
-            "anchore_monitor_runtime_seconds",
+        nextlinux_engine.subsys.metrics.summary_observe(
+            "nextlinux_monitor_runtime_seconds",
             time.time() - timer,
             function=watcher,
             status="fail",
@@ -1630,7 +1630,7 @@ def handle_notifications(*args, **kwargs):
 
     with db.session_scope() as dbsession:
         mgr = manager_factory.for_session(dbsession)
-        localconfig = anchore_engine.configuration.localconfig.get_config()
+        localconfig = nextlinux_engine.configuration.localconfig.get_config()
 
         try:
             notification_timeout = int(
@@ -1667,7 +1667,7 @@ def handle_notifications(*args, **kwargs):
 
         # regular event queue notifications + event log notification
         event_log_type = "event_log"
-        for subscription_type in anchore_engine.common.subscription_types + [
+        for subscription_type in nextlinux_engine.common.subscription_types + [
             event_log_type
         ]:
             logger.debug("notifier: " + subscription_type)
@@ -1709,7 +1709,7 @@ def handle_notifications(*args, **kwargs):
                                     notification.get("event", {})
                                     .get("details", {})
                                     .get("subscription_type", None)
-                                    in anchore_engine.common.subscription_types
+                                    in nextlinux_engine.common.subscription_types
                                 ):
                                     subscription_type_actual = (
                                         notification.get("event", {})
@@ -1835,16 +1835,16 @@ def handle_notifications(*args, **kwargs):
     except:
         pass
 
-    if anchore_engine.subsys.metrics.is_enabled() and handler_success:
-        anchore_engine.subsys.metrics.summary_observe(
-            "anchore_monitor_runtime_seconds",
+    if nextlinux_engine.subsys.metrics.is_enabled() and handler_success:
+        nextlinux_engine.subsys.metrics.summary_observe(
+            "nextlinux_monitor_runtime_seconds",
             time.time() - timer,
             function=watcher,
             status="success",
         )
     else:
-        anchore_engine.subsys.metrics.summary_observe(
-            "anchore_monitor_runtime_seconds",
+        nextlinux_engine.subsys.metrics.summary_observe(
+            "nextlinux_monitor_runtime_seconds",
             time.time() - timer,
             function=watcher,
             status="fail",
@@ -1859,28 +1859,28 @@ def handle_metrics(*args, **kwargs):
     while True:
 
         # perform some DB read/writes for metrics gathering
-        if anchore_engine.subsys.metrics.is_enabled():
+        if nextlinux_engine.subsys.metrics.is_enabled():
 
             # DB probes
-            anchore_record = None
+            nextlinux_record = None
             try:
-                with anchore_engine.subsys.metrics.get_summary_obj(
-                    "anchore_db_read_seconds"
+                with nextlinux_engine.subsys.metrics.get_summary_obj(
+                    "nextlinux_db_read_seconds"
                 ).time() as mtimer:
                     with db.session_scope() as dbsession:
-                        anchore_record = db_anchore.get(session=dbsession)
+                        nextlinux_record = db_nextlinux.get(session=dbsession)
             except Exception as err:
                 logger.warn("unable to perform DB read probe - exception: " + str(err))
 
-            if anchore_record:
+            if nextlinux_record:
                 try:
-                    with anchore_engine.subsys.metrics.get_summary_obj(
-                        "anchore_db_write_seconds"
+                    with nextlinux_engine.subsys.metrics.get_summary_obj(
+                        "nextlinux_db_write_seconds"
                     ).time() as mtimer:
                         with db.session_scope() as dbsession:
-                            anchore_record["record_state_val"] = str(time.time())
-                            rc = db_anchore.update_record(
-                                anchore_record, session=dbsession
+                            nextlinux_record["record_state_val"] = str(time.time())
+                            rc = db_nextlinux.update_record(
+                                nextlinux_record, session=dbsession
                             )
 
                 except Exception as err:
@@ -1889,26 +1889,26 @@ def handle_metrics(*args, **kwargs):
                     )
 
             try:
-                with anchore_engine.subsys.metrics.get_summary_obj(
-                    "anchore_db_readwrite_seconds"
+                with nextlinux_engine.subsys.metrics.get_summary_obj(
+                    "nextlinux_db_readwrite_seconds"
                 ).time() as mtimer:
                     with db.session_scope() as dbsession:
-                        anchore_record = db_anchore.get(session=dbsession)
-                        anchore_record["record_state_val"] = str(time.time())
-                        rc = db_anchore.update_record(anchore_record, session=dbsession)
+                        nextlinux_record = db_nextlinux.get(session=dbsession)
+                        nextlinux_record["record_state_val"] = str(time.time())
+                        rc = db_nextlinux.update_record(nextlinux_record, session=dbsession)
             except Exception as err:
                 logger.warn(
                     "unable to perform DB read/write probe - exception: " + str(err)
                 )
 
             # FS probes
-            localconfig = anchore_engine.configuration.localconfig.get_config()
+            localconfig = nextlinux_engine.configuration.localconfig.get_config()
             try:
                 tmpdir = localconfig["tmp_dir"]
                 svfs = os.statvfs(tmpdir)
                 available_bytes = svfs.f_bsize * svfs.f_bavail
-                anchore_engine.subsys.metrics.gauge_set(
-                    "anchore_tmpspace_available_bytes", available_bytes
+                nextlinux_engine.subsys.metrics.gauge_set(
+                    "nextlinux_tmpspace_available_bytes", available_bytes
                 )
             except Exception as err:
                 logger.warn(
@@ -2037,16 +2037,16 @@ def handle_image_gc(*args, **kwargs):
     except:
         pass
 
-    if anchore_engine.subsys.metrics.is_enabled() and handler_success:
-        anchore_engine.subsys.metrics.summary_observe(
-            "anchore_monitor_runtime_seconds",
+    if nextlinux_engine.subsys.metrics.is_enabled() and handler_success:
+        nextlinux_engine.subsys.metrics.summary_observe(
+            "nextlinux_monitor_runtime_seconds",
             time.time() - timer,
             function=watcher,
             status="success",
         )
     else:
-        anchore_engine.subsys.metrics.summary_observe(
-            "anchore_monitor_runtime_seconds",
+        nextlinux_engine.subsys.metrics.summary_observe(
+            "nextlinux_monitor_runtime_seconds",
             time.time() - timer,
             function=watcher,
             status="fail",
@@ -2058,7 +2058,7 @@ def handle_image_gc(*args, **kwargs):
 click = 0
 running = False
 last_run = 0
-system_user_auth = ("anchore-system", "")
+system_user_auth = ("nextlinux-system", "")
 # policy update check data
 feed_sync_updated = False
 bundle_user_last_updated = {}
@@ -2072,7 +2072,7 @@ def watcher_func(*args, **kwargs):
 
     while True:
         logger.debug("starting generic watcher")
-        all_ready = anchore_engine.clients.services.common.check_services_ready(
+        all_ready = nextlinux_engine.clients.services.common.check_services_ready(
             ["simplequeue"]
         )
         if not all_ready:
@@ -2174,7 +2174,7 @@ def monitor_func(**kwargs):
 
     logger.debug("FIRING: catalog_monitor")
     try:
-        localconfig = anchore_engine.configuration.localconfig.get_config()
+        localconfig = nextlinux_engine.configuration.localconfig.get_config()
         system_user_auth = localconfig["system_user_auth"]
 
         for watcher in list(watchers.keys()):
@@ -2245,7 +2245,7 @@ def monitor_func(**kwargs):
                         )
                         watcher_threads[watcher].start()
 
-                all_ready = anchore_engine.clients.services.common.check_services_ready(
+                all_ready = nextlinux_engine.clients.services.common.check_services_ready(
                     ["simplequeue"]
                 )
                 if not all_ready:
@@ -2400,7 +2400,7 @@ class CatalogService(ApiService):
                                     + str(exception)
                                 )
 
-                        anchore_engine.configuration.localconfig.load_policy_bundles(
+                        nextlinux_engine.configuration.localconfig.load_policy_bundles(
                             config, process_bundle, process_exception
                         )
 
@@ -2659,7 +2659,7 @@ watchers = {
         "initialized": False,
     },
     "service_heartbeat": {
-        "handler": anchore_engine.subsys.servicestatus.handle_service_heartbeat,
+        "handler": nextlinux_engine.subsys.servicestatus.handle_service_heartbeat,
         "task_lease_id": False,
         "taskType": None,
         "args": [CatalogService.__service_name__],

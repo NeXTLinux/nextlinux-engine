@@ -8,10 +8,10 @@ whitelist_format = "{gate} {trigger}"
 
 def policy_json_to_txt(policy_json):
     """
-    Taken from nurmi's branch of anchore.
+    Taken from nurmi's branch of nextlinux.
 
     :param policy_json: a parsed json object that is a single policy from the Nextlinux PolicyBundle format
-    :return native anchore policy document as a string to be written to a file
+    :return native nextlinux policy document as a string to be written to a file
     """
     ret = []
     if policy_json and policy_json.get("version", None) == "1_0":
@@ -32,7 +32,7 @@ def policy_json_to_txt(policy_json):
 
 def whitelist_json_to_txt(whitelist_json):
     """
-    Taken from nurmi's branch of anchore
+    Taken from nurmi's branch of nextlinux
     """
 
     ret = []

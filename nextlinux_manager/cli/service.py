@@ -7,31 +7,31 @@ import psutil
 import importlib
 import threading
 import subprocess
-import anchore_engine.configuration.localconfig
+import nextlinux_engine.configuration.localconfig
 
 from watchdog.observers import Observer
 from watchdog.events import RegexMatchingEventHandler
 
-import anchore_manager.util
-import anchore_manager.util.db
-import anchore_manager.util.logging
-import anchore_manager.util.proc
-from anchore_manager.util.proc import ExitCode, fail_exit, doexit
-from anchore_manager.util.logging import log_error, logger
+import nextlinux_manager.util
+import nextlinux_manager.util.db
+import nextlinux_manager.util.logging
+import nextlinux_manager.util.proc
+from nextlinux_manager.util.proc import ExitCode, fail_exit, doexit
+from nextlinux_manager.util.logging import log_error, logger
 
-import anchore_engine.db.entities.common
+import nextlinux_engine.db.entities.common
 
 service_map = {
-    "analyzer": "anchore-worker",
-    "simplequeue": "anchore-simplequeue",
-    "apiext": "anchore-api",
-    "catalog": "anchore-catalog",
-    "policy_engine": "anchore-policy-engine",
+    "analyzer": "nextlinux-worker",
+    "simplequeue": "nextlinux-simplequeue",
+    "apiext": "nextlinux-api",
+    "catalog": "nextlinux-catalog",
+    "policy_engine": "nextlinux-policy-engine",
 }
 
 
 class NextlinuxLogWatcher(RegexMatchingEventHandler):
-    regexes = [re.compile(".*/anchore-.*\.log$")]
+    regexes = [re.compile(".*/nextlinux-.*\.log$")]
     files = {}
 
     def do_close(self, event):
@@ -55,7 +55,7 @@ class NextlinuxLogWatcher(RegexMatchingEventHandler):
                 self.files[event.src_path]["filehandle"] = open(event.src_path)
 
         if self.files[event.src_path]["filehandle"]:
-            patt = re.match(".*anchore-(.*)\.log$", event.src_path)
+            patt = re.match(".*nextlinux-(.*)\.log$", event.src_path)
             if patt:
                 logname = patt.group(1)
             else:
@@ -103,7 +103,7 @@ class ServiceThread:
 
 
 def terminate_service(service, flush_pidfile=False):
-    pidfile = "/var/run/anchore/" + service + ".pid"
+    pidfile = "/var/run/nextlinux/" + service + ".pid"
     try:
         logger.info(
             "Looking for pre-existing service ({}) pid from pidfile ({})".
@@ -157,8 +157,8 @@ def terminate_service(service, flush_pidfile=False):
 
 
 def startup_service(service, configdir):
-    pidfile = "/var/run/anchore/" + service + ".pid"
-    logfile = "/var/log/anchore/" + service + ".log"
+    pidfile = "/var/run/nextlinux/" + service + ".pid"
+    logfile = "/var/log/nextlinux/" + service + ".log"
     # os.environ['NEXTLINUX_LOGFILE'] = logfile
 
     logger.info("cleaning up service: {}".format(str(service)))
@@ -171,7 +171,7 @@ def startup_service(service, configdir):
 
     cmd = [
         twistd_cmd,
-        "--logger=anchore_engine.subsys.twistd_logger.logger",
+        "--logger=nextlinux_engine.subsys.twistd_logger.logger",
         "--pidfile",
         pidfile,
         "-n",
@@ -211,15 +211,15 @@ def service(ctx_config):
 
 
 @service.command(name="list", short_help="List valid service names")
-@click.option("--anchore-module",
+@click.option("--nextlinux-module",
               help="Module to list services for",
-              default="anchore_engine")
-def do_list(anchore_module):
+              default="nextlinux_engine")
+def do_list(nextlinux_module):
     click.echo("Locally installed and available service types:")
-    from anchore_engine.service import BaseService
+    from nextlinux_engine.service import BaseService
 
     # Expects a services module within the base module
-    importlib.import_module(anchore_module + ".services")
+    importlib.import_module(nextlinux_module + ".services")
     for name in BaseService.registry.keys():
         click.echo(name)
 
@@ -227,7 +227,7 @@ def do_list(anchore_module):
     return
 
 
-@service.command(name="start", short_help="Start anchore-engine")
+@service.command(name="start", short_help="Start nextlinux-engine")
 @click.argument("services", nargs=-1)
 @click.option(
     "--no-auto-upgrade",
@@ -236,10 +236,10 @@ def do_list(anchore_module):
     help="Do not perform automatic upgrade on startup",
 )
 @click.option(
-    "--anchore-module",
+    "--nextlinux-module",
     nargs=1,
     help=
-    "Name of anchore module to call DB routines from (default=anchore_engine)",
+    "Name of nextlinux module to call DB routines from (default=nextlinux_engine)",
 )
 @click.option(
     "--skip-config-validate",
@@ -256,7 +256,7 @@ def do_list(anchore_module):
 def start(
     services,
     no_auto_upgrade,
-    anchore_module,
+    nextlinux_module,
     skip_config_validate,
     skip_db_compat_check,
     all,
@@ -268,10 +268,10 @@ def start(
     global config
     ecode = ExitCode.ok
 
-    if not anchore_module:
-        module_name = "anchore_engine"
+    if not nextlinux_module:
+        module_name = "nextlinux_engine"
     else:
-        module_name = str(anchore_module)
+        module_name = str(nextlinux_module)
 
     if os.environ.get("NEXTLINUX_ENGINE_SKIP_DB_COMPAT_CHECK",
                       str(skip_db_compat_check)).lower() in [
@@ -313,7 +313,7 @@ def start(
         localconfig = None
         if os.path.exists(configfile):
             try:
-                localconfig = anchore_engine.configuration.localconfig.load_config(
+                localconfig = nextlinux_engine.configuration.localconfig.load_config(
                     configdir=configdir,
                     configfile=configfile,
                     validate_params=validate_params,
@@ -331,7 +331,7 @@ def start(
             module = importlib.import_module(module_name +
                                              ".db.entities.upgrade")
         except Exception as err:
-            raise Exception("Input anchore-module (" + str(module_name) +
+            raise Exception("Input nextlinux-module (" + str(module_name) +
                             ") cannot be found/imported - exception: " +
                             str(err))
 
@@ -364,9 +364,9 @@ def start(
                     "specified service {} not found in list of available services {} - removing from list of services to start"
                     .format(service_conf_name, list(service_map.keys())))
 
-        if "anchore-catalog" in services:
-            services.remove("anchore-catalog")
-            services.insert(0, "anchore-catalog")
+        if "nextlinux-catalog" in services:
+            services.remove("nextlinux-catalog")
+            services.insert(0, "nextlinux-catalog")
 
         if not services:
             logger.error(
@@ -376,7 +376,7 @@ def start(
 
         # preflight - db checks
         try:
-            db_params = anchore_engine.db.entities.common.get_params(
+            db_params = nextlinux_engine.db.entities.common.get_params(
                 localconfig)
 
             # override db_timeout since upgrade might require longer db session timeout setting
@@ -388,8 +388,8 @@ def start(
             except Exception as err:
                 pass
 
-            anchore_manager.util.db.connect_database(db_params, db_retries=300)
-            code_versions, db_versions = anchore_manager.util.db.init_database(
+            nextlinux_manager.util.db.connect_database(db_params, db_retries=300)
+            code_versions, db_versions = nextlinux_manager.util.db.init_database(
                 upgrade_module=module,
                 localconfig=localconfig,
                 do_db_compatibility_check=(not skip_db_compat_check),
@@ -406,7 +406,7 @@ def start(
                 if code_versions and db_versions:
                     if code_versions["db_version"] != db_versions[
                             "db_version"]:
-                        if not no_auto_upgrade and "anchore-catalog" in services:
+                        if not no_auto_upgrade and "nextlinux-catalog" in services:
                             logger.info("Performing upgrade.")
                             try:
                                 # perform the upgrade logic here
@@ -422,7 +422,7 @@ def start(
                             in_sync = True
                         else:
                             logger.warn(
-                                "this version of anchore-engine requires the anchore DB version ({}) but we discovered anchore DB version ({}) in the running DB - it is safe to run the upgrade while seeing this message - will retry for {} more seconds."
+                                "this version of nextlinux-engine requires the nextlinux DB version ({}) but we discovered nextlinux DB version ({}) in the running DB - it is safe to run the upgrade while seeing this message - will retry for {} more seconds."
                                 .format(
                                     str(code_versions["db_version"]),
                                     str(db_versions["db_version"]),
@@ -435,7 +435,7 @@ def start(
                         in_sync = True
                 else:
                     logger.warn(
-                        "no existing anchore DB data can be discovered, assuming bootstrap"
+                        "no existing nextlinux DB data can be discovered, assuming bootstrap"
                     )
                     in_sync = True
 
@@ -444,24 +444,24 @@ def start(
 
             if not in_sync:
                 raise Exception(
-                    "this version of anchore-engine requires the anchore DB version ("
+                    "this version of nextlinux-engine requires the nextlinux DB version ("
                     + str(code_versions["db_version"]) +
-                    ") but we discovered anchore DB version (" +
+                    ") but we discovered nextlinux DB version (" +
                     str(db_versions["db_version"]) +
                     ") in the running DB - please perform the DB upgrade process and retry\n"
-                    "See: https://docs.anchore.com/current/docs/engine/engine_installation/upgrade/#advanced--manual-upgrade-procedure"
+                    "See: https://docs.nextlinux.com/current/docs/engine/engine_installation/upgrade/#advanced--manual-upgrade-procedure"
                 )
 
         except Exception as err:
             raise err
 
         finally:
-            rc = anchore_engine.db.entities.common.do_disconnect()
+            rc = nextlinux_engine.db.entities.common.do_disconnect()
 
         # start up services
         logger.info("Starting services: {}".format(services))
 
-        for supportdir in ["/var/log/anchore", "/var/run/anchore"]:
+        for supportdir in ["/var/log/nextlinux", "/var/run/nextlinux"]:
             try:
                 if not os.path.exists(supportdir):
                     os.makedirs(supportdir, 0o755)
@@ -474,7 +474,7 @@ def start(
         pids = []
         keepalive_threads = []
         for service in services:
-            pidfile = "/var/run/anchore/" + service + ".pid"
+            pidfile = "/var/run/nextlinux/" + service + ".pid"
             try:
                 terminate_service(service, flush_pidfile=True)
 
@@ -531,7 +531,7 @@ def start(
             try:
                 observer = Observer()
                 observer.schedule(NextlinuxLogWatcher(),
-                                  path="/var/log/anchore/")
+                                  path="/var/log/nextlinux/")
                 observer.start()
 
                 try:

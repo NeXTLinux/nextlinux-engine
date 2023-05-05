@@ -1,10 +1,10 @@
 import functools
 from flask import request
 
-import anchore_engine.configuration.localconfig
-from anchore_engine.subsys import logger
-from anchore_engine.version import version
-from anchore_engine.apis.authorization import auth_function_factory
+import nextlinux_engine.configuration.localconfig
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.version import version
+from nextlinux_engine.apis.authorization import auth_function_factory
 
 from prometheus_client import Histogram, Summary, Gauge, Counter
 from prometheus_flask_exporter import PrometheusMetrics
@@ -15,33 +15,33 @@ flask_metric_name = "flask_http_request_duration_seconds"
 metrics = {}
 
 
-# class anchore_flask_track(object):
+# class nextlinux_flask_track(object):
 #    def __init__(self, enabled, flask_metrics):
 #        self.enabled = enabled
 #        self.flask_metrics = flask_metrics
 #    def __call__(self, func):
 #        if self.enabled and self.flask_metrics:
-#            import anchore_engine.subsys.metrics
+#            import nextlinux_engine.subsys.metrics
 #            timer = time.time()
 #            rc = func
-#            anchore_engine.subsys.metrics.histogram_observe("anchore_http_request_duration_seconds", time.time() - timer, path=request.path, method=request.method, status=httpcode)
+#            nextlinux_engine.subsys.metrics.histogram_observe("nextlinux_http_request_duration_seconds", time.time() - timer, path=request.path, method=request.method, status=httpcode)
 #            return(rc)
 #        else:
 #            return(func)
 
 
-# class anchore_flask_track(object):
+# class nextlinux_flask_track(object):
 #    def __init__(self):
 #        pass
 #    def __call__(self, func):
-#        from anchore_engine.subsys.metrics import flask_metrics, enabled
+#        from nextlinux_engine.subsys.metrics import flask_metrics, enabled
 #        if enabled:
 #            flask_metrics.do_not_track()
-#            with flask_metrics.histogram('anchore_http_request_duration_seconds', "", labels={'path': lambda: request.path, 'method': lambda: request.method, 'status': lambda respon#se: response[1]}).time():
+#            with flask_metrics.histogram('nextlinux_http_request_duration_seconds', "", labels={'path': lambda: request.path, 'method': lambda: request.method, 'status': lambda respon#se: response[1]}).time():
 #                rc = func
 ##            #@flask_metrics.do_not_track()
 ##            #rc = None
-##            #with flask_metrics.histogram('anchore_http_request_duration_seconds', "", labels={'path': lambda: request.path, 'method': lambda: request.method, 'status': lambda resp#o#nse: response[1]}).time():
+##            #with flask_metrics.histogram('nextlinux_http_request_duration_seconds', "", labels={'path': lambda: request.path, 'method': lambda: request.method, 'status': lambda resp#o#nse: response[1]}).time():
 ##            #    rc = func
 #            return(rc)
 #        else:
@@ -99,7 +99,7 @@ def init_flask_metrics(flask_app, export_defaults=True, **kwargs):
     auth_enabled = True
 
     try:
-        localconfig = anchore_engine.configuration.localconfig.get_config()
+        localconfig = nextlinux_engine.configuration.localconfig.get_config()
         metrics_config = localconfig.get("metrics", {})
 
         # Handle typo in config. enabled == enable
@@ -128,7 +128,7 @@ def init_flask_metrics(flask_app, export_defaults=True, **kwargs):
             flask_app.before_request(metrics_auth(flask_metrics.path))
 
         flask_metrics.info(
-            "anchore_service_info",
+            "nextlinux_service_info",
             "Nextlinux Service Static Information",
             version=version,
             **kwargs

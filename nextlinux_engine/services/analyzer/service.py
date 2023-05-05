@@ -5,24 +5,24 @@ import time
 
 import pkg_resources
 
-from anchore_engine.common.schemas import (
+from nextlinux_engine.common.schemas import (
     QueueMessage,
     AnalysisQueueMessage,
     ImportQueueMessage,
 )
-from anchore_engine.configuration import localconfig
-import anchore_engine.subsys
-from anchore_engine.clients.services import internal_client_for
-from anchore_engine.clients.services.simplequeue import SimpleQueueClient
-from anchore_engine.service import ApiService
-from anchore_engine.services.analyzer.analysis import (
+from nextlinux_engine.configuration import localconfig
+import nextlinux_engine.subsys
+from nextlinux_engine.clients.services import internal_client_for
+from nextlinux_engine.clients.services.simplequeue import SimpleQueueClient
+from nextlinux_engine.service import ApiService
+from nextlinux_engine.services.analyzer.analysis import (
     is_analysis_message,
     ImageAnalysisTask,
 )
-from anchore_engine.services.analyzer.layer_cache import handle_layer_cache
-from anchore_engine.services.analyzer.tasks import WorkerTask
-from anchore_engine.services.analyzer.imports import is_import_message, ImportTask
-from anchore_engine.subsys import logger, metrics
+from nextlinux_engine.services.analyzer.layer_cache import handle_layer_cache
+from nextlinux_engine.services.analyzer.tasks import WorkerTask
+from nextlinux_engine.services.analyzer.imports import is_import_message, ImportTask
+from nextlinux_engine.subsys import logger, metrics
 
 IMAGE_ANALYSIS_QUEUE = "images_to_analyze"
 
@@ -53,7 +53,7 @@ def handle_metrics(*args, **kwargs):
                 tmpdir = conf["tmp_dir"]
                 svfs = os.statvfs(tmpdir)
                 available_bytes = svfs.f_bsize * svfs.f_bavail
-                metrics.gauge_set("anchore_tmpspace_available_bytes", available_bytes)
+                metrics.gauge_set("nextlinux_tmpspace_available_bytes", available_bytes)
             except Exception as err:
                 logger.warn(
                     "unable to detect available bytes probe - exception: " + str(err)
@@ -182,7 +182,7 @@ class AnalyzerService(ApiService):
     __service_api_version__ = "v1"
     __monitors__ = {
         "service_heartbeat": {
-            "handler": anchore_engine.subsys.servicestatus.handle_service_heartbeat,
+            "handler": nextlinux_engine.subsys.servicestatus.handle_service_heartbeat,
             "taskType": "handle_service_heartbeat",
             "args": [__service_name__],
             "cycle_timer": 60,

@@ -4,17 +4,17 @@ import json
 
 from connexion import request
 
-# anchore modules
-import anchore_engine.apis
-import anchore_engine.common.helpers
-from anchore_engine.clients.services import internal_client_for
-from anchore_engine.clients.services.catalog import CatalogClient
-from anchore_engine.clients.services.policy_engine import PolicyEngineClient
+# nextlinux modules
+import nextlinux_engine.apis
+import nextlinux_engine.common.helpers
+from nextlinux_engine.clients.services import internal_client_for
+from nextlinux_engine.clients.services.catalog import CatalogClient
+from nextlinux_engine.clients.services.policy_engine import PolicyEngineClient
 
-import anchore_engine.common
-import anchore_engine.configuration.localconfig
-from anchore_engine.subsys import logger
-from anchore_engine.apis.authorization import (
+import nextlinux_engine.common
+import nextlinux_engine.configuration.localconfig
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.apis.authorization import (
     get_authorizer,
     RequestingAccountValue,
     ActionBoundPermission,
@@ -79,7 +79,7 @@ def make_response_policy(policy_record, params):
 
 @authorizer.requires([ActionBoundPermission(domain=RequestingAccountValue())])
 def list_policies(detail=None):
-    request_inputs = anchore_engine.apis.do_request_prep(
+    request_inputs = nextlinux_engine.apis.do_request_prep(
         request, default_params={"detail": False}
     )
     user_auth = request_inputs["auth"]
@@ -113,7 +113,7 @@ def list_policies(detail=None):
 
     except Exception as err:
         logger.debug("operation exception: " + str(err))
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -123,7 +123,7 @@ def list_policies(detail=None):
 
 @authorizer.requires([ActionBoundPermission(domain=RequestingAccountValue())])
 def add_policy(bundle):
-    request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+    request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
     bodycontent = request_inputs["bodycontent"]
     params = request_inputs["params"]
 
@@ -138,7 +138,7 @@ def add_policy(bundle):
 
         # schema check
         try:
-            localconfig = anchore_engine.configuration.localconfig.get_config()
+            localconfig = nextlinux_engine.configuration.localconfig.get_config()
             user_auth = localconfig["system_user_auth"]
             verify = localconfig.get("internal_ssl_verify", True)
 
@@ -147,7 +147,7 @@ def add_policy(bundle):
 
             if not response.get("valid", False):
                 httpcode = 400
-                return_object = anchore_engine.common.helpers.make_response_error(
+                return_object = nextlinux_engine.common.helpers.make_response_error(
                     "Bundle failed validation",
                     in_httpcode=400,
                     details={"validation_details": response.get("validation_details")},
@@ -184,7 +184,7 @@ def add_policy(bundle):
             raise Exception("failed to add policy to catalog DB")
     except Exception as err:
         logger.debug("operation exception: " + str(err))
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -194,7 +194,7 @@ def add_policy(bundle):
 
 @authorizer.requires([ActionBoundPermission(domain=RequestingAccountValue())])
 def get_policy(policyId, detail=None):
-    request_inputs = anchore_engine.apis.do_request_prep(
+    request_inputs = nextlinux_engine.apis.do_request_prep(
         request, default_params={"detail": True}
     )
     user_auth = request_inputs["auth"]
@@ -227,7 +227,7 @@ def get_policy(policyId, detail=None):
             httpcode = 404
             raise Exception("cannot locate specified policyId")
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -237,7 +237,7 @@ def get_policy(policyId, detail=None):
 
 @authorizer.requires([ActionBoundPermission(domain=RequestingAccountValue())])
 def update_policy(bundle, policyId, active=False):
-    request_inputs = anchore_engine.apis.do_request_prep(
+    request_inputs = nextlinux_engine.apis.do_request_prep(
         request, default_params={"active": active}
     )
     method = request_inputs["method"]
@@ -295,14 +295,14 @@ def update_policy(bundle, policyId, active=False):
 
             # schema check
             try:
-                localconfig = anchore_engine.configuration.localconfig.get_config()
+                localconfig = nextlinux_engine.configuration.localconfig.get_config()
                 user_auth = localconfig["system_user_auth"]
                 verify = localconfig.get("internal_ssl_verify", True)
                 p_client = internal_client_for(PolicyEngineClient, userId)
                 response = p_client.validate_bundle(jsondata["policybundle"])
                 if not response.get("valid", False):
                     httpcode = 400
-                    return_object = anchore_engine.common.helpers.make_response_error(
+                    return_object = nextlinux_engine.common.helpers.make_response_error(
                         "Bundle failed validation",
                         in_httpcode=400,
                         details={
@@ -327,7 +327,7 @@ def update_policy(bundle, policyId, active=False):
             httpcode = 404
             raise Exception("cannot locate specified policyId")
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -336,7 +336,7 @@ def update_policy(bundle, policyId, active=False):
 
 @authorizer.requires([ActionBoundPermission(domain=RequestingAccountValue())])
 def delete_policy(policyId):
-    request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+    request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
     user_auth = request_inputs["auth"]
 
     return_object = {}
@@ -378,7 +378,7 @@ def delete_policy(policyId):
             httpcode = 500
             raise Exception("not deleted")
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]

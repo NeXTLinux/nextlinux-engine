@@ -2,17 +2,17 @@ import json
 
 from connexion import request
 
-# anchore modules
-import anchore_engine.apis
-from anchore_engine.apis.authorization import (
+# nextlinux modules
+import nextlinux_engine.apis
+from nextlinux_engine.apis.authorization import (
     get_authorizer,
     RequestingAccountValue,
     ActionBoundPermission,
 )
-import anchore_engine.common.helpers
-from anchore_engine.clients.services import internal_client_for
-from anchore_engine.clients.services.catalog import CatalogClient
-import anchore_engine.common
+import nextlinux_engine.common.helpers
+from nextlinux_engine.clients.services import internal_client_for
+from nextlinux_engine.clients.services.catalog import CatalogClient
+import nextlinux_engine.common
 
 authorizer = get_authorizer()
 
@@ -46,7 +46,7 @@ def list_subscriptions(subscription_key=None, subscription_type=None):
     :return: list of subscription objects serialized into json
     """
 
-    request_inputs = anchore_engine.apis.do_request_prep(
+    request_inputs = nextlinux_engine.apis.do_request_prep(
         request,
         default_params={
             "subscription_key": subscription_key,
@@ -70,7 +70,7 @@ def list_subscriptions(subscription_key=None, subscription_type=None):
             )
         httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -85,7 +85,7 @@ def get_subscription(subscriptionId):
     :return: list of subscription objects serialized into json
     """
 
-    request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+    request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
     params = request_inputs["params"]
     return_object = []
     httpcode = 500
@@ -99,7 +99,7 @@ def get_subscription(subscriptionId):
             )
         httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -114,7 +114,7 @@ def add_subscription(subscription):
 
     :return: accepted subscription object as json
     """
-    request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+    request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
     method = request_inputs["method"]
     bodycontent = request_inputs["bodycontent"]
     params = request_inputs["params"]
@@ -134,7 +134,7 @@ def add_subscription(subscription):
             )
         httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -152,7 +152,7 @@ def update_subscription(subscriptionId, subscription):
     :return:
     """
 
-    request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+    request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
     method = request_inputs["method"]
     bodycontent = request_inputs["bodycontent"]
     params = request_inputs["params"]
@@ -172,7 +172,7 @@ def update_subscription(subscriptionId, subscription):
             )
         httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -188,7 +188,7 @@ def delete_subscription(subscriptionId):
     :return:
     """
 
-    request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+    request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
     method = request_inputs["method"]
     bodycontent = request_inputs["bodycontent"]
     params = request_inputs["params"]
@@ -203,7 +203,7 @@ def delete_subscription(subscriptionId):
             httpcode = 200
 
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]

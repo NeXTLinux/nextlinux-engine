@@ -2,14 +2,14 @@ import base64
 import json
 import stat
 
-import anchore_engine.configuration.localconfig
-from anchore_engine import utils
-from anchore_engine.subsys import logger
-from anchore_engine.common import os_package_types
+import nextlinux_engine.configuration.localconfig
+from nextlinux_engine import utils
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.common import os_package_types
 
 
 def make_image_content_response(content_type, content_data):
-    localconfig = anchore_engine.configuration.localconfig.get_config()
+    localconfig = nextlinux_engine.configuration.localconfig.get_config()
     all_content_types = localconfig.get("image_content_types", []) + localconfig.get(
         "image_metadata_types", []
     )

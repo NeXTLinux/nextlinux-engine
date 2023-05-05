@@ -16,7 +16,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship
 
-from anchore_engine.db.entities.common import Base, UtilMixin, anchore_now, anchore_uuid
+from nextlinux_engine.db.entities.common import Base, UtilMixin, nextlinux_now, nextlinux_uuid
 
 from authlib.flask.oauth2.sqla import (
     OAuth2ClientMixin,
@@ -75,8 +75,8 @@ class Account(Base, UtilMixin):
         default=AccountTypes.user,
     )
     email = Column(String)
-    created_at = Column(Integer, default=anchore_now)
-    last_updated = Column(Integer, onupdate=anchore_now, default=anchore_now)
+    created_at = Column(Integer, default=nextlinux_now)
+    last_updated = Column(Integer, onupdate=nextlinux_now, default=nextlinux_now)
 
     users = relationship(
         "AccountUser",
@@ -101,10 +101,10 @@ class AccountUser(Base, UtilMixin):
         Enum(UserTypes, name="user_types"), nullable=False, default=UserTypes.native
     )
     source = Column(String)
-    created_at = Column(Integer, default=anchore_now)
-    last_updated = Column(Integer, default=anchore_now)
+    created_at = Column(Integer, default=nextlinux_now)
+    last_updated = Column(Integer, default=nextlinux_now)
     uuid = Column(
-        "uuid", String, unique=True, nullable=False, default=anchore_uuid, index=True
+        "uuid", String, unique=True, nullable=False, default=nextlinux_uuid, index=True
     )
 
     account = relationship(
@@ -153,7 +153,7 @@ class AccessCredential(Base, UtilMixin):
         primary_key=True,
     )
     value = Column(String, nullable=False)
-    created_at = Column(Integer, default=anchore_now)
+    created_at = Column(Integer, default=nextlinux_now)
 
     user = relationship("AccountUser", back_populates="credentials", lazy="joined")
 

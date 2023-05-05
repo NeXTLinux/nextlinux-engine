@@ -1,5 +1,5 @@
-from anchore_engine import db
-from anchore_engine.db import Service
+from nextlinux_engine import db
+from nextlinux_engine.db import Service
 
 # specific DB interface helpers for the 'services' table
 

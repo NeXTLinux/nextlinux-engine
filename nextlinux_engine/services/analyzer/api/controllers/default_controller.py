@@ -1,14 +1,14 @@
 import connexion
 
-import anchore_engine.apis
-import anchore_engine.clients.services.catalog
-import anchore_engine.common
-import anchore_engine.configuration.localconfig
-import anchore_engine.common.images
-import anchore_engine.services.analyzer.analysis
-import anchore_engine.subsys.servicestatus
-from anchore_engine.subsys import logger
-from anchore_engine.apis.authorization import get_authorizer, INTERNAL_SERVICE_ALLOWED
+import nextlinux_engine.apis
+import nextlinux_engine.clients.services.catalog
+import nextlinux_engine.common
+import nextlinux_engine.configuration.localconfig
+import nextlinux_engine.common.images
+import nextlinux_engine.services.analyzer.analysis
+import nextlinux_engine.subsys.servicestatus
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.apis.authorization import get_authorizer, INTERNAL_SERVICE_ALLOWED
 
 authorizer = get_authorizer()
 
@@ -17,8 +17,8 @@ authorizer = get_authorizer()
 def status():
     httpcode = 500
     try:
-        service_record = anchore_engine.subsys.servicestatus.get_my_service_record()
-        return_object = anchore_engine.subsys.servicestatus.get_status(service_record)
+        service_record = nextlinux_engine.subsys.servicestatus.get_my_service_record()
+        return_object = nextlinux_engine.subsys.servicestatus.get_status(service_record)
         httpcode = 200
     except Exception as err:
         return_object = str(err)
@@ -33,7 +33,7 @@ def interactive_analyze(bodycontent):
         return_object = {}
         httpcode = 500
 
-        request_inputs = anchore_engine.apis.do_request_prep(
+        request_inputs = nextlinux_engine.apis.do_request_prep(
             connexion.request, default_params={}
         )
 
@@ -54,10 +54,10 @@ def interactive_analyze(bodycontent):
 
             try:
                 # image prep
-                registry_creds = anchore_engine.clients.services.catalog.get_registry(
+                registry_creds = nextlinux_engine.clients.services.catalog.get_registry(
                     user_auth
                 )
-                image_info = anchore_engine.common.images.get_image_info(
+                image_info = nextlinux_engine.common.images.get_image_info(
                     userId,
                     "docker",
                     tag,
@@ -78,7 +78,7 @@ def interactive_analyze(bodycontent):
                     + ":"
                     + image_info["tag"]
                 )
-                new_image_record = anchore_engine.common.images.make_image_record(
+                new_image_record = nextlinux_engine.common.images.make_image_record(
                     userId,
                     "docker",
                     fulltag,
@@ -96,13 +96,13 @@ def interactive_analyze(bodycontent):
             (
                 image_data,
                 query_data,
-            ) = anchore_engine.services.analyzer.analysis.perform_analyze(
+            ) = nextlinux_engine.services.analyzer.analysis.perform_analyze(
                 userId, pullstring, fulltag, image_detail, registry_creds
             )
             (
                 image_data,
                 query_data,
-            ) = anchore_engine.services.analyzer.analysis.perform_analyze(
+            ) = nextlinux_engine.services.analyzer.analysis.perform_analyze(
                 userId, pullstring, fulltag, image_detail, registry_creds
             )
             if image_data:

@@ -9,7 +9,7 @@ import json
 import tarfile
 import collections
 
-import anchore_engine.utils
+import nextlinux_engine.utils
 
 logger = logging.getLogger(__name__)
 
@@ -23,25 +23,25 @@ def init_analyzer_cmdline(argv, name):
 
     configdir = argv[1]
 
-    anchore_conf = {
+    nextlinux_conf = {
         "config_dir": configdir,
     }
 
     ret["analyzer_config"] = None
-    anchore_analyzer_configfile = "/".join(
-        [anchore_conf.get("config_dir", "/config"), "analyzer_config.yaml"])
-    if os.path.exists(anchore_analyzer_configfile):
+    nextlinux_analyzer_configfile = "/".join(
+        [nextlinux_conf.get("config_dir", "/config"), "analyzer_config.yaml"])
+    if os.path.exists(nextlinux_analyzer_configfile):
         try:
-            with open(anchore_analyzer_configfile, "r") as FH:
-                anchore_analyzer_config = yaml.safe_load(FH.read())
+            with open(nextlinux_analyzer_configfile, "r") as FH:
+                nextlinux_analyzer_config = yaml.safe_load(FH.read())
         except Exception as err:
             print(
                 "ERROR: could not parse the analyzer_config.yaml - exception: "
                 + str(err))
             raise err
 
-        if anchore_analyzer_config and name in anchore_analyzer_config:
-            ret["analyzer_config"] = anchore_analyzer_config[name]
+        if nextlinux_analyzer_config and name in nextlinux_analyzer_config:
+            ret["analyzer_config"] = nextlinux_analyzer_config[name]
 
     ret["name"] = name
 
@@ -50,7 +50,7 @@ def init_analyzer_cmdline(argv, name):
 
     ret["imgid"] = argv[2]
 
-    # Removed by zhill since discover_imageId not migrated from anchore repo
+    # Removed by zhill since discover_imageId not migrated from nextlinux repo
     # try:
     #     fullid = discover_imageId(argv[2])
     # except:
@@ -174,7 +174,7 @@ def get_distro_from_squashtar(squashtar, unpackdir=None):
                 with tfl.extractfile(tfl.getmember(
                         metamap["os-release"])) as FH:
                     for l in FH.readlines():
-                        l = anchore_engine.utils.ensure_str(l)
+                        l = nextlinux_engine.utils.ensure_str(l)
                         l = l.strip()
                         try:
                             (key, val) = l.split("=")
@@ -196,7 +196,7 @@ def get_distro_from_squashtar(squashtar, unpackdir=None):
                 with tfl.extractfile(
                         tfl.getmember(metamap["system-release-cpe"])) as FH:
                     for l in FH.readlines():
-                        l = anchore_engine.utils.ensure_str(l)
+                        l = nextlinux_engine.utils.ensure_str(l)
                         l = l.strip()
                         try:
                             vendor = l.split(":")[2]
@@ -223,7 +223,7 @@ def get_distro_from_squashtar(squashtar, unpackdir=None):
                 with tfl.extractfile(tfl.getmember(
                         metamap["redhat-release"])) as FH:
                     for l in FH.readlines():
-                        l = anchore_engine.utils.ensure_str(l)
+                        l = nextlinux_engine.utils.ensure_str(l)
                         l = l.strip()
                         try:
                             distro = vers = None
@@ -266,7 +266,7 @@ def get_distro_from_squashtar(squashtar, unpackdir=None):
                                             line)
                             if patt:
                                 meta[
-                                    "DISTROVERS"] = anchore_engine.utils.ensure_str(
+                                    "DISTROVERS"] = nextlinux_engine.utils.ensure_str(
                                         patt.group(1))
                 except Exception as err:
                     meta["DISTROVERS"] = "0"
@@ -281,7 +281,7 @@ def get_distro_from_squashtar(squashtar, unpackdir=None):
                         metamap["debian_version"])) as FH:
                     meta["DISTRO"] = "debian"
                     for line in FH.readlines():
-                        line = anchore_engine.utils.ensure_str(line)
+                        line = nextlinux_engine.utils.ensure_str(line)
                         line = line.strip()
                         patt = re.match(r"(\d+)\..*", line)
                         if patt:
@@ -518,7 +518,7 @@ def get_checksums_from_squashtar(squashtar, csums=["sha256", "md5"]):
     }
 
     try:
-        results = anchore_engine.analyzers.utils.run_tarfile_member_function(
+        results = nextlinux_engine.analyzers.utils.run_tarfile_member_function(
             squashtar, func=_checksum_member_function, csums=csums)
         for filename in results.keys():
             fkey = filename
@@ -651,17 +651,17 @@ def get_files_from_squashtar(squashtar, unpackdir=None):
 
 
 def _hints_to_go(pkg):
-    pkg_type = anchore_engine.utils.ensure_str(pkg.get("type", "go")).lower()
-    pkg_name = anchore_engine.utils.ensure_str(pkg.get("name", ""))
-    pkg_version = anchore_engine.utils.ensure_str(pkg.get("version", ""))
-    pkg_location = anchore_engine.utils.ensure_str(
+    pkg_type = nextlinux_engine.utils.ensure_str(pkg.get("type", "go")).lower()
+    pkg_name = nextlinux_engine.utils.ensure_str(pkg.get("name", ""))
+    pkg_version = nextlinux_engine.utils.ensure_str(pkg.get("version", ""))
+    pkg_location = nextlinux_engine.utils.ensure_str(
         pkg.get("location",
                 "/virtual/gopkg/{}-{}".format(pkg_name, pkg_version)))
-    pkg_license = anchore_engine.utils.ensure_str(pkg.get("license", ""))
-    pkg_origin = anchore_engine.utils.ensure_str(pkg.get("origin", ""))
-    pkg_source = anchore_engine.utils.ensure_str(pkg.get("source", pkg_name))
-    pkg_arch = anchore_engine.utils.ensure_str(pkg.get("arch", "x86_64"))
-    pkg_size = anchore_engine.utils.ensure_str(str(pkg.get("size", "0")))
+    pkg_license = nextlinux_engine.utils.ensure_str(pkg.get("license", ""))
+    pkg_origin = nextlinux_engine.utils.ensure_str(pkg.get("origin", ""))
+    pkg_source = nextlinux_engine.utils.ensure_str(pkg.get("source", pkg_name))
+    pkg_arch = nextlinux_engine.utils.ensure_str(pkg.get("arch", "x86_64"))
+    pkg_size = nextlinux_engine.utils.ensure_str(str(pkg.get("size", "0")))
     pkg_metadata = json.dumps(pkg.get("metadata", {}))
 
     if not pkg_name or not pkg_version or not pkg_type:
@@ -686,15 +686,15 @@ def _hints_to_go(pkg):
 
 
 def _hints_to_binary(pkg):
-    pkg_type = anchore_engine.utils.ensure_str(pkg.get("type",
+    pkg_type = nextlinux_engine.utils.ensure_str(pkg.get("type",
                                                        "binary")).lower()
-    pkg_name = anchore_engine.utils.ensure_str(pkg.get("name", ""))
-    pkg_version = anchore_engine.utils.ensure_str(pkg.get("version", ""))
-    pkg_location = anchore_engine.utils.ensure_str(
+    pkg_name = nextlinux_engine.utils.ensure_str(pkg.get("name", ""))
+    pkg_version = nextlinux_engine.utils.ensure_str(pkg.get("version", ""))
+    pkg_location = nextlinux_engine.utils.ensure_str(
         pkg.get("location",
                 "/virtual/binarypkg/{}-{}".format(pkg_name, pkg_version)))
-    pkg_license = anchore_engine.utils.ensure_str(pkg.get("license", ""))
-    pkg_origin = anchore_engine.utils.ensure_str(pkg.get("origin", ""))
+    pkg_license = nextlinux_engine.utils.ensure_str(pkg.get("license", ""))
+    pkg_origin = nextlinux_engine.utils.ensure_str(pkg.get("origin", ""))
     pkg_files = pkg.get("files", [])
     pkg_metadata = json.dumps(pkg.get("metadata", {}))
 
@@ -754,15 +754,15 @@ def get_hintsfile(unpackdir=None, squashtar=None):
                     .format(err))
                 return {}
 
-    anchore_hints_path = os.path.join(unpackdir, "anchore_hints.json")
-    if os.path.exists(anchore_hints_path):
-        ret = read_hints(anchore_hints_path)
+    nextlinux_hints_path = os.path.join(unpackdir, "nextlinux_hints.json")
+    if os.path.exists(nextlinux_hints_path):
+        ret = read_hints(nextlinux_hints_path)
     else:
         with tarfile.open(squashtar, mode="r",
                           format=tarfile.PAX_FORMAT) as tfl:
-            memberhash = anchore_engine.analyzers.utils.get_memberhash(tfl)
+            memberhash = nextlinux_engine.analyzers.utils.get_memberhash(tfl)
             hints_member = None
-            for hintsfile in ["anchore_hints.json", "/anchore_hints.json"]:
+            for hintsfile in ["nextlinux_hints.json", "/nextlinux_hints.json"]:
                 if hintsfile in memberhash:
                     hints_member = memberhash[hintsfile]
 
@@ -779,8 +779,8 @@ def get_hintsfile(unpackdir=None, squashtar=None):
                 ret = {}
 
     if ret and not os.path.exists(os.path.join(unpackdir,
-                                               "anchore_hints.json")):
-        with open(os.path.join(unpackdir, "anchore_hints.json"), "w") as OFH:
+                                               "nextlinux_hints.json")):
+        with open(os.path.join(unpackdir, "nextlinux_hints.json"), "w") as OFH:
             OFH.write(json.dumps(ret))
 
     for pkg_type in ret.get("packages", []):
@@ -793,9 +793,9 @@ def get_hintsfile(unpackdir=None, squashtar=None):
     return ret
 
 
-def make_anchoretmpdir(tmproot):
+def make_nextlinuxtmpdir(tmproot):
     tmpdir = "/".join(
-        [tmproot, str(random.randint(0, 9999999)) + ".anchoretmp"])
+        [tmproot, str(random.randint(0, 9999999)) + ".nextlinuxtmp"])
     try:
         os.makedirs(tmpdir)
         return tmpdir

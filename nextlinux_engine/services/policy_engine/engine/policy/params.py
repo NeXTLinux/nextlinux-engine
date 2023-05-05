@@ -3,12 +3,12 @@ import jsonschema
 import json
 import copy
 
-from anchore_engine.services.policy_engine.engine.policy.exceptions import (
+from nextlinux_engine.services.policy_engine.engine.policy.exceptions import (
     RequiredParameterNotSetError,
     ValidationError,
     ParameterValidationError,
 )
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
 
 class InputValidator(object):

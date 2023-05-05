@@ -1,6 +1,6 @@
-FROM registry.access.redhat.com/ubi8/ubi:8.2 as anchore-engine-builder
+FROM registry.access.redhat.com/ubi8/ubi:8.2 as nextlinux-engine-builder
 
-######## This is stage1 where anchore wheels, binary deps, and any items from the source tree get staged to /build_output ########
+######## This is stage1 where nextlinux wheels, binary deps, and any items from the source tree get staged to /build_output ########
 
 ARG CLI_COMMIT
 
@@ -20,17 +20,17 @@ RUN set -ex && \
     yum update -y && \
     yum install -y gcc make python38 git python38-wheel python38-devel go
 
-# create anchore binaries
+# create nextlinux binaries
 RUN set -ex && \
-    echo "installing anchore" && \
+    echo "installing nextlinux" && \
     pip3 wheel --wheel-dir=/build_output/wheels . && \
-    pip3 wheel --wheel-dir=/build_output/wheels/ git+git://github.com/anchore/anchore-cli.git@$CLI_COMMIT\#egg=anchorecli && \
+    pip3 wheel --wheel-dir=/build_output/wheels/ git+git://github.com/nextlinux/nextlinux-cli.git@$CLI_COMMIT\#egg=nextlinuxcli && \
     cp ./LICENSE /build_output/ && \
     cp ./conf/default_config.yaml /build_output/configs/default_config.yaml && \
     cp ./docker-entrypoint.sh /build_output/configs/docker-entrypoint.sh && \
     cp -R ./conf/clamav /build_output/configs/
 
-# stage anchore dependency binaries
+# stage nextlinux dependency binaries
 RUN set -ex && \
     echo "installing GO" && \
     mkdir -p /go
@@ -46,17 +46,17 @@ RUN set -ex && \
 
 RUN set -ex && \
     echo "installing Syft" && \
-    curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /anchore_engine/bin v0.9.2
+    curl -sSfL https://raw.githubusercontent.com/nextlinux/syft/main/install.sh | sh -s -- -b /nextlinux_engine/bin v0.9.2
 
 # stage RPM dependency binaries
 RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
     yum install -y --downloadonly --downloaddir=/build_output/deps/ dpkg clamav clamav-update
 
-RUN tar -z -c -v -C /build_output -f /anchore-buildblob.tgz .
+RUN tar -z -c -v -C /build_output -f /nextlinux-buildblob.tgz .
 
 # Build setup section
 
-FROM registry.access.redhat.com/ubi8/ubi:8.2 as anchore-engine-final
+FROM registry.access.redhat.com/ubi8/ubi:8.2 as nextlinux-engine-final
 
 ######## This is stage2 which does setup and install entirely from items from stage1's /build_output ########
 
@@ -66,19 +66,19 @@ ARG NEXTLINUX_ENGINE_VERSION="0.8.2"
 ARG NEXTLINUX_ENGINE_RELEASE="r0"
 
 # Copy skopeo artifacts from build step
-COPY --from=anchore-engine-builder /build_output /build_output
+COPY --from=nextlinux-engine-builder /build_output /build_output
 
 # Copy syft from build step
-COPY --from=anchore-engine-builder /anchore_engine/bin/syft /anchore_engine/bin/syft
+COPY --from=nextlinux-engine-builder /nextlinux_engine/bin/syft /nextlinux_engine/bin/syft
 
 # Container metadata section
 
-MAINTAINER dev@anchore.com
+MAINTAINER dev@nextlinux.com
 
-LABEL anchore_cli_commit=$CLI_COMMIT \
-      anchore_commit=$NEXTLINUX_COMMIT \
-      name="anchore-engine" \
-      maintainer="dev@anchore.com" \
+LABEL nextlinux_cli_commit=$CLI_COMMIT \
+      nextlinux_commit=$NEXTLINUX_COMMIT \
+      name="nextlinux-engine" \
+      maintainer="dev@nextlinux.com" \
       vendor="Nextlinux Inc." \
       version=$NEXTLINUX_ENGINE_VERSION \
       release=$NEXTLINUX_ENGINE_RELEASE \
@@ -90,7 +90,7 @@ ENV LANG=en_US.UTF-8 LC_ALL=C.UTF-8
 
 # Default values overrideable at runtime of the container
 ENV NEXTLINUX_CONFIG_DIR=/config \
-    NEXTLINUX_SERVICE_DIR=/anchore_service \
+    NEXTLINUX_SERVICE_DIR=/nextlinux_service \
     NEXTLINUX_LOG_LEVEL=INFO \
     NEXTLINUX_ENABLE_METRICS=false \
     NEXTLINUX_DISABLE_METRICS_AUTH=false \
@@ -109,8 +109,8 @@ ENV NEXTLINUX_CONFIG_DIR=/config \
     NEXTLINUX_AUTHZ_HANDLER=native \
     NEXTLINUX_EXTERNAL_AUTHZ_ENDPOINT=null \
     NEXTLINUX_ADMIN_PASSWORD=foobar \
-    NEXTLINUX_ADMIN_EMAIL=admin@myanchore \
-    NEXTLINUX_HOST_ID="anchore-quickstart" \
+    NEXTLINUX_ADMIN_EMAIL=admin@mynextlinux \
+    NEXTLINUX_HOST_ID="nextlinux-quickstart" \
     NEXTLINUX_DB_PORT=5432 \
     NEXTLINUX_DB_NAME=postgres \
     NEXTLINUX_DB_USER=postgres \
@@ -146,30 +146,30 @@ RUN set -ex && \
 
 # Setup container default configs and directories
 
-WORKDIR /anchore-engine
+WORKDIR /nextlinux-engine
 
 # Perform OS setup
 
 RUN set -ex && \
-    groupadd --gid 1000 anchore && \
-    useradd --uid 1000 --gid anchore --shell /bin/bash --create-home anchore && \
+    groupadd --gid 1000 nextlinux && \
+    useradd --uid 1000 --gid nextlinux --shell /bin/bash --create-home nextlinux && \
     mkdir /config && \
     mkdir /licenses && \
-    mkdir -p /workspace_preload /var/log/anchore /var/run/anchore /analysis_scratch /workspace /anchore_service ${NEXTLINUX_SERVICE_DIR} /home/anchore/clamav/db && \
+    mkdir -p /workspace_preload /var/log/nextlinux /var/run/nextlinux /analysis_scratch /workspace /nextlinux_service ${NEXTLINUX_SERVICE_DIR} /home/nextlinux/clamav/db && \
     cp /build_output/LICENSE /licenses/ && \
     cp /build_output/configs/default_config.yaml /config/config.yaml && \
     cp /build_output/configs/docker-entrypoint.sh /docker-entrypoint.sh && \
-    cp /build_output/configs/clamav/freshclam.conf /home/anchore/clamav/ && \
-    chown -R 1000:0 /workspace_preload /var/log/anchore /var/run/anchore /analysis_scratch /workspace /anchore_service ${NEXTLINUX_SERVICE_DIR} /home/anchore && \
-    chmod -R g+rwX /workspace_preload /var/log/anchore /var/run/anchore /analysis_scratch /workspace /anchore_service ${NEXTLINUX_SERVICE_DIR} /home/anchore && \
-    chmod -R ug+rw /home/anchore/clamav && \
+    cp /build_output/configs/clamav/freshclam.conf /home/nextlinux/clamav/ && \
+    chown -R 1000:0 /workspace_preload /var/log/nextlinux /var/run/nextlinux /analysis_scratch /workspace /nextlinux_service ${NEXTLINUX_SERVICE_DIR} /home/nextlinux && \
+    chmod -R g+rwX /workspace_preload /var/log/nextlinux /var/run/nextlinux /analysis_scratch /workspace /nextlinux_service ${NEXTLINUX_SERVICE_DIR} /home/nextlinux && \
+    chmod -R ug+rw /home/nextlinux/clamav && \
     md5sum /config/config.yaml > /config/build_installed && \
     chmod +x /docker-entrypoint.sh
 
 
 # Perform any base OS specific setup
 
-# Perform the anchore-engine build and install
+# Perform the nextlinux-engine build and install
 
 RUN set -ex && \
     pip3 install --no-index --find-links=./ /build_output/wheels/*.whl && \
@@ -186,6 +186,6 @@ HEALTHCHECK --start-period=20s \
 
 USER 1000
 
-ENV PATH="/anchore_engine/bin:${PATH}"
+ENV PATH="/nextlinux_engine/bin:${PATH}"
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["anchore-manager", "service", "start", "--all"]
+CMD ["nextlinux-manager", "service", "start", "--all"]

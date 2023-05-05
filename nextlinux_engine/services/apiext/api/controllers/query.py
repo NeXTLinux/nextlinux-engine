@@ -1,21 +1,21 @@
 import json
 import time
 
-from anchore_engine.apis.context import ApiRequestContextProxy
-from anchore_engine.apis.authorization import (
+from nextlinux_engine.apis.context import ApiRequestContextProxy
+from nextlinux_engine.apis.authorization import (
     get_authorizer,
     RequestingAccountValue,
     ActionBoundPermission,
 )
-import anchore_engine.common.pagination
-import anchore_engine.common.helpers
-from anchore_engine.clients.services.catalog import CatalogClient
-from anchore_engine.clients.services.policy_engine import PolicyEngineClient
-from anchore_engine.clients.services import internal_client_for
-from anchore_engine.subsys import logger
+import nextlinux_engine.common.pagination
+import nextlinux_engine.common.helpers
+from nextlinux_engine.clients.services.catalog import CatalogClient
+from nextlinux_engine.clients.services.policy_engine import PolicyEngineClient
+from nextlinux_engine.clients.services import internal_client_for
+from nextlinux_engine.subsys import logger
 from flask import request
 
-import anchore_engine.common
+import nextlinux_engine.common
 
 authorizer = get_authorizer()
 
@@ -29,7 +29,7 @@ def query_vulnerabilities(
     affected_package_version=None,
     namespace=None,
 ):
-    request_inputs = anchore_engine.apis.do_request_prep(
+    request_inputs = nextlinux_engine.apis.do_request_prep(
         request,
         default_params={
             "id": id,
@@ -61,7 +61,7 @@ def query_vulnerabilities(
 
         policy_engine_call_time = 0.0
         try:
-            result = anchore_engine.common.pagination.get_cached_pagination(
+            result = nextlinux_engine.common.pagination.get_cached_pagination(
                 query_digest=request_inputs["pagination_query_digest"]
             )
         except Exception as err:
@@ -82,21 +82,21 @@ def query_vulnerabilities(
             policy_engine_call_time = time.time() - timer
 
         return_object = (
-            anchore_engine.common.pagination.make_response_paginated_envelope(
+            nextlinux_engine.common.pagination.make_response_paginated_envelope(
                 result,
                 envelope_key="vulnerabilities",
                 page=page,
                 limit=limit,
                 dosort=True,
                 sortfunc=lambda x: json.dumps(x),
-                pagination_func=anchore_engine.common.pagination.do_cached_pagination,
+                pagination_func=nextlinux_engine.common.pagination.do_cached_pagination,
                 query_digest=request_inputs["pagination_query_digest"],
                 ttl=max(30.0, policy_engine_call_time),
             )
         )
         httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -114,7 +114,7 @@ def query_images_by_vulnerability(
     limit=None,
     vendor_only=True,
 ):
-    request_inputs = anchore_engine.apis.do_request_prep(
+    request_inputs = nextlinux_engine.apis.do_request_prep(
         request,
         default_params={
             "vulnerability_id": vulnerability_id,
@@ -136,7 +136,7 @@ def query_images_by_vulnerability(
 
         policy_engine_call_time = 0.0
         try:
-            result = anchore_engine.common.pagination.get_cached_pagination(
+            result = nextlinux_engine.common.pagination.get_cached_pagination(
                 query_digest=request_inputs["pagination_query_digest"]
             )
         except Exception as err:
@@ -156,14 +156,14 @@ def query_images_by_vulnerability(
             result = pe_result.get("vulnerable_images", [])
 
         return_object = (
-            anchore_engine.common.pagination.make_response_paginated_envelope(
+            nextlinux_engine.common.pagination.make_response_paginated_envelope(
                 result,
                 envelope_key="images",
                 page=page,
                 limit=limit,
                 dosort=True,
                 sortfunc=lambda x: x["image"]["imageDigest"],
-                pagination_func=anchore_engine.common.pagination.do_cached_pagination,
+                pagination_func=nextlinux_engine.common.pagination.do_cached_pagination,
                 query_digest=request_inputs["pagination_query_digest"],
                 ttl=max(30.0, policy_engine_call_time),
             )
@@ -171,7 +171,7 @@ def query_images_by_vulnerability(
 
         httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -183,7 +183,7 @@ def query_images_by_vulnerability(
 def query_images_by_package(
     name=None, version=None, package_type=None, page=1, limit=None
 ):
-    request_inputs = anchore_engine.apis.do_request_prep(
+    request_inputs = nextlinux_engine.apis.do_request_prep(
         request,
         default_params={
             "name": name,
@@ -203,7 +203,7 @@ def query_images_by_package(
     try:
         policy_engine_call_time = 0.0
         try:
-            result = anchore_engine.common.pagination.get_cached_pagination(
+            result = nextlinux_engine.common.pagination.get_cached_pagination(
                 query_digest=request_inputs["pagination_query_digest"]
             )
         except Exception as err:
@@ -221,14 +221,14 @@ def query_images_by_package(
             result = pe_result.get("matched_images", [])
 
         return_object = (
-            anchore_engine.common.pagination.make_response_paginated_envelope(
+            nextlinux_engine.common.pagination.make_response_paginated_envelope(
                 result,
                 envelope_key="images",
                 page=page,
                 limit=limit,
                 dosort=True,
                 sortfunc=lambda x: x["image"]["imageDigest"],
-                pagination_func=anchore_engine.common.pagination.do_cached_pagination,
+                pagination_func=nextlinux_engine.common.pagination.do_cached_pagination,
                 query_digest=request_inputs["pagination_query_digest"],
                 ttl=max(30.0, policy_engine_call_time),
             )
@@ -236,7 +236,7 @@ def query_images_by_package(
 
         httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]

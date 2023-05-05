@@ -5,10 +5,10 @@ import shlex
 
 import requests
 
-import anchore_engine.configuration.localconfig
-import anchore_engine.auth.common
-from anchore_engine.subsys import logger
-from anchore_engine.clients.skopeo_wrapper import (
+import nextlinux_engine.configuration.localconfig
+import nextlinux_engine.auth.common
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.clients.skopeo_wrapper import (
     get_image_manifest_skopeo,
     get_repo_tags_skopeo,
 )
@@ -230,7 +230,7 @@ def ping_docker_registry(registry_record):
         else:
             url = "https://" + registry
 
-        user, pw = anchore_engine.auth.common.get_docker_registry_userpw(
+        user, pw = nextlinux_engine.auth.common.get_docker_registry_userpw(
             registry_record
         )
 
@@ -271,7 +271,7 @@ def get_repo_tags(userId, image_info, registry_creds=None):
 
     registry = image_info["registry"]
     try:
-        user, pw, registry_verify = anchore_engine.auth.common.get_creds_by_registry(
+        user, pw, registry_verify = nextlinux_engine.auth.common.get_creds_by_registry(
             registry, image_info["repo"], registry_creds=registry_creds
         )
     except Exception as err:
@@ -319,7 +319,7 @@ def get_image_manifest(userId, image_info, registry_creds):
 
     registry = image_info["registry"]
     try:
-        user, pw, registry_verify = anchore_engine.auth.common.get_creds_by_registry(
+        user, pw, registry_verify = nextlinux_engine.auth.common.get_creds_by_registry(
             registry, image_info["repo"], registry_creds=registry_creds
         )
     except Exception as err:

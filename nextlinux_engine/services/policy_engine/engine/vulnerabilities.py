@@ -14,12 +14,12 @@ import time
 
 from sqlalchemy import or_
 
-from anchore_engine.db import DistroNamespace, get_thread_scoped_session
-from anchore_engine.db import Vulnerability, ImagePackage, ImagePackageVulnerability
-from anchore_engine.common import nonos_package_types
+from nextlinux_engine.db import DistroNamespace, get_thread_scoped_session
+from nextlinux_engine.db import Vulnerability, ImagePackage, ImagePackageVulnerability
+from nextlinux_engine.common import nonos_package_types
 import threading
 
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
 
 # TODO: introduce a match cache for the fix key and package key to optimize the lookup and updates since its common to

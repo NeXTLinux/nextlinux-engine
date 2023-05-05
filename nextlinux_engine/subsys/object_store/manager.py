@@ -3,10 +3,10 @@ import json
 import urllib.parse
 import zlib
 
-from anchore_engine import utils
-from anchore_engine.db import session_scope, db_archivemetadata
-from anchore_engine.subsys import object_store, logger
-from anchore_engine.subsys.object_store.config import (
+from nextlinux_engine import utils
+from nextlinux_engine.db import session_scope, db_archivemetadata
+from nextlinux_engine.subsys import object_store, logger
+from nextlinux_engine.subsys.object_store.config import (
     DRIVER_SECTION_KEY,
     DRIVER_NAME_KEY,
     COMPRESSION_SECTION_KEY,

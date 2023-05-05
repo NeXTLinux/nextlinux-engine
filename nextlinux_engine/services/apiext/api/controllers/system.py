@@ -2,22 +2,22 @@ import json
 
 from connexion import request
 
-# anchore modules
-import anchore_engine.apis
-import anchore_engine.common
-import anchore_engine.common.helpers
-from anchore_engine.configuration import localconfig
-import anchore_engine.subsys.servicestatus
-from anchore_engine import db
-from anchore_engine.apis.authorization import get_authorizer, ActionBoundPermission
-from anchore_engine.apis.context import ApiRequestContextProxy
-from anchore_engine.clients.services import internal_client_for
-from anchore_engine.clients.services.catalog import CatalogClient
-from anchore_engine.clients.services.policy_engine import PolicyEngineClient
-from anchore_engine.common.errors import NextlinuxError
-from anchore_engine.configuration.localconfig import GLOBAL_RESOURCE_DOMAIN
-from anchore_engine.subsys import logger, notifications
-from anchore_engine.subsys.identities import manager_factory
+# nextlinux modules
+import nextlinux_engine.apis
+import nextlinux_engine.common
+import nextlinux_engine.common.helpers
+from nextlinux_engine.configuration import localconfig
+import nextlinux_engine.subsys.servicestatus
+from nextlinux_engine import db
+from nextlinux_engine.apis.authorization import get_authorizer, ActionBoundPermission
+from nextlinux_engine.apis.context import ApiRequestContextProxy
+from nextlinux_engine.clients.services import internal_client_for
+from nextlinux_engine.clients.services.catalog import CatalogClient
+from nextlinux_engine.clients.services.policy_engine import PolicyEngineClient
+from nextlinux_engine.common.errors import NextlinuxError
+from nextlinux_engine.configuration.localconfig import GLOBAL_RESOURCE_DOMAIN
+from nextlinux_engine.subsys import logger, notifications
+from nextlinux_engine.subsys.identities import manager_factory
 
 authorizer = get_authorizer()
 
@@ -69,17 +69,17 @@ def get_status():
     :return: service status object
     """
 
-    request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+    request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
 
     return_object = {}
     httpcode = 500
 
     try:
-        service_record = anchore_engine.subsys.servicestatus.get_my_service_record()
-        return_object = anchore_engine.subsys.servicestatus.get_status(service_record)
+        service_record = nextlinux_engine.subsys.servicestatus.get_my_service_record()
+        return_object = nextlinux_engine.subsys.servicestatus.get_status(service_record)
         httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -95,7 +95,7 @@ def get_service_detail():
     :return: list of service details
     """
 
-    request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+    request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
     user_auth = request_inputs["auth"]
     method = request_inputs["method"]
     params = request_inputs["params"]
@@ -130,7 +130,7 @@ def get_service_detail():
                 httpcode = 200
 
             except Exception as err:
-                return_object = anchore_engine.common.helpers.make_response_error(
+                return_object = nextlinux_engine.common.helpers.make_response_error(
                     err, in_httpcode=httpcode
                 )
                 httpcode = return_object["httpcode"]
@@ -152,7 +152,7 @@ def list_services():
     :param request_inputs:
     :return:
     """
-    request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+    request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
     user_auth = request_inputs["auth"]
     params = request_inputs["params"]
 
@@ -168,7 +168,7 @@ def list_services():
 
         httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -186,7 +186,7 @@ def get_services_by_name(servicename):
     :param hostid:
     :return:
     """
-    request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+    request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
     user_auth = request_inputs["auth"]
     params = request_inputs["params"]
 
@@ -202,7 +202,7 @@ def get_services_by_name(servicename):
 
         httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -220,7 +220,7 @@ def get_services_by_name_and_host(servicename, hostid):
     :param hostid:
     :return:
     """
-    request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+    request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
     user_auth = request_inputs["auth"]
     params = request_inputs["params"]
 
@@ -236,7 +236,7 @@ def get_services_by_name_and_host(servicename, hostid):
 
         httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -253,7 +253,7 @@ def delete_service(servicename, hostid):
     :param hostid:
     :return:
     """
-    request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+    request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
     user_auth = request_inputs["auth"]
 
     return_object = []
@@ -264,7 +264,7 @@ def delete_service(servicename, hostid):
         if return_object:
             httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -274,7 +274,7 @@ def delete_service(servicename, hostid):
 
 @authorizer.requires([])
 def get_system_feeds():
-    request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+    request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
     return_object = []
     httpcode = 500
     try:
@@ -286,7 +286,7 @@ def get_system_feeds():
         if return_object is not None:
             httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -296,7 +296,7 @@ def get_system_feeds():
 
 @authorizer.requires([ActionBoundPermission(domain=GLOBAL_RESOURCE_DOMAIN)])
 def post_system_feeds(flush=False):
-    request_inputs = anchore_engine.apis.do_request_prep(
+    request_inputs = nextlinux_engine.apis.do_request_prep(
         request, default_params={"flush": flush}
     )
 
@@ -311,7 +311,7 @@ def post_system_feeds(flush=False):
         if return_object is not None:
             httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -330,7 +330,7 @@ def toggle_feed_enabled(feed, enabled):
         if return_object is not None:
             httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -349,7 +349,7 @@ def toggle_group_enabled(feed, group, enabled):
         if return_object is not None:
             httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -368,7 +368,7 @@ def delete_feed(feed):
         if return_object is not None:
             httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -387,7 +387,7 @@ def delete_feed_group(feed, group):
         if return_object is not None:
             httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -397,7 +397,7 @@ def delete_feed_group(feed, group):
 
 @authorizer.requires([])
 def describe_policy():
-    request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+    request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
     return_object = []
     httpcode = 500
     try:
@@ -408,7 +408,7 @@ def describe_policy():
         if return_object:
             httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -418,7 +418,7 @@ def describe_policy():
 
 @authorizer.requires([])
 def describe_error_codes():
-    request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+    request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
     return_object = []
     httpcode = 500
     try:
@@ -430,7 +430,7 @@ def describe_error_codes():
             return_object.append(el)
         httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -446,20 +446,20 @@ def test_webhook(webhook_type="general", notification_type="tag_update"):
     :param webhook_type: the type of webhook to send
     """
     logger.debug("Testing webhook for type '{}'".format(webhook_type))
-    request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+    request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
     return_object = {}
     httpcode = 500
     try:
         webhooks = {}
 
         # Load Webhook configurations, and select webhook according to webhook_type
-        localconfig = anchore_engine.configuration.localconfig.get_config()
+        localconfig = nextlinux_engine.configuration.localconfig.get_config()
         if "webhooks" in localconfig:
             webhooks.update(localconfig["webhooks"])
 
         if not webhooks:
             httpcode = 400
-            return_object = anchore_engine.common.helpers.make_response_error(
+            return_object = nextlinux_engine.common.helpers.make_response_error(
                 "Webhooks Configuration not found", in_httpcode=httpcode
             )
             return return_object, httpcode
@@ -467,7 +467,7 @@ def test_webhook(webhook_type="general", notification_type="tag_update"):
         webhook = webhooks[webhook_type]
         if not webhook:
             httpcode = 400
-            return_object = anchore_engine.common.helpers.make_response_error(
+            return_object = nextlinux_engine.common.helpers.make_response_error(
                 "No Webhook Configuration found for type={}".format(webhook_type),
                 in_httpcode=httpcode,
             )
@@ -477,7 +477,7 @@ def test_webhook(webhook_type="general", notification_type="tag_update"):
             webhooks, webhook, request_inputs, webhook_type, notification_type
         )
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -527,7 +527,7 @@ def send_test_notification(
     try:
         notification = get_test_notification(notification_type, request_inputs)
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         return return_object, httpcode
@@ -536,7 +536,7 @@ def send_test_notification(
     try:
         payload = notification.to_json()
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         return return_object, httpcode

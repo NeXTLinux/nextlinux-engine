@@ -1,7 +1,7 @@
 import copy
 import re
 
-from anchore_engine.db import (
+from nextlinux_engine.db import (
     GenericFeedDataRecord,
     GemMetadata,
     NpmMetadata,
@@ -12,8 +12,8 @@ from anchore_engine.db import (
     Vulnerability,
     FixedArtifact,
 )
-from anchore_engine.subsys import logger
-from anchore_engine.utils import CPE
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.utils import CPE
 
 
 class SingleTypeMapperFactory(object):

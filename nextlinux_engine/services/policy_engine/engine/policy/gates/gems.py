@@ -1,12 +1,12 @@
-from anchore_engine.services.policy_engine.engine.policy.gate import Gate, BaseTrigger
-from anchore_engine.services.policy_engine.engine.policy.params import (
+from nextlinux_engine.services.policy_engine.engine.policy.gate import Gate, BaseTrigger
+from nextlinux_engine.services.policy_engine.engine.policy.params import (
     CommaDelimitedStringListParameter,
     TriggerParameter,
     TypeValidator,
 )
-from anchore_engine.db import GemMetadata
-from anchore_engine.subsys import logger
-from anchore_engine.services.policy_engine.engine.feeds.feeds import (
+from nextlinux_engine.db import GemMetadata
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.services.policy_engine.engine.feeds.feeds import (
     feed_instance_by_name,
 )
 
@@ -170,8 +170,8 @@ class BlacklistedGemTrigger(BaseTrigger):
 
 class NoFeedTrigger(BaseTrigger):
     __trigger_name__ = "feed_data_unavailable"
-    __description__ = "Triggers if anchore does not have access to the GEM data feed."
-    __msg__ = "Gem packages are present but the anchore gem feed is not available - will be unable to perform checks that require feed data"
+    __description__ = "Triggers if nextlinux does not have access to the GEM data feed."
+    __msg__ = "Gem packages are present but the nextlinux gem feed is not available - will be unable to perform checks that require feed data"
 
     def evaluate(self, image_obj, context):
         try:

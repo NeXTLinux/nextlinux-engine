@@ -4,7 +4,7 @@ Module implements functions for cache structures. Primarily focused on thread-lo
 """
 import datetime
 import threading
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
 
 class TTLCache(object):

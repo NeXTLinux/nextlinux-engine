@@ -27,7 +27,7 @@ bucket_types = [
     "image_content_data",
     "manifest_data",
 ]
-super_users = ["admin", "anchore-system"]
+super_users = ["admin", "nextlinux-system"]
 image_content_types = [
     "os",
     "files",

@@ -1,14 +1,14 @@
 import json
 import hashlib
 
-import anchore_engine.common.helpers
-from anchore_engine.clients.services import http
-import anchore_engine.configuration.localconfig
-import anchore_engine.common
-import anchore_engine.clients.services.common
-from anchore_engine.subsys import logger
-from anchore_engine.subsys.events import EventBase
-from anchore_engine.clients.services.internal import InternalServiceClient
+import nextlinux_engine.common.helpers
+from nextlinux_engine.clients.services import http
+import nextlinux_engine.configuration.localconfig
+import nextlinux_engine.common
+import nextlinux_engine.clients.services.common
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.subsys.events import EventBase
+from nextlinux_engine.clients.services.internal import InternalServiceClient
 
 
 class CatalogClient(InternalServiceClient):
@@ -177,7 +177,7 @@ class CatalogClient(InternalServiceClient):
 
     def add_policy(self, bundle, active=False):
         try:
-            payload = anchore_engine.common.helpers.make_policy_record(
+            payload = nextlinux_engine.common.helpers.make_policy_record(
                 self.request_namespace, bundle, active=active
             )
         except Exception as err:
@@ -268,7 +268,7 @@ class CatalogClient(InternalServiceClient):
 
     def add_eval(self, evalId, policyId, imageDigest, tag, final_action, eval_url):
         try:
-            payload = anchore_engine.common.helpers.make_eval_record(
+            payload = nextlinux_engine.common.helpers.make_eval_record(
                 self.request_namespace,
                 evalId,
                 policyId,

@@ -1,4 +1,4 @@
-from anchore_engine.analyzers.utils import dig
+from nextlinux_engine.analyzers.utils import dig
 
 
 def save_entry(findings, engine_entry, pkg_key=None):

@@ -2,7 +2,7 @@
 By convention, we move eol'd gates into this module to keep them separated and avoid naming conflicts for classes.
 
 """
-from anchore_engine.services.policy_engine.engine.policy.gate import (
+from nextlinux_engine.services.policy_engine.engine.policy.gate import (
     Gate,
     BaseTrigger,
     LifecycleStates,
@@ -146,7 +146,7 @@ class UnsupportedDistroTrigger(BaseTrigger):
 
 
 class NextlinuxSecGate(Gate):
-    __gate_name__ = "anchoresec"
+    __gate_name__ = "nextlinuxsec"
     __description__ = "Vulnerability checks against distro packages"
     __lifecycle_state__ = LifecycleStates.eol
     __superceded_by__ = "vulnerabilities"
@@ -245,7 +245,7 @@ class NoHealthCheck(BaseTrigger):
 class NoDockerfile(BaseTrigger):
     __trigger_name__ = "nodockerfile"
     __description__ = (
-        "triggers if anchore analysis was performed without supplying a real Dockerfile"
+        "triggers if nextlinux analysis was performed without supplying a real Dockerfile"
     )
     __msg__ = "Image was not analyzed with an actual Dockerfile"
     __lifecycle_state__ = LifecycleStates.eol
@@ -386,8 +386,8 @@ class GemPkgNameMatchTrigger(BaseTrigger):
 class GemNoFeedTrigger(BaseTrigger):
     __lifecycle_state__ = LifecycleStates.eol
     __trigger_name__ = "gemnofeed"
-    __description__ = "triggers if anchore does not have access to the GEM data feed"
-    __msg__ = "GEMNOFEED GEM packages are present but the anchore GEM feed is not available - will be unable to perform checks that require feed data"
+    __description__ = "triggers if nextlinux does not have access to the GEM data feed"
+    __msg__ = "GEMNOFEED GEM packages are present but the nextlinux GEM feed is not available - will be unable to perform checks that require feed data"
 
 
 class GemCheckGate(Gate):
@@ -475,8 +475,8 @@ class NpmPkgNameMatchTrigger(BaseTrigger):
 class NpmNoFeedTrigger(BaseTrigger):
     __lifecycle_state__ = LifecycleStates.eol
     __trigger_name__ = "npmnofeed"
-    __description__ = "triggers if anchore does not have access to the NPM data feed"
-    __msg__ = "NPMNOFEED NPM packages are present but the anchore NPM feed is not available - will be unable to perform checks that require feed data"
+    __description__ = "triggers if nextlinux does not have access to the NPM data feed"
+    __msg__ = "NPMNOFEED NPM packages are present but the nextlinux NPM feed is not available - will be unable to perform checks that require feed data"
 
 
 class NpmCheckGate(Gate):

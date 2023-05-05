@@ -2,15 +2,15 @@ import json
 import os
 import time
 
-import anchore_engine.clients
-from anchore_engine.common import helpers
-from anchore_engine.configuration.localconfig import get_config
-import anchore_engine.subsys
-from anchore_engine.clients import localanchore_standalone
-from anchore_engine.clients.services import internal_client_for
-from anchore_engine.clients.services.catalog import CatalogClient
-from anchore_engine.clients.services.policy_engine import PolicyEngineClient
-from anchore_engine.services.analyzer.utils import (
+import nextlinux_engine.clients
+from nextlinux_engine.common import helpers
+from nextlinux_engine.configuration.localconfig import get_config
+import nextlinux_engine.subsys
+from nextlinux_engine.clients import localnextlinux_standalone
+from nextlinux_engine.clients.services import internal_client_for
+from nextlinux_engine.clients.services.catalog import CatalogClient
+from nextlinux_engine.clients.services.policy_engine import PolicyEngineClient
+from nextlinux_engine.services.analyzer.utils import (
     fulltag_from_detail,
     emit_events,
     update_analysis_started,
@@ -18,14 +18,14 @@ from anchore_engine.services.analyzer.utils import (
     update_analysis_failed,
     get_tempdir,
 )
-from anchore_engine.subsys import logger, events as events, metrics, taskstate
-from anchore_engine.common.schemas import AnalysisQueueMessage, ValidationError
-from anchore_engine.utils import NextlinuxException
-from anchore_engine.services.analyzer.errors import (
+from nextlinux_engine.subsys import logger, events as events, metrics, taskstate
+from nextlinux_engine.common.schemas import AnalysisQueueMessage, ValidationError
+from nextlinux_engine.utils import NextlinuxException
+from nextlinux_engine.services.analyzer.errors import (
     PolicyEngineClientError,
     CatalogClientError,
 )
-from anchore_engine.services.analyzer.tasks import WorkerTask
+from nextlinux_engine.services.analyzer.tasks import WorkerTask
 import typing
 
 ANALYSIS_TIME_SECONDS_BUCKETS = [
@@ -145,7 +145,7 @@ def perform_analyze(
 
     use_cache_dir = None
     if layer_cache_enable:
-        use_cache_dir = os.path.join(tmpdir, "anchore_layercache")
+        use_cache_dir = os.path.join(tmpdir, "nextlinux_layercache")
 
     # choose the first TODO possible more complex selection here
     try:
@@ -184,13 +184,13 @@ def perform_analyze(
     logger.spew("timing: analyze start: " + str(int(time.time()) - timer))
     logger.info("performing analysis on image: " + str([account, pullstring, fulltag]))
 
-    logger.debug("obtaining anchorelock..." + str(pullstring))
-    with anchore_engine.clients.localanchore_standalone.get_anchorelock(
+    logger.debug("obtaining nextlinuxlock..." + str(pullstring))
+    with nextlinux_engine.clients.localnextlinux_standalone.get_nextlinuxlock(
         lockId=pullstring, driver="nodocker"
     ):
-        logger.debug("obtaining anchorelock successful: " + str(pullstring))
+        logger.debug("obtaining nextlinuxlock successful: " + str(pullstring))
         logger.info("analyzing image: %s", pullstring)
-        analyzed_image_report, manifest_raw = localanchore_standalone.analyze_image(
+        analyzed_image_report, manifest_raw = localnextlinux_standalone.analyze_image(
             account,
             registry_manifest,
             image_record,
@@ -315,7 +315,7 @@ def process_analyzer_job(request: AnalysisQueueMessage, layer_cache_enable):
         )
         if image_record[
             "analysis_status"
-        ] != anchore_engine.subsys.taskstate.base_state("analyze"):
+        ] != nextlinux_engine.subsys.taskstate.base_state("analyze"):
             logger.debug("dequeued image is not in base state - skipping analysis")
             return True
 
@@ -376,13 +376,13 @@ def process_analyzer_job(request: AnalysisQueueMessage, layer_cache_enable):
             logger.spew("TIMING MARK1: " + str(int(time.time()) - timer))
 
             try:
-                anchore_engine.subsys.metrics.counter_inc(
-                    name="anchore_analysis_success"
+                nextlinux_engine.subsys.metrics.counter_inc(
+                    name="nextlinux_analysis_success"
                 )
                 run_time = float(time.time() - timer)
 
-                anchore_engine.subsys.metrics.histogram_observe(
-                    "anchore_analysis_time_seconds",
+                nextlinux_engine.subsys.metrics.histogram_observe(
+                    "nextlinux_analysis_time_seconds",
                     run_time,
                     buckets=ANALYSIS_TIME_SECONDS_BUCKETS,
                     status="success",
@@ -428,9 +428,9 @@ def process_analyzer_job(request: AnalysisQueueMessage, layer_cache_enable):
 
 def analysis_sucess_metrics(analysis_time: float, allow_exception=False):
     try:
-        anchore_engine.subsys.metrics.counter_inc(name="anchore_analysis_success")
-        anchore_engine.subsys.metrics.histogram_observe(
-            "anchore_analysis_time_seconds",
+        nextlinux_engine.subsys.metrics.counter_inc(name="nextlinux_analysis_success")
+        nextlinux_engine.subsys.metrics.histogram_observe(
+            "nextlinux_analysis_time_seconds",
             analysis_time,
             buckets=ANALYSIS_TIME_SECONDS_BUCKETS,
             status="success",
@@ -446,9 +446,9 @@ def analysis_sucess_metrics(analysis_time: float, allow_exception=False):
 
 def analysis_failed_metrics(analysis_time: float, allow_exception=False):
     try:
-        anchore_engine.subsys.metrics.counter_inc(name="anchore_analysis_error")
-        anchore_engine.subsys.metrics.histogram_observe(
-            "anchore_analysis_time_seconds",
+        nextlinux_engine.subsys.metrics.counter_inc(name="nextlinux_analysis_error")
+        nextlinux_engine.subsys.metrics.histogram_observe(
+            "nextlinux_analysis_time_seconds",
             analysis_time,
             buckets=ANALYSIS_TIME_SECONDS_BUCKETS,
             status="fail",

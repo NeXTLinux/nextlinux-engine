@@ -108,7 +108,7 @@ def exec(
     Analyze a local image stored as a docker archive (output result of 'docker save'), and generate an nextlinux image archive tarball ready for import into an nextlinux engine.
 
     DOCKER_ARCHIVE : Location of input docker archive tarfile to analyze
-    NEXTLINUX_ARCHIVE : Location of output anchore image archive to write
+    NEXTLINUX_ARCHIVE : Location of output nextlinux image archive to write
 
     """
 
@@ -127,15 +127,15 @@ def exec(
                     "must supply either an image digest or a valid manifest, but not both"
                 )
 
-            if os.path.exists(anchore_archive):
+            if os.path.exists(nextlinux_archive):
                 raise Exception(
-                    "the supplied anchore archive file ({}) already exists, please remove and try again"
-                    .format(anchore_archive))
+                    "the supplied nextlinux archive file ({}) already exists, please remove and try again"
+                    .format(nextlinux_archive))
 
             if manifest:
                 try:
                     with open(manifest, "r") as FH:
-                        # TODO implement manifest validator for anchore requirements, specifically
+                        # TODO implement manifest validator for nextlinux requirements, specifically
                         rawmanifest = FH.read()
                         input_manifest_data = json.loads(rawmanifest)
                         imageDigest = manifest_to_digest(rawmanifest)
@@ -292,23 +292,23 @@ def exec(
         )
 
         image_content_data = {}
-        for content_type in (anchore_engine.common.image_content_types +
-                             anchore_engine.common.image_metadata_types):
+        for content_type in (nextlinux_engine.common.image_content_types +
+                             nextlinux_engine.common.image_metadata_types):
             try:
                 image_content_data[
-                    content_type] = anchore_engine.common.helpers.extract_analyzer_content(
+                    content_type] = nextlinux_engine.common.helpers.extract_analyzer_content(
                         image_data, content_type, manifest=input_manifest_data)
             except Exception:
                 logger.exception(
                     "Unable to determine content_type, will fallback to {}")
                 image_content_data[content_type] = {}
 
-        anchore_engine.common.helpers.update_image_record_with_analysis_data(
+        nextlinux_engine.common.helpers.update_image_record_with_analysis_data(
             image_record, image_data)
         image_record["image_size"] = int(image_record["image_size"])
 
         # generate an output image archive tarball
-        archive_file = anchore_archive
+        archive_file = nextlinux_archive
         try:
             with ImageArchive.for_writing(archive_file) as img_archive:
 

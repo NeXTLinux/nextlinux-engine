@@ -1,9 +1,9 @@
 import time
 
-import anchore_engine.subsys
-from anchore_engine.clients.services.catalog import CatalogClient
-from anchore_engine.subsys import logger
-from anchore_engine.configuration.localconfig import get_config
+import nextlinux_engine.subsys
+from nextlinux_engine.clients.services.catalog import CatalogClient
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.configuration.localconfig import get_config
 
 
 def get_tempdir(config=None):
@@ -56,7 +56,7 @@ def update_analysis_started(client: CatalogClient, image_digest, image_record):
         client,
         image_digest,
         image_record,
-        new_analysis_status=anchore_engine.subsys.taskstate.working_state("analyze"),
+        new_analysis_status=nextlinux_engine.subsys.taskstate.working_state("analyze"),
     )
 
 
@@ -74,7 +74,7 @@ def update_analysis_complete(client: CatalogClient, image_digest, image_record):
         client,
         image_digest,
         image_record,
-        new_analysis_status=anchore_engine.subsys.taskstate.complete_state("analyze"),
+        new_analysis_status=nextlinux_engine.subsys.taskstate.complete_state("analyze"),
     )
 
 
@@ -91,8 +91,8 @@ def update_analysis_failed(client: CatalogClient, image_digest, image_record):
         client,
         image_digest,
         image_record,
-        new_analysis_status=anchore_engine.subsys.taskstate.fault_state("analyze"),
-    )  # new_image_status=anchore_engine.subsys.taskstate.fault_state('image_status'))
+        new_analysis_status=nextlinux_engine.subsys.taskstate.fault_state("analyze"),
+    )  # new_image_status=nextlinux_engine.subsys.taskstate.fault_state('image_status'))
 
 
 def update_catalog_image_status(

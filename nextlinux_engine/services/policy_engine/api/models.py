@@ -1,6 +1,6 @@
-from anchore_engine.common.schemas import Schema, JsonSerializable, RFC3339DateTime
+from nextlinux_engine.common.schemas import Schema, JsonSerializable, RFC3339DateTime
 from marshmallow import fields, post_load
-from anchore_engine.utils import rfc3339str_to_datetime, datetime_to_rfc3339
+from nextlinux_engine.utils import rfc3339str_to_datetime, datetime_to_rfc3339
 
 
 class DistroMapping(JsonSerializable):

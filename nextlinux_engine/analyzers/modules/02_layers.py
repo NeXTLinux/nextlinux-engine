@@ -5,12 +5,12 @@ import os
 import re
 import json
 
-import anchore_engine.analyzers.utils
+import nextlinux_engine.analyzers.utils
 
 analyzer_name = "layer_info"
 
 try:
-    config = anchore_engine.analyzers.utils.init_analyzer_cmdline(
+    config = nextlinux_engine.analyzers.utils.init_analyzer_cmdline(
         sys.argv, analyzer_name
     )
 except Exception as err:
@@ -43,7 +43,7 @@ try:
             output.append(line)
     else:
         raise Exception(
-            "anchore failed to provide file '"
+            "nextlinux failed to provide file '"
             + str(hfile)
             + "': cannot create layer info analyzer output"
         )
@@ -54,7 +54,7 @@ except Exception as err:
     raise err
 
 ofile = os.path.join(outputdir, "layers_to_dockerfile")
-anchore_engine.analyzers.utils.write_kvfile_fromdict(
+nextlinux_engine.analyzers.utils.write_kvfile_fromdict(
     ofile, {"dockerfile_to_layer_map": json.dumps(output)}
 )
 

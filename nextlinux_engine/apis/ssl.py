@@ -1,9 +1,9 @@
 """
-api_utils is a module for common anchore api handling functions useful for all/any anchore-engine api
+api_utils is a module for common nextlinux api handling functions useful for all/any nextlinux-engine api
 """
 from OpenSSL import crypto
 
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
 
 def _load_ssl_key(path):

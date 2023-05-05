@@ -2,30 +2,30 @@ import enum
 import json
 import retrying
 
-from anchore_engine.apis import exceptions as api_exceptions
-from anchore_engine.apis.exceptions import BadRequest
-from anchore_engine.clients.services import internal_client_for
-from anchore_engine.clients.services.simplequeue import SimpleQueueClient
-from anchore_engine.common.schemas import (
+from nextlinux_engine.apis import exceptions as api_exceptions
+from nextlinux_engine.apis.exceptions import BadRequest
+from nextlinux_engine.clients.services import internal_client_for
+from nextlinux_engine.clients.services.simplequeue import SimpleQueueClient
+from nextlinux_engine.common.schemas import (
     ImportManifest,
     ImportQueueMessage,
     InternalImportManifest,
     ImportContentReference,
 )
-from anchore_engine.db import (
+from nextlinux_engine.db import (
     ImageImportContent,
     ImageImportOperation,
     db_catalog_image,
 )
-from anchore_engine.db.entities.catalog import ImportState
-from anchore_engine.services.catalog.catalog_impl import add_or_update_image
-from anchore_engine.subsys import logger
-from anchore_engine.util.docker import DockerImageReference
-from anchore_engine.subsys.object_store import get_manager
-from anchore_engine.subsys import taskstate
+from nextlinux_engine.db.entities.catalog import ImportState
+from nextlinux_engine.services.catalog.catalog_impl import add_or_update_image
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.util.docker import DockerImageReference
+from nextlinux_engine.subsys.object_store import get_manager
+from nextlinux_engine.subsys import taskstate
 
 IMPORT_QUEUE = "images_to_analyze"
-NEXTLINUX_SYSTEM_ANNOTATION_KEY_PREFIX = "anchore.system/"
+NEXTLINUX_SYSTEM_ANNOTATION_KEY_PREFIX = "nextlinux.system/"
 IMPORT_OPERATION_ANNOTATION_KEY = (NEXTLINUX_SYSTEM_ANNOTATION_KEY_PREFIX +
                                    "import_operation_id")
 

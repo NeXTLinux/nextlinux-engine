@@ -1,13 +1,13 @@
 import re
 import base64
-from anchore_engine.utils import ensure_bytes, ensure_str
-from anchore_engine.services.policy_engine.engine.policy.gate import Gate, BaseTrigger
-from anchore_engine.services.policy_engine.engine.policy.params import (
+from nextlinux_engine.utils import ensure_bytes, ensure_str
+from nextlinux_engine.services.policy_engine.engine.policy.gate import Gate, BaseTrigger
+from nextlinux_engine.services.policy_engine.engine.policy.params import (
     TypeValidator,
     TriggerParameter,
     EnumStringParameter,
 )
-from anchore_engine.db import AnalysisArtifact
+from nextlinux_engine.db import AnalysisArtifact
 
 
 default_included_regex_names = [

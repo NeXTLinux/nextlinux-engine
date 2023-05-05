@@ -7,20 +7,20 @@ import copy
 import urllib
 import urllib.parse
 from requests.auth import AuthBase, HTTPBasicAuth
-from anchore_engine.configuration import localconfig
-from anchore_engine.clients.services.http import anchy_get
-from anchore_engine.clients.services.common import (
+from nextlinux_engine.configuration import localconfig
+from nextlinux_engine.clients.services.http import anchy_get
+from nextlinux_engine.clients.services.common import (
     get_service_endpoint,
     get_service_endpoints,
 )
-from anchore_engine.subsys import logger
-from anchore_engine.subsys.identities import (
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.subsys.identities import (
     AccessCredential,
     HttpBearerCredential,
     HttpBasicCredential,
 )
 from contextlib import contextmanager
-from anchore_engine.utils import ensure_str
+from nextlinux_engine.utils import ensure_str
 
 
 class BearerTokenAuth(AuthBase):
@@ -270,7 +270,7 @@ class InternalServiceClient(object):
             request_headers = {}
 
         if self.request_namespace:
-            request_headers["x-anchore-account"] = self.request_namespace
+            request_headers["x-nextlinux-account"] = self.request_namespace
 
         if extra_headers:
             request_headers.update(extra_headers)

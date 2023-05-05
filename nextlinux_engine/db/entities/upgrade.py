@@ -2,16 +2,16 @@ import json
 import time
 from sqlalchemy import Column, Integer, String, BigInteger, DateTime, Enum
 
-import anchore_engine.db.entities.common
-import anchore_engine.subsys.object_store.manager
-from anchore_engine.db.entities.common import StringJSON
-import anchore_engine.common.helpers
-from anchore_engine.db.entities.exceptions import is_table_not_found
+import nextlinux_engine.db.entities.common
+import nextlinux_engine.subsys.object_store.manager
+from nextlinux_engine.db.entities.common import StringJSON
+import nextlinux_engine.common.helpers
+from nextlinux_engine.db.entities.exceptions import is_table_not_found
 from distutils.version import StrictVersion
 from contextlib import contextmanager
 
 try:
-    from anchore_engine.subsys import logger, identities
+    from nextlinux_engine.subsys import logger, identities
 
     # Separate logger for use during bootstrap when logging may not be fully configured
     from twisted.python import log
@@ -31,7 +31,7 @@ def do_db_compatibility_check():
     required_pg_version = (9, 6)
 
     try:
-        engine = anchore_engine.db.entities.common.get_engine()
+        engine = nextlinux_engine.db.entities.common.get_engine()
         if engine.dialect.server_version_info >= required_pg_version:
             return True
         else:
@@ -54,23 +54,23 @@ def get_versions():
     code_versions = {}
     db_versions = {}
 
-    from anchore_engine import version
+    from nextlinux_engine import version
 
     code_versions["service_version"] = version.version
     code_versions["db_version"] = version.db_version
 
     try:
-        from anchore_engine.db import db_anchore, session_scope
+        from nextlinux_engine.db import db_nextlinux, session_scope
 
         with session_scope() as dbsession:
-            db_versions = db_anchore.get(session=dbsession)
+            db_versions = db_nextlinux.get(session=dbsession)
     except Exception as err:
         if is_table_not_found(err):
-            logger.info("anchore table not found")
-            # raise TableNotFoundError('anchore table not found')
+            logger.info("nextlinux table not found")
+            # raise TableNotFoundError('nextlinux table not found')
         else:
             raise Exception(
-                "Cannot find existing/populated anchore DB tables in connected database - has anchore-engine initialized this DB?\n\nDB - exception: "
+                "Cannot find existing/populated nextlinux DB tables in connected database - has nextlinux-engine initialized this DB?\n\nDB - exception: "
                 + str(err)
             )
 
@@ -78,10 +78,10 @@ def get_versions():
 
 
 def do_version_update(db_versions, code_versions):
-    from anchore_engine.db import db_anchore, session_scope
+    from nextlinux_engine.db import db_nextlinux, session_scope
 
     with session_scope() as dbsession:
-        db_anchore.add(
+        db_nextlinux.add(
             code_versions["service_version"],
             code_versions["db_version"],
             code_versions,
@@ -100,9 +100,9 @@ def upgrade_context(lock_id):
     :param lock_id: the lock id (int) for the lock to acquire
     :return:
     """
-    engine = anchore_engine.db.entities.common.get_engine()
+    engine = nextlinux_engine.db.entities.common.get_engine()
 
-    from anchore_engine.db.db_locks import db_application_lock, application_lock_ids
+    from nextlinux_engine.db.db_locks import db_application_lock, application_lock_ids
 
     with db_application_lock(
         engine, (application_lock_ids["upgrade"]["namespace"], lock_id)
@@ -113,7 +113,7 @@ def upgrade_context(lock_id):
 
 def do_create_tables(specific_tables=None):
     print("Creating DB Tables")
-    from anchore_engine.db.entities.common import Base, do_create
+    from nextlinux_engine.db.entities.common import Base, do_create
 
     try:
         with upgrade_context(my_module_upgrade_id) as ctx:
@@ -125,7 +125,7 @@ def do_create_tables(specific_tables=None):
 
 
 def do_db_bootstrap(localconfig=None, db_versions=None, code_versions=None):
-    from anchore_engine.db import session_scope
+    from nextlinux_engine.db import session_scope
 
     with upgrade_context(my_module_upgrade_id) as ctx:
         with session_scope() as session:
@@ -173,13 +173,13 @@ def run_upgrade():
             ecode = 0
         elif code_db_version == running_db_version:
             print(
-                "Detected anchore-engine version {} and running DB version {} match, nothing to do.".format(
+                "Detected nextlinux-engine version {} and running DB version {} match, nothing to do.".format(
                     code_db_version, running_db_version
                 )
             )
         else:
             print(
-                "Detected anchore-engine version {}, running DB version {}.".format(
+                "Detected nextlinux-engine version {}, running DB version {}.".format(
                     code_db_version, running_db_version
                 )
             )
@@ -279,9 +279,9 @@ def do_upgrade(inplace, incode):
 
 
 def db_upgrade_001_002():
-    engine = anchore_engine.db.entities.common.get_engine()
+    engine = nextlinux_engine.db.entities.common.get_engine()
 
-    from anchore_engine.db import db_registries, db_policybundle, session_scope
+    from nextlinux_engine.db import db_registries, db_policybundle, session_scope
 
     try:
         table_name = "registries"
@@ -334,7 +334,7 @@ def db_upgrade_001_002():
 
 
 def db_upgrade_002_003():
-    engine = anchore_engine.db.entities.common.get_engine()
+    engine = nextlinux_engine.db.entities.common.get_engine()
 
     try:
         table_name = "images"
@@ -366,10 +366,10 @@ def db_upgrade_002_003():
 
 
 def db_upgrade_003_004():
-    engine = anchore_engine.db.entities.common.get_engine()
+    engine = nextlinux_engine.db.entities.common.get_engine()
 
-    from anchore_engine.db import db_catalog_image, db_archivedocument, session_scope
-    import anchore_engine.common
+    from nextlinux_engine.db import db_catalog_image, db_archivedocument, session_scope
+    import nextlinux_engine.common
 
     newcolumns = [
         Column("arch", String, primary_key=False),
@@ -420,7 +420,7 @@ def db_upgrade_003_004():
 
             if image_data:
                 # update the record and store
-                anchore_engine.common.helpers.update_image_record_with_analysis_data(
+                nextlinux_engine.common.helpers.update_image_record_with_analysis_data(
                     image_record, image_data
                 )
                 with session_scope() as dbsession:
@@ -442,7 +442,7 @@ def db_upgrade_003_004():
 
 
 def db_upgrade_004_005():
-    engine = anchore_engine.db.entities.common.get_engine()
+    engine = nextlinux_engine.db.entities.common.get_engine()
     from sqlalchemy import Column, String
 
     newcolumns = [
@@ -470,7 +470,7 @@ def db_upgrade_004_005():
 
 
 def queue_data_upgrades_005_006():
-    engine = anchore_engine.db.entities.common.get_engine()
+    engine = nextlinux_engine.db.entities.common.get_engine()
 
     new_columns = [
         {
@@ -521,17 +521,17 @@ def archive_data_upgrade_005_006():
     :return:
     """
 
-    from anchore_engine.db import (
+    from nextlinux_engine.db import (
         LegacyArchiveDocument,
         session_scope,
         ObjectStorageMetadata,
     )
-    from anchore_engine.subsys import object_store
-    from anchore_engine.subsys.object_store.config import (
+    from nextlinux_engine.subsys import object_store
+    from nextlinux_engine.subsys.object_store.config import (
         DEFAULT_OBJECT_STORE_MANAGER_ID,
         ALT_OBJECT_STORE_CONFIG_KEY,
     )
-    from anchore_engine.configuration import localconfig
+    from nextlinux_engine.configuration import localconfig
 
     config = localconfig.get_config()
     object_store.initialize(
@@ -540,7 +540,7 @@ def archive_data_upgrade_005_006():
         config_keys=(DEFAULT_OBJECT_STORE_MANAGER_ID, ALT_OBJECT_STORE_CONFIG_KEY),
         allow_legacy_fallback=True,
     )
-    client = anchore_engine.subsys.object_store.manager.get_manager().primary_client
+    client = nextlinux_engine.subsys.object_store.manager.get_manager().primary_client
 
     session_counter = 0
     max_pending_session_size = 10000
@@ -584,10 +584,10 @@ def fixed_artifact_upgrade_005_006():
     Upgrade the feed_data_vulnerabilities_fixed_artifacts schema with new columns and fill in the defaults
 
     """
-    from anchore_engine.db import session_scope
+    from nextlinux_engine.db import session_scope
     from sqlalchemy import Column, Text, Boolean
 
-    engine = anchore_engine.db.entities.common.get_engine()
+    engine = nextlinux_engine.db.entities.common.get_engine()
 
     table_name = "feed_data_vulnerabilities_fixed_artifacts"
     vna = "vendor_no_advisory"
@@ -629,7 +629,7 @@ def db_upgrade_005_006():
 
 
 def catalog_image_upgrades_006_007():
-    engine = anchore_engine.db.entities.common.get_engine()
+    engine = nextlinux_engine.db.entities.common.get_engine()
 
     new_columns = [
         {
@@ -689,9 +689,9 @@ def catalog_image_upgrades_006_007():
 def user_account_upgrades_007_008():
     logger.info("Upgrading user accounts for multi-user support")
 
-    from anchore_engine.db import session_scope, legacy_db_users
-    from anchore_engine.subsys.identities import manager_factory, AccountStates
-    from anchore_engine.configuration.localconfig import (
+    from nextlinux_engine.db import session_scope, legacy_db_users
+    from nextlinux_engine.subsys.identities import manager_factory, AccountStates
+    from nextlinux_engine.configuration.localconfig import (
         SYSTEM_ACCOUNT_NAME,
         ADMIN_ACCOUNT_NAME,
     )
@@ -748,10 +748,10 @@ def db_upgrade_007_008():
 
 
 def catalog_upgrade_007_008():
-    from anchore_engine.db import session_scope
+    from nextlinux_engine.db import session_scope
 
     log.err("performing catalog table upgrades")
-    engine = anchore_engine.db.entities.common.get_engine()
+    engine = nextlinux_engine.db.entities.common.get_engine()
     new_columns = [
         {
             "table_name": "catalog_image",
@@ -790,10 +790,10 @@ def catalog_upgrade_007_008():
 
 
 def policy_engine_packages_upgrade_007_008():
-    from anchore_engine.db import session_scope, ImagePackage, ImageNpm, ImageGem, Image
+    from nextlinux_engine.db import session_scope, ImagePackage, ImageNpm, ImageGem, Image
 
     if True:
-        engine = anchore_engine.db.entities.common.get_engine()
+        engine = nextlinux_engine.db.entities.common.get_engine()
 
         file_path_length = 512
         hash_length = 80
@@ -1106,10 +1106,10 @@ def db_upgrade_008_009():
     :return:
     """
 
-    from anchore_engine.db import session_scope
+    from nextlinux_engine.db import session_scope
 
     if True:
-        engine = anchore_engine.db.entities.common.get_engine()
+        engine = nextlinux_engine.db.entities.common.get_engine()
 
         exec_commands = [
             # These are helpers for the upgrade itself, not needed by the functioning system. Needed for large npm/gem tables and pagination support
@@ -1143,9 +1143,9 @@ def cpe_vulnerability_upgrade_009_010():
 
     :return:
     """
-    from anchore_engine.db import session_scope
+    from nextlinux_engine.db import session_scope
 
-    engine = anchore_engine.db.entities.common.get_engine()
+    engine = nextlinux_engine.db.entities.common.get_engine()
 
     exec_commands = [
         "CREATE INDEX IF NOT EXISTS ix_feed_data_cpe_vulnerabilities_fk on feed_data_cpe_vulnerabilities (vulnerability_id, namespace_name, severity)"
@@ -1173,9 +1173,9 @@ def archive_document_upgrade_009_010():
     :return:
     """
 
-    from anchore_engine.db import session_scope
+    from nextlinux_engine.db import session_scope
 
-    engine = anchore_engine.db.entities.common.get_engine()
+    engine = nextlinux_engine.db.entities.common.get_engine()
 
     exec_commands = [
         "ALTER TABLE archive_document ADD COLUMN IF NOT EXISTS b64_encoded boolean"
@@ -1204,9 +1204,9 @@ def registry_name_upgrade_010_011():
     :return:
     """
 
-    from anchore_engine.db import session_scope
+    from nextlinux_engine.db import session_scope
 
-    engine = anchore_engine.db.entities.common.get_engine()
+    engine = nextlinux_engine.db.entities.common.get_engine()
 
     new_columns = [
         {
@@ -1257,9 +1257,9 @@ def fixed_artifacts_upgrade_010_011():
     :return:
     """
 
-    from anchore_engine.db import session_scope
+    from nextlinux_engine.db import session_scope
 
-    engine = anchore_engine.db.entities.common.get_engine()
+    engine = nextlinux_engine.db.entities.common.get_engine()
 
     new_columns = [
         {
@@ -1308,11 +1308,11 @@ def update_users_010_011():
     Upgrade to add column to users table
     :return:
     """
-    from anchore_engine.db import session_scope
-    from anchore_engine.db.entities.identity import UserTypes, anchore_uuid
-    from anchore_engine.configuration import localconfig
+    from nextlinux_engine.db import session_scope
+    from nextlinux_engine.db.entities.identity import UserTypes, nextlinux_uuid
+    from nextlinux_engine.configuration import localconfig
 
-    engine = anchore_engine.db.entities.common.get_engine()
+    engine = nextlinux_engine.db.entities.common.get_engine()
 
     new_columns = [
         {
@@ -1329,7 +1329,7 @@ def update_users_010_011():
                     String,
                     unique=True,
                     nullable=False,
-                    default=anchore_uuid,
+                    default=nextlinux_uuid,
                     index=True,
                 ),
                 Column("source", String),
@@ -1381,7 +1381,7 @@ def update_users_010_011():
         username = row["username"]
         rc = engine.execute(
             "UPDATE account_users set uuid='%s' where username='%s'"
-            % (anchore_uuid(), username)
+            % (nextlinux_uuid(), username)
         )
 
     # Add constraints and index
@@ -1403,9 +1403,9 @@ def db_upgrade_package_size_011_012():
     Update the column type for image package size from int to bigint
     :return:
     """
-    from anchore_engine.db import session_scope
+    from nextlinux_engine.db import session_scope
 
-    engine = anchore_engine.db.entities.common.get_engine()
+    engine = nextlinux_engine.db.entities.common.get_engine()
 
     # Add constraints and index
     log.err("Updating image package table size column from int to bigint")
@@ -1419,9 +1419,9 @@ def event_type_index_upgrade_011_012():
     :return:
     """
 
-    from anchore_engine.db import session_scope
+    from nextlinux_engine.db import session_scope
 
-    engine = anchore_engine.db.entities.common.get_engine()
+    engine = nextlinux_engine.db.entities.common.get_engine()
 
     log.err("creating new column index")
     engine.execute("CREATE INDEX IF NOT EXISTS ix_type ON events using btree (type)")
@@ -1435,9 +1435,9 @@ def db_upgrade_011_012():
 def upgrade_feed_groups_013():
     log.err("Upgrading feed and feed group schemas to add enabled flags")
 
-    from anchore_engine.services.policy_engine.engine.feeds import sync
+    from nextlinux_engine.services.policy_engine.engine.feeds import sync
 
-    engine = anchore_engine.db.entities.common.get_engine()
+    engine = nextlinux_engine.db.entities.common.get_engine()
 
     log.err("Updating feeds table to have enabled flag")
     engine.execute("ALTER TABLE feeds ADD COLUMN IF NOT EXISTS enabled boolean")
@@ -1467,7 +1467,7 @@ def upgrade_distro_mappings_rhel_013():
     Updates distro map entries to use rhel feed instead of centos feed
 
     """
-    engine = anchore_engine.db.entities.common.get_engine()
+    engine = nextlinux_engine.db.entities.common.get_engine()
 
     log.err(
         'Updating distro mappings to map centos, fedora, and rhel to new feed distro "rhel"'
@@ -1489,15 +1489,15 @@ def upgrade_flush_centos_vulns_013():
 
     :return:
     """
-    from anchore_engine.services.policy_engine.engine.vulnerabilities import (
+    from nextlinux_engine.services.policy_engine.engine.vulnerabilities import (
         DistroNamespace,
     )
-    from anchore_engine.services.policy_engine.engine.feeds.feeds import (
+    from nextlinux_engine.services.policy_engine.engine.feeds.feeds import (
         have_vulnerabilities_for,
     )
-    from anchore_engine.services.policy_engine.engine.feeds import sync
+    from nextlinux_engine.services.policy_engine.engine.feeds import sync
 
-    engine = anchore_engine.db.entities.common.get_engine()
+    engine = nextlinux_engine.db.entities.common.get_engine()
 
     log.err("Disabling all centos feed groups")
     rc = engine.execute(
@@ -1540,10 +1540,10 @@ def upgrade_centos_rhel_synced_013():
 
     :return:
     """
-    from anchore_engine.services.policy_engine.engine.vulnerabilities import (
+    from nextlinux_engine.services.policy_engine.engine.vulnerabilities import (
         rescan_namespace,
     )
-    from anchore_engine.db import session_scope
+    from nextlinux_engine.db import session_scope
 
     log.err(
         "Scanning all images applicable for the rhel data feed to create matches based on new CVE data in rhel:* groups in addition to RHSA-based data from old centos:* groups. This may take a while"
@@ -1575,7 +1575,7 @@ def db_upgrade_012_013():
     :return:
     """
     # Setup some policy engine stuff to support feed ops
-    from anchore_engine.services.policy_engine import process_preflight
+    from nextlinux_engine.services.policy_engine import process_preflight
 
     process_preflight()
 
@@ -1585,10 +1585,10 @@ def db_upgrade_012_013():
 
 
 def upgrade_014_archive_rules():
-    from anchore_engine.db import session_scope
-    from anchore_engine.db.entities.identity import UserTypes
+    from nextlinux_engine.db import session_scope
+    from nextlinux_engine.db.entities.identity import UserTypes
 
-    engine = anchore_engine.db.entities.common.get_engine()
+    engine = nextlinux_engine.db.entities.common.get_engine()
 
     new_columns = [
         {
@@ -1649,7 +1649,7 @@ def remove_policy_engine_sizes():
 
     :return:
     """
-    engine = anchore_engine.db.entities.common.get_engine()
+    engine = nextlinux_engine.db.entities.common.get_engine()
 
     to_update = [
         # Feeds

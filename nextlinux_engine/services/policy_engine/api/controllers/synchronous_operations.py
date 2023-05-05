@@ -16,12 +16,12 @@ import re
 from sqlalchemy import or_, asc, func, orm
 from werkzeug.exceptions import HTTPException
 
-import anchore_engine.subsys.servicestatus
-from anchore_engine import utils, apis
-from anchore_engine.common.helpers import make_response_error
+import nextlinux_engine.subsys.servicestatus
+from nextlinux_engine import utils, apis
+from nextlinux_engine.common.helpers import make_response_error
 
 # API models
-from anchore_engine.services.policy_engine.api.models import (
+from nextlinux_engine.services.policy_engine.api.models import (
     Image as ImageMsg,
     PolicyEvaluationProblem,
     PolicyEvaluation,
@@ -33,7 +33,7 @@ from anchore_engine.services.policy_engine.api.models import (
     GateSpec,
 )
 
-from anchore_engine.db import (
+from nextlinux_engine.db import (
     Image,
     get_thread_scoped_session as get_session,
     ImagePackageVulnerability,
@@ -46,40 +46,40 @@ from anchore_engine.db import (
     VulnDBMetadata,
     VulnDBCpe,
 )
-from anchore_engine.services.policy_engine.engine.policy.bundles import (
+from nextlinux_engine.services.policy_engine.engine.policy.bundles import (
     build_bundle,
     build_empty_error_execution,
 )
-from anchore_engine.services.policy_engine.engine.policy.exceptions import (
+from nextlinux_engine.services.policy_engine.engine.policy.exceptions import (
     InitializationError,
     ValidationError,
 )
-from anchore_engine.services.policy_engine.engine.policy.gate import (
+from nextlinux_engine.services.policy_engine.engine.policy.gate import (
     ExecutionContext,
     Gate,
 )
-from anchore_engine.services.policy_engine.engine.tasks import ImageLoadTask
-from anchore_engine.services.policy_engine.engine.vulnerabilities import (
+from nextlinux_engine.services.policy_engine.engine.tasks import ImageLoadTask
+from nextlinux_engine.services.policy_engine.engine.vulnerabilities import (
     merge_nvd_metadata,
     merge_nvd_metadata_image_packages,
 )
-from anchore_engine.services.policy_engine.engine.feeds.feeds import (
+from nextlinux_engine.services.policy_engine.engine.feeds.feeds import (
     have_vulnerabilities_for, )
-from anchore_engine.services.policy_engine.engine.vulnerabilities import rescan_image
-from anchore_engine.db import DistroNamespace, AnalysisArtifact
-from anchore_engine.subsys import logger as log
-from anchore_engine.apis.authorization import get_authorizer, INTERNAL_SERVICE_ALLOWED
-from anchore_engine.services.policy_engine.engine.feeds.db import get_all_feeds
-from anchore_engine.clients.services import internal_client_for, catalog
-from anchore_engine.apis.context import ApiRequestContextProxy
-from anchore_engine.clients.services.common import get_service_endpoint
-from anchore_engine.utils import ensure_str, ensure_bytes, timer
+from nextlinux_engine.services.policy_engine.engine.vulnerabilities import rescan_image
+from nextlinux_engine.db import DistroNamespace, AnalysisArtifact
+from nextlinux_engine.subsys import logger as log
+from nextlinux_engine.apis.authorization import get_authorizer, INTERNAL_SERVICE_ALLOWED
+from nextlinux_engine.services.policy_engine.engine.feeds.db import get_all_feeds
+from nextlinux_engine.clients.services import internal_client_for, catalog
+from nextlinux_engine.apis.context import ApiRequestContextProxy
+from nextlinux_engine.clients.services.common import get_service_endpoint
+from nextlinux_engine.utils import ensure_str, ensure_bytes, timer
 
 authorizer = get_authorizer()
 
 # Leave this here to ensure gates registry is fully loaded
-from anchore_engine.subsys import metrics
-from anchore_engine.subsys.metrics import flask_metrics
+from nextlinux_engine.subsys import metrics
+from nextlinux_engine.subsys.metrics import flask_metrics
 
 TABLE_STYLE_HEADER_LIST = [
     "CVE_ID",
@@ -140,9 +140,9 @@ def get_status():
     """
     httpcode = 500
     try:
-        service_record = anchore_engine.subsys.servicestatus.get_my_service_record(
+        service_record = nextlinux_engine.subsys.servicestatus.get_my_service_record(
         )
-        return_object = anchore_engine.subsys.servicestatus.get_status(
+        return_object = nextlinux_engine.subsys.servicestatus.get_status(
             service_record)
         httpcode = 200
     except Exception as err:
@@ -520,7 +520,7 @@ class EvaluationCacheManager(object):
     def _should_evaluate(self, cache_entry: CachedPolicyEvaluation):
         if cache_entry is None:
             metrics.counter_inc(
-                name="anchore_policy_evaluation_cache_misses_notfound")
+                name="nextlinux_policy_evaluation_cache_misses_notfound")
             return EvaluationCacheManager.CacheStatus.missing
 
         # The cached result is not for this exact bundle content, so result is invalid
@@ -529,20 +529,20 @@ class EvaluationCacheManager(object):
                 "Unexpectedly got a cached evaluation for a different bundle id"
             )
             metrics.counter_inc(
-                name="anchore_policy_evaluation_cache_misses_notfound")
+                name="nextlinux_policy_evaluation_cache_misses_notfound")
             return EvaluationCacheManager.CacheStatus.missing
 
         if cache_entry.bundle_digest == self.bundle_digest:
             # A feed sync has occurred since the eval was done or the image has been updated/reloaded, so inputs can have changed. Must be stale
             if self._inputs_changed(cache_entry.last_modified):
                 metrics.counter_inc(
-                    name="anchore_policy_evaluation_cache_misses_stale")
+                    name="nextlinux_policy_evaluation_cache_misses_stale")
                 return EvaluationCacheManager.CacheStatus.stale
             else:
                 return EvaluationCacheManager.CacheStatus.valid
         else:
             metrics.counter_inc(
-                name="anchore_policy_evaluation_cache_misses_invalid")
+                name="nextlinux_policy_evaluation_cache_misses_invalid")
             return EvaluationCacheManager.CacheStatus.invalid
 
     def flush(self):
@@ -626,9 +626,9 @@ def check_user_image_inline(user_id, image_id, tag, bundle):
                     cached_result = cache_mgr.refresh()
                     if cached_result:
                         metrics.counter_inc(
-                            name="anchore_policy_evaluation_cache_hits")
+                            name="nextlinux_policy_evaluation_cache_hits")
                         metrics.histogram_observe(
-                            "anchore_policy_evaluation_cache_access_latency",
+                            "nextlinux_policy_evaluation_cache_access_latency",
                             time.time() - timer2,
                             status="hit",
                         )
@@ -645,9 +645,9 @@ def check_user_image_inline(user_id, image_id, tag, bundle):
                         return cached_result
                     else:
                         metrics.counter_inc(
-                            name="anchore_policy_evaluation_cache_misses")
+                            name="nextlinux_policy_evaluation_cache_misses")
                         metrics.histogram_observe(
-                            "anchore_policy_evaluation_cache_access_latency",
+                            "nextlinux_policy_evaluation_cache_access_latency",
                             time.time() - timer2,
                             status="miss",
                         )
@@ -750,13 +750,13 @@ def check_user_image_inline(user_id, image_id, tag, bundle):
                     .format(user_id, image_id, tag, bundle["id"],
                             json.dumps(i.to_json())))
             metrics.histogram_observe(
-                "anchore_policy_evaluation_time_seconds",
+                "nextlinux_policy_evaluation_time_seconds",
                 time.time() - timer,
                 status="fail",
             )
         else:
             metrics.histogram_observe(
-                "anchore_policy_evaluation_time_seconds",
+                "nextlinux_policy_evaluation_time_seconds",
                 time.time() - timer,
                 status="success",
             )
@@ -825,7 +825,7 @@ def get_image_vulnerabilities(user_id,
                 "URL"
              ]
           },
-          "querycommand" : "/usr/lib/python2.7/site-packages/anchore/anchore-modules/multi-queries/cve-scan.py /ebs_data/anchore/querytmp/queryimages.7026386 /ebs_data/anchore/data /ebs_data/anchore/querytmp/query.59057288 all",
+          "querycommand" : "/usr/lib/python2.7/site-packages/nextlinux/nextlinux-modules/multi-queries/cve-scan.py /ebs_data/nextlinux/querytmp/queryimages.7026386 /ebs_data/nextlinux/data /ebs_data/nextlinux/querytmp/query.59057288 all",
           "queryparams" : "all",
           "warns" : [
              "0005b136f0fb (prom/prometheus:master) cannot perform CVE scan: no CVE data is currently available for the detected base distro type (busybox:unknown_version,busybox:v1.26.2)"
@@ -1692,7 +1692,7 @@ def query_vulnerabilities_get(id=None,
     try:
         log.info("Querying vulnerabilities")
         session = get_session()
-        request_inputs = anchore_engine.apis.do_request_prep(
+        request_inputs = nextlinux_engine.apis.do_request_prep(
             connexion.request,
             default_params={
                 "id": id,
@@ -1724,7 +1724,7 @@ def query_images_by_package_get(user_id,
     log.info("Querying images by package {}".format(name))
     try:
         session = get_session()
-        request_inputs = anchore_engine.apis.do_request_prep(
+        request_inputs = nextlinux_engine.apis.do_request_prep(
             connexion.request,
             default_params={
                 "name": name,

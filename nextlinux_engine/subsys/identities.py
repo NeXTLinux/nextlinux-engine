@@ -2,9 +2,9 @@ import datetime
 import re
 import time
 
-from anchore_engine.configuration import localconfig
-from anchore_engine.subsys import logger
-from anchore_engine.db import (
+from nextlinux_engine.configuration import localconfig
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.db import (
     db_accounts,
     db_account_users,
     AccountTypes,
@@ -12,14 +12,14 @@ from anchore_engine.db import (
     AccountStates,
     UserTypes,
 )
-from anchore_engine.db.db_accounts import AccountNotFoundError
-from anchore_engine.auth.oauth import (
+from nextlinux_engine.db.db_accounts import AccountNotFoundError
+from nextlinux_engine.auth.oauth import (
     token_manager,
     InvalidOauthConfigurationError,
     OauthNotConfiguredError,
 )
 from threading import RLock
-from anchore_engine.subsys.caching import TTLCache
+from nextlinux_engine.subsys.caching import TTLCache
 
 
 # Not currently used because upgrade...
@@ -86,7 +86,7 @@ class IdentityBootstrapper(object):
         except Exception as err:
             logger.exception("Error initializing system identities")
             raise Exception(
-                "Initialization failed: could not fetch/add anchore-system user from/to DB - exception: "
+                "Initialization failed: could not fetch/add nextlinux-system user from/to DB - exception: "
                 + str(err)
             )
 
@@ -94,7 +94,7 @@ class IdentityBootstrapper(object):
         try:
             if not self.mgr.get_account(localconfig.ADMIN_ACCOUNT_NAME):
                 init_email = localconfig.get_config().get(
-                    localconfig.DEFAULT_ADMIN_EMAIL_KEY, "admin@myanchore"
+                    localconfig.DEFAULT_ADMIN_EMAIL_KEY, "admin@mynextlinux"
                 )
                 self.mgr.create_account(
                     localconfig.ADMIN_ACCOUNT_NAME, AccountTypes.admin, init_email
@@ -118,7 +118,7 @@ class IdentityBootstrapper(object):
         except Exception as err:
             logger.exception("Error initializing system identities")
             raise Exception(
-                "Initialization failed: could not fetch/add anchore-system user from/to DB - exception: "
+                "Initialization failed: could not fetch/add nextlinux-system user from/to DB - exception: "
                 + str(err)
             )
 

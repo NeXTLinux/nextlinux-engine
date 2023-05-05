@@ -3,21 +3,21 @@ import time
 import re
 from collections import OrderedDict
 
-from anchore_engine.services.policy_engine.engine.feeds.db import (
+from nextlinux_engine.services.policy_engine.engine.feeds.db import (
     get_feed_group_detached,
 )
-from anchore_engine.services.policy_engine.engine.policy.gate import Gate, BaseTrigger
-from anchore_engine.services.policy_engine.engine.feeds.feeds import (
+from nextlinux_engine.services.policy_engine.engine.policy.gate import Gate, BaseTrigger
+from nextlinux_engine.services.policy_engine.engine.feeds.feeds import (
     have_vulnerabilities_for,
 )
-from anchore_engine.db import (
+from nextlinux_engine.db import (
     DistroNamespace,
     ImageCpe,
     CpeVulnerability,
     select_nvd_classes,
 )
-from anchore_engine.subsys import logger
-from anchore_engine.services.policy_engine.engine.policy.params import (
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.services.policy_engine.engine.policy.params import (
     BooleanStringParameter,
     IntegerStringParameter,
     EnumCommaDelimStringListParameter,
@@ -26,9 +26,9 @@ from anchore_engine.services.policy_engine.engine.policy.params import (
     SimpleStringParameter,
     CommaDelimitedStringListParameter,
 )
-from anchore_engine.clients.services.common import get_service_endpoint
-from anchore_engine.common import nonos_package_types
-from anchore_engine.services.policy_engine.engine.feeds.feeds import feed_registry
+from nextlinux_engine.clients.services.common import get_service_endpoint
+from nextlinux_engine.common import nonos_package_types
+from nextlinux_engine.services.policy_engine.engine.feeds.feeds import feed_registry
 
 
 SEVERITY_ORDERING = ["unknown", "negligible", "low", "medium", "high", "critical"]

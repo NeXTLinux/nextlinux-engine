@@ -5,18 +5,18 @@ import datetime
 import re
 import itertools
 
-from anchore_engine.db.entities.common import anchore_now_datetime
-from anchore_engine.services.policy_engine.engine.policy.gate import Gate, TriggerMatch
-from anchore_engine.subsys import logger
-from anchore_engine.util.docker import parse_dockerimage_string
-from anchore_engine.util.matcher import regexify, is_match
-from anchore_engine.services.policy_engine.engine.policy.formatting import (
+from nextlinux_engine.db.entities.common import nextlinux_now_datetime
+from nextlinux_engine.services.policy_engine.engine.policy.gate import Gate, TriggerMatch
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.util.docker import parse_dockerimage_string
+from nextlinux_engine.util.matcher import regexify, is_match
+from nextlinux_engine.services.policy_engine.engine.policy.formatting import (
     policy_json_to_txt,
     whitelist_json_to_txt,
 )
-from anchore_engine.services.policy_engine.engine.policy.gate import BaseTrigger
+from nextlinux_engine.services.policy_engine.engine.policy.gate import BaseTrigger
 
-from anchore_engine.services.policy_engine.engine.policy.exceptions import (
+from nextlinux_engine.services.policy_engine.engine.policy.exceptions import (
     TriggerNotAvailableError,
     TriggerEvaluationError,
     TriggerNotFoundError,
@@ -39,8 +39,8 @@ from anchore_engine.services.policy_engine.engine.policy.exceptions import (
 )
 
 # Load all the gate classes to ensure the registry is populated. This may appear unused but is necessary for proper lookup
-from anchore_engine.services.policy_engine.engine.policy.gates import *
-from anchore_engine.utils import rfc3339str_to_datetime
+from nextlinux_engine.services.policy_engine.engine.policy.gates import *
+from nextlinux_engine.utils import rfc3339str_to_datetime
 
 
 class VersionedEntityMixin(object):
@@ -378,7 +378,7 @@ class BundleExecution(object):
 
     def as_table_json(self):
         """
-        Render as table-style json, compatible with anchore cli output
+        Render as table-style json, compatible with nextlinux cli output
         :return:
         """
 
@@ -998,7 +998,7 @@ class ExecutableWhitelistItem(object):
         self.parent_whitelist = parent
 
     def is_expired(self):
-        now_utc = anchore_now_datetime().replace(tzinfo=datetime.timezone.utc)
+        now_utc = nextlinux_now_datetime().replace(tzinfo=datetime.timezone.utc)
         return (hasattr(self, "expires_on") and self.expires_on
                 and now_utc >= self.expires_on)
 
@@ -1135,11 +1135,11 @@ class StandardCVETriggerIdKey(object):
         if item.gate.lower(
         ) in cls.supported_gates and cls.cve_trigger_id_regex.match(
                 item.trigger_id):
-            return cls.anchoresec_trigger_id_to_parts(item.trigger_id)
+            return cls.nextlinuxsec_trigger_id_to_parts(item.trigger_id)
         return None
 
     @classmethod
-    def anchoresec_trigger_id_to_parts(cls, trigger_id):
+    def nextlinuxsec_trigger_id_to_parts(cls, trigger_id):
         pieces = trigger_id.split("+", 1)
         if len(pieces) > 1:
             cve, pkg = pieces
@@ -1151,7 +1151,7 @@ class StandardCVETriggerIdKey(object):
     def decision_item_key(cls, decision):
         gate = decision.match.trigger.gate_cls.__gate_name__.lower()
         if gate in cls.supported_gates:
-            return cls.anchoresec_trigger_id_to_parts(decision.match.id)
+            return cls.nextlinuxsec_trigger_id_to_parts(decision.match.id)
         else:
             return decision.match.id
 

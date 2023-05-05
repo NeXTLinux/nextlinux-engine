@@ -7,21 +7,21 @@ import connexion
 import hashlib
 import json
 
-import anchore_engine.apis
-import anchore_engine.common
-import anchore_engine.common.helpers
-from anchore_engine import db
-import anchore_engine.services.catalog.catalog_impl
-from anchore_engine.subsys import logger
-import anchore_engine.configuration.localconfig
-import anchore_engine.subsys.servicestatus
-import anchore_engine.utils
+import nextlinux_engine.apis
+import nextlinux_engine.common
+import nextlinux_engine.common.helpers
+from nextlinux_engine import db
+import nextlinux_engine.services.catalog.catalog_impl
+from nextlinux_engine.subsys import logger
+import nextlinux_engine.configuration.localconfig
+import nextlinux_engine.subsys.servicestatus
+import nextlinux_engine.utils
 
-from anchore_engine.db import db_policybundle, db_policyeval
-from anchore_engine.subsys import object_store
-from anchore_engine.apis.authorization import get_authorizer, INTERNAL_SERVICE_ALLOWED
+from nextlinux_engine.db import db_policybundle, db_policyeval
+from nextlinux_engine.subsys import object_store
+from nextlinux_engine.apis.authorization import get_authorizer, INTERNAL_SERVICE_ALLOWED
 
-import anchore_engine.subsys.events
+import nextlinux_engine.subsys.events
 
 authorizer = get_authorizer()
 
@@ -37,7 +37,7 @@ def list_policies(active=None):
     try:
 
         object_storage_mgr = object_store.get_manager()
-        request_inputs = anchore_engine.apis.do_request_prep(
+        request_inputs = nextlinux_engine.apis.do_request_prep(
             connexion.request, default_params={}
         )
         user_id = request_inputs["userId"]
@@ -72,7 +72,7 @@ def list_policies(active=None):
                         "failed to fetch policy bundle from archive - exception: "
                         + str(err)
                     )
-                    raise anchore_engine.common.helpers.make_anchore_exception(
+                    raise nextlinux_engine.common.helpers.make_nextlinux_exception(
                         err,
                         input_message="failed to fetch policy bundle from archive",
                         input_httpcode=500,
@@ -97,7 +97,7 @@ def get_policy(policyId):
     try:
         object_storage_mgr = object_store.get_manager()
 
-        request_inputs = anchore_engine.apis.do_request_prep(
+        request_inputs = nextlinux_engine.apis.do_request_prep(
             connexion.request, default_params={}
         )
         user_id = request_inputs["userId"]
@@ -126,7 +126,7 @@ def get_policy(policyId):
                     "failed to fetch policy bundle from archive - exception: "
                     + str(err)
                 )
-                raise anchore_engine.common.helpers.make_anchore_exception(
+                raise nextlinux_engine.common.helpers.make_nextlinux_exception(
                     err,
                     input_message="failed to fetch policy bundle from archive",
                     input_httpcode=500,
@@ -134,7 +134,7 @@ def get_policy(policyId):
             return record, 200
         else:
             return (
-                anchore_engine.common.helpers.make_response_error(
+                nextlinux_engine.common.helpers.make_response_error(
                     "Policy bundle {} not found in DB".format(policyId), in_httpcode=404
                 ),
                 404,
@@ -157,7 +157,7 @@ def update_policy(policyId, bodycontent):
     :return:
     """
     try:
-        request_inputs = anchore_engine.apis.do_request_prep(
+        request_inputs = nextlinux_engine.apis.do_request_prep(
             connexion.request, default_params={}
         )
         user_id = request_inputs["userId"]
@@ -182,7 +182,7 @@ def update_policy(policyId, bodycontent):
             record = db_policybundle.get(user_id, policyId, session=dbsession)
             if not record:
                 return (
-                    anchore_engine.common.helpers.make_response_error(
+                    nextlinux_engine.common.helpers.make_response_error(
                         "Existing policyId not found to update", in_httpcode=404
                     ),
                     404,
@@ -208,7 +208,7 @@ def add_policy(bodycontent):
     """
 
     try:
-        request_inputs = anchore_engine.apis.do_request_prep(
+        request_inputs = nextlinux_engine.apis.do_request_prep(
             connexion.request, default_params={}
         )
         user_id = request_inputs["userId"]
@@ -219,7 +219,7 @@ def add_policy(bodycontent):
 
         if not policyId:
             return (
-                anchore_engine.common.helpers.make_response_error(
+                nextlinux_engine.common.helpers.make_response_error(
                     "policyId is required field in json body", in_httpcode=400
                 ),
                 400,
@@ -249,7 +249,7 @@ def delete_policy(policyId, cleanup_evals=False):
 
     try:
         with db.session_scope() as dbsession:
-            request_inputs = anchore_engine.apis.do_request_prep(
+            request_inputs = nextlinux_engine.apis.do_request_prep(
                 connexion.request, default_params={}
             )
             user_id = request_inputs["userId"]
@@ -301,17 +301,17 @@ def save_policy(user_id, policyId, active, policy_bundle, dbsession):
             )
             if last_policy_bundle_content:
                 last_policy_bundle_digest = hashlib.sha256(
-                    anchore_engine.utils.ensure_bytes(
+                    nextlinux_engine.utils.ensure_bytes(
                         json.dumps(last_policy_bundle_content, sort_keys=True)
                     )
                 ).hexdigest()
                 new_policy_bundle_digest = hashlib.sha256(
-                    anchore_engine.utils.ensure_bytes(
+                    nextlinux_engine.utils.ensure_bytes(
                         json.dumps(policy_bundle, sort_keys=True)
                     )
                 ).hexdigest()
                 if last_policy_bundle_digest != new_policy_bundle_digest:
-                    event = anchore_engine.subsys.events.ActivePolicyBundleContentChanged(
+                    event = nextlinux_engine.subsys.events.ActivePolicyBundleContentChanged(
                         user_id=user_id,
                         data={
                             "policy_id": policyId,
@@ -320,7 +320,7 @@ def save_policy(user_id, policyId, active, policy_bundle, dbsession):
                         },
                     )
                     try:
-                        anchore_engine.services.catalog.catalog_impl.add_event(
+                        nextlinux_engine.services.catalog.catalog_impl.add_event(
                             event, dbsession
                         )
                     except:
@@ -344,7 +344,7 @@ def save_policy(user_id, policyId, active, policy_bundle, dbsession):
         else:
             rc = False
     except Exception as err:
-        raise anchore_engine.common.helpers.make_anchore_exception(
+        raise nextlinux_engine.common.helpers.make_nextlinux_exception(
             err,
             input_message="cannot add policy, failed to update archive/DB",
             input_httpcode=500,
@@ -361,7 +361,7 @@ def save_policy(user_id, policyId, active, policy_bundle, dbsession):
                     if policyId != last_active_policyId:
                         # a new policy is now active
                         event = (
-                            anchore_engine.subsys.events.ActivePolicyBundleIdChanged(
+                            nextlinux_engine.subsys.events.ActivePolicyBundleIdChanged(
                                 user_id=user_id,
                                 data={
                                     "last_policy_bundle_id": last_active_policyId,
@@ -370,7 +370,7 @@ def save_policy(user_id, policyId, active, policy_bundle, dbsession):
                             )
                         )
                         try:
-                            anchore_engine.services.catalog.catalog_impl.add_event(
+                            nextlinux_engine.services.catalog.catalog_impl.add_event(
                                 event, dbsession
                             )
                         except:

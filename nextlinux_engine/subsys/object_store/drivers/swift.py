@@ -4,16 +4,16 @@ import urllib.parse
 import io
 from swiftclient.service import SwiftService, SwiftUploadObject, SwiftError
 
-from anchore_engine import utils
-from anchore_engine.subsys.object_store.drivers.interface import ObjectStorageDriver
-from anchore_engine.subsys.object_store.exc import (
+from nextlinux_engine import utils
+from nextlinux_engine.subsys.object_store.drivers.interface import ObjectStorageDriver
+from nextlinux_engine.subsys.object_store.exc import (
     DriverBackendError,
     DriverConfigurationError,
     ObjectKeyNotFoundError,
     ObjectStorageDriverError,
     BadCredentialsError,
 )
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
 
 # Deal with the verbose logging verbosity of swiftclient
@@ -58,7 +58,7 @@ class SwiftObjectStorageDriver(ObjectStorageDriver):
                 "Cannot configure swift driver with out a provided container to use"
             )
 
-        self.prefix = self.config.get("anchore_key_prefix", "")
+        self.prefix = self.config.get("nextlinux_key_prefix", "")
 
         self._check_creds()
         self._check_container()

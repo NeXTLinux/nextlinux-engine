@@ -8,12 +8,12 @@ import json
 import subprocess
 import copy
 
-import anchore_engine.analyzers.utils
+import nextlinux_engine.analyzers.utils
 
 analyzer_name = "file_package_verify"
 
 try:
-    config = anchore_engine.analyzers.utils.init_analyzer_cmdline(
+    config = nextlinux_engine.analyzers.utils.init_analyzer_cmdline(
         sys.argv, analyzer_name
     )
 except Exception as err:
@@ -26,10 +26,10 @@ outputdir = config["dirs"]["outputdir"]
 unpackdir = config["dirs"]["unpackdir"]
 squashtar = os.path.join(unpackdir, "squashed.tar")
 
-meta = anchore_engine.analyzers.utils.get_distro_from_squashtar(
+meta = nextlinux_engine.analyzers.utils.get_distro_from_squashtar(
     squashtar, unpackdir=unpackdir
 )
-distrodict = anchore_engine.analyzers.utils.get_distro_flavor(
+distrodict = nextlinux_engine.analyzers.utils.get_distro_flavor(
     meta["DISTRO"], meta["DISTROVERS"], likedistro=meta["LIKEDISTRO"]
 )
 flavor = distrodict["flavor"]
@@ -43,7 +43,7 @@ try:
     if flavor == "RHEL":
         try:
             # result = rpm_get_file_package_metadata(unpackdir, record)
-            result = anchore_engine.analyzers.utils.rpm_get_file_package_metadata_from_squashtar(
+            result = nextlinux_engine.analyzers.utils.rpm_get_file_package_metadata_from_squashtar(
                 unpackdir, squashtar
             )
         except Exception as err:
@@ -52,7 +52,7 @@ try:
     elif flavor == "DEB":
         try:
             # result = deb_get_file_package_metadata(unpackdir, record)
-            result = anchore_engine.analyzers.utils.dpkg_get_file_package_metadata_from_squashtar(
+            result = nextlinux_engine.analyzers.utils.dpkg_get_file_package_metadata_from_squashtar(
                 unpackdir, squashtar
             )
         except Exception as err:
@@ -61,7 +61,7 @@ try:
     elif flavor == "ALPINE":
         try:
             # result = apk_get_file_package_metadata(unpackdir, record)
-            result = anchore_engine.analyzers.utils.apk_get_file_package_metadata_from_squashtar(
+            result = nextlinux_engine.analyzers.utils.apk_get_file_package_metadata_from_squashtar(
                 unpackdir, squashtar
             )
         except Exception as err:
@@ -85,6 +85,6 @@ if result:
 
 if resultlist:
     ofile = os.path.join(outputdir, "distro.pkgfilemeta")
-    anchore_engine.analyzers.utils.write_kvfile_fromdict(ofile, resultlist)
+    nextlinux_engine.analyzers.utils.write_kvfile_fromdict(ofile, resultlist)
 
 sys.exit(0)

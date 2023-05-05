@@ -1,14 +1,14 @@
 from yosai.core.authc.authc import UsernamePasswordToken
 import time
-from anchore_engine.configuration import localconfig
-from anchore_engine.subsys import logger
-from anchore_engine.db import session_scope, get_session
-from anchore_engine.db.entities.identity import OAuth2Client, OAuth2Token
+from nextlinux_engine.configuration import localconfig
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.db import session_scope, get_session
+from nextlinux_engine.db.entities.identity import OAuth2Client, OAuth2Token
 from authlib.flask.oauth2.authorization_server import AuthorizationServer
 from authlib.oauth2.rfc6749 import grants
-from anchore_engine.apis.authorization import get_authorizer
-from anchore_engine.auth.oauth import token_manager
-from anchore_engine.configuration.localconfig import (
+from nextlinux_engine.apis.authorization import get_authorizer
+from nextlinux_engine.auth.oauth import token_manager
+from nextlinux_engine.configuration.localconfig import (
     OauthNotConfiguredError,
     InvalidOauthConfigurationError,
 )

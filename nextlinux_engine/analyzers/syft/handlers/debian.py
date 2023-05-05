@@ -1,6 +1,6 @@
 import re
 
-from anchore_engine.analyzers.utils import dig
+from nextlinux_engine.analyzers.utils import dig
 
 
 def save_entry(findings, engine_entry, pkg_key=None):
@@ -94,5 +94,5 @@ def _all_package_files(findings, artifact):
             # however, syft reports this as an absolute path
             original_path = "/" + original_path
 
-        # anchore-engine considers all parent paths to also be a registered apkg path (except root)
+        # nextlinux-engine considers all parent paths to also be a registered apkg path (except root)
         findings["package_list"]["pkgfiles.all"]["base"][original_path] = "DPKGFILE"

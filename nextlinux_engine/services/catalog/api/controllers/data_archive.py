@@ -6,16 +6,16 @@ in the engine. The old 'archive' system is now call the 'object store' and uses 
 """
 
 import json
-import anchore_engine.apis
-import anchore_engine.services
+import nextlinux_engine.apis
+import nextlinux_engine.services
 
-from anchore_engine import db
-from anchore_engine import utils as anchore_utils
-from anchore_engine.apis.authorization import INTERNAL_SERVICE_ALLOWED, get_authorizer
-from anchore_engine.apis.context import ApiRequestContextProxy
-from anchore_engine.common.helpers import make_response_error
-from anchore_engine.subsys.metrics import flask_metrics
-from anchore_engine.subsys import archive, logger
+from nextlinux_engine import db
+from nextlinux_engine import utils as nextlinux_utils
+from nextlinux_engine.apis.authorization import INTERNAL_SERVICE_ALLOWED, get_authorizer
+from nextlinux_engine.apis.context import ApiRequestContextProxy
+from nextlinux_engine.common.helpers import make_response_error
+from nextlinux_engine.subsys.metrics import flask_metrics
+from nextlinux_engine.subsys import archive, logger
 
 authorizer = get_authorizer()
 
@@ -31,7 +31,7 @@ def get_archive(bucket, archiveid):
 
         try:
             return_object = json.loads(
-                anchore_utils.ensure_str(
+                nextlinux_utils.ensure_str(
                     archive_sys.get(accountName, bucket, archiveid)
                 )
             )
@@ -41,7 +41,7 @@ def get_archive(bucket, archiveid):
             raise err
 
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
 
@@ -57,7 +57,7 @@ def create_archive(bucket, archiveid, bodycontent):
         archive_sys = archive.get_manager()
 
         try:
-            jsonbytes = anchore_utils.ensure_bytes(json.dumps(bodycontent))
+            jsonbytes = nextlinux_utils.ensure_bytes(json.dumps(bodycontent))
             my_svc = ApiRequestContextProxy.get_service()
             if my_svc is not None:
                 resource_url = (
@@ -80,7 +80,7 @@ def create_archive(bucket, archiveid, bodycontent):
             raise err
 
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
 
@@ -99,7 +99,7 @@ def delete_archive(bucket, archiveid):
             httpcode = 200
             return_object = None
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
 

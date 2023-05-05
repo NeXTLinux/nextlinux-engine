@@ -6,7 +6,7 @@ import copy
 import json
 import time
 
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
 
 def make_response_error(errmsg, in_httpcode=None, details=None):
@@ -24,19 +24,19 @@ def make_response_error(errmsg, in_httpcode=None, details=None):
         ret["detail"]["error_codes"] = []
 
     if isinstance(errmsg, Exception):
-        if not hasattr(errmsg, "anchore_error_json"):
+        if not hasattr(errmsg, "nextlinux_error_json"):
             return ret
 
         # Try to load it as json
         try:
-            anchore_error_json = getattr(errmsg, "anchore_error_json", None)
-            if isinstance(anchore_error_json, dict):
-                err_json = anchore_error_json
+            nextlinux_error_json = getattr(errmsg, "nextlinux_error_json", None)
+            if isinstance(nextlinux_error_json, dict):
+                err_json = nextlinux_error_json
             else:
-                err_json = json.loads(anchore_error_json)
+                err_json = json.loads(nextlinux_error_json)
         except (TypeError, ValueError):
             # Then it may just be a string, we cannot do anything with it
-            logger.debug("Failed to parse anchore_error_json as json")
+            logger.debug("Failed to parse nextlinux_error_json as json")
             return ret
 
         if {"message", "httpcode", "detail"}.issubset(set(err_json)):
@@ -58,7 +58,7 @@ def make_response_error(errmsg, in_httpcode=None, details=None):
     return ret
 
 
-def make_anchore_exception(
+def make_nextlinux_exception(
     err,
     input_message=None,
     input_httpcode=None,
@@ -88,32 +88,32 @@ def make_anchore_exception(
     else:
         httpcode = input_httpcode
 
-    anchore_error_json = {}
+    nextlinux_error_json = {}
     try:
         if isinstance(err, Exception):
-            if hasattr(err, "anchore_error_json"):
-                anchore_error_json.update(getattr(err, "anchore_error_json"))
+            if hasattr(err, "nextlinux_error_json"):
+                nextlinux_error_json.update(getattr(err, "nextlinux_error_json"))
 
             if hasattr(err, "error_code"):
                 error_codes.append(getattr(err, "error_code"))
     except:
         pass
 
-    if override_existing or not anchore_error_json:
-        ret.anchore_error_json = {
+    if override_existing or not nextlinux_error_json:
+        ret.nextlinux_error_json = {
             "message": message,
             "detail": detail,
             "httpcode": httpcode,
         }
     else:
-        ret.anchore_error_json = anchore_error_json
+        ret.nextlinux_error_json = nextlinux_error_json
 
-    if "detail" in ret.anchore_error_json:
-        if "error_codes" not in ret.anchore_error_json["detail"]:
-            ret.anchore_error_json["detail"]["error_codes"] = []
+    if "detail" in ret.nextlinux_error_json:
+        if "error_codes" not in ret.nextlinux_error_json["detail"]:
+            ret.nextlinux_error_json["detail"]["error_codes"] = []
 
         if error_codes:
-            ret.anchore_error_json["detail"]["error_codes"].extend(error_codes)
+            ret.nextlinux_error_json["detail"]["error_codes"].extend(error_codes)
 
     return ret
 
@@ -149,12 +149,12 @@ def update_image_record_with_analysis_data(image_record, image_data):
 
             summary_record = {}
 
-            adm = image_summary_metadata["anchore_distro_meta"]
+            adm = image_summary_metadata["nextlinux_distro_meta"]
 
             summary_record["distro"] = adm.pop("DISTRO", "N/A")
             summary_record["distro_version"] = adm.pop("DISTROVERS", "N/A")
 
-            air = image_summary_metadata["anchore_image_report"]
+            air = image_summary_metadata["nextlinux_image_report"]
             airm = air.pop("meta", {})
             al = air.pop("layers", [])
             ddata = air.pop("docker_data", {})
@@ -355,10 +355,10 @@ def extract_analyzer_content(image_data, content_type, manifest=None):
                 and "analyzer_meta" in idata["imagedata"]["analysis_report"]
             ):
                 ret = {
-                    "anchore_image_report": image_data[0]["image"]["imagedata"][
+                    "nextlinux_image_report": image_data[0]["image"]["imagedata"][
                         "image_report"
                     ],
-                    "anchore_distro_meta": image_data[0]["image"]["imagedata"][
+                    "nextlinux_distro_meta": image_data[0]["image"]["imagedata"][
                         "analysis_report"
                     ]["analyzer_meta"]["analyzer_meta"]["base"],
                 }

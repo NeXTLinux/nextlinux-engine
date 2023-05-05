@@ -30,15 +30,15 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import relationship, synonym, joinedload
 
-from anchore_engine.utils import ensure_str, ensure_bytes
+from nextlinux_engine.utils import ensure_str, ensure_bytes
 
-from anchore_engine.util.rpm import compare_versions as rpm_compare_versions
-from anchore_engine.util.deb import compare_versions as dpkg_compare_versions
-from anchore_engine.util.apk import compare_versions as apkg_compare_versions
-from anchore_engine.util.langpack import compare_versions as langpack_compare_versions
+from nextlinux_engine.util.rpm import compare_versions as rpm_compare_versions
+from nextlinux_engine.util.deb import compare_versions as dpkg_compare_versions
+from nextlinux_engine.util.apk import compare_versions as apkg_compare_versions
+from nextlinux_engine.util.langpack import compare_versions as langpack_compare_versions
 
 try:
-    from anchore_engine.subsys import logger as log
+    from nextlinux_engine.subsys import logger as log
 except:
     import logging
 
@@ -1740,7 +1740,7 @@ class ImagePackage(Base):
         filebuf = self.metadata_json.get("pom.properties", "")
         props = {}
         for line in filebuf.splitlines():
-            # line = anchore_engine.utils.ensure_str(line)
+            # line = nextlinux_engine.utils.ensure_str(line)
             if not re.match(r"\s*(#.*)?$", line):
                 kv = line.split("=")
                 key = kv[0].strip()
@@ -2306,14 +2306,14 @@ class Image(Base):
         Enum("failed", "initializing", "analyzing", "analyzed", name="image_states"),
         default="initializing",
     )  # For now we only load analyzed images, no progress tracking
-    anchore_type = Column(
+    nextlinux_type = Column(
         Enum(
             "undefined",
             "base",
             "application",
             "user",
             "intermediate",
-            name="anchore_image_types",
+            name="nextlinux_image_types",
         ),
         default="undefined",
     )  # TODO: verify if base or undefined should be default

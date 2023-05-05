@@ -5,12 +5,12 @@ import os
 import json
 import stat
 
-import anchore_engine.analyzers.utils
+import nextlinux_engine.analyzers.utils
 
 analyzer_name = "file_suids"
 
 try:
-    config = anchore_engine.analyzers.utils.init_analyzer_cmdline(
+    config = nextlinux_engine.analyzers.utils.init_analyzer_cmdline(
         sys.argv, analyzer_name
     )
 except Exception as err:
@@ -29,15 +29,15 @@ outfiles = {}
 
 try:
     allfiles = {}
-    if os.path.exists(unpackdir + "/anchore_allfiles.json"):
-        with open(unpackdir + "/anchore_allfiles.json", "r") as FH:
+    if os.path.exists(unpackdir + "/nextlinux_allfiles.json"):
+        with open(unpackdir + "/nextlinux_allfiles.json", "r") as FH:
             allfiles = json.loads(FH.read())
     else:
-        # fmap, allfiles = anchore_engine.analyzers.utils.get_files_from_path(unpackdir + "/rootfs")
-        fmap, allfiles = anchore_engine.analyzers.utils.get_files_from_squashtar(
+        # fmap, allfiles = nextlinux_engine.analyzers.utils.get_files_from_path(unpackdir + "/rootfs")
+        fmap, allfiles = nextlinux_engine.analyzers.utils.get_files_from_squashtar(
             os.path.join(unpackdir, "squashed.tar")
         )
-        with open(unpackdir + "/anchore_allfiles.json", "w") as OFH:
+        with open(unpackdir + "/nextlinux_allfiles.json", "w") as OFH:
             OFH.write(json.dumps(allfiles))
 
     # fileinfo
@@ -50,6 +50,6 @@ except Exception as err:
 
 if outfiles:
     ofile = os.path.join(outputdir, "files.suids")
-    anchore_engine.analyzers.utils.write_kvfile_fromdict(ofile, outfiles)
+    nextlinux_engine.analyzers.utils.write_kvfile_fromdict(ofile, outfiles)
 
 sys.exit(0)

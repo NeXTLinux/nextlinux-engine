@@ -10,16 +10,16 @@ import typing
 from io import BytesIO
 import ijson
 
-from anchore_engine.configuration import localconfig
-from anchore_engine.subsys import logger
-from anchore_engine.utils import ensure_str, ensure_bytes, NextlinuxException
-from anchore_engine.services.policy_engine.engine.feeds import (
+from nextlinux_engine.configuration import localconfig
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.utils import ensure_str, ensure_bytes, NextlinuxException
+from nextlinux_engine.services.policy_engine.engine.feeds import (
     IFeedSource,
     FeedGroupList,
     FeedList,
     GroupData,
 )
-from anchore_engine.common.schemas import (
+from nextlinux_engine.common.schemas import (
     FeedAPIRecord,
     FeedAPIGroupRecord,
 )
@@ -239,7 +239,7 @@ def get_client(
     """
     Returns a configured client based on the local config. Reads configuration from the loaded system configuration.
 
-    Uses the admin user's credentials for the feed service if they are available in the external_service_auths/anchoreio/anchorecli/auth json path of the config file. If no specific user credentials are found then the anonymous user credentials are used.
+    Uses the admin user's credentials for the feed service if they are available in the external_service_auths/nextlinuxio/nextlinuxcli/auth json path of the config file. If no specific user credentials are found then the anonymous user credentials are used.
 
     :return: initialize NextlinuxIOFeedClient
     """
@@ -293,8 +293,8 @@ def get_client(
                 .get("users", {})
                 .get("admin", {})
                 .get("external_service_auths", {})
-                .get("anchoreio", {})
-                .get("anchorecli", {})
+                .get("nextlinuxio", {})
+                .get("nextlinuxcli", {})
                 .get("auth")
             )
             if admin_usr:
@@ -494,7 +494,7 @@ class NextlinuxIOClientError(NextlinuxException):
     def __init__(
         self,
         cause,
-        msg="Error initializing anchore.io client with configured credentials",
+        msg="Error initializing nextlinux.io client with configured credentials",
     ):
         self.cause = str(cause)
         self.msg = msg

@@ -11,12 +11,12 @@ These leases are re-entrant and not incrementing, so a single release() will rel
 
 import time
 from contextlib import contextmanager
-from anchore_engine.db import Lease, session_scope
-from anchore_engine.db.entities.exceptions import (
+from nextlinux_engine.db import Lease, session_scope
+from nextlinux_engine.db.entities.exceptions import (
     is_unique_violation,
     is_lock_acquisition_error,
 )
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
 DEFAULT_ACQUIRE_TIMEOUT_SECONDS = 3
 DEFAULT_LOCK_DURATION_SECONDS = 10

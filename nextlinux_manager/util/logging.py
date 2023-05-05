@@ -1,9 +1,9 @@
 import json
 import sys
 from collections import OrderedDict
-from anchore_engine.subsys import logger
-from anchore_manager.util.proc import ExitCode
-from anchore_manager.util.config import DEFAULT_CONFIG
+from nextlinux_engine.subsys import logger
+from nextlinux_manager.util.proc import ExitCode
+from nextlinux_manager.util.config import DEFAULT_CONFIG
 import logging
 
 # Sane default

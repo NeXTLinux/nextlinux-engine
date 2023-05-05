@@ -1,4 +1,4 @@
-from anchore_engine.services.policy_engine.engine.policy.gate import BaseTrigger, Gate
+from nextlinux_engine.services.policy_engine.engine.policy.gate import BaseTrigger, Gate
 
 
 class AlwaysFireTrigger(BaseTrigger):

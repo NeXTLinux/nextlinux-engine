@@ -1,6 +1,6 @@
-from anchore_engine.db import FeedMetadata, FeedGroupMetadata, get_session
-from anchore_engine.subsys.caching import local_named_cache
-from anchore_engine.subsys import logger
+from nextlinux_engine.db import FeedMetadata, FeedGroupMetadata, get_session
+from nextlinux_engine.subsys.caching import local_named_cache
+from nextlinux_engine.subsys import logger
 
 cache_name = "feed_group_metadata"
 

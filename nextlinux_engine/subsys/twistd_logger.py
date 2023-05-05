@@ -8,9 +8,9 @@ def logger():
         if "NEXTLINUX_LOGFILE" in os.environ:
             thefile = os.environ["NEXTLINUX_LOGFILE"]
         else:
-            thefile = "anchore-general.log"
+            thefile = "nextlinux-general.log"
     except:
-        thefile = "anchore-general.log"
+        thefile = "nextlinux-general.log"
 
     f = logfile.LogFile(thefile,
                         "/var/log/",

@@ -5,25 +5,25 @@ API Authorization handlers and functions for use in API processing
 import enum
 import json
 from abc import abstractmethod, ABC
-import anchore_engine
+import nextlinux_engine
 from collections import namedtuple
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 from connexion import request as request_proxy
 from flask import Response
-from anchore_engine.apis.context import ApiRequestContextProxy
+from nextlinux_engine.apis.context import ApiRequestContextProxy
 from yosai.core import Yosai, exceptions as auth_exceptions, UsernamePasswordToken
 from yosai.core.authc.authc import token_info
 from yosai.core.authc.abcs import AuthenticationToken
-from anchore_engine.db import session_scope, AccountTypes, AccountStates
+from nextlinux_engine.db import session_scope, AccountTypes, AccountStates
 import pkg_resources
 import functools
-from anchore_engine.common.helpers import make_response_error
-from anchore_engine.apis.authentication import idp_factory, IdentityContext
-from anchore_engine.apis.exceptions import NextlinuxApiError
+from nextlinux_engine.common.helpers import make_response_error
+from nextlinux_engine.apis.authentication import idp_factory, IdentityContext
+from nextlinux_engine.apis.exceptions import NextlinuxApiError
 from threading import RLock
-from anchore_engine.subsys.auth.realms import UsernamePasswordRealm, ExternalAuthorizer
-from anchore_engine.configuration import localconfig
-from anchore_engine.subsys.auth.stores.verifier import JwtToken
+from nextlinux_engine.subsys.auth.realms import UsernamePasswordRealm, ExternalAuthorizer
+from nextlinux_engine.configuration import localconfig
+from nextlinux_engine.subsys.auth.stores.verifier import JwtToken
 
 # Global authorizer configured
 _global_authorizer = None
@@ -242,7 +242,7 @@ class DbAuthorizationHandler(AuthorizationHandler):
     def load(self, configuration):
         with DbAuthorizationHandler._config_lock:
             conf_path = pkg_resources.resource_filename(
-                anchore_engine.__name__, "conf/default_yosai_settings.yaml"
+                nextlinux_engine.__name__, "conf/default_yosai_settings.yaml"
             )
             DbAuthorizationHandler._yosai = Yosai(file_path=conf_path)
             # Disable sessions, since the APIs are not session-based
@@ -821,9 +821,9 @@ class ExternalAuthorizationHandler(DbAuthorizationHandler):
             )
             UsernamePasswordRealm.__external_authorizer__ = self.__external_authorizer__
 
-            # conf_path = pkg_resources.resource_filename(anchore_engine.__name__, 'conf/external_authz_yosai_settings.yaml')
+            # conf_path = pkg_resources.resource_filename(nextlinux_engine.__name__, 'conf/external_authz_yosai_settings.yaml')
             conf_path = pkg_resources.resource_filename(
-                anchore_engine.__name__, "conf/default_yosai_settings.yaml"
+                nextlinux_engine.__name__, "conf/default_yosai_settings.yaml"
             )
             ExternalAuthorizationHandler._yosai = Yosai(file_path=conf_path)
 
@@ -844,7 +844,7 @@ class InternalServiceAuthorizer(DbAuthorizationHandler):
 
     def load(self, configuration):
         conf_path = pkg_resources.resource_filename(
-            anchore_engine.__name__, "conf/internal_authz_yosai_settings.yaml"
+            nextlinux_engine.__name__, "conf/internal_authz_yosai_settings.yaml"
         )
         self.yosai = Yosai(file_path=conf_path)
 

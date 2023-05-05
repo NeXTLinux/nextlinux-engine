@@ -1,6 +1,6 @@
 import time
 
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
 
 def do_simple_pagination(

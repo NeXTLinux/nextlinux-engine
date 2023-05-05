@@ -2,11 +2,11 @@ import json
 import threading
 import time
 
-from anchore_engine.clients.services import http
-from anchore_engine.subsys import logger
-from anchore_engine.utils import get_threadbased_id
-from anchore_engine.clients.services.internal import InternalServiceClient
-from anchore_engine.clients.services import internal_client_for
+from nextlinux_engine.clients.services import http
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.utils import get_threadbased_id
+from nextlinux_engine.clients.services.internal import InternalServiceClient
+from nextlinux_engine.clients.services import internal_client_for
 import retrying
 
 

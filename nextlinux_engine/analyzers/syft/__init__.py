@@ -1,7 +1,7 @@
 import collections
 
-from anchore_engine.analyzers.utils import defaultdict_to_dict, content_hints
-from anchore_engine.clients.syft_wrapper import run_syft
+from nextlinux_engine.analyzers.utils import defaultdict_to_dict, content_hints
+from nextlinux_engine.clients.syft_wrapper import run_syft
 from .handlers import handlers_by_artifact_type, handlers_by_engine_type
 
 

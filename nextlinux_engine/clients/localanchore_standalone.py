@@ -15,31 +15,31 @@ import collections
 import yaml
 from pkg_resources import resource_filename
 
-import anchore_engine.configuration
-import anchore_engine.common
-import anchore_engine.auth.common
-import anchore_engine.clients.skopeo_wrapper
-import anchore_engine.common.images
-import anchore_engine.analyzers.utils
-import anchore_engine.analyzers.syft
-from anchore_engine.utils import NextlinuxException
-from anchore_engine.util.docker import (
+import nextlinux_engine.configuration
+import nextlinux_engine.common
+import nextlinux_engine.auth.common
+import nextlinux_engine.clients.skopeo_wrapper
+import nextlinux_engine.common.images
+import nextlinux_engine.analyzers.utils
+import nextlinux_engine.analyzers.syft
+from nextlinux_engine.utils import NextlinuxException
+from nextlinux_engine.util.docker import (
     DockerV1ManifestMetadata,
     DockerV2ManifestMetadata,
 )
 import retrying
 
-from anchore_engine import utils
+from nextlinux_engine import utils
 
-anchorelock = threading.Lock()
-anchorelocks = {}
+nextlinuxlock = threading.Lock()
+nextlinuxlocks = {}
 
 IMAGE_PULL_RETRIES = 3
 IMAGE_PULL_RETRY_WAIT_MS = 1000
 IMAGE_PULL_RETRY_WAIT_INCREMENT_MS = 1000
 
 try:
-    from anchore_engine.subsys import logger
+    from nextlinux_engine.subsys import logger
 
     # Separate logger for use during bootstrap when logging may not be fully configured
     from twisted.python import log
@@ -600,7 +600,7 @@ def make_staging_dirs(rootdir, use_cache_dir=None):
     try:
         if os.environ.get("NEXTLINUX_TEST_HINTSFILE"):
             test_hints = os.environ["NEXTLINUX_TEST_HINTSFILE"]
-            destination = os.path.join(unpackdir, "anchore_hints.json")
+            destination = os.path.join(unpackdir, "nextlinux_hints.json")
             shutil.copyfile(test_hints, destination)
     except Exception as err:
         logger.debug("testing injection of hintsfile failed: %s", str(err))
@@ -642,7 +642,7 @@ def delete_staging_dirs(staging_dirs):
         if k == "cachedir":
             continue
 
-        localconfig = anchore_engine.configuration.localconfig.get_config()
+        localconfig = nextlinux_engine.configuration.localconfig.get_config()
         myconfig = localconfig.get("services", {}).get("analyzer", {})
         if not myconfig.get("keep_image_analysis_tmpfiles", False):
             try:
@@ -675,9 +675,9 @@ def pull_image(staging_dirs,
 
     # extract user/pw/verify from registry_creds
     if registry_creds:
-        image_info = anchore_engine.common.images.get_image_info(
+        image_info = nextlinux_engine.common.images.get_image_info(
             None, "docker", pullstring, registry_lookup=False)
-        user, pw, registry_verify = anchore_engine.auth.common.get_creds_by_registry(
+        user, pw, registry_verify = nextlinux_engine.auth.common.get_creds_by_registry(
             image_info["registry"],
             image_info["repo"],
             registry_creds=registry_creds)
@@ -685,7 +685,7 @@ def pull_image(staging_dirs,
     # download
     logger.info("Downloading image {} for analysis to {}".format(
         pullstring, copydir))
-    return anchore_engine.clients.skopeo_wrapper.download_image(
+    return nextlinux_engine.clients.skopeo_wrapper.download_image(
         pullstring,
         copydir,
         user=user,
@@ -891,8 +891,8 @@ def list_analyzers():
     :return: list of str that are the names of the analyzer modules
     """
 
-    anchore_module_root = resource_filename("anchore_engine", "analyzers")
-    analyzer_root = os.path.join(anchore_module_root, "modules")
+    nextlinux_module_root = resource_filename("nextlinux_engine", "analyzers")
+    analyzer_root = os.path.join(nextlinux_module_root, "modules")
     result = []
     for f in os.listdir(analyzer_root):
         thecmd = os.path.join(analyzer_root, f)
@@ -903,7 +903,7 @@ def list_analyzers():
     return result
 
 
-def run_anchore_analyzers(staging_dirs, imageDigest, imageId, localconfig):
+def run_nextlinux_analyzers(staging_dirs, imageDigest, imageId, localconfig):
     outputdir = staging_dirs["outputdir"]
     unpackdir = staging_dirs["unpackdir"]
     copydir = staging_dirs["copydir"]
@@ -912,12 +912,12 @@ def run_anchore_analyzers(staging_dirs, imageDigest, imageId, localconfig):
     myconfig = localconfig.get("services", {}).get("analyzer", {})
     if not myconfig.get("enable_hints", False):
         # install an empty hints file to ensure that any discovered hints overrides is ignored during analysis
-        with open(os.path.join(unpackdir, "anchore_hints.json"), "w") as OFH:
+        with open(os.path.join(unpackdir, "nextlinux_hints.json"), "w") as OFH:
             OFH.write(json.dumps({}))
 
     # run analyzers
-    anchore_module_root = resource_filename("anchore_engine", "analyzers")
-    analyzer_root = os.path.join(anchore_module_root, "modules")
+    nextlinux_module_root = resource_filename("nextlinux_engine", "analyzers")
+    analyzer_root = os.path.join(nextlinux_module_root, "modules")
     for f in list_analyzers():
         cmdstr = " ".join(
             [f, configdir, imageId, unpackdir, outputdir, unpackdir])
@@ -948,7 +948,7 @@ def run_anchore_analyzers(staging_dirs, imageDigest, imageId, localconfig):
             os.path.join(outputdir, "analyzer_output")):
         for analyzer_output_el in os.listdir(
                 os.path.join(outputdir, "analyzer_output", analyzer_output)):
-            data = anchore_engine.analyzers.utils.read_kvfile_todict(
+            data = nextlinux_engine.analyzers.utils.read_kvfile_todict(
                 os.path.join(outputdir, "analyzer_output", analyzer_output,
                              analyzer_output_el))
             if data:
@@ -956,10 +956,10 @@ def run_anchore_analyzers(staging_dirs, imageDigest, imageId, localconfig):
                     "base": data
                 }
 
-    syft_results = anchore_engine.analyzers.syft.catalog_image(
+    syft_results = nextlinux_engine.analyzers.syft.catalog_image(
         image=copydir, unpackdir=unpackdir)
 
-    anchore_engine.analyzers.utils.merge_nested_dict(analyzer_report,
+    nextlinux_engine.analyzers.utils.merge_nested_dict(analyzer_report,
                                                      syft_results)
 
     return dict(analyzer_report)
@@ -1084,7 +1084,7 @@ def analyze_image(
         unpackdir = staging_dirs["unpackdir"]
 
         if image_source == "docker-archive":
-            rc = anchore_engine.clients.skopeo_wrapper.copy_image_from_docker_archive(
+            rc = nextlinux_engine.clients.skopeo_wrapper.copy_image_from_docker_archive(
                 image_source_meta, staging_dirs["copydir"])
 
             manifest = get_manifest_from_staging(staging_dirs)
@@ -1143,7 +1143,7 @@ def analyze_image(
         familytree = layers
 
         timer = time.time()
-        analyzer_report = run_anchore_analyzers(staging_dirs, imageDigest,
+        analyzer_report = run_nextlinux_analyzers(staging_dirs, imageDigest,
                                                 imageId, localconfig)
 
         logger.debug("timing: total analyzer time: {} - {}".format(
@@ -1227,39 +1227,39 @@ class ManifestSchemaVersionError(AnalysisError):
         )
 
 
-def get_anchorelock(lockId=None, driver=None):
-    global anchorelock, anchorelocks
-    ret = anchorelock
+def get_nextlinuxlock(lockId=None, driver=None):
+    global nextlinuxlock, nextlinuxlocks
+    ret = nextlinuxlock
 
-    # first, check if we need to update the anchore configs
-    localconfig = anchore_engine.configuration.localconfig.get_config()
+    # first, check if we need to update the nextlinux configs
+    localconfig = nextlinux_engine.configuration.localconfig.get_config()
 
-    if not driver or driver in ["localanchore"]:
-        if "anchore_scanner_config" not in localconfig:
-            localconfig["anchore_scanner_config"] = get_config()
-            anchore_config = localconfig["anchore_scanner_config"]
-        anchore_config = localconfig["anchore_scanner_config"]
-        anchore_data_dir = anchore_config["anchore_data_dir"]
+    if not driver or driver in ["localnextlinux"]:
+        if "nextlinux_scanner_config" not in localconfig:
+            localconfig["nextlinux_scanner_config"] = get_config()
+            nextlinux_config = localconfig["nextlinux_scanner_config"]
+        nextlinux_config = localconfig["nextlinux_scanner_config"]
+        nextlinux_data_dir = nextlinux_config["nextlinux_data_dir"]
     else:
-        # anchore_data_dir = "/root/.anchore"
-        anchore_data_dir = "{}/.anchore".format(
-            os.getenv("HOME", "/tmp/anchoretmp"))
-        if not os.path.exists(os.path.join(anchore_data_dir, "conf")):
+        # nextlinux_data_dir = "/root/.nextlinux"
+        nextlinux_data_dir = "{}/.nextlinux".format(
+            os.getenv("HOME", "/tmp/nextlinuxtmp"))
+        if not os.path.exists(os.path.join(nextlinux_data_dir, "conf")):
             try:
-                os.makedirs(os.path.join(anchore_data_dir, "conf"))
+                os.makedirs(os.path.join(nextlinux_data_dir, "conf"))
             except:
                 pass
 
     try:
         for src, dst in [
             (
-                localconfig["anchore_scanner_analyzer_config_file"],
-                os.path.join(anchore_data_dir, "conf", "analyzer_config.yaml"),
+                localconfig["nextlinux_scanner_analyzer_config_file"],
+                os.path.join(nextlinux_data_dir, "conf", "analyzer_config.yaml"),
             ),
             (
                 os.path.join(localconfig["service_dir"],
-                             "anchore_config.yaml"),
-                os.path.join(anchore_data_dir, "conf", "config.yaml"),
+                             "nextlinux_config.yaml"),
+                os.path.join(nextlinux_data_dir, "conf", "config.yaml"),
             ),
         ]:
             logger.debug("checking defaults against installed: " + src +
@@ -1290,28 +1290,28 @@ def get_anchorelock(lockId=None, driver=None):
 
     except Exception as err:
         logger.warn(
-            "could not check/install analyzer anchore configurations (please check yaml format of your configuration files), continuing with default - exception: "
+            "could not check/install analyzer nextlinux configurations (please check yaml format of your configuration files), continuing with default - exception: "
             + str(err))
 
     if lockId:
         lockId = base64.encodebytes(lockId.encode("utf-8"))
-        if lockId not in anchorelocks:
-            anchorelocks[lockId] = threading.Lock()
-        ret = anchorelocks[lockId]
-        logger.spew("all locks: " + str(anchorelocks))
+        if lockId not in nextlinuxlocks:
+            nextlinuxlocks[lockId] = threading.Lock()
+        ret = nextlinuxlocks[lockId]
+        logger.spew("all locks: " + str(nextlinuxlocks))
     else:
-        ret = anchorelock
+        ret = nextlinuxlock
 
     return ret
 
 
 def get_config():
     ret = {}
-    logger.debug("fetching local anchore anchore_engine.configuration")
+    logger.debug("fetching local nextlinux nextlinux_engine.configuration")
     if True:
-        cmd = ["anchore", "--json", "system", "status", "--conf"]
+        cmd = ["nextlinux", "--json", "system", "status", "--conf"]
         try:
-            rc, sout, serr = anchore_engine.utils.run_command_list(cmd)
+            rc, sout, serr = nextlinux_engine.utils.run_command_list(cmd)
             sout = utils.ensure_str(sout)
             serr = utils.ensure_str(serr)
             ret = json.loads(sout)

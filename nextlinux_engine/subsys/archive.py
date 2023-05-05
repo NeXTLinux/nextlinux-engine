@@ -5,9 +5,9 @@ point.
 This is primarily used for the analysis archive feature of the system, but is not specific to that usage.
 
 """
-from anchore_engine.subsys.object_store.manager import initialize_direct
-from anchore_engine.subsys import object_store
-from anchore_engine.subsys.object_store.config import (
+from nextlinux_engine.subsys.object_store.manager import initialize_direct
+from nextlinux_engine.subsys import object_store
+from nextlinux_engine.subsys.object_store.config import (
     ANALYSIS_ARCHIVE_MANAGER_ID,
     DEFAULT_OBJECT_STORE_MANAGER_ID,
     default_config as DEFAULT_OBJ_STORE_CONFIG,
@@ -15,9 +15,9 @@ from anchore_engine.subsys.object_store.config import (
     DRIVER_NAME_KEY,
     extract_config as obj_store_extract_config,
 )
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
-DEFAULT_BUCKET_PREFIX = "anchore_analysis_archive"
+DEFAULT_BUCKET_PREFIX = "nextlinux_analysis_archive"
 
 _manager_singleton = None
 
@@ -86,7 +86,7 @@ class ArchiveManager(object):
     """
     Wrapper around ObjectStoreManager for bucket namespacing as well as some migration abilities and metadata.
 
-    The bucket prefix is a logical bucket prefix for the anchore bucket. Obj storage drivers will have their own actual
+    The bucket prefix is a logical bucket prefix for the nextlinux bucket. Obj storage drivers will have their own actual
     bucket used in the backing store such this logical prefix typically becomes a key prefix since bucket names are immutable from that
     set in the driver config.
 

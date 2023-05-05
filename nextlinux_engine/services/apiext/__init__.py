@@ -1,9 +1,9 @@
 import pkg_resources
-import anchore_engine.subsys.servicestatus
-import anchore_engine.subsys.metrics
-from anchore_engine.apis.oauth import init_oauth, PasswordGrant
-from anchore_engine.service import ApiService, UserFacingApiService, LifeCycleStages
-from anchore_engine.configuration import localconfig
+import nextlinux_engine.subsys.servicestatus
+import nextlinux_engine.subsys.metrics
+from nextlinux_engine.apis.oauth import init_oauth, PasswordGrant
+from nextlinux_engine.service import ApiService, UserFacingApiService, LifeCycleStages
+from nextlinux_engine.configuration import localconfig
 
 
 class ExternalApiService(UserFacingApiService):
@@ -12,7 +12,7 @@ class ExternalApiService(UserFacingApiService):
 
     __monitors__ = {
         "service_heartbeat": {
-            "handler": anchore_engine.subsys.servicestatus.handle_service_heartbeat,
+            "handler": nextlinux_engine.subsys.servicestatus.handle_service_heartbeat,
             "taskType": "handle_service_heartbeat",
             "args": [__service_name__],
             "cycle_timer": 60,

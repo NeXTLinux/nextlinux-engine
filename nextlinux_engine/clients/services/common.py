@@ -3,9 +3,9 @@ import copy
 import time
 import random
 
-import anchore_engine.configuration.localconfig
-from anchore_engine.db import db_services, session_scope
-from anchore_engine.subsys import logger
+import nextlinux_engine.configuration.localconfig
+from nextlinux_engine.db import db_services, session_scope
+from nextlinux_engine.subsys import logger
 
 localconfig = None
 
@@ -102,7 +102,7 @@ def get_service_endpoint(servicename, api_post=None):
     global localconfig
 
     if localconfig == None:
-        localconfig = anchore_engine.configuration.localconfig.get_config()
+        localconfig = nextlinux_engine.configuration.localconfig.get_config()
 
     base_url = None
 
@@ -148,7 +148,7 @@ def get_service_endpoints(servicename, api_post=None):
     global localconfig
 
     if localconfig == None:
-        localconfig = anchore_engine.configuration.localconfig.get_config()
+        localconfig = nextlinux_engine.configuration.localconfig.get_config()
 
     base_url = None
     base_urls = []

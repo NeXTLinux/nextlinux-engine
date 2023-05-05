@@ -7,12 +7,12 @@ import uuid
 
 from sqlalchemy import or_
 
-from anchore_engine import db
-from anchore_engine.apis.authorization import INTERNAL_SERVICE_ALLOWED, get_authorizer
-from anchore_engine.apis.context import ApiRequestContextProxy
-from anchore_engine.apis.exceptions import BadRequest
-from anchore_engine.common.helpers import make_response_error
-from anchore_engine.db import (
+from nextlinux_engine import db
+from nextlinux_engine.apis.authorization import INTERNAL_SERVICE_ALLOWED, get_authorizer
+from nextlinux_engine.apis.context import ApiRequestContextProxy
+from nextlinux_engine.apis.exceptions import BadRequest
+from nextlinux_engine.common.helpers import make_response_error
+from nextlinux_engine.db import (
     session_scope,
     ArchivedImage,
     ArchivedImageDocker,
@@ -21,13 +21,13 @@ from anchore_engine.db import (
     ArchiveTransitionHistoryEntry,
     ArchiveTransitions,
 )
-from anchore_engine.services.catalog.archiver import (
+from nextlinux_engine.services.catalog.archiver import (
     ArchiveImageTask,
     DeleteArchivedImageTask,
 )
-from anchore_engine.subsys import logger
-from anchore_engine.subsys.metrics import flask_metrics
-from anchore_engine.utils import epoch_to_rfc3339
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.subsys.metrics import flask_metrics
+from nextlinux_engine.utils import epoch_to_rfc3339
 
 authorizer = get_authorizer()
 
@@ -444,7 +444,7 @@ def delete_archived_analysis(imageDigest, force=False):
 @flask_metrics.do_not_track()
 @authorizer.requires_account(with_types=INTERNAL_SERVICE_ALLOWED)
 def import_archive(imageDigest, archive_file):
-    from anchore_engine.services.catalog import archiver
+    from nextlinux_engine.services.catalog import archiver
 
     try:
         digest = imageDigest

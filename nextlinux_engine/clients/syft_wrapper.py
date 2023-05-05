@@ -2,7 +2,7 @@ import os
 import json
 import shlex
 
-from anchore_engine.utils import run_check
+from nextlinux_engine.utils import run_check
 
 
 def run_syft(image):

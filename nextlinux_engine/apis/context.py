@@ -1,5 +1,5 @@
 from flask import g as request_globals, request
-from anchore_engine.apis.authentication import IdentityContext
+from nextlinux_engine.apis.authentication import IdentityContext
 
 
 class ApiRequestContextProxy(object):
@@ -31,7 +31,7 @@ class ApiRequestContextProxy(object):
         :return:
         """
         try:
-            override = request.headers.get("x-anchore-account")
+            override = request.headers.get("x-nextlinux-account")
             if override:
                 return override
             else:

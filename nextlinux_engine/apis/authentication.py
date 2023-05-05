@@ -6,7 +6,7 @@ This is the interface exposed to services for identity.
 """
 from collections import namedtuple
 
-from anchore_engine.subsys.identities import manager_factory
+from nextlinux_engine.subsys.identities import manager_factory
 
 IdentityContext = namedtuple(
     "IdentityContext",

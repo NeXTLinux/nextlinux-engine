@@ -1,14 +1,14 @@
 import base64
 import json
 
-from anchore_engine.services.apiext.api import helpers
+from nextlinux_engine.services.apiext.api import helpers
 
-import anchore_engine
-from anchore_engine import utils, db
-from anchore_engine.apis.exceptions import ResourceNotFound, BadRequest
-from anchore_engine.common.helpers import make_anchore_exception
-from anchore_engine.db import db_catalog_image
-from anchore_engine.subsys import taskstate, logger
+import nextlinux_engine
+from nextlinux_engine import utils, db
+from nextlinux_engine.apis.exceptions import ResourceNotFound, BadRequest
+from nextlinux_engine.common.helpers import make_nextlinux_exception
+from nextlinux_engine.db import db_catalog_image
+from nextlinux_engine.subsys import taskstate, logger
 
 
 class ImageContentGetter:
@@ -19,7 +19,7 @@ class ImageContentGetter:
         self.account_id = account_id
         self.content_type = content_type
         self.image_digest = image_digest
-        self.obj_mgr = anchore_engine.subsys.object_store.manager.get_manager()
+        self.obj_mgr = nextlinux_engine.subsys.object_store.manager.get_manager()
 
     def get_error_detail(self):
         return {
@@ -75,7 +75,7 @@ class ImageContentGetter:
             )["document"]
         except Exception as err:
             logger.error("Failed to load image content data")
-            raise make_anchore_exception(
+            raise make_nextlinux_exception(
                 err,
                 input_message="cannot fetch content data from archive",
                 input_httpcode=500,
@@ -95,7 +95,7 @@ class ImageManifestContentGetter(ImageContentGetter):
             )["document"]
         except Exception as err:
             logger.error("Failed to load image content data")
-            raise make_anchore_exception(
+            raise make_nextlinux_exception(
                 err,
                 input_message="cannot fetch content data %s from archive"
                 % self.content_type,

@@ -5,9 +5,9 @@ import datetime
 import shutil
 import typing
 
-from anchore_engine.utils import mapped_parser_item_iterator
-from anchore_engine.services.policy_engine.engine.feeds import IFeedSource
-from anchore_engine.common.schemas import (
+from nextlinux_engine.utils import mapped_parser_item_iterator
+from nextlinux_engine.services.policy_engine.engine.feeds import IFeedSource
+from nextlinux_engine.common.schemas import (
     LocalFeedDataRepoMetadata,
     DownloadOperationConfiguration,
     DownloadOperationResult,
@@ -17,9 +17,9 @@ from anchore_engine.common.schemas import (
     GroupDownloadResult,
 )
 
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
-from anchore_engine.utils import ensure_bytes, timer
+from nextlinux_engine.utils import ensure_bytes, timer
 
 FEED_DATA_ITEMS_PATH = "data.item"
 

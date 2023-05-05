@@ -1,6 +1,6 @@
 import json
-from anchore_engine import db
-from anchore_engine.db import ObjectStorageRecord
+from nextlinux_engine import db
+from nextlinux_engine.db import ObjectStorageRecord
 
 
 def put(userId, bucket, key, data, metadata=None, session=None):

@@ -6,7 +6,7 @@ import datetime
 
 import marshmallow
 from marshmallow import Schema, post_load, fields
-from anchore_engine.utils import datetime_to_rfc3339, rfc3339str_to_datetime
+from nextlinux_engine.utils import datetime_to_rfc3339, rfc3339str_to_datetime
 
 # For other modules to import from this one instead of having to know/use marshmallow directly
 ValidationError = marshmallow.ValidationError

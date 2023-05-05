@@ -3,9 +3,9 @@ import hashlib
 import json
 import re
 
-from anchore_engine.utils import ensure_str, ensure_bytes
-from anchore_engine.db import DistroNamespace
-from anchore_engine.db import (
+from nextlinux_engine.utils import ensure_str, ensure_bytes
+from nextlinux_engine.db import DistroNamespace
+from nextlinux_engine.db import (
     Image,
     ImagePackage,
     FilesystemAnalysis,
@@ -15,9 +15,9 @@ from anchore_engine.db import (
     ImagePackageManifestEntry,
     ImageCpe,
 )  # , ImageJava, ImagePython
-from anchore_engine.subsys import logger
-from anchore_engine.util.rpm import split_rpm_filename
-from anchore_engine.common.helpers import safe_extract_json_value
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.util.rpm import split_rpm_filename
+from nextlinux_engine.common.helpers import safe_extract_json_value
 
 
 # this is a static mapping of known package names (keys) to official cpe names for each package

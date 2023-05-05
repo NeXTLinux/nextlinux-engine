@@ -9,13 +9,13 @@ import logging
 import datetime
 
 from flask import abort
-from anchore_engine.db import (
+from nextlinux_engine.db import (
     get_thread_scoped_session as get_session,
     DistroMapping as DbDistroMapping,
 )
-from anchore_engine.services.policy_engine.api.models import DistroMapping
+from nextlinux_engine.services.policy_engine.api.models import DistroMapping
 from sqlalchemy.exc import IntegrityError
-from anchore_engine.apis.authorization import get_authorizer, INTERNAL_SERVICE_ALLOWED
+from nextlinux_engine.apis.authorization import get_authorizer, INTERNAL_SERVICE_ALLOWED
 
 log = logging.getLogger()
 NEXTLINUX_PUBLIC_USER = "0"

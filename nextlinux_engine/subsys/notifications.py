@@ -2,14 +2,14 @@ import json
 import uuid
 import jsonschema
 
-import anchore_engine.configuration.localconfig
-from anchore_engine.apis.context import ApiRequestContextProxy
-import anchore_engine.configuration.localconfig
-from anchore_engine.clients.services import http
-from anchore_engine.clients.services import internal_client_for
-from anchore_engine.clients.services.simplequeue import SimpleQueueClient
-from anchore_engine.db.entities.common import anchore_now
-from anchore_engine.subsys import logger
+import nextlinux_engine.configuration.localconfig
+from nextlinux_engine.apis.context import ApiRequestContextProxy
+import nextlinux_engine.configuration.localconfig
+from nextlinux_engine.clients.services import http
+from nextlinux_engine.clients.services import internal_client_for
+from nextlinux_engine.clients.services.simplequeue import SimpleQueueClient
+from nextlinux_engine.db.entities.common import nextlinux_now
+from nextlinux_engine.subsys import logger
 
 NOTIFICATION_MAPPING = {
     "policy_eval": "PolicyEvalNotification",
@@ -36,8 +36,8 @@ class Notification(object):
         self.queue_id = queue_id
         self.user_id = user_id
         self.data_id = str(uuid.uuid4())
-        self.last_updated = anchore_now()
-        self.created_at = anchore_now()
+        self.last_updated = nextlinux_now()
+        self.created_at = nextlinux_now()
         self.record_state_key = "active"
         self.tries = 0
         self.max_tries = self.created_at + 3600
@@ -252,12 +252,12 @@ def make_notification(user_record, subscription_type, notification):
 def notify(user_record, notification):
     """
     Notifications are sent periodically based on polling a queue for a particular type of subscription
-    (anchore_engine.common.subscription_types + [event_log_type])
+    (nextlinux_engine.common.subscription_types + [event_log_type])
 
     This method is responsible for actually distributing notifications according to the notification_modes defined
     below (currently only webhook supported)
     Note: The notification passed in is not coming from make_notification method above, but rather from
-    db_queues.get_all, which passes a QueueItem (see anchore_engine/subsys/catalog.py) serialized as a dict
+    db_queues.get_all, which passes a QueueItem (see nextlinux_engine/subsys/catalog.py) serialized as a dict
     (data field is a json)
 
     :param user_record: the account sending the notification
@@ -358,7 +358,7 @@ def do_notify_webhook(user_record, notification):
 
     webhooks = {}
 
-    localconfig = anchore_engine.configuration.localconfig.get_config()
+    localconfig = nextlinux_engine.configuration.localconfig.get_config()
     if "webhooks" in localconfig:
         webhooks.update(localconfig["webhooks"])
 

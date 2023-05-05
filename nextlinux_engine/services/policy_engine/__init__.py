@@ -6,16 +6,16 @@ import retrying
 
 from sqlalchemy.exc import IntegrityError
 
-# anchore modules
-import anchore_engine.clients.services.common
-import anchore_engine.subsys.servicestatus
-import anchore_engine.subsys.metrics
-from anchore_engine.subsys import logger
-from anchore_engine.configuration import localconfig
-from anchore_engine.clients.services import simplequeue, internal_client_for
-from anchore_engine.clients.services.simplequeue import SimpleQueueClient
-from anchore_engine.service import ApiService, LifeCycleStages
-from anchore_engine.services.policy_engine.engine.feeds.feeds import (
+# nextlinux modules
+import nextlinux_engine.clients.services.common
+import nextlinux_engine.subsys.servicestatus
+import nextlinux_engine.subsys.metrics
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.configuration import localconfig
+from nextlinux_engine.clients.services import simplequeue, internal_client_for
+from nextlinux_engine.clients.services.simplequeue import SimpleQueueClient
+from nextlinux_engine.service import ApiService, LifeCycleStages
+from nextlinux_engine.services.policy_engine.engine.feeds.feeds import (
     VulnerabilityFeed,
     NvdV2Feed,
     PackagesFeed,
@@ -25,9 +25,9 @@ from anchore_engine.services.policy_engine.engine.feeds.feeds import (
     NvdFeed,
 )
 
-# from anchore_engine.subsys.logger import enable_bootstrap_logging
+# from nextlinux_engine.subsys.logger import enable_bootstrap_logging
 # enable_bootstrap_logging()
-from anchore_engine.utils import timer
+from nextlinux_engine.utils import timer
 
 feed_sync_queuename = "feed_sync_tasks"
 system_user_auth = None
@@ -70,7 +70,7 @@ except:
 
 
 def _check_feed_client_credentials():
-    from anchore_engine.services.policy_engine.engine.feeds.client import get_client
+    from nextlinux_engine.services.policy_engine.engine.feeds.client import get_client
 
     sleep_time = feed_config_check_backoff
     last_ex = None
@@ -135,7 +135,7 @@ def process_preflight():
 
 
 def _init_distro_mappings():
-    from anchore_engine.db import session_scope, DistroMapping
+    from nextlinux_engine.db import session_scope, DistroMapping
 
     initial_mappings = [
         DistroMapping(from_distro="alpine",
@@ -210,10 +210,10 @@ def init_feed_registry():
 
 def do_feed_sync(msg):
     if "FeedsUpdateTask" not in locals():
-        from anchore_engine.services.policy_engine.engine.tasks import FeedsUpdateTask
+        from nextlinux_engine.services.policy_engine.engine.tasks import FeedsUpdateTask
 
     if "get_selected_feeds_to_sync" not in locals():
-        from anchore_engine.services.policy_engine.engine.feeds.sync import (
+        from nextlinux_engine.services.policy_engine.engine.feeds.sync import (
             get_selected_feeds_to_sync, )
 
     handler_success = False
@@ -234,15 +234,15 @@ def do_feed_sync(msg):
         logger.warn("failure in feed sync handler - exception: " + str(err))
 
     if handler_success:
-        anchore_engine.subsys.metrics.summary_observe(
-            "anchore_monitor_runtime_seconds",
+        nextlinux_engine.subsys.metrics.summary_observe(
+            "nextlinux_monitor_runtime_seconds",
             time.time() - timer,
             function="do_feed_sync",
             status="success",
         )
     else:
-        anchore_engine.subsys.metrics.summary_observe(
-            "anchore_monitor_runtime_seconds",
+        nextlinux_engine.subsys.metrics.summary_observe(
+            "nextlinux_monitor_runtime_seconds",
             time.time() - timer,
             function="do_feed_sync",
             status="fail",
@@ -289,7 +289,7 @@ def handle_feed_sync(*args, **kwargs):
     wait_incrementing_increment=FEED_SYNC_RETRY_BACKOFF * 1000,
 )
 def run_feed_sync(system_user):
-    all_ready = anchore_engine.clients.services.common.check_services_ready(
+    all_ready = nextlinux_engine.clients.services.common.check_services_ready(
         ["simplequeue"])
     if not all_ready:
         logger.info("simplequeue service not yet ready, will retry")
@@ -354,7 +354,7 @@ def handle_feed_sync_trigger(*args, **kwargs):
     wait_incrementing_increment=FEED_SYNC_RETRY_BACKOFF * 1000,
 )
 def push_sync_task(system_user):
-    all_ready = anchore_engine.clients.services.common.check_services_ready(
+    all_ready = nextlinux_engine.clients.services.common.check_services_ready(
         ["simplequeue"])
 
     if not all_ready:
@@ -378,7 +378,7 @@ class PolicyEngineService(ApiService):
     __monitors__ = {
         "service_heartbeat": {
             "handler":
-            anchore_engine.subsys.servicestatus.handle_service_heartbeat,
+            nextlinux_engine.subsys.servicestatus.handle_service_heartbeat,
             "taskType": "handle_service_heartbeat",
             "args": [__service_name__],
             "cycle_timer": 60,

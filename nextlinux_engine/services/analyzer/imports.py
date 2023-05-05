@@ -3,8 +3,8 @@ import json
 import time
 
 from .tasks import WorkerTask
-from anchore_engine.subsys import logger
-from anchore_engine.common.schemas import (
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.common.schemas import (
     InternalImportManifest,
     ImportQueueMessage,
     ValidationError,
@@ -12,31 +12,31 @@ from anchore_engine.common.schemas import (
     ImportContentReference,
 )
 
-from anchore_engine.utils import timer, NextlinuxException
-from anchore_engine.clients.services import internal_client_for
-from anchore_engine.clients.services.catalog import CatalogClient
-from anchore_engine.analyzers.utils import merge_nested_dict
-from anchore_engine.analyzers.syft import convert_syft_to_engine
-from anchore_engine.services.analyzer.utils import (
+from nextlinux_engine.utils import timer, NextlinuxException
+from nextlinux_engine.clients.services import internal_client_for
+from nextlinux_engine.clients.services.catalog import CatalogClient
+from nextlinux_engine.analyzers.utils import merge_nested_dict
+from nextlinux_engine.analyzers.syft import convert_syft_to_engine
+from nextlinux_engine.services.analyzer.utils import (
     update_analysis_complete,
     update_analysis_failed,
     update_analysis_started,
     emit_events,
 )
-from anchore_engine.services.analyzer.analysis import (
+from nextlinux_engine.services.analyzer.analysis import (
     notify_analysis_complete,
     analysis_failed_metrics,
     store_analysis_results,
     ANALYSIS_TIME_SECONDS_BUCKETS as IMPORT_TIME_SECONDS_BUCKETS,
 )
-from anchore_engine.configuration import localconfig
-from anchore_engine.subsys import metrics, events, taskstate
-from anchore_engine.util.docker import (
+from nextlinux_engine.configuration import localconfig
+from nextlinux_engine.subsys import metrics, events, taskstate
+from nextlinux_engine.util.docker import (
     DockerV2ManifestMetadata,
     DockerV1ManifestMetadata,
 )
 
-import anchore_engine.clients.localanchore_standalone
+import nextlinux_engine.clients.localnextlinux_standalone
 
 
 class InvalidImageStateException(Exception):
@@ -66,7 +66,7 @@ def get_image_size(manifest: dict):
     return sum([x.get("size", 0) for x in manifest.get("layers", [])])
 
 
-# Copied and modified from the localanchore_standalone file's analyze_image()
+# Copied and modified from the localnextlinux_standalone file's analyze_image()
 def process_import(
     image_record: dict,
     sbom: dict,
@@ -151,7 +151,7 @@ def process_import(
             )
             merge_nested_dict(analyzer_report, syft_results)
         except Exception as err:
-            raise anchore_engine.clients.localanchore_standalone.AnalysisError(
+            raise nextlinux_engine.clients.localnextlinux_standalone.AnalysisError(
                 cause=err, pull_string=pullstring, tag=fulltag
             )
         logger.debug(
@@ -162,7 +162,7 @@ def process_import(
 
         try:
             image_report = (
-                anchore_engine.clients.localanchore_standalone.generate_image_export(
+                nextlinux_engine.clients.localnextlinux_standalone.generate_image_export(
                     image_id,
                     analyzer_report,
                     image_size,
@@ -178,14 +178,14 @@ def process_import(
                 )
             )
         except Exception as err:
-            raise anchore_engine.clients.localanchore_standalone.AnalysisReportGenerationError(
+            raise nextlinux_engine.clients.localnextlinux_standalone.AnalysisReportGenerationError(
                 cause=err, pull_string=pullstring, tag=fulltag
             )
 
     except NextlinuxException:
         raise
     except Exception as err:
-        raise anchore_engine.clients.localanchore_standalone.AnalysisError(
+        raise nextlinux_engine.clients.localnextlinux_standalone.AnalysisError(
             cause=err,
             pull_string=pullstring,
             tag=fulltag,
@@ -340,11 +340,11 @@ def import_image(operation_id, account, import_manifest: InternalImportManifest)
                 )
 
             try:
-                metrics.counter_inc(name="anchore_import_success")
+                metrics.counter_inc(name="nextlinux_import_success")
                 run_time = float(time.time() - timer)
 
                 metrics.histogram_observe(
-                    "anchore_import_time_seconds",
+                    "nextlinux_import_time_seconds",
                     run_time,
                     buckets=IMPORT_TIME_SECONDS_BUCKETS,
                     status="success",

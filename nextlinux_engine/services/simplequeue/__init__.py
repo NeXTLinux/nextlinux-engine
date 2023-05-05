@@ -1,13 +1,13 @@
 import time
 import pkg_resources
 
-# anchore modules
-import anchore_engine.common
-import anchore_engine.subsys.simplequeue
-import anchore_engine.subsys.servicestatus
-from anchore_engine.subsys import logger
-import anchore_engine.subsys.metrics
-from anchore_engine.service import ApiService, LifeCycleStages
+# nextlinux modules
+import nextlinux_engine.common
+import nextlinux_engine.subsys.simplequeue
+import nextlinux_engine.subsys.servicestatus
+from nextlinux_engine.subsys import logger
+import nextlinux_engine.subsys.metrics
+from nextlinux_engine.service import ApiService, LifeCycleStages
 
 
 # A regular queue configuration with no extra features enabled
@@ -38,11 +38,11 @@ def handle_metrics(*args, **kwargs):
     cycle_timer = kwargs["mythread"]["cycle_timer"]
     while True:
         try:
-            for qname in anchore_engine.subsys.simplequeue.get_queuenames():
+            for qname in nextlinux_engine.subsys.simplequeue.get_queuenames():
                 try:
-                    qlen = anchore_engine.subsys.simplequeue.qlen(qname)
-                    anchore_engine.subsys.metrics.gauge_set(
-                        "anchore_queue_length", qlen, queuename=qname
+                    qlen = nextlinux_engine.subsys.simplequeue.qlen(qname)
+                    nextlinux_engine.subsys.metrics.gauge_set(
+                        "nextlinux_queue_length", qlen, queuename=qname
                     )
                 except:
                     logger.warn(
@@ -64,7 +64,7 @@ def _init_queues(queue_configs):
     :param queue_configs: dict mapping a queue name to a configuration dict
     :return:
     """
-    for st in anchore_engine.common.subscription_types:
+    for st in nextlinux_engine.common.subscription_types:
         if st not in queues_to_bootstrap:
             queues_to_bootstrap[st] = default_queue_config
 
@@ -73,7 +73,7 @@ def _init_queues(queue_configs):
         for i in range(0, retries):
             try:
                 logger.info("Initializing queue: {}".format(qname))
-                anchore_engine.subsys.simplequeue.create_queue(
+                nextlinux_engine.subsys.simplequeue.create_queue(
                     name=qname,
                     max_outstanding_msgs=config.get("max_outstanding_messages", -1),
                     visibility_timeout=config.get("visibility_timeout", 0),
@@ -93,7 +93,7 @@ class SimpleQueueService(ApiService):
     __service_api_version__ = "v1"
     __monitors__ = {
         "service_heartbeat": {
-            "handler": anchore_engine.subsys.servicestatus.handle_service_heartbeat,
+            "handler": nextlinux_engine.subsys.servicestatus.handle_service_heartbeat,
             "taskType": "handle_service_heartbeat",
             "args": [__service_name__],
             "cycle_timer": 60,

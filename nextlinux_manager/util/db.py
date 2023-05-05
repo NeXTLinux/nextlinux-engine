@@ -7,12 +7,12 @@ import sys
 import time
 import importlib
 
-import anchore_engine.db
-from anchore_engine.subsys import logger
-from anchore_manager.util.logging import format_error_output, log_config, log_error
-from anchore_engine.db.entities.common import normalize_db_params
+import nextlinux_engine.db
+from nextlinux_engine.subsys import logger
+from nextlinux_manager.util.logging import format_error_output, log_config, log_error
+from nextlinux_engine.db.entities.common import normalize_db_params
 
-ENGINE_UPGRADE_MODULE_NAME = "anchore_engine.db.entities.upgrade"
+ENGINE_UPGRADE_MODULE_NAME = "nextlinux_engine.db.entities.upgrade"
 
 _db_context = {"params": {}, "retries": 3}
 
@@ -77,7 +77,7 @@ def connect_database(db_params, db_retries=1):
     del loggable_db_params["db_connect"]
     logger.info("DB params: %s", json.dumps(loggable_db_params))
 
-    rc = anchore_engine.db.entities.common.do_connect(db_params)
+    rc = nextlinux_engine.db.entities.common.do_connect(db_params)
     logger.info("DB connection configured: %s", str(rc))
 
     db_connected = False
@@ -85,7 +85,7 @@ def connect_database(db_params, db_retries=1):
     for i in range(0, int(db_retries)):
         logger.info("DB attempting to connect...")
         try:
-            rc = anchore_engine.db.entities.common.test_connection()
+            rc = nextlinux_engine.db.entities.common.test_connection()
             logger.info("DB connected: %s", str(rc))
             db_connected = True
             break
@@ -217,7 +217,7 @@ def upgrade_db(code_versions: dict, db_versions: dict, upgrade_module):
         code_db_version = versions_tuple[0]
         running_db_version = versions_tuple[1]
         logger.info(
-            "Detected anchore-engine version %s, running DB version %s.",
+            "Detected nextlinux-engine version %s, running DB version %s.",
             code_db_version,
             running_db_version,
         )

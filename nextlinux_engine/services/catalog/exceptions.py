@@ -1,4 +1,4 @@
-from anchore_engine.utils import NextlinuxException
+from nextlinux_engine.utils import NextlinuxException
 
 
 class TagManifestParseError(NextlinuxException):

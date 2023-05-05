@@ -6,15 +6,15 @@ import datetime
 import json
 
 from contextlib import contextmanager
-import anchore_engine.db.entities.common
-from anchore_engine.utils import get_threadbased_id
-from anchore_engine.db import session_scope, ObjectStorageMetadata
-from anchore_engine.db import ArchiveMigrationTask
+import nextlinux_engine.db.entities.common
+from nextlinux_engine.utils import get_threadbased_id
+from nextlinux_engine.db import session_scope, ObjectStorageMetadata
+from nextlinux_engine.db import ArchiveMigrationTask
 
-from anchore_engine.subsys import logger
-from anchore_engine.db.db_locks import db_application_lock, application_lock_ids
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.db.db_locks import db_application_lock, application_lock_ids
 
-from anchore_engine.subsys.object_store.manager import ObjectStorageManager
+from nextlinux_engine.subsys.object_store.manager import ObjectStorageManager
 
 from collections import namedtuple
 
@@ -41,7 +41,7 @@ def migration_context(from_archive_config, to_archive_config, do_lock=True):
     to_archive = ObjectStorageManager(to_archive_config)
 
     if do_lock:
-        engine = anchore_engine.db.entities.common.get_engine()
+        engine = nextlinux_engine.db.entities.common.get_engine()
         with db_application_lock(
             engine,
             (
@@ -70,7 +70,7 @@ def initiate_migration(
     :param to_config:
     :param remove_on_source:
     :param do_lock:
-    :param buckets_to_migrate: list or tuple of bucket names to migrate. Must be the anchore bucket name, not the external storage bucket name (e.g. use image_content_data, or analysis_archive)
+    :param buckets_to_migrate: list or tuple of bucket names to migrate. Must be the nextlinux bucket name, not the external storage bucket name (e.g. use image_content_data, or analysis_archive)
     :return:
     """
 

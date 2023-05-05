@@ -7,32 +7,32 @@ import tarfile
 from connexion import request
 import typing
 
-import anchore_engine.apis
-import anchore_engine.common
-import anchore_engine.common.images
-import anchore_engine.configuration.localconfig
-import anchore_engine.subsys.metrics
-from anchore_engine import utils
-from anchore_engine.apis import exceptions as api_exceptions
-from anchore_engine.apis.authorization import (
+import nextlinux_engine.apis
+import nextlinux_engine.common
+import nextlinux_engine.common.images
+import nextlinux_engine.configuration.localconfig
+import nextlinux_engine.subsys.metrics
+from nextlinux_engine import utils
+from nextlinux_engine.apis import exceptions as api_exceptions
+from nextlinux_engine.apis.authorization import (
     get_authorizer,
     RequestingAccountValue,
     ActionBoundPermission,
 )
-from anchore_engine.apis.context import ApiRequestContextProxy
-from anchore_engine.clients.services import internal_client_for
-from anchore_engine.clients.services.catalog import CatalogClient
-from anchore_engine.clients.services.policy_engine import PolicyEngineClient
-from anchore_engine.common.helpers import make_response_error
-from anchore_engine.db.entities.common import anchore_now
-from anchore_engine.services.apiext.api import helpers
-from anchore_engine.services.apiext.api.controllers.utils import (
+from nextlinux_engine.apis.context import ApiRequestContextProxy
+from nextlinux_engine.clients.services import internal_client_for
+from nextlinux_engine.clients.services.catalog import CatalogClient
+from nextlinux_engine.clients.services.policy_engine import PolicyEngineClient
+from nextlinux_engine.common.helpers import make_response_error
+from nextlinux_engine.db.entities.common import nextlinux_now
+from nextlinux_engine.services.apiext.api import helpers
+from nextlinux_engine.services.apiext.api.controllers.utils import (
     normalize_image_add_source,
     validate_image_add_source,
 )
-from anchore_engine.subsys import taskstate, logger
-from anchore_engine.subsys.metrics import flask_metrics
-from anchore_engine.utils import parse_dockerimage_string
+from nextlinux_engine.subsys import taskstate, logger
+from nextlinux_engine.subsys.metrics import flask_metrics
+from nextlinux_engine.utils import parse_dockerimage_string
 
 authorizer = get_authorizer()
 
@@ -166,7 +166,7 @@ def make_response_vulnerability(vulnerability_type, vulnerability_data):
                     if el[k] == "N/A":
                         el[k] = "None"
 
-                if el["package_type"].lower() in anchore_engine.common.os_package_types:
+                if el["package_type"].lower() in nextlinux_engine.common.os_package_types:
                     osvulns.append(el)
                 else:
                     nonosvulns.append(el)
@@ -431,7 +431,7 @@ def vulnerability_query(
     httpcode = 500
     # userId = request_inputs['userId']
 
-    localconfig = anchore_engine.configuration.localconfig.get_config()
+    localconfig = nextlinux_engine.configuration.localconfig.get_config()
     system_user_auth = localconfig["system_user_auth"]
     verify = localconfig["internal_ssl_verify"]
 
@@ -441,7 +441,7 @@ def vulnerability_query(
     try:
         if (
             vulnerability_type
-            not in anchore_engine.common.image_vulnerability_types + ["all"]
+            not in nextlinux_engine.common.image_vulnerability_types + ["all"]
         ):
             httpcode = 404
             raise Exception(
@@ -499,7 +499,7 @@ def get_content(request_inputs, content_type):
     return_object = {}
     http_code = 500
     try:
-        localconfig = anchore_engine.configuration.localconfig.get_config()
+        localconfig = nextlinux_engine.configuration.localconfig.get_config()
         all_content_types = localconfig.get(
             "image_content_types", []
         ) + localconfig.get("image_metadata_types", [])
@@ -525,7 +525,7 @@ def get_content(request_inputs, content_type):
 @authorizer.requires([ActionBoundPermission(domain=RequestingAccountValue())])
 def add_repository(repository=None, autosubscribe=False, dryrun=False):
     try:
-        request_inputs = anchore_engine.apis.do_request_prep(
+        request_inputs = nextlinux_engine.apis.do_request_prep(
             request,
             default_params={
                 "autosubscribe": autosubscribe,
@@ -595,7 +595,7 @@ def repositories(request_inputs):
 @authorizer.requires([ActionBoundPermission(domain=RequestingAccountValue())])
 def list_imagetags(image_status=None):
     try:
-        request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+        request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
 
         user_auth = request_inputs["auth"]
         method = request_inputs["method"]
@@ -622,7 +622,7 @@ def import_image_archive(archive_file):
 
     httpcode = 500
     try:
-        request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+        request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
         request_account = request_inputs["userId"]
 
         # TODO perform the archive format validation here, for now just a READ
@@ -631,7 +631,7 @@ def import_image_archive(archive_file):
         except Exception as err:
             httpcode = 409
             raise Exception(
-                "invalid archive format (must be an image archive tar.gz generated by anchore) - exception: {}".format(
+                "invalid archive format (must be an image archive tar.gz generated by nextlinux) - exception: {}".format(
                     err
                 )
             )
@@ -782,7 +782,7 @@ def add_image(image, force=False, autosubscribe=False):
 
     httpcode = 500
     try:
-        request_inputs = anchore_engine.apis.do_request_prep(
+        request_inputs = nextlinux_engine.apis.do_request_prep(
             request, default_params={"force": force}
         )
 
@@ -831,7 +831,7 @@ def add_image(image, force=False, autosubscribe=False):
 @authorizer.requires([ActionBoundPermission(domain=RequestingAccountValue())])
 def delete_image(imageDigest, force=False):
     try:
-        request_inputs = anchore_engine.apis.do_request_prep(
+        request_inputs = nextlinux_engine.apis.do_request_prep(
             request, default_params={"force": force}
         )
         return_object, httpcode = images_imageDigest(request_inputs, imageDigest)
@@ -846,7 +846,7 @@ def delete_image(imageDigest, force=False):
 def get_image(imageDigest, history=None):
 
     try:
-        request_inputs = anchore_engine.apis.do_request_prep(
+        request_inputs = nextlinux_engine.apis.do_request_prep(
             request, default_params={"history": False}
         )
         return_object, httpcode = images_imageDigest(request_inputs, imageDigest)
@@ -861,7 +861,7 @@ def get_image(imageDigest, history=None):
 @authorizer.requires([ActionBoundPermission(domain=RequestingAccountValue())])
 def get_image_by_imageId(imageId, history=None):
     try:
-        request_inputs = anchore_engine.apis.do_request_prep(
+        request_inputs = nextlinux_engine.apis.do_request_prep(
             request, default_params={"history": False}
         )
         try:
@@ -881,7 +881,7 @@ def get_image_by_imageId(imageId, history=None):
 @authorizer.requires([ActionBoundPermission(domain=RequestingAccountValue())])
 def delete_image_by_imageId(imageId, force=False):
     try:
-        request_inputs = anchore_engine.apis.do_request_prep(
+        request_inputs = nextlinux_engine.apis.do_request_prep(
             request, default_params={"force": force}
         )
         try:
@@ -889,7 +889,7 @@ def delete_image_by_imageId(imageId, force=False):
         except:
             imageDigest = imageId
 
-        request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+        request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
         return_object, httpcode = images_imageDigest(request_inputs, imageDigest)
     except Exception as err:
         httpcode = 500
@@ -903,7 +903,7 @@ def get_image_policy_check(
     imageDigest, policyId=None, tag=None, detail=True, history=False
 ):
     try:
-        request_inputs = anchore_engine.apis.do_request_prep(
+        request_inputs = nextlinux_engine.apis.do_request_prep(
             request,
             default_params={
                 "tag": None,
@@ -926,13 +926,13 @@ def get_image_policy_check_by_imageId(
     imageId, policyId=None, tag=None, detail=None, history=None
 ):
     try:
-        request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+        request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
         try:
             imageDigest = lookup_imageDigest_from_imageId(request_inputs, imageId)
         except:
             imageDigest = imageId
 
-        request_inputs = anchore_engine.apis.do_request_prep(
+        request_inputs = nextlinux_engine.apis.do_request_prep(
             request,
             default_params={
                 "tag": None,
@@ -952,7 +952,7 @@ def get_image_policy_check_by_imageId(
 @authorizer.requires([ActionBoundPermission(domain=RequestingAccountValue())])
 def list_image_metadata(imageDigest):
     try:
-        localconfig = anchore_engine.configuration.localconfig.get_config()
+        localconfig = nextlinux_engine.configuration.localconfig.get_config()
         return_object = localconfig.get("image_metadata_types", [])
         httpcode = 200
     except Exception as err:
@@ -966,7 +966,7 @@ def list_image_metadata(imageDigest):
 @authorizer.requires([ActionBoundPermission(domain=RequestingAccountValue())])
 def get_image_metadata_by_type(imageDigest, mtype):
     try:
-        request_inputs = anchore_engine.apis.do_request_prep(
+        request_inputs = nextlinux_engine.apis.do_request_prep(
             request, default_params={"imageDigest": imageDigest}
         )
 
@@ -988,7 +988,7 @@ def get_image_metadata_by_type(imageDigest, mtype):
 @authorizer.requires([ActionBoundPermission(domain=RequestingAccountValue())])
 def list_image_content(imageDigest):
     try:
-        localconfig = anchore_engine.configuration.localconfig.get_config()
+        localconfig = nextlinux_engine.configuration.localconfig.get_config()
         return_object = localconfig.get("image_content_types", [])
         httpcode = 200
     except Exception as err:
@@ -1002,7 +1002,7 @@ def list_image_content(imageDigest):
 @authorizer.requires([ActionBoundPermission(domain=RequestingAccountValue())])
 def list_image_content_by_imageid(imageId):
     try:
-        localconfig = anchore_engine.configuration.localconfig.get_config()
+        localconfig = nextlinux_engine.configuration.localconfig.get_config()
         return_object = localconfig.get("image_content_types", [])
         httpcode = 200
     except Exception as err:
@@ -1016,7 +1016,7 @@ def list_image_content_by_imageid(imageId):
 @authorizer.requires([ActionBoundPermission(domain=RequestingAccountValue())])
 def get_image_content_by_type(imageDigest, ctype):
     try:
-        request_inputs = anchore_engine.apis.do_request_prep(
+        request_inputs = nextlinux_engine.apis.do_request_prep(
             request, default_params={"imageDigest": imageDigest}
         )
 
@@ -1057,7 +1057,7 @@ def get_image_content_by_type_malware(imageDigest):
 @authorizer.requires([ActionBoundPermission(domain=RequestingAccountValue())])
 def get_image_content_by_type_imageId(imageId, ctype):
     try:
-        request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+        request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
         try:
             imageDigest = lookup_imageDigest_from_imageId(request_inputs, imageId)
         except:
@@ -1088,7 +1088,7 @@ def get_image_content_by_type_imageId_javapackage(imageId):
 @authorizer.requires([ActionBoundPermission(domain=RequestingAccountValue())])
 def get_image_vulnerability_types(imageDigest):
     try:
-        return_object = anchore_engine.common.image_vulnerability_types + ["all"]
+        return_object = nextlinux_engine.common.image_vulnerability_types + ["all"]
         httpcode = 200
 
     except Exception as err:
@@ -1102,7 +1102,7 @@ def get_image_vulnerability_types(imageDigest):
 @authorizer.requires([ActionBoundPermission(domain=RequestingAccountValue())])
 def get_image_vulnerability_types_by_imageId(imageId):
     try:
-        request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+        request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
         try:
             imageDigest = lookup_imageDigest_from_imageId(request_inputs, imageId)
         except:
@@ -1153,7 +1153,7 @@ def get_image_vulnerabilities_by_type(
 def get_image_vulnerabilities_by_type_imageId(imageId, vtype):
     try:
         vulnerability_type = vtype
-        request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+        request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
         try:
             imageDigest = lookup_imageDigest_from_imageId(request_inputs, imageId)
         except:
@@ -1174,7 +1174,7 @@ def get_image_vulnerabilities_by_type_imageId(imageId, vtype):
 # @authorizer.requires([ActionBoundPermission(domain=RequestingAccountValue())])
 # def import_image(analysis_report):
 #    try:
-#        request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+#        request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
 #        return_object, httpcode = do_import_image(request_inputs, analysis_report)
 #
 #    except Exception as err:
@@ -1317,7 +1317,7 @@ def analyze_image(
                 img_source = source.get("digest")
 
                 tag = img_source["tag"]
-                digest_info = anchore_engine.utils.parse_dockerimage_string(
+                digest_info = nextlinux_engine.utils.parse_dockerimage_string(
                     img_source["pullstring"]
                 )
                 digest = digest_info["digest"]
@@ -1343,7 +1343,7 @@ def analyze_image(
                         if not ts:
                             # Timestamp required for analysis by digest & tag (if none specified,
                             # default to previous image's timestamp)
-                            ts = image_check.get("created_at", anchore_now())
+                            ts = image_check.get("created_at", nextlinux_now())
                     except Exception as err:
                         raise ValueError(
                             "image digest must already exist to force re-analyze using tag+digest"
@@ -1351,7 +1351,7 @@ def analyze_image(
                 elif not ts:
                     # If a new analysis of an image by digest + tag, we need a timestamp to insert into the tag history
                     # properly. Therefore, if no timestamp is provided, we use the current time
-                    ts = anchore_now()
+                    ts = nextlinux_now()
             else:
                 raise ValueError(
                     "The source property must have at least one of tag, digest, or archive set to non-null"
@@ -1446,7 +1446,7 @@ def initialize_subscriptions(
             if subscription_record["subscription_key"] == fulltag:
                 foundtypes.append(subscription_record["subscription_type"])
 
-        sub_types = anchore_engine.common.subscription_types
+        sub_types = nextlinux_engine.common.subscription_types
         for sub_type in sub_types:
             if sub_type in ["repo_update"]:
                 continue
@@ -1645,7 +1645,7 @@ def images_check_impl(request_inputs, image_records):
 
                 tags = []
                 if params and "tag" in params and params["tag"]:
-                    image_info = anchore_engine.common.images.get_image_info(
+                    image_info = nextlinux_engine.common.images.get_image_info(
                         userId,
                         "docker",
                         params["tag"],

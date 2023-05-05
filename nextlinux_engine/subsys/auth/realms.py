@@ -3,11 +3,11 @@ from yosai.core.authz.authz import DefaultPermission
 from yosai.core.subject.identifier import SimpleIdentifierCollection
 from yosai.core.exceptions import IncorrectCredentialsException
 
-from anchore_engine.db import AccountTypes
-from anchore_engine.plugins.authorization.client import AuthzPluginHttpClient, Action
-from anchore_engine.apis.authentication import IdentityContext
-from anchore_engine.subsys import logger
-from anchore_engine.subsys.auth.stores.verifier import JwtToken
+from nextlinux_engine.db import AccountTypes
+from nextlinux_engine.plugins.authorization.client import AuthzPluginHttpClient, Action
+from nextlinux_engine.apis.authentication import IdentityContext
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.subsys.auth.stores.verifier import JwtToken
 
 
 class CaseSensitivePermission(DefaultPermission):
@@ -96,8 +96,8 @@ class UsernamePasswordRealm(AccountStoreRealm):
             logger.warn(msg3)
 
         if account_info:
-            # Expect anchore to add the account_id already
-            accnt_id = account_info.get("anchore_identity", identifier)
+            # Expect nextlinux to add the account_id already
+            accnt_id = account_info.get("nextlinux_identity", identifier)
             account_info["account_id"] = SimpleIdentifierCollection(
                 source_name=self.name, identifier=accnt_id
             )

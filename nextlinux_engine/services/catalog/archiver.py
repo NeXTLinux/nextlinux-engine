@@ -12,13 +12,13 @@ import time
 import uuid
 from marshmallow import Schema, fields, post_load
 
-from anchore_engine.common.schemas import JsonSerializable
-from anchore_engine.utils import datetime_to_rfc3339, ensure_str, ensure_bytes
-from anchore_engine.clients.services.policy_engine import PolicyEngineClient
-from anchore_engine.clients.services import internal_client_for
-from anchore_engine.clients.services.policy_engine import PolicyEngineClient
-from anchore_engine.configuration import localconfig
-from anchore_engine.db import (
+from nextlinux_engine.common.schemas import JsonSerializable
+from nextlinux_engine.utils import datetime_to_rfc3339, ensure_str, ensure_bytes
+from nextlinux_engine.clients.services.policy_engine import PolicyEngineClient
+from nextlinux_engine.clients.services import internal_client_for
+from nextlinux_engine.clients.services.policy_engine import PolicyEngineClient
+from nextlinux_engine.configuration import localconfig
+from nextlinux_engine.db import (
     db_catalog_image,
     db_catalog_image_docker,
     db_policyeval,
@@ -31,10 +31,10 @@ from anchore_engine.db import (
     ArchiveTransitionRule,
     ArchiveTransitions,
 )
-from anchore_engine.db.entities.common import anchore_now_datetime
-from anchore_engine.services.catalog.catalog_impl import image_imageDigest
-from anchore_engine.subsys import logger, archive, object_store
-from anchore_engine.subsys.events import (
+from nextlinux_engine.db.entities.common import nextlinux_now_datetime
+from nextlinux_engine.services.catalog.catalog_impl import image_imageDigest
+from nextlinux_engine.subsys import logger, archive, object_store
+from nextlinux_engine.subsys.events import (
     ImageArchiveDeleted,
     ImageRestored,
     ImageArchived,
@@ -42,8 +42,8 @@ from anchore_engine.subsys.events import (
     ImageArchivingFailed,
     ImageRestoreFailed,
 )
-from anchore_engine.subsys.object_store.manager import ObjectStorageManager
-from anchore_engine.utils import datetime_to_rfc3339, ensure_str, ensure_bytes
+from nextlinux_engine.subsys.object_store.manager import ObjectStorageManager
+from nextlinux_engine.utils import datetime_to_rfc3339, ensure_str, ensure_bytes
 
 DRY_RUN_ENV_VAR = "NEXTLINUX_ANALYSIS_ARCHIVE_DRYRUN_ENABLED"
 DRY_RUN_MODE = os.getenv(DRY_RUN_ENV_VAR, "false").lower() == "true"
@@ -65,7 +65,7 @@ def init_events(handler_fn=None):
     global _add_event_fn, event_init_lock
     with event_init_lock:
         if not handler_fn and _add_event_fn is None:
-            from anchore_engine.services.catalog.catalog_impl import isolated_add_event
+            from nextlinux_engine.services.catalog.catalog_impl import isolated_add_event
 
             _add_event_fn = isolated_add_event
 
@@ -598,7 +598,7 @@ class ImageAnalysisArchiver(object):
         """
         image_analyzed_at_dt = datetime.datetime.utcfromtimestamp(
             image.analyzed_at)
-        time_delta = anchore_now_datetime() - image_analyzed_at_dt
+        time_delta = nextlinux_now_datetime() - image_analyzed_at_dt
         if rule.exclude_expiration_days is not None and (
                 rule.exclude_expiration_days == -1
                 or rule.exclude_expiration_days > time_delta.days):
@@ -904,7 +904,7 @@ class DeleteArchivedImageTask(object):
 
 class RestoreArchivedImageTask(object):
     """
-    Task to load an archived image back into the working set for anchore
+    Task to load an archived image back into the working set for nextlinux
 
     """
 

@@ -6,7 +6,7 @@ Archive documents are stored in a driver-based backend with refreneces kept in t
 any state necessary (e.g. for garbage collection or time-out)
 """
 
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
 from .drivers import ObjectStorageDriverMeta, ObjectStorageDriver, interface
 from .drivers import (
@@ -15,7 +15,7 @@ from .drivers import (
     FilesystemObjectStorageDriver,
     DbDriver,
 )
-from anchore_engine.subsys.object_store.manager import get_manager, initialize
+from nextlinux_engine.subsys.object_store.manager import get_manager, initialize
 
 
 def _from_config(configuration):

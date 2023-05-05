@@ -1,7 +1,7 @@
 import time
 
-from anchore_engine import db
-from anchore_engine.db import Task, ArchiveMigrationTask
+from nextlinux_engine import db
+from nextlinux_engine.db import Task, ArchiveMigrationTask
 
 
 def get_all(task_type=Task, session=None, json_safe=False):

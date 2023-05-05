@@ -1,6 +1,6 @@
 import os
 
-from anchore_engine.analyzers.utils import dig
+from nextlinux_engine.analyzers.utils import dig
 
 
 def save_entry(findings, engine_entry, pkg_key=None):
@@ -28,7 +28,7 @@ def translate_and_save_entry(findings, artifact):
     site_pkg_root = artifact["metadata"]["sitePackagesRootPath"]
     name = artifact["name"]
 
-    # anchore engine always uses the name, however, the name may not be a top-level package
+    # nextlinux engine always uses the name, however, the name may not be a top-level package
     # instead default to the first top-level package unless the name is listed among the
     # top level packages explicitly defined in the metadata
     pkg_key_name = artifact["metadata"]["topLevelPackages"][0]

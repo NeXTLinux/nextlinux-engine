@@ -3,10 +3,10 @@ import base64
 
 from .interface import ObjectStorageDriver
 
-from anchore_engine import db, utils
-from anchore_engine.db import db_archivedocument, db_objectstorage
-from anchore_engine.subsys import logger
-from anchore_engine.subsys.object_store.exc import (
+from nextlinux_engine import db, utils
+from nextlinux_engine.db import db_archivedocument, db_objectstorage
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.subsys.object_store.exc import (
     ObjectKeyNotFoundError,
     DriverNotInitializedError,
 )

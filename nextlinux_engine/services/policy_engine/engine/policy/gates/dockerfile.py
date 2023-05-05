@@ -1,6 +1,6 @@
 import re
-from anchore_engine.services.policy_engine.engine.policy.gate import BaseTrigger, Gate
-from anchore_engine.services.policy_engine.engine.policy.params import (
+from nextlinux_engine.services.policy_engine.engine.policy.gate import BaseTrigger, Gate
+from nextlinux_engine.services.policy_engine.engine.policy.params import (
     delim_parser,
     TypeValidator,
     InputValidator,
@@ -10,7 +10,7 @@ from anchore_engine.services.policy_engine.engine.policy.params import (
     CommaDelimitedNumberListParameter,
     BooleanStringParameter,
 )
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
 
 DIRECTIVES = [
@@ -340,7 +340,7 @@ class ExposedPortsTrigger(ParameterizedDockerfileModeBaseTrigger):
 
 class NoDockerfile(BaseTrigger):
     __trigger_name__ = "no_dockerfile_provided"
-    __description__ = "Triggers if anchore analysis was performed without supplying the actual image Dockerfile."
+    __description__ = "Triggers if nextlinux analysis was performed without supplying the actual image Dockerfile."
     __msg__ = "Image was not analyzed with an actual Dockerfile"
 
     def evaluate(self, image_obj, context):

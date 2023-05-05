@@ -1,7 +1,7 @@
 import json
 import urllib3
 import requests
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
 http = urllib3.PoolManager()
 
@@ -259,8 +259,8 @@ def anchy_get(url, raw=False, **kwargs):
         e.__dict__.update(
             {
                 "httpcode": httpcode,
-                "anchore_error_raw": str(rawdata),
-                "anchore_error_json": jsondata,
+                "nextlinux_error_raw": str(rawdata),
+                "nextlinux_error_json": jsondata,
             }
         )
         raise e
@@ -288,8 +288,8 @@ def anchy_post(url, raw=False, **kwargs):
         e.__dict__.update(
             {
                 "httpcode": httpcode,
-                "anchore_error_raw": str(rawdata),
-                "anchore_error_json": jsondata,
+                "nextlinux_error_raw": str(rawdata),
+                "nextlinux_error_json": jsondata,
             }
         )
         raise e
@@ -317,8 +317,8 @@ def anchy_put(url, raw=False, **kwargs):
         e.__dict__.update(
             {
                 "httpcode": httpcode,
-                "anchore_error_raw": str(rawdata),
-                "anchore_error_json": jsondata,
+                "nextlinux_error_raw": str(rawdata),
+                "nextlinux_error_json": jsondata,
             }
         )
         raise e
@@ -346,8 +346,8 @@ def anchy_delete(url, raw=False, **kwargs):
         e.__dict__.update(
             {
                 "httpcode": httpcode,
-                "anchore_error_raw": str(rawdata),
-                "anchore_error_json": jsondata,
+                "nextlinux_error_raw": str(rawdata),
+                "nextlinux_error_json": jsondata,
             }
         )
         raise e

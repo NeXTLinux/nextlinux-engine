@@ -51,10 +51,10 @@ def split_rpm_filename(rpm_filename):
 
 def split_fullversion(version):
     """
-    Splits version string into a tuple (epoch, version, release). Inbound version string is specific to anchore engine's
+    Splits version string into a tuple (epoch, version, release). Inbound version string is specific to nextlinux engine's
     implementation of versions and may not compliant with the rpm spec.
 
-    Use this function for splitting versions already processed by anchore engine. For parsing info from rpm file name, use split_rpm_filename()
+    Use this function for splitting versions already processed by nextlinux engine. For parsing info from rpm file name, use split_rpm_filename()
 
     '2.27-34.base.el7' -> (null, '2.27', '34.base.el7')
     '1:2.27-34.base.el7' -> ('1', '2.27', '34.base.el7')
@@ -90,7 +90,7 @@ def split_fullversion(version):
 
 def compare_versions(ver_a, ver_b):
     """
-    Compare pkg and versions using anchore engine rules. Follows standard __cmp__ semantics of -1 iff a < b, 0 iff a == b, 1 iff a > b
+    Compare pkg and versions using nextlinux engine rules. Follows standard __cmp__ semantics of -1 iff a < b, 0 iff a == b, 1 iff a > b
 
     :param ver_a:
     :param ver_b:

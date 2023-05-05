@@ -1,17 +1,17 @@
 import re
 
-from anchore_engine.apis.authorization import (
+from nextlinux_engine.apis.authorization import (
     get_authorizer,
     ActionBoundPermission,
     RequestingAccountValue,
     Permission,
 )
-from anchore_engine.apis.context import ApiRequestContextProxy
-from anchore_engine.apis.exceptions import BadRequest
-from anchore_engine.clients.services import internal_client_for
-from anchore_engine.clients.services.catalog import CatalogClient
-from anchore_engine.common.helpers import make_response_error
-from anchore_engine.configuration.localconfig import (
+from nextlinux_engine.apis.context import ApiRequestContextProxy
+from nextlinux_engine.apis.exceptions import BadRequest
+from nextlinux_engine.clients.services import internal_client_for
+from nextlinux_engine.clients.services.catalog import CatalogClient
+from nextlinux_engine.common.helpers import make_response_error
+from nextlinux_engine.configuration.localconfig import (
     GLOBAL_RESOURCE_DOMAIN,
     ADMIN_ACCOUNT_NAME,
 )

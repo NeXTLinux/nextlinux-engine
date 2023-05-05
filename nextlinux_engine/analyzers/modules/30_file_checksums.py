@@ -6,12 +6,12 @@ import re
 import time
 import hashlib
 
-import anchore_engine.analyzers.utils
+import nextlinux_engine.analyzers.utils
 
 analyzer_name = "file_checksums"
 
 try:
-    config = anchore_engine.analyzers.utils.init_analyzer_cmdline(
+    config = nextlinux_engine.analyzers.utils.init_analyzer_cmdline(
         sys.argv, analyzer_name
     )
 except Exception as err:
@@ -30,10 +30,10 @@ outfiles_sha1 = {}
 outfiles_md5 = {}
 outfiles_sha256 = {}
 
-meta = anchore_engine.analyzers.utils.get_distro_from_squashtar(
+meta = nextlinux_engine.analyzers.utils.get_distro_from_squashtar(
     os.path.join(unpackdir, "squashed.tar"), unpackdir=unpackdir
 )
-distrodict = anchore_engine.analyzers.utils.get_distro_flavor(
+distrodict = nextlinux_engine.analyzers.utils.get_distro_flavor(
     meta["DISTRO"], meta["DISTROVERS"], likedistro=meta["LIKEDISTRO"]
 )
 if distrodict["flavor"] == "ALPINE":
@@ -45,7 +45,7 @@ try:
     if dosha1:
         csums.append("sha1")
 
-    allfiles = anchore_engine.analyzers.utils.get_checksums_from_squashtar(
+    allfiles = nextlinux_engine.analyzers.utils.get_checksums_from_squashtar(
         os.path.join(unpackdir, "squashed.tar"), csums=csums
     )
 
@@ -71,15 +71,15 @@ except Exception as err:
 
 if outfiles_sha1:
     ofile = os.path.join(outputdir, "files.sha1sums")
-    anchore_engine.analyzers.utils.write_kvfile_fromdict(ofile, outfiles_sha1)
+    nextlinux_engine.analyzers.utils.write_kvfile_fromdict(ofile, outfiles_sha1)
 
 if outfiles_md5:
     ofile = os.path.join(outputdir, "files.md5sums")
-    anchore_engine.analyzers.utils.write_kvfile_fromdict(ofile, outfiles_md5)
+    nextlinux_engine.analyzers.utils.write_kvfile_fromdict(ofile, outfiles_md5)
 
 if outfiles_sha256:
     ofile = os.path.join(outputdir, "files.sha256sums")
-    anchore_engine.analyzers.utils.write_kvfile_fromdict(ofile, outfiles_sha256)
+    nextlinux_engine.analyzers.utils.write_kvfile_fromdict(ofile, outfiles_sha256)
 
 
 sys.exit(0)

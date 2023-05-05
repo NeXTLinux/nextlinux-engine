@@ -1,9 +1,9 @@
 from sqlalchemy import desc, and_, or_, func
 
-import anchore_engine.db.db_catalog_image_docker
-from anchore_engine import db
-from anchore_engine.db import CatalogImage, CatalogImageDocker
-from anchore_engine.subsys import logger
+import nextlinux_engine.db.db_catalog_image_docker
+from nextlinux_engine import db
+from nextlinux_engine.db import CatalogImage, CatalogImageDocker
+from nextlinux_engine.subsys import logger
 
 
 def add_record(input_image_record, session=None):
@@ -491,7 +491,7 @@ def get_oldest_images_with_limit(session, account, max_images, excluded_digests)
     This method will return the oldest images which exceed the max_images limit
 
     Ex. max_images = 1000
-        images_in_anchore = 1100
+        images_in_nextlinux = 1100
 
     This method will return the image digests of the oldest 100 images (regardless of account)
 

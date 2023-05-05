@@ -10,36 +10,36 @@ import time
 import urllib.request, urllib.parse, urllib.error
 import uuid
 
-from anchore_engine.db import (
+from nextlinux_engine.db import (
     get_thread_scoped_session as get_session,
     Image,
     end_session,
 )
-from anchore_engine.services.policy_engine.engine.loaders import ImageLoader
-from anchore_engine.services.policy_engine.engine.exc import *
-from anchore_engine.services.policy_engine.engine.vulnerabilities import (
+from nextlinux_engine.services.policy_engine.engine.loaders import ImageLoader
+from nextlinux_engine.services.policy_engine.engine.exc import *
+from nextlinux_engine.services.policy_engine.engine.vulnerabilities import (
     vulnerabilities_for_image,
     rescan_image,
 )
 
-from anchore_engine.clients.services.catalog import CatalogClient
-from anchore_engine.clients.services import internal_client_for
-from anchore_engine.services.policy_engine.engine.feeds.sync import (
+from nextlinux_engine.clients.services.catalog import CatalogClient
+from nextlinux_engine.clients.services import internal_client_for
+from nextlinux_engine.services.policy_engine.engine.feeds.sync import (
     get_selected_feeds_to_sync,
     DataFeeds,
 )
-from anchore_engine.services.policy_engine.engine.feeds.feeds import notify_event
-from anchore_engine.configuration import localconfig
-from anchore_engine.clients.services.simplequeue import run_target_with_lease
-from anchore_engine.subsys.events import (
+from nextlinux_engine.services.policy_engine.engine.feeds.feeds import notify_event
+from nextlinux_engine.configuration import localconfig
+from nextlinux_engine.clients.services.simplequeue import run_target_with_lease
+from nextlinux_engine.subsys.events import (
     FeedSyncTaskStarted,
     FeedSyncTaskCompleted,
     FeedSyncTaskFailed,
 )
-from anchore_engine.subsys import identities, logger
+from nextlinux_engine.subsys import identities, logger
 
 # A hack to get admin credentials for executing api ops
-from anchore_engine.db import session_scope
+from nextlinux_engine.db import session_scope
 
 
 def construct_task_from_json(json_obj):

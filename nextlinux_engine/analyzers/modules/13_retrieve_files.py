@@ -7,13 +7,13 @@ import re
 import json
 import tarfile
 
-import anchore_engine.analyzers.utils
-import anchore_engine.utils
+import nextlinux_engine.analyzers.utils
+import nextlinux_engine.utils
 
 analyzer_name = "retrieve_files"
 
 try:
-    config = anchore_engine.analyzers.utils.init_analyzer_cmdline(
+    config = nextlinux_engine.analyzers.utils.init_analyzer_cmdline(
         sys.argv, analyzer_name
     )
 except Exception as err:
@@ -67,7 +67,7 @@ with tarfile.open(
                 try:
                     with tfl.extractfile(member) as FH:
                         buf = FH.read()
-                        b64buf = anchore_engine.utils.ensure_str(base64.b64encode(buf))
+                        b64buf = nextlinux_engine.utils.ensure_str(base64.b64encode(buf))
                     outputdata[name] = b64buf
                 except Exception as err:
                     print(
@@ -84,6 +84,6 @@ with tarfile.open(
 
 if outputdata:
     ofile = os.path.join(outputdir, "file_content.all")
-    anchore_engine.analyzers.utils.write_kvfile_fromdict(ofile, outputdata)
+    nextlinux_engine.analyzers.utils.write_kvfile_fromdict(ofile, outputdata)
 
 sys.exit(0)

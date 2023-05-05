@@ -1,6 +1,6 @@
 import json
-from anchore_engine.clients.services.internal import InternalServiceClient
-from anchore_engine.clients.services.http import (
+from nextlinux_engine.clients.services.internal import InternalServiceClient
+from nextlinux_engine.clients.services.http import (
     anchy_get,
     anchy_post,
     anchy_delete,

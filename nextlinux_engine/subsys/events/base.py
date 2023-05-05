@@ -3,7 +3,7 @@ import datetime
 import enum
 import json
 
-from anchore_engine.subsys.servicestatus import get_my_service_record
+from nextlinux_engine.subsys.servicestatus import get_my_service_record
 
 CategoryDescriptor = namedtuple(
     "CategoryDescriptor", field_names=["name", "description"]

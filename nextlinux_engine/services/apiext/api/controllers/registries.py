@@ -4,18 +4,18 @@ import re
 
 from connexion import request
 
-# anchore modules
-import anchore_engine.apis
-from anchore_engine.apis.authorization import (
+# nextlinux modules
+import nextlinux_engine.apis
+from nextlinux_engine.apis.authorization import (
     get_authorizer,
     RequestingAccountValue,
     ActionBoundPermission,
 )
-import anchore_engine.common.helpers
-from anchore_engine.clients.services.catalog import CatalogClient
-from anchore_engine.clients.services import internal_client_for
-import anchore_engine.common
-from anchore_engine.subsys import logger
+import nextlinux_engine.common.helpers
+from nextlinux_engine.clients.services.catalog import CatalogClient
+from nextlinux_engine.clients.services import internal_client_for
+import nextlinux_engine.common
+from nextlinux_engine.subsys import logger
 
 authorizer = get_authorizer()
 
@@ -61,7 +61,7 @@ def list_registries():
     :return:
     """
 
-    request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+    request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
     user_auth = request_inputs["auth"]
     method = request_inputs["method"]
     bodycontent = request_inputs["bodycontent"]
@@ -79,7 +79,7 @@ def list_registries():
             )
         httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -94,7 +94,7 @@ def get_registry(registry):
     :return:
     """
 
-    request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+    request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
     user_auth = request_inputs["auth"]
     method = request_inputs["method"]
     bodycontent = request_inputs["bodycontent"]
@@ -112,7 +112,7 @@ def get_registry(registry):
             )
         httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -128,7 +128,7 @@ def create_registry(registrydata, validate=True):
     :param registry:
     :return:
     """
-    request_inputs = anchore_engine.apis.do_request_prep(
+    request_inputs = nextlinux_engine.apis.do_request_prep(
         request, default_params={"validate": validate}
     )
     user_auth = request_inputs["auth"]
@@ -169,7 +169,7 @@ def create_registry(registrydata, validate=True):
             )
         httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -185,7 +185,7 @@ def update_registry(registry, registrydata, validate=True):
     :param registry:
     :return:
     """
-    request_inputs = anchore_engine.apis.do_request_prep(
+    request_inputs = nextlinux_engine.apis.do_request_prep(
         request, default_params={"validate": validate}
     )
     user_auth = request_inputs["auth"]
@@ -224,7 +224,7 @@ def update_registry(registry, registrydata, validate=True):
             )
         httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]
@@ -240,7 +240,7 @@ def delete_registry(registry):
     :param registry:
     :return:
     """
-    request_inputs = anchore_engine.apis.do_request_prep(request, default_params={})
+    request_inputs = nextlinux_engine.apis.do_request_prep(request, default_params={})
     user_auth = request_inputs["auth"]
     method = request_inputs["method"]
     bodycontent = request_inputs["bodycontent"]
@@ -255,7 +255,7 @@ def delete_registry(registry):
         if return_object:
             httpcode = 200
     except Exception as err:
-        return_object = anchore_engine.common.helpers.make_response_error(
+        return_object = nextlinux_engine.common.helpers.make_response_error(
             err, in_httpcode=httpcode
         )
         httpcode = return_object["httpcode"]

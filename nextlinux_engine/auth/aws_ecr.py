@@ -7,9 +7,9 @@ import base64
 import boto3
 import datetime
 
-from anchore_engine import utils
-from anchore_engine.subsys import logger
-import anchore_engine.configuration.localconfig
+from nextlinux_engine import utils
+from nextlinux_engine.subsys import logger
+import nextlinux_engine.configuration.localconfig
 from urllib.parse import urlparse
 
 
@@ -45,7 +45,7 @@ def parse_role(role_str):
 
 
 def refresh_ecr_credentials(registry, access_key_id, secret_access_key):
-    localconfig = anchore_engine.configuration.localconfig.get_config()
+    localconfig = nextlinux_engine.configuration.localconfig.get_config()
 
     try:
         account_id, region = parse_registry_url(registry)

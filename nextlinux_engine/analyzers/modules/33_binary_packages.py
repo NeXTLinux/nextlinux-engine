@@ -9,7 +9,7 @@ import pkg_resources
 import tarfile
 from collections import OrderedDict
 
-import anchore_engine.analyzers.utils, anchore_engine.utils
+import nextlinux_engine.analyzers.utils, nextlinux_engine.utils
 
 
 def get_python_evidence(tfl, member, memberhash, evidence):
@@ -34,10 +34,10 @@ def get_python_evidence(tfl, member, memberhash, evidence):
                 subline = line
                 try:
                     the_re = ".*{}\.([0-9]+[-_a-zA-Z0-9]*).*".format(f_vers)
-                    patt = re.match(anchore_engine.utils.ensure_bytes(the_re), subline)
+                    patt = re.match(nextlinux_engine.utils.ensure_bytes(the_re), subline)
                     if patt and f_vers:
                         b_vers = "{}.{}".format(
-                            f_vers, anchore_engine.utils.ensure_str(patt.group(1))
+                            f_vers, nextlinux_engine.utils.ensure_str(patt.group(1))
                         )
                         if b_vers.startswith(f_vers):
                             el["name"] = "python"
@@ -54,7 +54,7 @@ def get_python_evidence(tfl, member, memberhash, evidence):
                 line = line.strip()
                 patt = re.match(b'.*#define +PY_VERSION +"*([0-9\.\-_a-zA-Z]+)"*', line)
                 if patt:
-                    h_vers = anchore_engine.utils.ensure_str(patt.group(1))
+                    h_vers = nextlinux_engine.utils.ensure_str(patt.group(1))
                     el["name"] = "python"
                     el["version"] = h_vers
                     el["location"] = fullpath
@@ -77,9 +77,9 @@ def get_golang_evidence(tfl, member, memberhash, evidence):
                 subline = line
                 try:
                     the_re = ".*go([0-9]+\.[0-9]+(\.[0-9]+|beta[0-9]+|alpha[0-9]+|rc[0-9]+)*).*"
-                    patt = re.match(anchore_engine.utils.ensure_bytes(the_re), subline)
+                    patt = re.match(nextlinux_engine.utils.ensure_bytes(the_re), subline)
                     if patt:
-                        vers = anchore_engine.utils.ensure_str(patt.group(1))
+                        vers = nextlinux_engine.utils.ensure_str(patt.group(1))
                         el["name"] = "go"
                         el["version"] = vers
                         el["location"] = fullpath
@@ -96,7 +96,7 @@ def get_golang_evidence(tfl, member, memberhash, evidence):
                     line,
                 )
                 if patt:
-                    vers = anchore_engine.utils.ensure_str(patt.group(1))
+                    vers = nextlinux_engine.utils.ensure_str(patt.group(1))
                     final_loc = fullpath
                     if memberhash.get(
                         os.path.join(os.path.dirname(member.name), "bin", "go"), None
@@ -125,7 +125,7 @@ def get_busybox_evidence(tfl, member, memberhash, distrodict, evidence):
                 ".*([0-9]+\.[0-9]+\.[0-9]+).*", distrodict.get("fullversion", "")
             )
             if patt:
-                version = anchore_engine.utils.ensure_str(patt.group(1))
+                version = nextlinux_engine.utils.ensure_str(patt.group(1))
                 el = {}
                 el.update(binary_package_el)
 
@@ -139,7 +139,7 @@ def get_busybox_evidence(tfl, member, memberhash, distrodict, evidence):
 analyzer_name = "package_list"
 
 try:
-    config = anchore_engine.analyzers.utils.init_analyzer_cmdline(
+    config = nextlinux_engine.analyzers.utils.init_analyzer_cmdline(
         sys.argv, analyzer_name
     )
 except Exception as err:
@@ -166,24 +166,24 @@ binary_package_el = {
 }
 try:
     allfiles = {}
-    if os.path.exists(unpackdir + "/anchore_allfiles.json"):
-        with open(unpackdir + "/anchore_allfiles.json", "r") as FH:
+    if os.path.exists(unpackdir + "/nextlinux_allfiles.json"):
+        with open(unpackdir + "/nextlinux_allfiles.json", "r") as FH:
             allfiles = json.loads(FH.read())
     else:
-        fmap, allfiles = anchore_engine.analyzers.utils.get_files_from_squashtar(
+        fmap, allfiles = nextlinux_engine.analyzers.utils.get_files_from_squashtar(
             os.path.join(unpackdir, "squashed.tar")
         )
-        with open(unpackdir + "/anchore_allfiles.json", "w") as OFH:
+        with open(unpackdir + "/nextlinux_allfiles.json", "w") as OFH:
             OFH.write(json.dumps(allfiles))
 
     # read in previous analyzer output for helping to increase accuracy of findings
     fname = os.path.join(outputdir, "pkgfiles.all")
-    pkgfilesall = anchore_engine.analyzers.utils.read_kvfile_todict(fname)
+    pkgfilesall = nextlinux_engine.analyzers.utils.read_kvfile_todict(fname)
 
-    meta = anchore_engine.analyzers.utils.get_distro_from_squashtar(
+    meta = nextlinux_engine.analyzers.utils.get_distro_from_squashtar(
         os.path.join(unpackdir, "squashed.tar"), unpackdir=unpackdir
     )
-    distrodict = anchore_engine.analyzers.utils.get_distro_flavor(
+    distrodict = nextlinux_engine.analyzers.utils.get_distro_flavor(
         meta["DISTRO"], meta["DISTROVERS"], likedistro=meta["LIKEDISTRO"]
     )
 
@@ -203,7 +203,7 @@ try:
         for name in alltnames:
             alltfiles[name] = True
 
-        memberhash = anchore_engine.analyzers.utils.get_memberhash(tfl)
+        memberhash = nextlinux_engine.analyzers.utils.get_memberhash(tfl)
         for member in list(memberhash.values()):
             try:
                 get_python_evidence(tfl, member, memberhash, evidence)
@@ -258,13 +258,13 @@ try:
 
     try:
         squashtar = os.path.join(unpackdir, "squashed.tar")
-        hints = anchore_engine.analyzers.utils.get_hintsfile(unpackdir, squashtar)
+        hints = nextlinux_engine.analyzers.utils.get_hintsfile(unpackdir, squashtar)
         for pkg in hints.get("packages", []):
             pkg_type = pkg.get("type", "").lower()
 
             if pkg_type == "binary":
                 try:
-                    pkg_key, el = anchore_engine.analyzers.utils._hints_to_binary(pkg)
+                    pkg_key, el = nextlinux_engine.analyzers.utils._hints_to_binary(pkg)
                     try:
                         resultlist[pkg_key] = json.dumps(el)
                     except Exception as err:
@@ -287,7 +287,7 @@ except Exception as err:
 
 if resultlist:
     ofile = os.path.join(outputdir, "pkgs.binary")
-    anchore_engine.analyzers.utils.write_kvfile_fromdict(ofile, resultlist)
+    nextlinux_engine.analyzers.utils.write_kvfile_fromdict(ofile, resultlist)
     # print ("RESULT: {}".format(resultlist))
 
 sys.exit(0)

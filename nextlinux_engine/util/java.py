@@ -3,7 +3,7 @@ Java-related utilities for interacting with Java packages.
 """
 
 import re
-import anchore_engine.utils
+import nextlinux_engine.utils
 
 
 def parse_properties(lines):
@@ -15,7 +15,7 @@ def parse_properties(lines):
     """
     props = {}
     for line in lines:
-        line = anchore_engine.utils.ensure_str(line)
+        line = nextlinux_engine.utils.ensure_str(line)
         if not re.match(r"\s*(#.*)?$", line):
             idx = line.find("=")
             if idx > -1:
@@ -34,7 +34,7 @@ def parse_manifest(lines):
     """
     full_lines = []
     for line in lines:
-        line = anchore_engine.utils.ensure_str(line)
+        line = nextlinux_engine.utils.ensure_str(line)
         if line.startswith(" "):
             full_lines[-1] += line[1:]
         else:

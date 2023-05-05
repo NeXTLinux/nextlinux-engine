@@ -7,12 +7,12 @@ import re
 import json
 import tarfile
 
-import anchore_engine.analyzers.utils
+import nextlinux_engine.analyzers.utils
 
 analyzer_name = "secret_content_search"
 
 try:
-    config = anchore_engine.analyzers.utils.init_analyzer_cmdline(
+    config = nextlinux_engine.analyzers.utils.init_analyzer_cmdline(
         sys.argv, analyzer_name
     )
 except Exception as err:
@@ -39,7 +39,7 @@ for sub_analyzer_name in sub_analyzer_names:
     matchparams[sub_analyzer_name] = []
 
     try:
-        sub_config = anchore_engine.analyzers.utils.init_analyzer_cmdline(
+        sub_config = nextlinux_engine.analyzers.utils.init_analyzer_cmdline(
             sys.argv, sub_analyzer_name
         )
     except Exception as err:
@@ -100,12 +100,12 @@ with tarfile.open(
     for name in alltnames:
         alltfiles[name] = True
 
-    memberhash = anchore_engine.analyzers.utils.get_memberhash(tfl)
+    memberhash = nextlinux_engine.analyzers.utils.get_memberhash(tfl)
     # for member in tfl.getmembers():
     for member in list(memberhash.values()):
         name = "/{}".format(member.name)
         if member.islnk() or member.issym():
-            emember = anchore_engine.analyzers.utils._get_extractable_member(
+            emember = nextlinux_engine.analyzers.utils._get_extractable_member(
                 tfl,
                 member,
                 deref_symlink=True,
@@ -179,6 +179,6 @@ for sub_analyzer_name in sub_analyzer_names:
 
     if outputdata:
         ofile = os.path.join(outputdirs[sub_analyzer_name], "regexp_matches.all")
-        anchore_engine.analyzers.utils.write_kvfile_fromdict(ofile, outputdata)
+        nextlinux_engine.analyzers.utils.write_kvfile_fromdict(ofile, outputdata)
 
 sys.exit(0)

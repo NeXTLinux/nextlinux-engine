@@ -13,10 +13,10 @@ from sqlalchemy import types
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
 import datetime
-from anchore_engine.utils import datetime_to_rfc3339
+from nextlinux_engine.utils import datetime_to_rfc3339
 
 try:
-    from anchore_engine.subsys import logger
+    from nextlinux_engine.subsys import logger
 
     # Separate logger for use during bootstrap when logging may not be fully configured
     from twisted.python import log
@@ -89,7 +89,7 @@ class UtilMixin(object):
         return obj
 
 
-def anchore_now():
+def nextlinux_now():
     """
     Simple epoch time fetcher
 
@@ -98,11 +98,11 @@ def anchore_now():
     return int(time.time())
 
 
-def anchore_now_datetime():
+def nextlinux_now_datetime():
     return datetime.datetime.utcnow()
 
 
-def anchore_uuid():
+def nextlinux_uuid():
     return uuid.uuid4().hex
 
 

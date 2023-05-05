@@ -1,11 +1,11 @@
 import json
 import time
 
-from anchore_engine.db import db_services, session_scope
-from anchore_engine.subsys import logger
-import anchore_engine.subsys.metrics
-import anchore_engine.configuration.localconfig
-import anchore_engine.version
+from nextlinux_engine.db import db_services, session_scope
+from nextlinux_engine.subsys import logger
+import nextlinux_engine.subsys.metrics
+import nextlinux_engine.configuration.localconfig
+import nextlinux_engine.version
 
 service_statuses = {}
 my_service_record = None
@@ -54,8 +54,8 @@ def set_status(
     if service not in service_statuses:
         service_statuses[service] = {}
 
-    # code_version = anchore_engine.version.version
-    # db_version = anchore_engine.version.db_version
+    # code_version = nextlinux_engine.version.version
+    # db_version = nextlinux_engine.version.db_version
 
     service_statuses[service]["up"] = up
     service_statuses[service]["available"] = available
@@ -119,7 +119,7 @@ def get_status(service_record):
 
 def handle_service_heartbeat(*args, **kwargs):
     cycle_timer = kwargs["mythread"]["cycle_timer"]
-    localconfig = anchore_engine.configuration.localconfig.get_config()
+    localconfig = nextlinux_engine.configuration.localconfig.get_config()
     try:
         servicename = args[0]
     except Exception as err:
@@ -133,11 +133,11 @@ def handle_service_heartbeat(*args, **kwargs):
         try:
             logger.debug(
                 "local service record: %s",
-                anchore_engine.subsys.servicestatus.get_my_service_record(),
+                nextlinux_engine.subsys.servicestatus.get_my_service_record(),
             )
             logger.debug("all service records: %s", service_statuses)
 
-            service_record = anchore_engine.subsys.servicestatus.get_my_service_record()
+            service_record = nextlinux_engine.subsys.servicestatus.get_my_service_record()
             update_status(service_record)
             logger.debug("service status update stored: next in %s", str(cycle_timer))
         except Exception as err:

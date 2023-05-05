@@ -20,8 +20,8 @@ from ijson import common as ijcommon
 from ijson.backends import python as ijpython
 
 
-from anchore_engine.subsys import logger
-from anchore_engine.util.docker import parse_dockerimage_string
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.util.docker import parse_dockerimage_string
 
 
 K_BYTES = 1024
@@ -284,7 +284,7 @@ def run_command(cmdstr, **kwargs):
 
 
 def manifest_to_digest(rawmanifest):
-    from anchore_engine.clients.skopeo_wrapper import manifest_to_digest_shellout
+    from nextlinux_engine.clients.skopeo_wrapper import manifest_to_digest_shellout
 
     ret = None
     d = json.loads(rawmanifest, object_pairs_hook=OrderedDict)

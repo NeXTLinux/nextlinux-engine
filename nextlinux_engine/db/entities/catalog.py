@@ -23,22 +23,22 @@ from sqlalchemy.orm import relationship
 
 from .common import (
     Base,
-    anchore_now,
-    anchore_uuid,
+    nextlinux_now,
+    nextlinux_uuid,
     UtilMixin,
     StringJSON,
-    anchore_now_datetime,
+    nextlinux_now_datetime,
 )
-from anchore_engine.utils import datetime_to_rfc3339
+from nextlinux_engine.utils import datetime_to_rfc3339
 
 
 class Nextlinux(Base, UtilMixin):
-    __tablename__ = "anchore"
+    __tablename__ = "nextlinux"
 
     service_version = Column(String, primary_key=True)
     db_version = Column(String, primary_key=True)
-    created_at = Column(Integer, default=anchore_now)
-    last_updated = Column(Integer, onupdate=anchore_now, default=anchore_now)
+    created_at = Column(Integer, default=nextlinux_now)
+    last_updated = Column(Integer, onupdate=nextlinux_now, default=nextlinux_now)
     record_state_key = Column(String, default="active")
     record_state_val = Column(String)
 
@@ -64,8 +64,8 @@ class ObjectStorageMetadata(Base, UtilMixin):
     digest = Column(String)
     size = Column(BigInteger)
     document_metadata = Column(String)
-    created_at = Column(Integer, default=anchore_now)
-    last_updated = Column(Integer, onupdate=anchore_now, default=anchore_now)
+    created_at = Column(Integer, default=nextlinux_now)
+    last_updated = Column(Integer, onupdate=nextlinux_now, default=nextlinux_now)
     record_state_key = Column(String, default="active")
     record_state_val = Column(String)
 
@@ -77,8 +77,8 @@ class LegacyArchiveDocument(Base, UtilMixin):
     archiveId = Column(String, primary_key=True)
     userId = Column(String, primary_key=True)
     documentName = Column(String, primary_key=True)
-    created_at = Column(Integer, default=anchore_now)
-    last_updated = Column(Integer, onupdate=anchore_now, default=anchore_now)
+    created_at = Column(Integer, default=nextlinux_now)
+    last_updated = Column(Integer, onupdate=nextlinux_now, default=nextlinux_now)
     record_state_key = Column(String, default="active")
     record_state_val = Column(String)
     jsondata = Column(String)
@@ -101,8 +101,8 @@ class ObjectStorageRecord(Base, UtilMixin):
     version = Column(String, primary_key=True, default="")
     object_metadata = Column(String)
     content = Column(LargeBinary)
-    created_at = Column(Integer, default=anchore_now)
-    last_updated = Column(Integer, onupdate=anchore_now, default=anchore_now)
+    created_at = Column(Integer, default=nextlinux_now)
+    last_updated = Column(Integer, onupdate=nextlinux_now, default=nextlinux_now)
 
 
 # This will be migrated to the Account table
@@ -115,8 +115,8 @@ class User(Base, UtilMixin):
     __tablename__ = "users"
 
     userId = Column(String, primary_key=True)
-    created_at = Column(Integer, default=anchore_now)
-    last_updated = Column(Integer, onupdate=anchore_now, default=anchore_now)
+    created_at = Column(Integer, default=nextlinux_now)
+    last_updated = Column(Integer, onupdate=nextlinux_now, default=nextlinux_now)
     record_state_key = Column(String, default="active")
     record_state_val = Column(String)
     password = Column(String)
@@ -131,8 +131,8 @@ class User(Base, UtilMixin):
 class Event(Base, UtilMixin):
     __tablename__ = "events"
 
-    generated_uuid = Column(String, primary_key=True, default=anchore_uuid)
-    created_at = Column(DateTime, default=anchore_now_datetime)
+    generated_uuid = Column(String, primary_key=True, default=nextlinux_uuid)
+    created_at = Column(DateTime, default=nextlinux_now_datetime)
     resource_user_id = Column(String, nullable=True)
     resource_id = Column(String, nullable=True)
     resource_type = Column(String, nullable=True)
@@ -176,8 +176,8 @@ class QueueItem(Base, UtilMixin):
     queueId = Column(String, primary_key=True)
     userId = Column(String, primary_key=True)
     dataId = Column(String, primary_key=True)
-    created_at = Column(Integer, default=anchore_now)
-    last_updated = Column(Integer, onupdate=anchore_now, default=anchore_now)
+    created_at = Column(Integer, default=nextlinux_now)
+    last_updated = Column(Integer, onupdate=nextlinux_now, default=nextlinux_now)
     record_state_key = Column(String, default="active")
     record_state_val = Column(String)
     data = Column(String)
@@ -197,8 +197,8 @@ class QueueMeta(Base, UtilMixin):
 
     queueName = Column(String, primary_key=True)
     userId = Column(String, primary_key=True)
-    created_at = Column(Integer, default=anchore_now)
-    last_updated = Column(Integer, onupdate=anchore_now, default=anchore_now)
+    created_at = Column(Integer, default=nextlinux_now)
+    last_updated = Column(Integer, onupdate=nextlinux_now, default=nextlinux_now)
     record_state_key = Column(String, default="active")
     record_state_val = Column(String)
     qlen = Column(BigInteger, default=0)
@@ -223,8 +223,8 @@ class Queue(Base, UtilMixin):
     queueId = Column(BigInteger, primary_key=True, autoincrement=True)
     userId = Column(String, primary_key=True)
     queueName = Column(String, primary_key=True)
-    created_at = Column(Integer, default=anchore_now)
-    last_updated = Column(Integer, onupdate=anchore_now, default=anchore_now)
+    created_at = Column(Integer, default=nextlinux_now)
+    last_updated = Column(Integer, onupdate=nextlinux_now, default=nextlinux_now)
     record_state_key = Column(String, default="active")
     record_state_val = Column(String)
     popped = Column(Boolean, default=False)
@@ -249,8 +249,8 @@ class Subscription(Base, UtilMixin):
     userId = Column(String, primary_key=True)
     subscription_type = Column(String, primary_key=True)
     subscription_key = Column(String, primary_key=True)
-    created_at = Column(Integer, default=anchore_now)
-    last_updated = Column(Integer, onupdate=anchore_now, default=anchore_now)
+    created_at = Column(Integer, default=nextlinux_now)
+    last_updated = Column(Integer, onupdate=nextlinux_now, default=nextlinux_now)
     record_state_key = Column(String, default="active")
     record_state_val = Column(String)
     subscription_value = Column(String)
@@ -278,8 +278,8 @@ class Subscription(Base, UtilMixin):
 #         regrepo = Column(String, primary_key=True)
 #         tag = Column(String, primary_key=True)
 #         userId = Column(String, primary_key=True)
-#         created_at = Column(Integer, default=anchore_now)
-#         last_updated = Column(Integer, onupdate=anchore_now, default=anchore_now)
+#         created_at = Column(Integer, default=nextlinux_now)
+#         last_updated = Column(Integer, onupdate=nextlinux_now, default=nextlinux_now)
 #         record_state_key = Column(String, default="active")
 #         record_state_val = Column(String)
 #
@@ -304,8 +304,8 @@ class CatalogImage(Base, UtilMixin):
     imageDigest = Column(String, primary_key=True)
     userId = Column(String, primary_key=True)
     parentDigest = Column(String)
-    created_at = Column(Integer, default=anchore_now)
-    last_updated = Column(Integer, onupdate=anchore_now, default=anchore_now)
+    created_at = Column(Integer, default=nextlinux_now)
+    last_updated = Column(Integer, onupdate=nextlinux_now, default=nextlinux_now)
     analyzed_at = Column(Integer)
     record_state_key = Column(String, default="active")
     record_state_val = Column(String)
@@ -345,9 +345,9 @@ class CatalogImageDocker(Base, UtilMixin):
     registry = Column(String, primary_key=True)
     repo = Column(String, primary_key=True)
     tag = Column(String, primary_key=True)
-    created_at = Column(Integer, default=anchore_now)
-    last_updated = Column(Integer, onupdate=anchore_now, default=anchore_now)
-    tag_detected_at = Column(Integer, default=anchore_now)
+    created_at = Column(Integer, default=nextlinux_now)
+    last_updated = Column(Integer, onupdate=nextlinux_now, default=nextlinux_now)
+    tag_detected_at = Column(Integer, default=nextlinux_now)
     record_state_key = Column(String, default="active")
     record_state_val = Column(String)
 
@@ -402,8 +402,8 @@ class ArchivedImage(Base, UtilMixin):
     archive_size_bytes = Column(BigInteger)
 
     # Timestamps for this archive record itself
-    created_at = Column(Integer, default=anchore_now)
-    last_updated = Column(Integer, onupdate=anchore_now, default=anchore_now)
+    created_at = Column(Integer, default=nextlinux_now)
+    last_updated = Column(Integer, onupdate=nextlinux_now, default=nextlinux_now)
 
     record_state_key = Column(String, default="active")
     record_state_val = Column(String)
@@ -467,9 +467,9 @@ class ArchivedImageDocker(Base, UtilMixin):
     tag = Column(String, primary_key=True)
     imageId = Column(String)
 
-    created_at = Column(Integer, default=anchore_now)
-    last_updated = Column(Integer, onupdate=anchore_now, default=anchore_now)
-    tag_detected_at = Column(Integer, default=anchore_now)
+    created_at = Column(Integer, default=nextlinux_now)
+    last_updated = Column(Integer, onupdate=nextlinux_now, default=nextlinux_now)
+    tag_detected_at = Column(Integer, default=nextlinux_now)
     record_state_key = Column(String, default="active")
     record_state_val = Column(String)
 
@@ -517,8 +517,8 @@ class ArchiveTransitionRule(Base, UtilMixin):
     tag_versions_newer = Column(Integer)
     analysis_age_days = Column(Integer)
     system_global = Column(Boolean, default=False)
-    created_at = Column(Integer, default=anchore_now)
-    last_updated = Column(Integer, onupdate=anchore_now, default=anchore_now)
+    created_at = Column(Integer, default=nextlinux_now)
+    last_updated = Column(Integer, onupdate=nextlinux_now, default=nextlinux_now)
     exclude_selector_registry = Column(String)
     exclude_selector_repository = Column(String)
     exclude_selector_tag = Column(String)
@@ -548,8 +548,8 @@ class ArchiveTransitionHistoryEntry(Base, UtilMixin):
     transition_state = Column(
         Enum(TransitionHistoryState, name="archive_transition_history_state")
     )
-    created_at = Column(Integer, default=anchore_now)
-    last_updated = Column(Integer, onupdate=anchore_now, default=anchore_now)
+    created_at = Column(Integer, default=nextlinux_now)
+    last_updated = Column(Integer, onupdate=nextlinux_now, default=nextlinux_now)
 
     # _matches = relationship("TransitionRuleMatch", primaryjoin="and_(ArchiveTransitionHistoryEntry.rule_id == foreign(TransitionRuleMatch.rule_id), ArchiveTransitionHistoryEntry.task_id == foreign(TransitionMatch.task_id))", lazy='joined', back_populates='_image', cascade='all, delete-orphan')
 
@@ -561,7 +561,7 @@ class ArchiveTransitionHistoryEntry(Base, UtilMixin):
 #     registry = Column(String, primary_key=True)
 #     repository = Column(String, primary_key=True)
 #     tag = Column(String, primary_key=True)
-#     created_at = Column(Integer, default=anchore_now)
+#     created_at = Column(Integer, default=nextlinux_now)
 #
 
 
@@ -570,8 +570,8 @@ class PolicyBundle(Base, UtilMixin):
 
     policyId = Column(String, primary_key=True)
     userId = Column(String, primary_key=True)
-    created_at = Column(Integer, default=anchore_now)
-    last_updated = Column(Integer, onupdate=anchore_now, default=anchore_now)
+    created_at = Column(Integer, default=nextlinux_now)
+    last_updated = Column(Integer, onupdate=nextlinux_now, default=nextlinux_now)
     record_state_key = Column(String, default="active")
     record_state_val = Column(String)
     active = Column(Boolean)
@@ -592,7 +592,7 @@ class PolicyEval(Base, UtilMixin):
     policyId = Column(String, primary_key=True)
     final_action = Column(String, primary_key=True)
     created_at = Column(Integer, primary_key=True)
-    last_updated = Column(Integer, onupdate=anchore_now, default=anchore_now)
+    last_updated = Column(Integer, onupdate=nextlinux_now, default=nextlinux_now)
     record_state_key = Column(String, default="active")
     record_state_val = Column(String)
 
@@ -637,8 +637,8 @@ class Service(Base, UtilMixin):
 
     hostid = Column(String, primary_key=True)
     servicename = Column(String, primary_key=True)
-    created_at = Column(Integer, default=anchore_now)
-    last_updated = Column(Integer, onupdate=anchore_now, default=anchore_now)
+    created_at = Column(Integer, default=nextlinux_now)
+    last_updated = Column(Integer, onupdate=nextlinux_now, default=nextlinux_now)
     record_state_key = Column(String, default="active")
     record_state_val = Column(String)
 
@@ -666,8 +666,8 @@ class Registry(Base, UtilMixin):
 
     registry = Column(String, primary_key=True)
     userId = Column(String, primary_key=True)
-    created_at = Column(Integer, default=anchore_now)
-    last_updated = Column(Integer, onupdate=anchore_now, default=anchore_now)
+    created_at = Column(Integer, default=nextlinux_now)
+    last_updated = Column(Integer, onupdate=nextlinux_now, default=nextlinux_now)
     record_state_key = Column(String, default="active")
     record_state_val = Column(String)
     registry_type = Column(String)
@@ -760,9 +760,9 @@ class ImageImportOperation(Base, UtilMixin):
     account = Column(String, index=True)
     expires_at = Column(DateTime)
     status = Column(Enum(ImportState))
-    created_at = Column(DateTime, default=anchore_now_datetime)
+    created_at = Column(DateTime, default=nextlinux_now_datetime)
     last_updated = Column(
-        DateTime, default=anchore_now_datetime, onupdate=anchore_now_datetime
+        DateTime, default=nextlinux_now_datetime, onupdate=nextlinux_now_datetime
     )
     contents = relationship("ImageImportContent", back_populates="operation")
 
@@ -785,9 +785,9 @@ class ImageImportContent(Base, UtilMixin):
     operation_id = Column(String, ForeignKey("image_imports.uuid"), primary_key=True)
     digest = Column(String, primary_key=True)
     content_type = Column(String, primary_key=True)
-    created_at = Column(DateTime, default=anchore_now_datetime)
+    created_at = Column(DateTime, default=nextlinux_now_datetime)
     last_updated = Column(
-        DateTime, default=anchore_now_datetime, onupdate=anchore_now_datetime
+        DateTime, default=nextlinux_now_datetime, onupdate=nextlinux_now_datetime
     )
     content_storage_bucket = Column(String)
     content_storage_key = Column(String)

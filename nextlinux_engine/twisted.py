@@ -21,11 +21,11 @@ from twisted.web.resource import Resource
 from twisted.web import wsgi, rewrite
 from twisted.web import server
 
-from anchore_engine.apis.ssl import _load_ssl_key, _load_ssl_cert
-from anchore_engine.subsys import logger
-from anchore_engine.configuration import localconfig
-from anchore_engine.service import ApiService
-from anchore_engine import utils
+from nextlinux_engine.apis.ssl import _load_ssl_key, _load_ssl_cert
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.configuration import localconfig
+from nextlinux_engine.service import ApiService
+from nextlinux_engine import utils
 import faulthandler
 
 # For the debug CLI, require a code modification to enable it. This allows on-host edits of the script and restart, but no accidental config from env vars or config.
@@ -72,7 +72,7 @@ class ThreadDumperResource(Resource):
 
         try:
             with open(
-                    "/var/log/anchore/pid_{}_thread_dump-{}".format(
+                    "/var/log/nextlinux/pid_{}_thread_dump-{}".format(
                         os.getpid(),
                         datetime.datetime.now().isoformat()),
                     "w",
@@ -119,7 +119,7 @@ class WsgiApiServiceMaker(object):
     """
 
     service_cls = None
-    tapname = None  # e.g. "anchore-api"
+    tapname = None  # e.g. "nextlinux-api"
     description = None  # e.g. "Nextlinux Service"
     options = CommonOptions
 
@@ -128,7 +128,7 @@ class WsgiApiServiceMaker(object):
 
         self.global_configuration = None
         self.service_config = None
-        self.anchore_service = None
+        self.nextlinux_service = None
         self.root_resource = None
         self.twistd_service = None
         self.resource_nodes = {}
@@ -215,18 +215,18 @@ class WsgiApiServiceMaker(object):
             # logger.enable_bootstrap_logging(self.tapname)
 
             assert issubclass(self.service_cls, ApiService)
-            self.anchore_service = self.service_cls(options=options)
-            self.anchore_service.initialize(self.global_configuration)
+            self.nextlinux_service = self.service_cls(options=options)
+            self.nextlinux_service.initialize(self.global_configuration)
 
             # application object
             application = service.Application(
-                "Service-" + "-".join(self.anchore_service.name))
+                "Service-" + "-".join(self.nextlinux_service.name))
             self.twistd_service = service.MultiService()
             self.twistd_service.setServiceParent(application)
 
-            if self.anchore_service.task_handlers_enabled:
+            if self.nextlinux_service.task_handlers_enabled:
                 logger.info("Starting monitor thread")
-                lc = self._get_api_monitor(self.anchore_service)
+                lc = self._get_api_monitor(self.nextlinux_service)
                 lc.start(1)
             else:
                 logger.warn(
@@ -287,7 +287,7 @@ class WsgiApiServiceMaker(object):
             self.service_config.get("max_request_threads",
                                     localconfig.DEFAULT_SERVICE_THREAD_COUNT))
 
-        wsgi_app = self.anchore_service.get_api_application()
+        wsgi_app = self.nextlinux_service.get_api_application()
         wsgi_site = wsgi.WSGIResource(reactor,
                                       reactor.getThreadPool(),
                                       application=wsgi_app)
@@ -297,7 +297,7 @@ class WsgiApiServiceMaker(object):
             reactor.getThreadPool().max))
 
         self._add_resource(
-            self.anchore_service.__service_api_version__.encode("utf-8"),
+            self.nextlinux_service.__service_api_version__.encode("utf-8"),
             wsgi_site)
 
         if enable_thread_dumper:
@@ -313,7 +313,7 @@ class WsgiApiServiceMaker(object):
             self.root_resource.putChild(name, resource)
 
         # this will rewrite any calls that do not have an explicit version to the base path before being processed by flask
-        self._api_version_bytes = self.anchore_service.__service_api_version__.encode(
+        self._api_version_bytes = self.nextlinux_service.__service_api_version__.encode(
             "utf-8")  # This is optimization
 
         # Handle the auth vs non-auth child resources to not consume a path element
@@ -322,13 +322,13 @@ class WsgiApiServiceMaker(object):
 
         # Build the main site server
         site = server.Site(root)
-        listen = self.anchore_service.configuration["listen"]
+        listen = self.nextlinux_service.configuration["listen"]
 
         # Disable the twisted access logging by overriding the log function as it uses a raw 'write' and cannot otherwise be disabled, iff enable_access_logging is set to False in either the service or global config
         try:
             eal = True
-            if "enable_access_logging" in self.anchore_service.configuration:
-                eal = self.anchore_service.configuration.get(
+            if "enable_access_logging" in self.nextlinux_service.configuration:
+                eal = self.nextlinux_service.configuration.get(
                     "enable_access_logging", True)
             elif "enable_access_logging" in self.configuration:
                 eal = self.configuration.get("enable_access_logging", True)
@@ -343,23 +343,23 @@ class WsgiApiServiceMaker(object):
         except:
             pass
 
-        if (str(self.anchore_service.configuration.get("ssl_enable",
+        if (str(self.nextlinux_service.configuration.get("ssl_enable",
                                                        "")).lower() == "true"):
             try:
                 ssl_data = {
                     "ssl_cert":
                     _load_ssl_cert(
-                        self.anchore_service.configuration["ssl_cert"]) if
-                    "ssl_cert" in self.anchore_service.configuration else None,
+                        self.nextlinux_service.configuration["ssl_cert"]) if
+                    "ssl_cert" in self.nextlinux_service.configuration else None,
                     "ssl_chain":
                     _load_ssl_cert(
-                        self.anchore_service.configuration["ssl_chain"])
-                    if "ssl_chain" in self.anchore_service.configuration else
+                        self.nextlinux_service.configuration["ssl_chain"])
+                    if "ssl_chain" in self.nextlinux_service.configuration else
                     None,
                     "ssl_key":
                     _load_ssl_key(
-                        self.anchore_service.configuration["ssl_key"]) if
-                    "ssl_key" in self.anchore_service.configuration else None,
+                        self.nextlinux_service.configuration["ssl_key"]) if
+                    "ssl_key" in self.nextlinux_service.configuration else None,
                 }
 
                 if ssl_data["ssl_chain"]:
@@ -375,7 +375,7 @@ class WsgiApiServiceMaker(object):
 
                 endpoint = SSL4ServerEndpoint(
                     reactor=reactor,
-                    port=int(self.anchore_service.configuration["port"]),
+                    port=int(self.nextlinux_service.configuration["port"]),
                     sslContextFactory=sfact,
                     interface=listen,
                 )
@@ -384,12 +384,12 @@ class WsgiApiServiceMaker(object):
         else:
             endpoint = TCP4ServerEndpoint(
                 reactor=reactor,
-                port=int(self.anchore_service.configuration["port"]),
+                port=int(self.nextlinux_service.configuration["port"]),
                 interface=listen,
             )
 
         ret_svc = StreamServerEndpointService(endpoint=endpoint, factory=site)
-        ret_svc.setName(self.anchore_service.name)
+        ret_svc.setName(self.nextlinux_service.name)
 
         return ret_svc
 

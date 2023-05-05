@@ -7,16 +7,16 @@ import datetime
 import uuid
 from authlib.jose import jwt
 from authlib.jose import JWTClaims
-from anchore_engine.configuration import localconfig
-from anchore_engine.configuration.localconfig import (
+from nextlinux_engine.configuration import localconfig
+from nextlinux_engine.configuration.localconfig import (
     OauthNotConfiguredError,
     InvalidOauthConfigurationError,
 )
-from anchore_engine.utils import ensure_bytes
-from anchore_engine.subsys import logger
+from nextlinux_engine.utils import ensure_bytes
+from nextlinux_engine.subsys import logger
 
-NEXTLINUX_ISSUER = "anchore-engine"
-NEXTLINUX_AUDIENCE = "anchore-engine"
+NEXTLINUX_ISSUER = "nextlinux-engine"
+NEXTLINUX_AUDIENCE = "nextlinux-engine"
 EXPIRATION_LEEWAY_SECONDS = 10
 SUPPORTED_ALGORITHMS = ["HS256", "HS512", "RS256", "RS512"]
 

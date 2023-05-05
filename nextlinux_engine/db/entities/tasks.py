@@ -15,7 +15,7 @@ from sqlalchemy import (
     JSON,
 )
 
-from anchore_engine.db.entities.common import Base, UtilMixin
+from nextlinux_engine.db.entities.common import Base, UtilMixin
 
 
 class Task(Base, UtilMixin):

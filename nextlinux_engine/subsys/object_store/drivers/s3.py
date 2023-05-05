@@ -2,10 +2,10 @@ import boto3
 import urllib.parse
 import uuid
 
-from anchore_engine import utils
-from anchore_engine.subsys import logger
+from nextlinux_engine import utils
+from nextlinux_engine.subsys import logger
 from .interface import ObjectStorageDriver
-from anchore_engine.subsys.object_store.exc import (
+from nextlinux_engine.subsys.object_store.exc import (
     DriverConfigurationError,
     ObjectKeyNotFoundError,
     BadCredentialsError,
@@ -95,7 +95,7 @@ class S3ObjectStorageDriver(ObjectStorageDriver):
         """
         Ensure that client can put/get/delete from a bucket.
         """
-        key = "__anchore_s3_key_self_check__{}".format(str(uuid.uuid4()))
+        key = "__nextlinux_s3_key_self_check__{}".format(str(uuid.uuid4()))
 
         try:
             self.s3_client.put_object(Bucket=self.bucket_name, Key=key, Body=b"")

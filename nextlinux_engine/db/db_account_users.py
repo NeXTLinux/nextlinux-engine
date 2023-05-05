@@ -4,10 +4,10 @@ Interface to the account_users table. Data format is dicts, not objects.
 
 from passlib import pwd
 from passlib.context import CryptContext
-from anchore_engine.db import AccountUser, AccessCredential, UserAccessCredentialTypes
-from anchore_engine.db.entities.common import anchore_now
-from anchore_engine.configuration import localconfig
-from anchore_engine.subsys import logger
+from nextlinux_engine.db import AccountUser, AccessCredential, UserAccessCredentialTypes
+from nextlinux_engine.db.entities.common import nextlinux_now
+from nextlinux_engine.configuration import localconfig
+from nextlinux_engine.subsys import logger
 
 
 class UserNotFoundError(Exception):
@@ -105,10 +105,10 @@ def add(account_name, username, user_type, user_source, session):
         user_to_create = AccountUser()
         user_to_create.account_name = account_name
         user_to_create.username = username
-        user_to_create.created_at = anchore_now()
+        user_to_create.created_at = nextlinux_now()
         user_to_create.type = user_type
         user_to_create.source = user_source
-        user_to_create.last_updated = anchore_now()
+        user_to_create.last_updated = nextlinux_now()
         session.add(user_to_create)
         session.flush()
     else:
@@ -145,7 +145,7 @@ def add_user_credential(
     credential.user = usr
     credential.username = usr.username
     credential.type = credential_type
-    credential.created_at = anchore_now()
+    credential.created_at = nextlinux_now()
 
     if value is None:
         value = _generate_password()

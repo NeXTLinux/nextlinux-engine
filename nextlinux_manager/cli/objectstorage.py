@@ -6,22 +6,22 @@ import click
 import datetime
 from prettytable import PrettyTable, PLAIN_COLUMNS
 
-from anchore_engine.subsys import object_store
-from anchore_engine.configuration.localconfig import (
+from nextlinux_engine.subsys import object_store
+from nextlinux_engine.configuration.localconfig import (
     load_config,
     get_config,
     localconfig,
 )
-from anchore_engine.subsys.object_store import migration, config as obj_config
-from anchore_engine.subsys.object_store.config import (
+from nextlinux_engine.subsys.object_store import migration, config as obj_config
+from nextlinux_engine.subsys.object_store.config import (
     DEFAULT_OBJECT_STORE_MANAGER_ID,
     ALT_OBJECT_STORE_CONFIG_KEY,
     ANALYSIS_ARCHIVE_MANAGER_ID,
 )
-from anchore_engine.db import db_tasks, ArchiveMigrationTask, session_scope
-from anchore_manager.util.proc import ExitCode, fail_exit, doexit
-from anchore_manager.util.logging import logger, log_error
-from anchore_manager.util.db import db_preflight, init_db_context, db_context
+from nextlinux_engine.db import db_tasks, ArchiveMigrationTask, session_scope
+from nextlinux_manager.util.proc import ExitCode, fail_exit, doexit
+from nextlinux_manager.util.logging import logger, log_error
+from nextlinux_manager.util.db import db_preflight, init_db_context, db_context
 
 config = {}
 module = None
@@ -101,7 +101,7 @@ def list_drivers():
 )
 def check(configfile, analysis_archive):
     """
-    Test the configuration in the expected anchore-engine config location or override that and use the configuration file provided as an option.
+    Test the configuration in the expected nextlinux-engine config location or override that and use the configuration file provided as an option.
 
     To test, the system will read and write a very small data document to the driver and then delete it on completion.
     """
@@ -146,7 +146,7 @@ def check(configfile, analysis_archive):
         mgr = object_store.get_manager()
 
     test_user_id = "test"
-    test_bucket = "anchorecliconfigtest"
+    test_bucket = "nextlinuxcliconfigtest"
     test_archive_id = "cliconfigtest"
     test_data = "clitesting at {}".format(datetime.datetime.utcnow().isoformat())
 
@@ -224,7 +224,7 @@ def check(configfile, analysis_archive):
 @click.option(
     "--bucket",
     multiple=True,
-    help="A specific logical bucket of data to migrate. Can be specified multiple times for multiple buckets. Note: this is NOT the bucket name on the backend, only the internal logical bucket anchore uses to organize its data. This should not usually be needed and should be used very carefully. E.g. analysis_archive, manifest_data, image_content_data, ...",
+    help="A specific logical bucket of data to migrate. Can be specified multiple times for multiple buckets. Note: this is NOT the bucket name on the backend, only the internal logical bucket nextlinux uses to organize its data. This should not usually be needed and should be used very carefully. E.g. analysis_archive, manifest_data, image_content_data, ...",
 )
 def migrate(
     from_driver_configpath,
@@ -239,14 +239,14 @@ def migrate(
     Migrate the objects in the document archive from one driver backend to the other. This may be a long running operation depending on the number of objects and amount of data to migrate.
 
     The migration process expects that the source and destination configurations are provided by config files passed in as arguments. The source configuration generally should be the same
-    as the configuration in the anchore engine config.yaml.
+    as the configuration in the nextlinux engine config.yaml.
 
     The general flow for a migration is:
-    1. Stop anchore-engine services (shutdown the entire cluster to ensure no data modifications during migration)
+    1. Stop nextlinux-engine services (shutdown the entire cluster to ensure no data modifications during migration)
     2. Create a new configuration yaml with at minimum the services.catalog.archive section configured as you would like it when migraton is complete
     3. Run migration
-    4. Update the config.yaml for you anchore-engine system to use the new driver.
-    5. Start anchore-engine again
+    4. Update the config.yaml for you nextlinux-engine system to use the new driver.
+    5. Start nextlinux-engine again
 
     """
 
@@ -343,7 +343,7 @@ def migrate(
         else:
             try:
                 answer = input(
-                    "Performing this operation requires *all* anchore-engine services to be stopped - proceed? (y/N)"
+                    "Performing this operation requires *all* nextlinux-engine services to be stopped - proceed? (y/N)"
                 )
             except:
                 answer = "n"
@@ -359,11 +359,11 @@ def migrate(
                 buckets_to_migrate=bucket,
             )
             logger.info(
-                "After this migration, your anchore-engine config.yaml MUST have the following configuration options added before starting up again:"
+                "After this migration, your nextlinux-engine config.yaml MUST have the following configuration options added before starting up again:"
             )
             if "archive_data_dir" in to_config:
                 logger.info(
-                    "\tNOTE: for archive_data_dir, the value must be set to the location that is accessible within your anchore-engine container"
+                    "\tNOTE: for archive_data_dir, the value must be set to the location that is accessible within your nextlinux-engine container"
                 )
 
             logger.info((yaml.dump(to_config, default_flow_style=False)))

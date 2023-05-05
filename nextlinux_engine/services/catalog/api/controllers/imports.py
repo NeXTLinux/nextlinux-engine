@@ -2,19 +2,19 @@ import datetime
 from hashlib import sha256
 from connexion import request
 
-from anchore_engine.apis import exceptions as api_exceptions
-from anchore_engine.apis.authorization import get_authorizer, INTERNAL_SERVICE_ALLOWED
-from anchore_engine.apis.context import ApiRequestContextProxy
-from anchore_engine.subsys.object_store import manager
-from anchore_engine.common.helpers import make_response_error
-from anchore_engine.subsys import logger
-from anchore_engine.db import session_scope
-from anchore_engine.db.entities.catalog import (
+from nextlinux_engine.apis import exceptions as api_exceptions
+from nextlinux_engine.apis.authorization import get_authorizer, INTERNAL_SERVICE_ALLOWED
+from nextlinux_engine.apis.context import ApiRequestContextProxy
+from nextlinux_engine.subsys.object_store import manager
+from nextlinux_engine.common.helpers import make_response_error
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.db import session_scope
+from nextlinux_engine.db.entities.catalog import (
     ImageImportOperation,
     ImageImportContent,
     ImportState,
 )
-from anchore_engine.utils import datetime_to_rfc3339, ensure_str, ensure_bytes
+from nextlinux_engine.utils import datetime_to_rfc3339, ensure_str, ensure_bytes
 
 authorizer = get_authorizer()
 

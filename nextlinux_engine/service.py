@@ -1,5 +1,5 @@
 """
-Base types for all anchore engine services
+Base types for all nextlinux engine services
 """
 
 import copy
@@ -15,21 +15,21 @@ import time
 import threading
 import traceback
 
-from anchore_engine.configuration import localconfig
-from anchore_engine.subsys import logger, metrics, servicestatus, taskstate
-from anchore_engine import monitors
-from anchore_engine.db import db_services, session_scope, initialize as initialize_db
-from anchore_engine.subsys.identities import manager_factory
-from anchore_engine.apis.authorization import init_authz_handler, get_authorizer
-from anchore_engine.subsys.events import ServiceAuthzPluginHealthCheckFailed
-from anchore_engine.clients.services import internal_client_for
-from anchore_engine.clients.services.catalog import CatalogClient
-from anchore_engine.configuration.localconfig import (
+from nextlinux_engine.configuration import localconfig
+from nextlinux_engine.subsys import logger, metrics, servicestatus, taskstate
+from nextlinux_engine import monitors
+from nextlinux_engine.db import db_services, session_scope, initialize as initialize_db
+from nextlinux_engine.subsys.identities import manager_factory
+from nextlinux_engine.apis.authorization import init_authz_handler, get_authorizer
+from nextlinux_engine.subsys.events import ServiceAuthzPluginHealthCheckFailed
+from nextlinux_engine.clients.services import internal_client_for
+from nextlinux_engine.clients.services.catalog import CatalogClient
+from nextlinux_engine.configuration.localconfig import (
     OauthNotConfiguredError,
     InvalidOauthConfigurationError,
 )
-from anchore_engine.apis.exceptions import NextlinuxApiError
-from anchore_engine.common.helpers import make_response_error
+from nextlinux_engine.apis.exceptions import NextlinuxApiError
+from nextlinux_engine.common.helpers import make_response_error
 
 
 class LifeCycleStages(enum.IntEnum):
@@ -113,7 +113,7 @@ class BaseService(object, metaclass=ServiceMeta):
     """
     Base type for all services to inherit from.
 
-    An anchore engine service always has:
+    An nextlinux engine service always has:
     healthcheck api - GET /health responds with 200 OK.
     monitor thread - to schedule async tasks and handle service status updates upstream
     versioned api - /vX/...
@@ -401,7 +401,7 @@ class BaseService(object, metaclass=ServiceMeta):
         logger.info("Registering service: {}".format(self.name))
 
         service_template = {
-            "type": "anchore",
+            "type": "nextlinux",
             "base_url": "N/A",
             "status_base_url": "N/A",
             "version": "v1",
@@ -743,19 +743,19 @@ class UserFacingApiService(ApiService):
     def build_action_map(swagger_content):
         """
         Given a dict from the swagger spec (must be fully materialized, no external refs), determine the mapping
-        of a operation to an action using x-anchore-action labels in the swagger.
+        of a operation to an action using x-nextlinux-action labels in the swagger.
 
         This relies on using connexion such that the x-swagger-router-controller + operationId define the key as is implemented
         in connexion. The resulting dict maps a fully-qualified function to an action
 
         :param swagger_content: dict
-        :return: dict function_name -> action (e.g. anchore_engine.services.apiext.images.list_images -> listImages)
+        :return: dict function_name -> action (e.g. nextlinux_engine.services.apiext.images.list_images -> listImages)
         """
 
         action_map = {}
         for path in swagger_content.get("paths").values():
             for verb in path.values():
-                action = verb.get("x-anchore-authz-action")
+                action = verb.get("x-nextlinux-authz-action")
                 controller = verb.get("x-swagger-router-controller")
                 operationId = verb.get("operationId")
                 action_map[controller + "." + operationId] = action
@@ -772,7 +772,7 @@ class UserFacingApiService(ApiService):
             ]
             if missing:
                 raise Exception(
-                    "API Spec validation error: All operations must have a x-anchore-authz-action label. Missing for: {}"
+                    "API Spec validation error: All operations must have a x-nextlinux-authz-action label. Missing for: {}"
                     .format(missing))
             else:
                 self._authz_actions = actions

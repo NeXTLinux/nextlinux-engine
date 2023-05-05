@@ -1,13 +1,13 @@
 #!/usr/bin/python
 from setuptools import setup, find_packages
 import os, shutil, errno, re
-from anchore_engine import version
+from nextlinux_engine import version
 
 version = version.version
-package_name = "anchore_engine"
+package_name = "nextlinux_engine"
 description = "Nextlinux Engine"
 long_description = open("README.md").read()
-url = "http://www.anchore.com"
+url = "http://www.nextlinux.com"
 
 with open("requirements.txt") as f:
     requirements = f.read().splitlines()
@@ -30,14 +30,14 @@ package_data = {
 }
 
 data_files = []
-# scripts = ['scripts/anchore-engine']
+# scripts = ['scripts/nextlinux-engine']
 scripts = []
 packages = find_packages(exclude=["test", "test.*"])
 packages.append("twisted.plugins")
 setup(
-    name="anchore_engine",
+    name="nextlinux_engine",
     author="Nextlinux Inc.",
-    author_email="dev@anchore.com",
+    author_email="dev@nextlinux.com",
     license="Apache License 2.0",
     description=description,
     long_description=long_description,
@@ -51,6 +51,6 @@ setup(
     scripts=scripts,
     entry_points="""
     [console_scripts]
-    anchore-manager=anchore_manager.cli:main_entry
+    nextlinux-manager=nextlinux_manager.cli:main_entry
     """,
 )

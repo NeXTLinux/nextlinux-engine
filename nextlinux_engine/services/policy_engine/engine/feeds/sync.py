@@ -11,14 +11,14 @@ import os
 import time
 import uuid
 
-from anchore_engine.clients.services.catalog import CatalogClient
-from anchore_engine.db import (
+from nextlinux_engine.clients.services.catalog import CatalogClient
+from nextlinux_engine.db import (
     get_thread_scoped_session as get_session,
     FeedMetadata,
     FeedGroupMetadata,
 )
-from anchore_engine.services.policy_engine.engine.feeds import IFeedSource
-from anchore_engine.services.policy_engine.engine.feeds.feeds import (
+from nextlinux_engine.services.policy_engine.engine.feeds import IFeedSource
+from nextlinux_engine.services.policy_engine.engine.feeds.feeds import (
     build_feed_sync_results,
     build_group_sync_result,
     feed_instance_by_name,
@@ -28,17 +28,17 @@ from anchore_engine.services.policy_engine.engine.feeds.feeds import (
     PackagesFeed,
     NvdV2Feed,
 )
-from anchore_engine.services.policy_engine.engine.feeds.client import get_client
-from anchore_engine.services.policy_engine.engine.feeds.download import (
+from nextlinux_engine.services.policy_engine.engine.feeds.client import get_client
+from nextlinux_engine.services.policy_engine.engine.feeds.download import (
     FeedDownloader,
     DownloadOperationConfiguration,
     LocalFeedDataRepo,
 )
-from anchore_engine.services.policy_engine.engine.feeds.db import (
+from nextlinux_engine.services.policy_engine.engine.feeds.db import (
     get_all_feeds,
     get_all_feeds_detached,
 )
-from anchore_engine.subsys.events import (
+from nextlinux_engine.subsys.events import (
     FeedSyncStarted,
     FeedSyncFailed,
     FeedSyncCompleted,
@@ -46,9 +46,9 @@ from anchore_engine.subsys.events import (
     FeedGroupSyncCompleted,
     FeedGroupSyncFailed,
 )
-from anchore_engine.configuration import localconfig
-from anchore_engine.subsys import logger
-from anchore_engine.common.schemas import (
+from nextlinux_engine.configuration import localconfig
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.common.schemas import (
     GroupDownloadOperationParams,
     GroupDownloadOperationConfiguration,
     DownloadOperationConfiguration,

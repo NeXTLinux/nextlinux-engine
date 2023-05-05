@@ -1,11 +1,11 @@
-from anchore_engine.services.policy_engine.engine.policy.gate import Gate, BaseTrigger
-from anchore_engine.services.policy_engine.engine.policy.params import (
+from nextlinux_engine.services.policy_engine.engine.policy.gate import Gate, BaseTrigger
+from nextlinux_engine.services.policy_engine.engine.policy.params import (
     TypeValidator,
     TriggerParameter,
 )
-from anchore_engine.db import NpmMetadata
-from anchore_engine.subsys import logger
-from anchore_engine.services.policy_engine.engine.feeds.feeds import (
+from nextlinux_engine.db import NpmMetadata
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.services.policy_engine.engine.feeds.feeds import (
     feed_instance_by_name,
 )
 
@@ -175,7 +175,7 @@ class NoFeedTrigger(BaseTrigger):
     __description__ = (
         "Triggers if the engine does not have access to the NPM data feed."
     )
-    __msg__ = "NPM packages are present but the anchore npm feed is not available - will be unable to perform checks that require feed data"
+    __msg__ = "NPM packages are present but the nextlinux npm feed is not available - will be unable to perform checks that require feed data"
 
     def evaluate(self, image_obj, context):
         try:

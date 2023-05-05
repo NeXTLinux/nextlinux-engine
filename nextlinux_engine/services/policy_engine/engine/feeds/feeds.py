@@ -1,8 +1,8 @@
 import datetime
 import time
 
-from anchore_engine.clients.services.catalog import CatalogClient
-from anchore_engine.db import (
+from nextlinux_engine.clients.services.catalog import CatalogClient
+from nextlinux_engine.db import (
     get_thread_scoped_session as get_session,
     FeedMetadata,
     GenericFeedDataRecord,
@@ -22,15 +22,15 @@ from anchore_engine.db import (
     CpeVulnerability,
 )
 
-from anchore_engine.common.schemas import (
+from nextlinux_engine.common.schemas import (
     DownloadOperationConfiguration,
     GroupDownloadResult,
     GroupDownloadOperationParams,
 )
-from anchore_engine.services.policy_engine.engine.feeds.download import (
+from nextlinux_engine.services.policy_engine.engine.feeds.download import (
     LocalFeedDataRepo,
 )
-from anchore_engine.services.policy_engine.engine.feeds.mappers import (
+from nextlinux_engine.services.policy_engine.engine.feeds.mappers import (
     GenericFeedDataMapper,
     SingleTypeMapperFactory,
     VulnerabilityFeedDataMapper,
@@ -40,23 +40,23 @@ from anchore_engine.services.policy_engine.engine.feeds.mappers import (
     VulnDBFeedDataMapper,
     GithubFeedDataMapper,
 )
-from anchore_engine.services.policy_engine.engine.feeds import mappers
-from anchore_engine.services.policy_engine.engine.vulnerabilities import (
+from nextlinux_engine.services.policy_engine.engine.feeds import mappers
+from nextlinux_engine.services.policy_engine.engine.vulnerabilities import (
     process_updated_vulnerability,
     flush_vulnerability_matches,
     ThreadLocalFeedGroupNameCache,
 )
-from anchore_engine.subsys.events import (
+from nextlinux_engine.subsys.events import (
     FeedGroupSyncStarted,
     FeedGroupSyncCompleted,
     FeedGroupSyncFailed,
     EventBase,
 )
-from anchore_engine.services.policy_engine.engine.feeds.db import (
+from nextlinux_engine.services.policy_engine.engine.feeds.db import (
     lookup_feed,
     get_feed_json,
 )
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
 
 def build_group_sync_result(group=None, status="failure"):
@@ -561,7 +561,7 @@ class NextlinuxServiceFeed(DataFeed):
 
 class VulnerabilityFeed(NextlinuxServiceFeed):
     """
-    Vulnerabilities feed from anchore feed service backend. Unique in that the records are nested and have structure.
+    Vulnerabilities feed from nextlinux feed service backend. Unique in that the records are nested and have structure.
     Each vulnerability record maps to a set of records in the DB: one for the vulnerability and a set for each of the FixedIn and
     VulnerableIn collections that are optionally present for the vulnerability main record.
 
@@ -951,7 +951,7 @@ class VulnerabilityFeed(NextlinuxServiceFeed):
 
 class PackagesFeed(NextlinuxServiceFeed):
     """
-    Feed for package data, served from the anchore feed service backend
+    Feed for package data, served from the nextlinux feed service backend
     """
 
     __feed_name__ = "packages"
@@ -1016,7 +1016,7 @@ class PackagesFeed(NextlinuxServiceFeed):
 
 class NvdV2Feed(NextlinuxServiceFeed):
     """
-    Feed for package data, served from the anchore feed service backend
+    Feed for package data, served from the nextlinux feed service backend
     """
 
     __feed_name__ = "nvdv2"
@@ -1083,7 +1083,7 @@ class NvdFeed(NextlinuxServiceFeed):
     """
     Legacy NVD feed, no longer used. Replaced by NVDv2. This is added back in to support clean removal of those records.
 
-    Feed for package data, served from the anchore feed service backend
+    Feed for package data, served from the nextlinux feed service backend
     """
 
     __feed_name__ = "nvd"

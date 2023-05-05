@@ -46,7 +46,7 @@ class DpkgVersion(object):
     @classmethod
     def non_compliant_parser(cls, version_str):
         """
-        Parse a pkg version as per anchore engine rules, which may not be compliant with dpkg spec.
+        Parse a pkg version as per nextlinux engine rules, which may not be compliant with dpkg spec.
         Use the wrapper fn from_string() for dpkg compliant version parser
 
         :param version_str:

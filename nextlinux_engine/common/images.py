@@ -1,11 +1,11 @@
 import json
 import re
 
-import anchore_engine.services
-import anchore_engine.utils
-from anchore_engine import db
-from anchore_engine.clients import docker_registry
-from anchore_engine.subsys import logger
+import nextlinux_engine.services
+import nextlinux_engine.utils
+from nextlinux_engine import db
+from nextlinux_engine.clients import docker_registry
+from nextlinux_engine.subsys import logger
 
 
 def lookup_registry_image(userId, image_info, registry_creds):
@@ -25,7 +25,7 @@ def lookup_registry_image(userId, image_info, registry_creds):
             parentmanifest,
         ) = docker_registry.get_image_manifest(userId, image_info, registry_creds)
     except Exception as err:
-        raise anchore_engine.common.helpers.make_anchore_exception(
+        raise nextlinux_engine.common.helpers.make_nextlinux_exception(
             err,
             input_message="cannot fetch image digest/manifest from registry",
             input_httpcode=400,
@@ -40,9 +40,9 @@ def get_image_info(
     ret = {}
     if image_type == "docker":
         try:
-            image_info = anchore_engine.utils.parse_dockerimage_string(input_string)
+            image_info = nextlinux_engine.utils.parse_dockerimage_string(input_string)
         except Exception as err:
-            raise anchore_engine.common.helpers.make_anchore_exception(
+            raise nextlinux_engine.common.helpers.make_nextlinux_exception(
                 err,
                 input_message="cannot handle image input string",
                 input_httpcode=400,
@@ -63,7 +63,7 @@ def get_image_info(
                 )
 
             except Exception as err:
-                raise anchore_engine.common.helpers.make_anchore_exception(
+                raise nextlinux_engine.common.helpers.make_nextlinux_exception(
                     err,
                     input_message="cannot fetch image digest/manifest from registry",
                     input_httpcode=400,

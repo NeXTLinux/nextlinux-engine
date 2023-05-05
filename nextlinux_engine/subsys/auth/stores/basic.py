@@ -1,7 +1,7 @@
 from yosai.core import account_abcs
-from anchore_engine.db import session_scope, AccountTypes
-from anchore_engine.subsys import logger
-from anchore_engine.apis.authentication import idp_factory, IdentityContext
+from nextlinux_engine.db import session_scope, AccountTypes
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.apis.authentication import idp_factory, IdentityContext
 import json
 
 
@@ -61,7 +61,7 @@ class DbAccountStore(
             "account_locked": None,
             "authc_info": {},
             "account_id": None,
-            "anchore_identity": None,  # Used to transmit more than just username
+            "nextlinux_identity": None,  # Used to transmit more than just username
         }
 
         with session_scope() as db:
@@ -77,7 +77,7 @@ class DbAccountStore(
             result_account["account_locked"] = False
 
             if identity:
-                result_account["anchore_identity"] = identity
+                result_account["nextlinux_identity"] = identity
 
             if creds:
                 result_account["authc_info"] = {
@@ -161,7 +161,7 @@ class TokenAccountStore(DbAccountStore):
             "account_locked": None,
             "authc_info": {},
             "account_id": None,
-            "anchore_identity": None,
+            "nextlinux_identity": None,
         }
 
         with session_scope() as db:
@@ -176,7 +176,7 @@ class TokenAccountStore(DbAccountStore):
 
             result_account["account_locked"] = False
             if identity:
-                result_account["anchore_identity"] = identity
+                result_account["nextlinux_identity"] = identity
                 result_account["authc_info"]["jwt"] = {
                     "credential": identity.user_uuid,
                     "failed_attempts": [],

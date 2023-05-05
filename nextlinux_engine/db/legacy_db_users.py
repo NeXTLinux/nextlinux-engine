@@ -5,8 +5,8 @@ TODO: Remove this once upgrade code is in place
 
 import time
 
-from anchore_engine import db
-from anchore_engine.db import User
+from nextlinux_engine import db
+from nextlinux_engine.db import User
 
 
 def add(userId, password, inobj, session=None):

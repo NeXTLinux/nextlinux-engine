@@ -1,10 +1,10 @@
 """
-Common threading utils for anchore engine services.
+Common threading utils for nextlinux engine services.
 
 """
 import time
 import threading
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
 # generic monitor_func implementation
 

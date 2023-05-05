@@ -9,14 +9,14 @@ import shutil
 
 from pkg_resources import resource_filename
 
-from anchore_engine.subsys import logger
-from anchore_engine.db.entities.identity import AccountTypes
-from anchore_engine.common import image_content_types, image_metadata_types
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.db.entities.identity import AccountTypes
+from nextlinux_engine.common import image_content_types, image_metadata_types
 
 DEFAULT_CONFIG = {
     "service_dir":
-    os.path.join("{}".format(os.getenv("HOME", "/tmp/anchoretmp")),
-                 ".anchore_engine"),
+    os.path.join("{}".format(os.getenv("HOME", "/tmp/nextlinuxtmp")),
+                 ".nextlinux_engine"),
     "tmp_dir":
     "/tmp",
     "log_level":
@@ -82,8 +82,8 @@ DEFAULT_CONFIG_FILENAME = "config.yaml"
 localconfig = {}
 
 # System configuration for identities and bootstrap
-SYSTEM_ACCOUNT_NAME = "anchore-system"
-SYSTEM_USERNAME = "anchore-system"
+SYSTEM_ACCOUNT_NAME = "nextlinux-system"
+SYSTEM_USERNAME = "nextlinux-system"
 ADMIN_ACCOUNT_NAME = "admin"
 ADMIN_USERNAME = "admin"
 ADMIN_USER_DEFAULT_PASSWORD = "foobar"  # This is used if the config doesn't include a value for the key referenced by DEFAULT_ADMIN_PASSWORD_KEY
@@ -170,8 +170,8 @@ def load_defaults(configdir=None):
 
     if not configdir:
         configdir = os.path.join(
-            "{}".format(os.getenv("HOME", "/tmp/anchoretmp")),
-            ".anchore_engine")
+            "{}".format(os.getenv("HOME", "/tmp/nextlinuxtmp")),
+            ".nextlinux_engine")
 
     localconfig.update(copy.deepcopy(DEFAULT_CONFIG))
     localconfig["service_dir"] = configdir
@@ -182,7 +182,7 @@ def load_defaults(configdir=None):
 def load_policy_bundle_paths(src_dir=None):
     global localconfig
 
-    default_bundle_name = "anchore_default_bundle.json"
+    default_bundle_name = "nextlinux_default_bundle.json"
 
     # Get the dir containing policy bundles to put in the config
     policy_bundles_dir = localconfig["policy_bundles_dir"]
@@ -196,7 +196,7 @@ def load_policy_bundle_paths(src_dir=None):
 
             if src_dir == None:
                 src_dir = os.path.join(
-                    resource_filename("anchore_engine", "conf/bundles/"))
+                    resource_filename("nextlinux_engine", "conf/bundles/"))
             policy_bundles = []
             for file_name in os.listdir(src_dir):
                 try:
@@ -227,7 +227,7 @@ def load_filepath_to_config(key, fname, src_dir=None):
         default_file = os.path.join(localconfig["service_dir"], fname)
         localconfig[key] = default_file
         if src_dir == None:
-            src_dir = os.path.join(resource_filename("anchore_engine",
+            src_dir = os.path.join(resource_filename("nextlinux_engine",
                                                      "conf/"))
         copy_config_file(default_file, fname, src_dir)
     except:
@@ -292,7 +292,7 @@ def load_config(configdir=None, configfile=None, validate_params=None):
 
     # copy the src installed files unless they already exist in the service dir conf
     load_policy_bundle_paths()
-    load_filepath_to_config("anchore_scanner_analyzer_config_file",
+    load_filepath_to_config("nextlinux_scanner_analyzer_config_file",
                             "analyzer_config.yaml")
 
     # generate/setup the host_id in the service_dir
@@ -303,7 +303,7 @@ def load_config(configdir=None, configfile=None, validate_params=None):
     localconfig["image_metadata_types"] = image_metadata_types
 
     ext_config = {}
-    for mod in "anchore_engine", "anchore_enterprise":
+    for mod in "nextlinux_engine", "nextlinux_enterprise":
         try:
             ext_config_file = os.path.join(resource_filename(mod, "conf/"),
                                            "extensions.yaml")
@@ -337,10 +337,10 @@ def load_config(configdir=None, configfile=None, validate_params=None):
     try:
         analyzer_config = localconfig.get("services", {}).get("analyzer", {})
         if (analyzer_config and analyzer_config.get(
-                "analyzer_driver", "localanchore") != "nodocker"):
-            if not os.path.exists("/usr/bin/anchore"):
+                "analyzer_driver", "localnextlinux") != "nodocker"):
+            if not os.path.exists("/usr/bin/nextlinux"):
                 logger.warn(
-                    "the 'localanchore' analyzer driver has been removed from anchore-engine - defaulting to 'nodocker' analyzer driver"
+                    "the 'localnextlinux' analyzer driver has been removed from nextlinux-engine - defaulting to 'nodocker' analyzer driver"
                 )
                 localconfig["services"]["analyzer"][
                     "analyzer_driver"] = "nodocker"
@@ -365,7 +365,7 @@ def read_config(configfile=None):
             raise err
 
         try:
-            anchore_envs = {}
+            nextlinux_envs = {}
             if "NEXTLINUX_ENV_FILE" in os.environ and os.path.exists(
                     os.environ["NEXTLINUX_ENV_FILE"]):
                 try:
@@ -377,7 +377,7 @@ def read_config(configfile=None):
                             v = re.sub("^(\"|')+", "", v)
                             v = re.sub("(\"|')+$", "", v)
                             if re.match("^NEXTLINUX.*", k):
-                                anchore_envs[k] = str(v)
+                                nextlinux_envs[k] = str(v)
                         except Exception as err:
                             logger.warn(
                                 "cannot parse line from NEXTLINUX_ENV_FILE - exception: "
@@ -387,14 +387,14 @@ def read_config(configfile=None):
 
             for e in list(os.environ.keys()):
                 if re.match("^NEXTLINUX.*", e):
-                    anchore_envs[e] = str(os.environ[e])
+                    nextlinux_envs[e] = str(os.environ[e])
 
-            if anchore_envs:
+            if nextlinux_envs:
                 confbufcopy = confbuf
                 try:
-                    for e in list(anchore_envs.keys()):
+                    for e in list(nextlinux_envs.keys()):
                         confbufcopy = confbufcopy.replace(
-                            "${" + str(e) + "}", anchore_envs[e])
+                            "${" + str(e) + "}", nextlinux_envs[e])
                 except Exception as err:
                     logger.warn(
                         "problem replacing configuration variable values with overrides - exception: "
@@ -574,7 +574,7 @@ def get_config():
 
 
 def get_versions():
-    from anchore_engine import version
+    from nextlinux_engine import version
 
     ret = {}
     ret["service_version"] = version.version
