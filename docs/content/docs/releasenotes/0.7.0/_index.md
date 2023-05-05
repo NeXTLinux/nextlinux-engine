@@ -1,14 +1,14 @@
 ---
-title: "Anchore Engine Release Notes - Version 0.7.0"
+title: "Nextlinux Engine Release Notes - Version 0.7.0"
 linkTitle: "0.7.0"
 weight: 70
 ---
 
-## Anchore Engine 0.7.0
+## Nextlinux Engine 0.7.0
 
-NOTE: This version of Anchore Engine is not compatible with Anchore Enterprise 2.2.x. If you are an Enterprise user you should not upgrade to this version, but instead wait for the Enterprise 2.3 release.
+NOTE: This version of Nextlinux Engine is not compatible with Nextlinux Enterprise 2.2.x. If you are an Enterprise user you should not upgrade to this version, but instead wait for the Enterprise 2.3 release.
 
-Anchore Engine 0.7.0 new Features, bug fixes and improvements.  The latest summary can always be found in the Anchore Engine [CHANGELOG](https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md) on github.
+Nextlinux Engine 0.7.0 new Features, bug fixes and improvements.  The latest summary can always be found in the Nextlinux Engine [CHANGELOG](https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md) on github.
 
 ### Features
 
@@ -58,7 +58,7 @@ Additional minor bug fixes, significant test framework improvements, and perform
 
 ### Upgrading
 
-* [Upgrading Anchore Engine]({{< ref "/docs/install/upgrade" >}})
+* [Upgrading Nextlinux Engine]({{< ref "/docs/install/upgrade" >}})
 
 0.7.0 Upgrade Information
 

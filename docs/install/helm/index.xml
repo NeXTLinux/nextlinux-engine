@@ -1,7 +1,7 @@
 <rss version="2.0"
     xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Anchore Engine – Install with Helm on Kubernetes</title>
+        <title>Nextlinux Engine – Install with Helm on Kubernetes</title>
         <link>/docs/install/helm/</link>
         <description>Recent Hugo news from gohugo.io</description>
         <generator>Hugo -- gohugo.io</generator>
@@ -17,8 +17,8 @@
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/install/helm/amazon_marketplace/</guid>
             <description>
-&lt;h2 id="aws-marketplace-nextlinux-engine-on-eks">AWS Marketplace: Anchore Engine on EKS&lt;/h2>
-&lt;p>This document willl walkthough deploying the Anchore Engine AWS Marketplace listing on Amazon EKS.&lt;/p>
+&lt;h2 id="aws-marketplace-nextlinux-engine-on-eks">AWS Marketplace: Nextlinux Engine on EKS&lt;/h2>
+&lt;p>This document willl walkthough deploying the Nextlinux Engine AWS Marketplace listing on Amazon EKS.&lt;/p>
 &lt;h2 id="prerequisites">Prerequisites&lt;/h2>
 &lt;ul>
 &lt;li>A running Amazon EKS cluster&lt;/li>
@@ -26,15 +26,15 @@
 &lt;li>Helm installed and available in your path&lt;/li>
 &lt;li>Tiller, the server side component of Helm, installed in your EKS cluster&lt;/li>
 &lt;/ul>
-&lt;h2 id="nextlinux-engine-marketplace-listing">Anchore Engine Marketplace Listing&lt;/h2>
-&lt;p>Navigate to the &lt;a href="https://aws.amazon.com/marketplace/pp/B07XZ3JZ2R">Anchore Engine Marketplace Listing&lt;/a>, and select &amp;ldquo;Continue to Subscribe&amp;rdquo;, &amp;ldquo;Continue to Configuration&amp;rdquo;, and &amp;ldquo;Continue to Launch&amp;rdquo;.&lt;/p>
+&lt;h2 id="nextlinux-engine-marketplace-listing">Nextlinux Engine Marketplace Listing&lt;/h2>
+&lt;p>Navigate to the &lt;a href="https://aws.amazon.com/marketplace/pp/B07XZ3JZ2R">Nextlinux Engine Marketplace Listing&lt;/a>, and select &amp;ldquo;Continue to Subscribe&amp;rdquo;, &amp;ldquo;Continue to Configuration&amp;rdquo;, and &amp;ldquo;Continue to Launch&amp;rdquo;.&lt;/p>
 &lt;p>On the Launch Configuration screen, select &amp;ldquo;View container image details&amp;rdquo;&lt;/p>
 &lt;p>&lt;img src="launch-config.png" alt="launch-screen">&lt;/p>
 &lt;p>Selecting this will present the following popup:&lt;/p>
 &lt;p>&lt;img src="launch-config-popup.png" alt="launch-popup">&lt;/p>
-&lt;p>Follow the steps on the popup to verify you are able to pull down the required images (Anchore Engine and Postgres) from Amazon ECR.&lt;/p>
+&lt;p>Follow the steps on the popup to verify you are able to pull down the required images (Nextlinux Engine and Postgres) from Amazon ECR.&lt;/p>
 &lt;h2 id="initial-configuration">Initial configuration&lt;/h2>
-&lt;p>Create a custom &lt;code>values.yaml&lt;/code> file to pass the Anchore Engine Helm Chart during your installation.&lt;/p>
+&lt;p>Create a custom &lt;code>values.yaml&lt;/code> file to pass the Nextlinux Engine Helm Chart during your installation.&lt;/p>
 &lt;p>You will need to reference the Amazon ECR Marketplace images in this Helm chart.&lt;/p>
 &lt;pre>&lt;code>postgresql:
 image: 709373726912.dkr.ecr.us-east-1.amazonaws.com/e4506d98-2de6-4375-8d5e-10f8b1f5d7e3/cg-3671661136/docker.io/library/postgres
@@ -46,7 +46,7 @@ imageTag: v.0.5.0-latest
 imagePullPolicy: IfNotPresent
 &lt;/code>&lt;/pre>&lt;p>&lt;strong>Note:&lt;/strong> You will also need create a secret with a Docker Config in order to fetch the Amazon ECR images.&lt;/p>
 &lt;h3 id="further-configuration">Further configuration&lt;/h3>
-&lt;p>For the complete list of configuration options for installation of the Anchore Helm chart, please check out the &lt;a href="https://github.com/nextlinux/nextlinux-charts/blob/master/stable/nextlinux-engine">GitHub Repository&lt;/a>&lt;/p>
+&lt;p>For the complete list of configuration options for installation of the Nextlinux Helm chart, please check out the &lt;a href="https://github.com/nextlinux/nextlinux-charts/blob/master/stable/nextlinux-engine">GitHub Repository&lt;/a>&lt;/p>
 &lt;h4 id="example-steps-to-create-a-secret">Example steps to create a secret&lt;/h4>
 &lt;pre>&lt;code>#
 # RUN me where kubectl is available,&amp;amp; make sure to replace account,region etc
@@ -66,8 +66,8 @@ kubectl create secret docker-registry $SECRET_NAME --docker-server=https://${ACC
 &lt;h2 id="installation">Installation&lt;/h2>
 &lt;p>Ensure you have the latest Helm Charts.&lt;/p>
 &lt;p>&lt;code>helm repo update&lt;/code>&lt;/p>
-&lt;h4 id="install-nextlinux-engine">Install Anchore Engine&lt;/h4>
-&lt;p>Run the following command to install the Anchore Engine Helm chart in your EKS cluster&lt;/p>
+&lt;h4 id="install-nextlinux-engine">Install Nextlinux Engine&lt;/h4>
+&lt;p>Run the following command to install the Nextlinux Engine Helm chart in your EKS cluster&lt;/p>
 &lt;pre>&lt;code>helm repo add nextlinux https://charts.nextlinux.io
 helm install helm install --name nextlinux-engine -f values.yaml nextlinux/nextlinux-engine
 &lt;/code>&lt;/pre></description>

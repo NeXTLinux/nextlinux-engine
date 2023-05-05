@@ -7,10 +7,10 @@ source nextlinux-ci/utils
 
 hash pylint || python -m pip install -q pylint
 
-print_colorized INFO "Linting Anchore Engine code."; echo
+print_colorized INFO "Linting Nextlinux Engine code."; echo
 
 # This is specifically enabling checks because the output is too large to
 # fix in one go. As cleanups are done, more checks can be enabled
 pylint -s n --disable=all --enable=C0325 nextlinux_engine
 
-print_colorized INFO "Finished linting Anchore Engine code."; echo
+print_colorized INFO "Finished linting Nextlinux Engine code."; echo

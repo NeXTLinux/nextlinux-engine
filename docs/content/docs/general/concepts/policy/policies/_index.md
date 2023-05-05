@@ -42,7 +42,7 @@ The above example defines a stop action to be produced for all package vulnerabi
 
 Policy evaluation is the execution of all defined triggers in the policy against the image analysis result and feed data and results in a set of output trigger matches, each of which contains the *defined* action from the rule definition. The final recommendation value for the policy evaluation is called the *final action*, and is computed from the set of output matches: *stop*, *go*, or *warn*.
 
-![alt text](AnchorePolicyOutcome.jpg)
+![alt text](NextlinuxPolicyOutcome.jpg)
 
 ### Policy Rules
 
@@ -65,7 +65,7 @@ Examples of gates:
 - *files*
 - *...*
 
-For a complete listing see: Anchore Policy Checks
+For a complete listing see: Nextlinux Policy Checks
 
 ### Triggers
 
@@ -86,7 +86,7 @@ Trigger parameters are passed as name, value pairs in the rule JSON:
 }
 ```
 
-For a complete listing of gates, triggers, and the parameters, see: Anchore Policy Checks
+For a complete listing of gates, triggers, and the parameters, see: Nextlinux Policy Checks
 
 ### Policy Evaluation
 
@@ -95,7 +95,7 @@ For a complete listing of gates, triggers, and the parameters, see: Anchore Poli
 - Each firing of a trigger generates a trigger_id for that match
 - Rules may be executed in any order, and are executed in isolation (e.g. conflicting rules are allowed, it's up to the user to ensure that policies make sense)
 
-See Anchore Policy Checks for a complete list of all gates, triggers, and parameters
+See Nextlinux Policy Checks for a complete list of all gates, triggers, and parameters
 
 Each output match from a rule contains the matching rule's:
 

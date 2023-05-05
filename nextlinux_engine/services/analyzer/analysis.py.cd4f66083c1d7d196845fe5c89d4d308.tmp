@@ -20,7 +20,7 @@ from nextlinux_engine.services.analyzer.utils import (
 )
 from nextlinux_engine.subsys import logger, events as events, metrics, taskstate
 from nextlinux_engine.common.schemas import AnalysisQueueMessage, ValidationError
-from nextlinux_engine.utils import AnchoreException
+from nextlinux_engine.utils import NextlinuxException
 from nextlinux_engine.services.analyzer.errors import (
     PolicyEngineClientError,
     CatalogClientError,
@@ -338,7 +338,7 @@ def process_analyzer_job(request: AnalysisQueueMessage, layer_cache_enable):
                     layer_cache_enable=layer_cache_enable,
                     parent_manifest=parent_manifest,
                 )
-            except AnchoreException as e:
+            except NextlinuxException as e:
                 event = events.ImageAnalysisFailed(
                     user_id=account, image_digest=image_digest, error=e.to_dict()
                 )

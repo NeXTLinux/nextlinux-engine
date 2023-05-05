@@ -1,7 +1,7 @@
 <rss version="2.0"
     xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Anchore Engine – CI / CD Integration</title>
+        <title>Nextlinux Engine – CI / CD Integration</title>
         <link>/docs/usage/integration/ci_cd/</link>
         <description>Recent Hugo news from gohugo.io</description>
         <generator>Hugo -- gohugo.io</generator>
@@ -17,7 +17,7 @@
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/usage/integration/ci_cd/circleci/</guid>
             <description>
-&lt;p>Integrating Anchore engine into your CircleCI pipeline can be accomplished seamlessly using the official Anchore Engine Orb.&lt;/p>
+&lt;p>Integrating Nextlinux engine into your CircleCI pipeline can be accomplished seamlessly using the official Nextlinux Engine Orb.&lt;/p>
 &lt;p>Orb source code &amp;amp; usage examples can be found on our &lt;a href="https://github.com/nextlinux/ci-tools/tree/master/circleci-orbs/nextlinux-engine">GitHub Repository&lt;/a>.&lt;/p>
 &lt;p>To read more about CircleCI orbs, view the official documentation - &lt;a href="https://circleci.com/docs/2.0/orb-intro/">CircleCi Orbs&lt;/a>&lt;/p></description>
         </item>
@@ -27,7 +27,7 @@
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/usage/integration/ci_cd/jenkins/</guid>
             <description>
-&lt;p>We keep the latest Anchore/Jenkins integration documentation hosted alongside the official Anchore Jenkins plugin module, &lt;a href="https://plugins.jenkins.io/nextlinux-container-scanner">here&lt;/a>.&lt;/p></description>
+&lt;p>We keep the latest Nextlinux/Jenkins integration documentation hosted alongside the official Nextlinux Jenkins plugin module, &lt;a href="https://plugins.jenkins.io/nextlinux-container-scanner">here&lt;/a>.&lt;/p></description>
         </item>
         <item>
             <title>Docs: GitHub</title>
@@ -35,22 +35,22 @@
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/usage/integration/ci_cd/github/</guid>
             <description>
-&lt;p>Image Scanning can be easily integrated into your GitHub Actions pipeline using the official Anchore Engine Scan Action.&lt;/p>
+&lt;p>Image Scanning can be easily integrated into your GitHub Actions pipeline using the official Nextlinux Engine Scan Action.&lt;/p>
 &lt;p>Documentation on how to use the action can be found in the official GitHub repository &lt;a href="https://github.com/nextlinux/scan-action">nextlinux scan-action&lt;/a>&lt;/p>
-&lt;p>Check out our Anchore Scan Action &lt;a href="https://www.brighttalk.com/webcast/17878/378430?utm_source=brighttalk-portal&amp;amp;utm_medium=web&amp;amp;utm_content=nextlinux%20github&amp;amp;utm_campaign=webcasts-search-results-feed">webinar demo&lt;/a>&lt;/p></description>
+&lt;p>Check out our Nextlinux Scan Action &lt;a href="https://www.brighttalk.com/webcast/17878/378430?utm_source=brighttalk-portal&amp;amp;utm_medium=web&amp;amp;utm_content=nextlinux%20github&amp;amp;utm_campaign=webcasts-search-results-feed">webinar demo&lt;/a>&lt;/p></description>
         </item>
         <item>
-            <title>Docs: Anchore Engine Inline Image Analysis/Engine Import</title>
+            <title>Docs: Nextlinux Engine Inline Image Analysis/Engine Import</title>
             <link>/docs/usage/integration/ci_cd/inline_analysis/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/usage/integration/ci_cd/inline_analysis/</guid>
             <description>
-&lt;p>&lt;em>&lt;strong>Warning&lt;/strong>: The Anchore Inline Scan script is deprecated and will reach &lt;strong>EOL on Jan 10, 2022&lt;/strong>. Please update your integrations to use &lt;a href="https://github.com/nextlinux/grype">Grype&lt;/a> for CI-based vulnerability scanning or &lt;a href="https://github.com/nextlinux/syft">Syft&lt;/a>. We will be updating our integrations that use inline_scan during that time to use Grype directly. Until that time all integrations will continue to function and get updated vulnerability data.&lt;/em>&lt;/p>
-&lt;p>&lt;em>&lt;strong>Until Jan 10, 2022&lt;/strong>: we will continue building inline_scan images based on v0.10.x of Anchore Engine and they will be updated daily for latest feed data.
+&lt;p>&lt;em>&lt;strong>Warning&lt;/strong>: The Nextlinux Inline Scan script is deprecated and will reach &lt;strong>EOL on Jan 10, 2022&lt;/strong>. Please update your integrations to use &lt;a href="https://github.com/nextlinux/grype">Grype&lt;/a> for CI-based vulnerability scanning or &lt;a href="https://github.com/nextlinux/syft">Syft&lt;/a>. We will be updating our integrations that use inline_scan during that time to use Grype directly. Until that time all integrations will continue to function and get updated vulnerability data.&lt;/em>&lt;/p>
+&lt;p>&lt;em>&lt;strong>Until Jan 10, 2022&lt;/strong>: we will continue building inline_scan images based on v0.10.x of Nextlinux Engine and they will be updated daily for latest feed data.
 On Jan 10, 2022, we will stop building new versions of the images with updated vulnerability data and the data will be stale.&lt;/em>&lt;/p>
 &lt;p>&lt;em>&lt;strong>After Jan 10, 2022&lt;/strong>: users should be transitioned to &lt;a href="https://github.com/nextlinux/grype">Grype&lt;/a> or Grype-based integrations.&lt;/em>&lt;/p>
 &lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>For use cases where it is desirable to perform image analysis for a locally build container image, and import the image analysis to an existing Anchore Engine installation, we support a methodology using the inline_scan tool. With this technique, you can &amp;lsquo;add&amp;rsquo; an image to your nextlinux engine service by analyzing any image that is available locally (say, on the docker host on which the image was built). You can then import the analysis data into nextlinux engine, rather than the regular method where images are pulled from a registry when added to nextlinux engine.&lt;/p>
+&lt;p>For use cases where it is desirable to perform image analysis for a locally build container image, and import the image analysis to an existing Nextlinux Engine installation, we support a methodology using the inline_scan tool. With this technique, you can &amp;lsquo;add&amp;rsquo; an image to your nextlinux engine service by analyzing any image that is available locally (say, on the docker host on which the image was built). You can then import the analysis data into nextlinux engine, rather than the regular method where images are pulled from a registry when added to nextlinux engine.&lt;/p>
 &lt;p>The only requirements to run the inline_scan script with the &amp;lsquo;analyze&amp;rsquo; operation is the ability to execute Docker commands, network connectivity to an nextlinux engine API endpoint &amp;amp; bash. We host a versioned copy of this script that can be downloaded directly with curl and executed in a bash pipeline.&lt;/p>
 &lt;ul>
 &lt;li>&lt;em>Note - For the rest of this document, &lt;code>USER&lt;/code>, &lt;code>PASS&lt;/code>, and &lt;code>URL&lt;/code> refer to an nextlinux engine user, password, and engine endpoint URL (http://&lt;!-- raw HTML omitted -->:&lt;!-- raw HTML omitted -->/v1) respectively.&lt;/em>&lt;/li>
@@ -58,13 +58,13 @@ On Jan 10, 2022, we will stop building new versions of the images with updated v
 &lt;p>To run the script on your workstation, use the following command syntax.&lt;/p>
 &lt;p>&lt;code>curl -s https://ci-tools.nextlinux.io/inline_scan-latest | bash -s -- analyze -u &amp;lt;USER&amp;gt; -p &amp;lt;PASS&amp;gt; -r &amp;lt;URL&amp;gt; [ OPTIONS ] &amp;lt;FULL_IMAGE_TAG&amp;gt;&lt;/code>&lt;/p>
 &lt;h3 id="inline-analysis-options">Inline Analysis Options&lt;/h3>
-&lt;pre>&lt;code>-r &amp;lt;TEXT&amp;gt; [required] URL to remote Anchore Engine API endpoint (ex: -r 'https://nextlinux.example.com:8228/v1')
--u &amp;lt;TEXT&amp;gt; [required] Username for remote Anchore Engine auth (ex: -u 'admin')
--p &amp;lt;TEXT&amp;gt; [required] Password for remote Anchore Engine auth (ex: -p 'foobar')
+&lt;pre>&lt;code>-r &amp;lt;TEXT&amp;gt; [required] URL to remote Nextlinux Engine API endpoint (ex: -r 'https://nextlinux.example.com:8228/v1')
+-u &amp;lt;TEXT&amp;gt; [required] Username for remote Nextlinux Engine auth (ex: -u 'admin')
+-p &amp;lt;TEXT&amp;gt; [required] Password for remote Nextlinux Engine auth (ex: -p 'foobar')
 -a &amp;lt;TEXT&amp;gt; [optional] Add annotations (ex: -a 'key=value,key=value')
 -d &amp;lt;PATH&amp;gt; [optional] Specify image digest (ex: -d 'sha256:&amp;lt;64 hex characters&amp;gt;')
 -f &amp;lt;PATH&amp;gt; [optional] Path to Dockerfile (ex: -f ./Dockerfile)
--i &amp;lt;TEXT&amp;gt; [optional] Specify image ID used within Anchore Engine (ex: -i '&amp;lt;64 hex characters&amp;gt;')
+-i &amp;lt;TEXT&amp;gt; [optional] Specify image ID used within Nextlinux Engine (ex: -i '&amp;lt;64 hex characters&amp;gt;')
 -m &amp;lt;PATH&amp;gt; [optional] Path to Docker image manifest (ex: -m ./manifest.json)
 -t &amp;lt;TEXT&amp;gt; [optional] Specify timeout for image analysis in seconds. Defaults to 300s. (ex: -t 500)
 -g [optional] Generate an image digest from docker save tarball
@@ -98,13 +98,13 @@ Image Digest: sha256:acd3ca9941a85e8ed16515bfc5328e4e2f8c128caa72959a58a127b7801
 &lt;/code>&lt;/pre></description>
         </item>
         <item>
-            <title>Docs: Anchore Engine Inline Scanning</title>
+            <title>Docs: Nextlinux Engine Inline Scanning</title>
             <link>/docs/usage/integration/ci_cd/inline_scanning/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/usage/integration/ci_cd/inline_scanning/</guid>
             <description>
-&lt;p>&lt;em>&lt;strong>Warning&lt;/strong>: The Anchore Inline Scan script is deprecated and will reach &lt;strong>EOL on Jan 10, 2022&lt;/strong>. Please update your integrations to use &lt;a href="https://github.com/nextlinux/grype">Grype&lt;/a> for CI-based vulnerability scanning or &lt;a href="https://github.com/nextlinux/syft">Syft&lt;/a>. We will be updating our integrations that use inline_scan during that time to use Grype directly. Until that time all integrations will continue to function and get updated vulnerability data.&lt;/em>&lt;/p>
-&lt;p>&lt;em>&lt;strong>Until Jan 10, 2022&lt;/strong>: we will continue building inline_scan images based on v0.10.x of Anchore Engine and they will be updated daily for latest feed data.
+&lt;p>&lt;em>&lt;strong>Warning&lt;/strong>: The Nextlinux Inline Scan script is deprecated and will reach &lt;strong>EOL on Jan 10, 2022&lt;/strong>. Please update your integrations to use &lt;a href="https://github.com/nextlinux/grype">Grype&lt;/a> for CI-based vulnerability scanning or &lt;a href="https://github.com/nextlinux/syft">Syft&lt;/a>. We will be updating our integrations that use inline_scan during that time to use Grype directly. Until that time all integrations will continue to function and get updated vulnerability data.&lt;/em>&lt;/p>
+&lt;p>&lt;em>&lt;strong>Until Jan 10, 2022&lt;/strong>: we will continue building inline_scan images based on v0.10.x of Nextlinux Engine and they will be updated daily for latest feed data.
 On Jan 10, 2022, we will stop building new versions of the images with updated vulnerability data and the data will be stale.&lt;/em>&lt;/p>
 &lt;p>&lt;em>&lt;strong>After Jan 10, 2022&lt;/strong>: users should be transitioned to &lt;a href="https://github.com/nextlinux/grype">Grype&lt;/a> or Grype-based integrations.&lt;/em>&lt;/p>
 &lt;h2 id="introduction">Introduction&lt;/h2>
@@ -113,11 +113,11 @@ On Jan 10, 2022, we will stop building new versions of the images with updated v
 &lt;p>To run the script on your workstation, use the following command syntax.&lt;/p>
 &lt;p>&lt;code>curl -s https://ci-tools.nextlinux.io/inline_scan-latest | bash -s -- [options] IMAGE_NAME(s)&lt;/code>&lt;/p>
 &lt;h3 id="inline-scan-options">Inline Scan Options&lt;/h3>
-&lt;pre>&lt;code>-b &amp;lt;PATH&amp;gt; [optional] Path to local Anchore policy bundle (ex: -b ./policy_bundle.json)
+&lt;pre>&lt;code>-b &amp;lt;PATH&amp;gt; [optional] Path to local Nextlinux policy bundle (ex: -b ./policy_bundle.json)
 -d &amp;lt;PATH&amp;gt; [optional] Path to local Dockerfile (ex: -d ./dockerfile)
 -v &amp;lt;PATH&amp;gt; [optional] Path to directory, all image archives in directory will be scanned (ex: -v /tmp/scan_images/)
 -t &amp;lt;TEXT&amp;gt; [optional] Specify timeout for image scanning in seconds. Defaults to 300s. (ex: -t 500)
--f [optional] Exit script upon failed Anchore policy evaluation
+-f [optional] Exit script upon failed Nextlinux policy evaluation
 -p [optional] Pull remote docker images
 -r [optional] Generate analysis reports in your current working directory
 -V [optional] Increase verbosity
@@ -291,17 +291,17 @@ commands:
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/usage/integration/ci_cd/gitlab/</guid>
             <description>
-&lt;h3 id="adding-nextlinux-scanning-to-gitlab">Adding Anchore Scanning to Gitlab&lt;/h3>
-&lt;p>The &amp;lsquo;on premises&amp;rsquo; solution requires a functional installation of Anchore Engine running on a system that is accessible from your GitLab runners.&lt;/p>
+&lt;h3 id="adding-nextlinux-scanning-to-gitlab">Adding Nextlinux Scanning to Gitlab&lt;/h3>
+&lt;p>The &amp;lsquo;on premises&amp;rsquo; solution requires a functional installation of Nextlinux Engine running on a system that is accessible from your GitLab runners.&lt;/p>
 &lt;h4 id="on-premises-solution">On Premises Solution:&lt;/h4>
 &lt;p>This sample job can run a Gitlab Runner including shared runners on Gitlab.com.
 The Docker executor is not required and no special privileges are required for scanning.&lt;/p>
 &lt;p>The runner will require network access to two end points:&lt;/p>
 &lt;p>Registry that contains the nextlinux/nextlinux-cli:latest
 By default that is hosted on DockerHub however the image can be pushed to any registry&lt;/p>
-&lt;p>Network access to communicate to an Anchore Engine service. Typically on port 8228&lt;/p>
-&lt;p>A running Anchore Engine is required, this does not need to be run within the Gitlab infrastructure as long as the HTTP(s) endpoint of the Anchore Engine is accessible by the Github runner.&lt;/p>
-&lt;p>If the Anchore Engine will require credentials to pull the image to be analyzed from a Docker registry then the credentials should be added to Anchore Engine using the following procedures.&lt;/p>
+&lt;p>Network access to communicate to an Nextlinux Engine service. Typically on port 8228&lt;/p>
+&lt;p>A running Nextlinux Engine is required, this does not need to be run within the Gitlab infrastructure as long as the HTTP(s) endpoint of the Nextlinux Engine is accessible by the Github runner.&lt;/p>
+&lt;p>If the Nextlinux Engine will require credentials to pull the image to be analyzed from a Docker registry then the credentials should be added to Nextlinux Engine using the following procedures.&lt;/p>
 &lt;p>An example job is shown below and is attached at the bottom of this page named nextlinux-on-prem-gitlab.txt&lt;/p>
 &lt;pre>&lt;code>nextlinux_scan:
 image: nextlinux/engine-cli:latest
@@ -314,7 +314,7 @@ NEXTLINUX_SCAN_IMAGE: docker.io/library/debian
 NEXTLINUX_TIMEOUT: 300
 NEXTLINUX_FAIL_ON_POLICY: &amp;quot;false&amp;quot;
 script:
-- echo &amp;quot;Adding image to Anchore engine at ${NEXTLINUX_CLI_URL}&amp;quot;
+- echo &amp;quot;Adding image to Nextlinux engine at ${NEXTLINUX_CLI_URL}&amp;quot;
 - nextlinux-cli image add ${NEXTLINUX_SCAN_IMAGE}
 - echo &amp;quot;Waiting for analysis to complete&amp;quot;
 - nextlinux-cli image wait ${NEXTLINUX_SCAN_IMAGE} --timeout ${NEXTLINUX_TIMEOUT}
@@ -342,16 +342,16 @@ paths:
 - image-gem.json
 - image-npm.json
 - image-packages.json
-&lt;/code>&lt;/pre>&lt;p>The container to be scanned should have been pushed to a registry from which the Anchore Engine can pull the image.&lt;/p>
-&lt;p>The first step of the job uses the Anchore CLI to instruct the Anchore Engine to analyze the image. The analysis process may take anywhere from 20 second to a few minutes depending on the size of the image, storage performance and network connectivity. During this period the Anchore Engine will:&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>The container to be scanned should have been pushed to a registry from which the Nextlinux Engine can pull the image.&lt;/p>
+&lt;p>The first step of the job uses the Nextlinux CLI to instruct the Nextlinux Engine to analyze the image. The analysis process may take anywhere from 20 second to a few minutes depending on the size of the image, storage performance and network connectivity. During this period the Nextlinux Engine will:&lt;/p>
 &lt;ul>
-&lt;li>Download all the layers of the image to the Anchore Engine&lt;/li>
+&lt;li>Download all the layers of the image to the Nextlinux Engine&lt;/li>
 &lt;li>Extract the layers to a temporary location&lt;/li>
 &lt;li>Analyze the image including reading package data, scanning for secrets or other sensitive information, recording file data such as a digests (checksum) of all files in the image including details such as file size and ownership&lt;/li>
-&lt;li>Add analysis data to the Anchore database&lt;/li>
+&lt;li>Add analysis data to the Nextlinux database&lt;/li>
 &lt;li>Delete temporary files&lt;/li>
 &lt;/ul>
-&lt;p>The job will poll the Anchore Engine every 10 seconds to check if the image has been analyzed and will repeat this until the maximum number of retries specified has been reached.&lt;/p>
+&lt;p>The job will poll the Nextlinux Engine every 10 seconds to check if the image has been analyzed and will repeat this until the maximum number of retries specified has been reached.&lt;/p>
 &lt;p>The job will output 8 JSON artifacts for storage within the Job&amp;rsquo;s workspace.&lt;/p>
 &lt;p>If the NEXTLINUX_FAIL_ON_POLICY is set to true then if the policy evaluation result is fail the entire job will fail.&lt;/p></description>
         </item>

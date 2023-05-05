@@ -1,7 +1,7 @@
 <rss version="2.0"
     xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Anchore Engine – Anchore Engine Release Notes - Version 0.7.0</title>
+        <title>Nextlinux Engine – Nextlinux Engine Release Notes - Version 0.7.0</title>
         <link>/docs/releasenotes/0.7.0/</link>
         <description>Recent Hugo news from gohugo.io</description>
         <generator>Hugo -- gohugo.io</generator>
@@ -20,13 +20,13 @@
 &lt;p>&lt;em>NOTE: This section is only for very specific situations where you absolutely must revert the matching system to use the RHSA data. This should not be done lightly. The newer CVE-based data is more accurate, specific, and provides a more consistent experience with other distros.&lt;/em>&lt;/p>
 &lt;p>If your processing of nextlinux output relies on RHSA keys as vulnerability matches, or you have large RHSA-based whitelists that cannot be converted to CVE-based,
 then it is possible, though not recommended, to migrate your system back to using the RHSA-based feeds (centos:* groups).&lt;/p>
-&lt;p>Here is the process. It requires the Anchore CLI with access to the API as well as direct access to the internal policy engine API endpoint. That may require a &lt;code>docker exec&lt;/code> or &lt;code>kubectl exec&lt;/code> call
+&lt;p>Here is the process. It requires the Nextlinux CLI with access to the API as well as direct access to the internal policy engine API endpoint. That may require a &lt;code>docker exec&lt;/code> or &lt;code>kubectl exec&lt;/code> call
 to achieve and will be deployment/environment specific.&lt;/p>
 &lt;ol>
 &lt;li>
 &lt;p>Revert the distro mapping records that map centos, fedora, and rhel to use the RHEL vuln data.&lt;/p>
 &lt;ol>
-&lt;li>With API access to the policy engine directly (output omitted for brevity), remove the existing &lt;em>distro mappings&lt;/em> to RHEL data. These are the used by Anchore:&lt;/li>
+&lt;li>With API access to the policy engine directly (output omitted for brevity), remove the existing &lt;em>distro mappings&lt;/em> to RHEL data. These are the used by Nextlinux:&lt;/li>
 &lt;/ol>
 &lt;pre>&lt;code>curl -X DELETE -u admin:foobar http://localhost:8087/v1/distro_mappings?from_distro=centos
 curl -X DELETE -u admin:foobar http://localhost:8087/v1/distro_mappings?from_distro=rhel
@@ -39,7 +39,7 @@ curl -H &amp;quot;Content-Type: application/json&amp;quot; -X POST -u admin:foob
 curl -H &amp;quot;Content-Type: application/json&amp;quot; -X POST -u admin:foobar -d'{&amp;quot;from_distro&amp;quot;:&amp;quot;rhel&amp;quot;, &amp;quot;to_distro&amp;quot;:&amp;quot;centos&amp;quot;, &amp;quot;flavor&amp;quot;:&amp;quot;RHEL&amp;quot;}' http://localhost:8087/v1/distro_mappings
 &lt;/code>&lt;/pre>&lt;p>Note: if something went wrong and you want to undo the progress you&amp;rsquo;ve made, just make the same set of calls as the last two steps in the same order but with the &lt;code>to_distro&lt;/code> values set to &amp;lsquo;rhel&amp;rsquo;.&lt;/p>
 &lt;ol>
-&lt;li>Now, ensure you are back where you have access to the main Anchore API and the Anchore CLI installed. Disable the existing rhel feed groups&lt;/li>
+&lt;li>Now, ensure you are back where you have access to the main Nextlinux API and the Nextlinux CLI installed. Disable the existing rhel feed groups&lt;/li>
 &lt;/ol>
 &lt;pre>&lt;code>nextlinux-cli system feeds config vulnerabilities --disable --group rhel:5
 nextlinux-cli system feeds config vulnerabilities --disable --group rhel:6

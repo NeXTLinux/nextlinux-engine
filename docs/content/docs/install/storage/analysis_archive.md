@@ -45,7 +45,7 @@ services:
 By default, if no `analysis_archive` config is found or the property is not present in the config.yaml, the analysis archive
 will use the `object_store` or `archive` (for backwards compatibility) config sections and those defaults (e.g. db if found).
 
-Anchore stores all of the analysis archive objects in an internal logical bucket: _analysis_archive_ that is distinct in
+Nextlinux stores all of the analysis archive objects in an internal logical bucket: _analysis_archive_ that is distinct in
 the configured backends (e.g a key prefix in the s3 bucket or swift container)
 
 ## Changing Configuration

@@ -45,7 +45,7 @@ if enable_dangerous_debug_cli or enable_thread_dumper:
 
 class CommonOptions(usage.Options):
     """
-    Default Anchore CLI options for the twistd plugins
+    Default Nextlinux CLI options for the twistd plugins
     """
 
     optParameters = [
@@ -120,7 +120,7 @@ class WsgiApiServiceMaker(object):
 
     service_cls = None
     tapname = None  # e.g. "anchore-api"
-    description = None  # e.g. "Anchore Service"
+    description = None  # e.g. "Nextlinux Service"
     options = CommonOptions
 
     def __init__(self, *args, **kwargs):

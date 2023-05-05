@@ -10,14 +10,14 @@ from anchore_engine.twisted import WsgiApiServiceMaker, CommonOptions
 @implementer(IServiceMaker, IPlugin)
 class SimpleQueueServiceMaker(WsgiApiServiceMaker):
     """
-    Anchore Engine Analyzer Worker twistd plugin.
+    Nextlinux Engine Analyzer Worker twistd plugin.
 
     Invoke with 'twistd anchore-worker -c <config>'
 
     """
 
     tapname = "anchore-simplequeue"
-    description = "Anchore Engine SimpleQueue Service. Provides task queues."
+    description = "Nextlinux Engine SimpleQueue Service. Provides task queues."
     service_cls = SimpleQueueService
     options = CommonOptions
 

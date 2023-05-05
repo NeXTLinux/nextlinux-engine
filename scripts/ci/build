@@ -18,7 +18,7 @@ else
     nextlinux_cli_commit="$(git ls-remote ${CLI_REPO} master | cut -f 1)"
 fi
 
-print_colorized INFO "Building Anchore Engine image ${TEST_IMAGE_NAME}; installing nextlinux-cli from git@${nextlinux_cli_commit}."; echo
+print_colorized INFO "Building Nextlinux Engine image ${TEST_IMAGE_NAME}; installing nextlinux-cli from git@${nextlinux_cli_commit}."; echo
 
 # A targeted build can be used to populate the cache in circleci if you're using the docker_layer_caching option in the job.
 # Since we're not using docker_layer_caching, this build step can be ignored.
@@ -26,4 +26,4 @@ print_colorized INFO "Building Anchore Engine image ${TEST_IMAGE_NAME}; installi
 
 docker build --build-arg NEXTLINUX_COMMIT="${COMMIT_SHA}" --build-arg CLI_COMMIT="${nextlinux_cli_commit}" -t "${TEST_IMAGE_NAME}" -f ./Dockerfile .
 
-print_colorized INFO "Built Anchore Engine image ${TEST_IMAGE_NAME}."; echo
+print_colorized INFO "Built Nextlinux Engine image ${TEST_IMAGE_NAME}."; echo

@@ -2134,7 +2134,7 @@ definitions:
       detected_at:
         type: string
         format: date-time
-        description: The timestamp at which the Anchore Engine detected this tag was mapped to the image digest. Does not necessarily indicate when the tag was actually pushed to the registry.
+        description: The timestamp at which the Nextlinux Engine detected this tag was mapped to the image digest. Does not necessarily indicate when the tag was actually pushed to the registry.
     description: A docker-pullable tag value as well as deconstructed components
   ImageSelector:
     description: A set of selection criteria to match an image by a tagged pullstring based on its components, with regex support in each field
@@ -2160,7 +2160,7 @@ definitions:
         description: The image id if available
       analyzed_at:
         type: string
-        description: Timestamp, in rfc3339 format, indicating when the image state became 'analyzed' in Anchore Engine.
+        description: Timestamp, in rfc3339 format, indicating when the image state became 'analyzed' in Nextlinux Engine.
       tag_history:
         type: array
         items:

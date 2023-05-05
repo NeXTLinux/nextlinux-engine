@@ -1,5 +1,5 @@
 ---
-title: "Anchore Engine Inline Scanning"
+title: "Nextlinux Engine Inline Scanning"
 linkTitle: "Inline Scanning"
 weight: 3
 ---
@@ -17,11 +17,11 @@ To run the script on your workstation, use the following command syntax.
 ### Inline Scan Options
 
 ```
--b <PATH>  [optional] Path to local Anchore policy bundle (ex: -b ./policy_bundle.json)
+-b <PATH>  [optional] Path to local Nextlinux policy bundle (ex: -b ./policy_bundle.json)
 -d <PATH>  [optional] Path to local Dockerfile (ex: -d ./dockerfile)
 -v <PATH>  [optional] Path to directory, all image archives in directory will be scanned (ex: -v /tmp/scan_images/)
 -t <TEXT>  [optional] Specify timeout for image scanning in seconds. Defaults to 300s. (ex: -t 500)
--f  [optional] Exit script upon failed Anchore policy evaluation
+-f  [optional] Exit script upon failed Nextlinux policy evaluation
 -p  [optional] Pull remote docker images
 -r  [optional] Generate analysis reports in your current working directory
 -V  [optional] Increase verbosity

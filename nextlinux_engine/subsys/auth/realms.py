@@ -28,7 +28,7 @@ class CaseSensitivePermission(DefaultPermission):
 
 class UsernamePasswordRealm(AccountStoreRealm):
     """
-    Anchore customized version of the default AccountStoreRealm from yosai.
+    Nextlinux customized version of the default AccountStoreRealm from yosai.
 
     Uses a username/password db store.
 

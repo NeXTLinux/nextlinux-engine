@@ -1,13 +1,13 @@
 from flask import jsonify
 
-from nextlinux_engine.common.errors import AnchoreError
+from nextlinux_engine.common.errors import NextlinuxError
 from nextlinux_engine.apis.authorization import get_authorizer, INTERNAL_SERVICE_ALLOWED
 from nextlinux_engine.apis.exceptions import (
     BadRequest,
     ConflictingRequest,
     ResourceNotFound,
     InternalError,
-    AnchoreApiError,
+    NextlinuxApiError,
 )
 from nextlinux_engine.clients.services.simplequeue import (
     LeaseAcquisitionFailedError,
@@ -114,9 +114,9 @@ def sync_feeds(sync=True, force_flush=False):
                     in_httpcode=409,
                     details={
                         "error_codes": [
-                            AnchoreError.FEED_SYNC_ALREADY_IN_PROGRESS.name
+                            NextlinuxError.FEED_SYNC_ALREADY_IN_PROGRESS.name
                         ],
-                        "message": AnchoreError.FEED_SYNC_ALREADY_IN_PROGRESS.value,
+                        "message": NextlinuxError.FEED_SYNC_ALREADY_IN_PROGRESS.value,
                     },
                 ),
                 409,
@@ -144,7 +144,7 @@ def toggle_feed_enabled(feed, enabled):
         session.commit()
 
         return jsonify(updated), 200
-    except AnchoreApiError:
+    except NextlinuxApiError:
         session.rollback()
         raise
     except Exception as e:
@@ -170,7 +170,7 @@ def toggle_group_enabled(feed, group, enabled):
         session.commit()
 
         return jsonify(grp), 200
-    except AnchoreApiError:
+    except NextlinuxApiError:
         session.rollback()
         raise
     except Exception:
@@ -191,7 +191,7 @@ def delete_feed(feed):
                 message="Cannot delete an enabled feed. Disable the feed first",
                 detail={},
             )
-    except AnchoreApiError:
+    except NextlinuxApiError:
         raise
     except Exception as e:
         return jsonify(make_response_error(e, in_httpcode=500)), 500
@@ -206,7 +206,7 @@ def delete_feed(feed):
             raise ResourceNotFound(feed, detail={})
     except KeyError as e:
         raise ResourceNotFound(resource=str(e), detail={"feed": feed})
-    except AnchoreApiError:
+    except NextlinuxApiError:
         raise
     except Exception as e:
         return jsonify(make_response_error(e, in_httpcode=500)), 500
@@ -224,7 +224,7 @@ def delete_group(feed, group):
                 message="Cannot delete an enabled feed group. Disable the feed group first",
                 detail={},
             )
-    except AnchoreApiError:
+    except NextlinuxApiError:
         raise
     except Exception as e:
         return jsonify(make_response_error(e, in_httpcode=500)), 500
@@ -240,7 +240,7 @@ def delete_group(feed, group):
             raise ResourceNotFound(group, detail={})
     except KeyError as e:
         raise ResourceNotFound(resource=str(e), detail={"feed": feed, "group": group})
-    except AnchoreApiError:
+    except NextlinuxApiError:
         raise
     except Exception as e:
         log.error("Could not flush feed group {}/{}".format(feed, group))

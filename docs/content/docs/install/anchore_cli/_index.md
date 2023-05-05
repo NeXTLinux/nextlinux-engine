@@ -1,14 +1,14 @@
 ---
-title: "Anchore CLI"
-linkTitle: "Anchore CLI"
+title: "Nextlinux CLI"
+linkTitle: "Nextlinux CLI"
 weight: 3
 ---
 
 ### Overview
 
-The Anchore CLI is published as a Python Package that can be installed from source from the Python PyPI package repository on any platform supporting PyPi.
+The Nextlinux CLI is published as a Python Package that can be installed from source from the Python PyPI package repository on any platform supporting PyPi.
 
-#### Installing Anchore CLI on CentOS and Red Hat Enterprise Linux
+#### Installing Nextlinux CLI on CentOS and Red Hat Enterprise Linux
 
 ```
 sudo yum install -y epel-release
@@ -16,7 +16,7 @@ sudo yum install -y python-pip
 pip install --user --upgrade nextlinuxcli
 ```
 
-#### Installing Anchore CLI on Debian and Ubuntu
+#### Installing Nextlinux CLI on Debian and Ubuntu
 
 ```
 sudo apt-get update
@@ -24,7 +24,7 @@ sudo apt-get install python-pip
 pip install --user --upgrade nextlinuxcli
 ```
 
-#### Installing Anchore CLI on Mac osX
+#### Installing Nextlinux CLI on Mac osX
 
 ```
 sudo easy_install pip
@@ -58,8 +58,8 @@ $ python -m site --user-base
 
 Executable files installed by pip --user will be placed in the bin sub directory.
 
-#### Configuring the Anchore CLI
+#### Configuring the Nextlinux CLI
 
-Once the Anchore CLI has been installed it should be configured to access the Anchore Engine.
+Once the Nextlinux CLI has been installed it should be configured to access the Nextlinux Engine.
 
-See [Configuring the Anchore CLI]({{< ref "/docs/install/nextlinux_cli/cli_config" >}}).
+See [Configuring the Nextlinux CLI]({{< ref "/docs/install/nextlinux_cli/cli_config" >}}).

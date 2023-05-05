@@ -761,7 +761,7 @@ definitions:
         - "complete"
         - "failed"
   PolicyBundle:  
-    description: "Formal schema for Anchore Policy Bundle documents"
+    description: "Formal schema for Nextlinux Policy Bundle documents"
     type: object
     required:
     - "id"

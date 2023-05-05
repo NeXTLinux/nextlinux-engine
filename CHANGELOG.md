@@ -149,7 +149,7 @@
 
 - Added - Store a set of digests in a subscription record, allowing engine to run vuln_update/policy_eval checks over specified digests as well as latest. Contribution by Mattia Pagnozzi <mattia.pagnozzi@gmail.com>
 - Added - New debug_exception logger function to dump stack only at debug or higher log level, otherwise just print error.
-- Added - Adds global internal client timeouts configurable in the config.yaml file. Fixes #210 add annotations key to AnchoreImage response definition type in.
+- Added - Adds global internal client timeouts configurable in the config.yaml file. Fixes #210 add annotations key to NextlinuxImage response definition type in.
 - Fix - GET /images?history=true not returning full history list. Fixes #215
 - Fix - Allow distro discovery routine to handle case where system os metadata files are broken softlinks inside the container image. Fixes #213
 - Fix - Update to analyzer code, to keep a consistent map of files regardless of any file name slash and dot prefixes that may be present in the layer tars. Fixes #209
@@ -159,7 +159,7 @@
 - Fix - On image add, ensure that subscriptions are (re)activated based on API input. Fixes #195
 - Fix - Use of body in GET /images to filter by tag and/or digest rather than only using query param
 - Fix - Don't require type and key on PUT /subscriptions, reconciling code behavior with swagger spec. Contribution by by Mattia Pagnozzi <mattia.pagnozzi@gmail.com>
-- Fix - Add missing 'annotations' key to AnchoreImage response definition type in swagger spec.
+- Fix - Add missing 'annotations' key to NextlinuxImage response definition type in swagger spec.
 - Fix - Add correct DB filter on userId to prevent images deleted from one user account from resulting in deletions of images in other accounts, when Image Digests align across accounts. Fixes #224.
 - Improved - Update Dockerfile using multi-stage model
 
@@ -202,7 +202,7 @@
 ## 0.3.3 (2019-02-22)
 
 - Added - new ssl_verify option in feeds section of default/example config yamls and related environment settings in Dockerfile, to handle cases where default feed endpoint (ancho.re) is behind proxy with site-specific cert. Fixes #141
-- Added - the parentDigest to AnchoreImageTagSummary definition in apiext swagger.yaml. Fixes #140
+- Added - the parentDigest to NextlinuxImageTagSummary definition in apiext swagger.yaml. Fixes #140
 - Added - imageDigest and more elements (package name, version, type, feed, feed group) to the vuln_update webhook payload. Fixes #130
 - Added - regex support for mapping rules using value prefix 'regexp:'. Fixes #128
 - Fix - only emit events into the event log for orphaned or down services when they transition, mitigating condition where simplequeue service can getting highly loaded when many orphaned service records are in place. Fixes #147

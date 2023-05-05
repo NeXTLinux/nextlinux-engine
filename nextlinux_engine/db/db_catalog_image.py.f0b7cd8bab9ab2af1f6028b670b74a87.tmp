@@ -497,8 +497,8 @@ def get_oldest_images_with_limit(session, account, max_images, excluded_digests)
 
     :param session: DB Session
     :param account: The account name (maps to userId in catalog_images)
-    :param max_images: This is the maximum image count for the Anchore Deployment. Must be a positive integer.
-                       Based on the number of images in Anchore, this will determine the number returned images
+    :param max_images: This is the maximum image count for the Nextlinux Deployment. Must be a positive integer.
+                       Based on the number of images in Nextlinux, this will determine the number returned images
     """
     if max_images < 0:
         logger.warn(

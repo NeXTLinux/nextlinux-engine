@@ -14,7 +14,7 @@ from anchore_engine.apis.context import ApiRequestContextProxy
 from anchore_engine.clients.services import internal_client_for
 from anchore_engine.clients.services.catalog import CatalogClient
 from anchore_engine.clients.services.policy_engine import PolicyEngineClient
-from anchore_engine.common.errors import AnchoreError
+from anchore_engine.common.errors import NextlinuxError
 from anchore_engine.configuration.localconfig import GLOBAL_RESOURCE_DOMAIN
 from anchore_engine.subsys import logger, notifications
 from anchore_engine.subsys.identities import manager_factory
@@ -422,7 +422,7 @@ def describe_error_codes():
     return_object = []
     httpcode = 500
     try:
-        for e in AnchoreError:
+        for e in NextlinuxError:
             el = {
                 "name": e.name,
                 "description": e.value,

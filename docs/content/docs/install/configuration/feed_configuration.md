@@ -6,7 +6,7 @@ weight: 1
 
 ### Feed Synchronization Interval
 
-The default configuration for the Anchore Engine will download vulnerability data from Anchore's feed service every 21,600 seconds (6hours).
+The default configuration for the Nextlinux Engine will download vulnerability data from Nextlinux's feed service every 21,600 seconds (6hours).
 
 For most users the only configuration option that is typically updated is the feed synchronization interval - the time interval (in seconds) at which the feed sync is run.
 
@@ -23,10 +23,10 @@ For most users the only configuration option that is typically updated is the fe
 Feed sync configuration is set in the config.yaml file used by policy engine service. The `feeds` section of the configuration file in the policy engine's container controls the behavior of feed syncs done by that particular container. Ensure these are synchronized between
 containers if you are running more than one policy engine. This is usually handled for you by Helm Charts on Kubernetes, for example.
 
-The Anchore Engine will default to downloading feed data from Anchore's feed service hosted at https://ancho.re/v1/service/feeds and running in AWS in the us-west-2 region.
+The Nextlinux Engine will default to downloading feed data from Nextlinux's feed service hosted at https://ancho.re/v1/service/feeds and running in AWS in the us-west-2 region.
 
 
-By default the Anchore Engine will perform a selective sync enabling only the vulnerabilities feed. Setting the (selective_sync) enabled flag to false, or updating the other feed types to True will enable synchronization of the specified feed.
+By default the Nextlinux Engine will perform a selective sync enabling only the vulnerabilities feed. Setting the (selective_sync) enabled flag to false, or updating the other feed types to True will enable synchronization of the specified feed.
 
 ```
 feeds:
@@ -392,4 +392,4 @@ vulnerabilities        centos:5               success        1347               
 ```
 
 With these controls you can better customize the data set that nextlinux stores in the db. However, note that this should not normally be necessary
-and modifying feed groups & data has implication on the sets of distros and types of artifacts Anchore can match vulnerabilities against.
+and modifying feed groups & data has implication on the sets of distros and types of artifacts Nextlinux can match vulnerabilities against.

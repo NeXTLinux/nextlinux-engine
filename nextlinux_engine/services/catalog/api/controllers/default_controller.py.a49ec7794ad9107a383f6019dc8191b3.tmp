@@ -17,7 +17,7 @@ from nextlinux_engine.subsys import logger
 from nextlinux_engine.subsys.metrics import flask_metrics
 from nextlinux_engine.common.schemas import ImportManifest
 from nextlinux_engine.apis.exceptions import (
-    AnchoreApiError,
+    NextlinuxApiError,
     BadRequest,
     InternalError,
     ConflictingRequest,
@@ -211,7 +211,7 @@ def add_image(
                     session, request_inputs, bodycontent=image_metadata
                 )
 
-    except AnchoreApiError:
+    except NextlinuxApiError:
         raise
     except ImageConflict as img_err:
         httpcode = 409

@@ -4,13 +4,13 @@ linkTitle: "Synchronization"
 weight: 1
 ---
 
-When the Anchore Engine runs it will begin to synchronize security feed data from the Anchore feed service.
+When the Nextlinux Engine runs it will begin to synchronize security feed data from the Nextlinux feed service.
 
 CVE data for Linux distributions such as Alpine, CentOS, Debian, Oracle, Red Hat and Ubuntu will be downloaded. The initial sync may take anywhere from  10 to 60 minutes depending on the speed of your network connection.
 
 ### Checking Feed Status
 
-Starting with Anchore Engine version 0.2.0 the status of the feed synchronization can be retrieved through the API and Anchore CLI.
+Starting with Nextlinux Engine version 0.2.0 the status of the feed synchronization can be retrieved through the API and Nextlinux CLI.
 
 ```
 nextlinux-cli system feeds list 
@@ -45,7 +45,7 @@ vulnerabilities        ubuntu:17.04           2018-04-25T11:51:39.485986Z       
 vulnerabilities        ubuntu:17.10           2018-04-25T11:51:22.047635Z        7169               
 ```
 
-This command will report list the feeds synchronized by the Anchore engine, last sync time and current record count.
+This command will report list the feeds synchronized by the Nextlinux engine, last sync time and current record count.
 
 Note: Time is reported as UTC, not local time.
 
@@ -59,9 +59,9 @@ A sync operation can be manually initiated by running the system feeds sync comm
 
 ### Performing full resync
 
-The Anchore Engine can be instructed to flush the current feed data and perform a full synchronization.
+The Nextlinux Engine can be instructed to flush the current feed data and perform a full synchronization.
 
-Under normal circumstances this operation should not be required since the Anchore Engine performs regular incremental sync.
+Under normal circumstances this operation should not be required since the Nextlinux Engine performs regular incremental sync.
 
 This process may take anywhere from  10 to 60 minutes depending on the speed of your network connection.
 

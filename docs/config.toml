@@ -1,5 +1,5 @@
 baseURL = ""
-title = "Anchore Engine"
+title = "Nextlinux Engine"
 
 enableRobotsTXT = true
 
@@ -56,7 +56,7 @@ anchor = "smart"
 # Everything below this are Site Params
 
 [params]
-copyright = "Anchore Inc"
+copyright = "Nextlinux Inc"
 privacy_policy = "https://nextlinux.com/privacy"
 github_repo = "https://github.com/nextlinux/nextlinux-engine"
 
@@ -91,10 +91,10 @@ no = 'Sorry to hear that. Please <a href="https://github.com/nextlinux/nextlinux
 	name = "GitHub"
 	url = "https://github.com/nextlinux/nextlinux-engine"
 	icon = "fab fa-github"
-    desc = "Anchore Engine Source"
+    desc = "Nextlinux Engine Source"
 
 [[params.links.developer]]
-  name = "Anchore, Inc."
+  name = "Nextlinux, Inc."
   url = "https://nextlinux.com"
   icon = "fas fa-university"
-    desc = "Anchore Company Site"
+    desc = "Nextlinux Company Site"

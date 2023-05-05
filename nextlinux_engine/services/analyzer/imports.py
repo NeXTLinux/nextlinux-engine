@@ -12,7 +12,7 @@ from anchore_engine.common.schemas import (
     ImportContentReference,
 )
 
-from anchore_engine.utils import timer, AnchoreException
+from anchore_engine.utils import timer, NextlinuxException
 from anchore_engine.clients.services import internal_client_for
 from anchore_engine.clients.services.catalog import CatalogClient
 from anchore_engine.analyzers.utils import merge_nested_dict
@@ -182,7 +182,7 @@ def process_import(
                 cause=err, pull_string=pullstring, tag=fulltag
             )
 
-    except AnchoreException:
+    except NextlinuxException:
         raise
     except Exception as err:
         raise anchore_engine.clients.localanchore_standalone.AnalysisError(
@@ -288,7 +288,7 @@ def import_image(operation_id, account, import_manifest: InternalImportManifest)
                 image_data, analysis_manifest = process_import(
                     image_record, sbom_map, import_manifest
                 )
-            except AnchoreException as e:
+            except NextlinuxException as e:
                 event = events.ImageAnalysisFailed(
                     user_id=account, image_digest=image_digest, error=e.to_dict()
                 )

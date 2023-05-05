@@ -12,11 +12,11 @@ When the system first initializes it creates a system service account (invisible
 
 - *default_admin_email* - To set the initial admin account email on bootstrap. Defaults to *admin@mynextlinux* if unset
 
-### Managing Accounts Using Anchore CLI
+### Managing Accounts Using Nextlinux CLI
 
 These operations must be executed by a user in the *admin* account. These examples are executed from within the *engine-api* container if using the quickstart guide:
 
-First, `exec` into the *engine-api* container, if using the quickstart docker-compose. For other deployment types (eg. helm chart into kubernetes), execute these commands anywhere you have the Anchore CLI installed that can reach the external API endpoint for you deployment.
+First, `exec` into the *engine-api* container, if using the quickstart docker-compose. For other deployment types (eg. helm chart into kubernetes), execute these commands anywhere you have the Nextlinux CLI installed that can reach the external API endpoint for you deployment.
 
 `docker-compose exec engine-api /bin/bash`
 
@@ -93,9 +93,9 @@ admin           admin@mynextlinux                        admin        enabled   
 account1        account1admin@nextlinuxxample.com        user         deleting        2018-11-05T23:23:55Z        
 ```
 
-### Managing Users Using Anchore CLI
+### Managing Users Using Nextlinux CLI
 
-Users exist within accounts, but usernames themselves are globally unique since they are used for authenticating api requests. User management can be performed by any user in the *admin* account in the default Anchore Engine configuration using the native authorizer. For more information on configuring other authorization plugins see: *Authorization Plugins* and *Configuration*.
+Users exist within accounts, but usernames themselves are globally unique since they are used for authenticating api requests. User management can be performed by any user in the *admin* account in the default Nextlinux Engine configuration using the native authorizer. For more information on configuring other authorization plugins see: *Authorization Plugins* and *Configuration*.
 
 ### Create User in a User-Type Account
 

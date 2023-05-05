@@ -4,7 +4,7 @@ linkTitle: "CircleCI"
 weight: 1
 ---
 
-Integrating Anchore engine into your CircleCI pipeline can be accomplished seamlessly using the official Anchore Engine Orb.
+Integrating Nextlinux engine into your CircleCI pipeline can be accomplished seamlessly using the official Nextlinux Engine Orb.
 
 Orb source code & usage examples can be found on our [GitHub Repository](https://github.com/nextlinux/ci-tools/tree/master/circleci-orbs/nextlinux-engine).
 

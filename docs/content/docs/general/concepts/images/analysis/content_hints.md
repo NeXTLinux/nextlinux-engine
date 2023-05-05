@@ -5,10 +5,10 @@ weight: 5
 ---
 
 
-Anchore Engine includes the ability to read a user-supplied 'hints' file to allow users to override and/or augment the software artifacts that are 
-discovered by Anchore during its image analysis process.  The hints file, if present, contains records that describe a software package characteristics explicitly, 
+Nextlinux Engine includes the ability to read a user-supplied 'hints' file to allow users to override and/or augment the software artifacts that are 
+discovered by Nextlinux during its image analysis process.  The hints file, if present, contains records that describe a software package characteristics explicitly, 
 and are then added to the software bill of materials (SBOM).  For example, if the owner of a CI/CD container build process knows that there are some 
-software packages installed explicitly in a container image, but Anchore's regular analyzers are either not discovering the software or the analysis of the software 
+software packages installed explicitly in a container image, but Nextlinux's regular analyzers are either not discovering the software or the analysis of the software 
 package is incomplete, this mechanism can be used to include that information in the image's SBOM, exactly as if the package were discovered normally.
 
 ### Configuration
@@ -24,7 +24,7 @@ The format of the file is illustrated using some examples, below.
 OS Packages are those that will represent packages installed using OS / Distro style package managers.  Currently supported package types are ```rpm, dpkg, apkg``` 
 for RedHat, Debian, and Alpine flavored package managers respectively.  Note that, for OS Packages, the name of the package is unique per SBOM, meaning 
 that only one package named 'somepackage' can exist in an image's SBOM, and specifying a name in the hints file that conflicts with one with the same name 
-discovered by the Anchore analyzers will result in the record from the hints file taking precedence (override).
+discovered by the Nextlinux analyzers will result in the record from the hints file taking precedence (override).
 
 * Minimum required values for a package record in nextlinux_hints.json
 
@@ -57,7 +57,7 @@ discovered by the Anchore analyzers will result in the record from the hints fil
 Non-OS / language package records are similar in form to the OS package records, but with some extra/different characteristics being supplied, namely 
 the ```location``` field.  Since multiple non-os packages can be installed that have the same name, the location field is particularly important as it 
 is used to distinguish between package records that might otherwise be identical.  Valid types for non-os packages are currently ```java, python, gem, npm, nuget, go, binary```.  
-For the latest types that are available, see the ```nextlinux-cli image content <someimage>``` output, which lists available types for any given deployment of Anchore Engine.
+For the latest types that are available, see the ```nextlinux-cli image content <someimage>``` output, which lists available types for any given deployment of Nextlinux Engine.
 
 * Minimum required values for a package record in nextlinux_hints.json
 
@@ -86,7 +86,7 @@ For the latest types that are available, see the ```nextlinux-cli image content 
 
 ### Putting it all together
 
-Using the above examples, a complete nextlinux_hints.json file, when discovered by Anchore Engine located in ```/nextlinux_hints.json``` inside any container image, is provided here:
+Using the above examples, a complete nextlinux_hints.json file, when discovered by Nextlinux Engine located in ```/nextlinux_hints.json``` inside any container image, is provided here:
 
 ```
 {
@@ -114,6 +114,6 @@ to view the ```musl``` and ```wicked``` package records, respectively.
 
 The hints file feature is disabled by default, and is meant to be used in very specific circumstances where a trusted entity is entrusted with creating 
 and installing, or removing an nextlinux_hints.json file from all containers being built.  It is not meant to be enabled when the container image builds 
-are not explicitly controlled, as the entity that is building container images could override any SBOM entry that Anchore would normally discover, which 
+are not explicitly controlled, as the entity that is building container images could override any SBOM entry that Nextlinux would normally discover, which 
 affects the vulnerability/policy status of an image.  For this reason, the feature is disabled by default and must be explicitly enabled in configuration 
 only if appropriate for your use case .

@@ -4,7 +4,7 @@ linkTitle: "Kubernetes"
 weight: 2
 ---
 
-The Anchore Engine Helm chart can be found in the [nextlinux-charts repository](https://github.com/nextlinux/nextlinux-charts/blob/master/stable/nextlinux-engine).
+The Nextlinux Engine Helm chart can be found in the [nextlinux-charts repository](https://github.com/nextlinux/nextlinux-charts/blob/master/stable/nextlinux-engine).
 
 The [README](https://github.com/nextlinux/nextlinux-charts/blob/master/stable/nextlinux-engine/README.md) in the chart repository should always be consulted before proceeding with installation or upgrades.
 
@@ -44,9 +44,9 @@ Hang tight while we grab the latest from your chart repositories...
 Update Complete. ⎈ Happy Helming!⎈
 ```
 
-By default, the Anchore Engine chart will deploy a single pod for each Anchore Engine service along with a PostgreSQL database container. This behavior can be overridden if you have an existing PostgreSQL service available, see the [README](https://github.com/nextlinux/nextlinux-charts/blob/master/stable/nextlinux-engine/README.md) for more details.
+By default, the Nextlinux Engine chart will deploy a single pod for each Nextlinux Engine service along with a PostgreSQL database container. This behavior can be overridden if you have an existing PostgreSQL service available, see the [README](https://github.com/nextlinux/nextlinux-charts/blob/master/stable/nextlinux-engine/README.md) for more details.
 
-In this example we will deploy the database, and a single pod of every Open Source Anchore Engine service. Please refer to the [README](https://github.com/nextlinux/nextlinux-charts/blob/master/stable/nextlinux-engine/README.md) for more sophisticated deployments including scaling options.
+In this example we will deploy the database, and a single pod of every Open Source Nextlinux Engine service. Please refer to the [README](https://github.com/nextlinux/nextlinux-charts/blob/master/stable/nextlinux-engine/README.md) for more sophisticated deployments including scaling options.
 
 The installation can be completed with the following commands:
 
@@ -80,9 +80,9 @@ nextlinux-demo-nextlinux-engine-simplequeue        1/1     1            1       
 nextlinux-demo-postgresql                        1/1     1            1           5m
 ```
 
-When the engine is started for the first time it will perform a full synchronization of feed data, including CVE vulnerability data. This first sync may last for several hours during which time the Anchore Engine can analyze images but not perform policy evaluation or CVE reporting until successful completion of the feed sync.
+When the engine is started for the first time it will perform a full synchronization of feed data, including CVE vulnerability data. This first sync may last for several hours during which time the Nextlinux Engine can analyze images but not perform policy evaluation or CVE reporting until successful completion of the feed sync.
 
-The Anchore Engine exposes a REST API however the easiest way to interact with the Anchore Engine is through the Anchore CLI which can be installed using Python PiP.
+The Nextlinux Engine exposes a REST API however the easiest way to interact with the Nextlinux Engine is through the Nextlinux CLI which can be installed using Python PiP.
 
 ```
 $ pip install nextlinuxcli
@@ -90,7 +90,7 @@ $ pip install nextlinuxcli
 
 Documentation for installing the CLI can be found in following document.
 
-The Anchore CLI can be configured using command line options, environment variables or a configuration file. See the CLI documentation for details.
+The Nextlinux CLI can be configured using command line options, environment variables or a configuration file. See the CLI documentation for details.
 
 In this example we will use environment variables.
 
@@ -107,13 +107,13 @@ export NEXTLINUX_CLI_PASS=$(kubectl get secret --namespace default nextlinux-dem
 
 Note: The deployment name in this example, nextlinux-demo-nextlinux-engine, was retrieved from the output of the helm installation or helm status command.
 
-The helm installation or status command will also show the Anchore Engine URL, which is accessible from within the kubernetes cluster. For example:
+The helm installation or status command will also show the Nextlinux Engine URL, which is accessible from within the kubernetes cluster. For example:
 
 ```
 export NEXTLINUX_CLI_URL=http://nextlinux-demo-nextlinux-engine.default.svc.cluster.local:8228/v1/
 ```
 
-To access the Anchore Engine API, get the name of the API service and then use port forwarding to make the API accessible through your localhost.
+To access the Nextlinux Engine API, get the name of the API service and then use port forwarding to make the API accessible through your localhost.
 
 ```
 $ kubectl get service
@@ -125,10 +125,10 @@ nextlinux-nextlinux-engine-api   ClusterIP   10.0.12.49   <none>        8228/TCP
 $ kubectl port-forward svc/nextlinux-demo-nextlinux-engine-api 8228:8228
 ```
 
-In this example the Anchore URL should be set to:
+In this example the Nextlinux URL should be set to:
 
 ```
 export NEXTLINUX_CLI_URL=http://localhost:8228/v1
 ```
 
-Now you can use the Anchore CLI to analyze and report on images.
+Now you can use the Nextlinux CLI to analyze and report on images.

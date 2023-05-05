@@ -1,20 +1,20 @@
 ---
-title: "Accessing the Anchore Engine API"
+title: "Accessing the Nextlinux Engine API"
 linkTitle: "Using the API"
 weight: 3
 ---
 
 ## Introduction
 
-The Anchore Engine API is documented using the OpenAPI Specification (Swagger) and the source for the latest development version can be found in GitHub in [swagger.yaml](https://github.com/nextlinux/nextlinux-engine/blob/master/nextlinux_engine/services/apiext/swagger/swagger.yaml) document within the external API service.  There are also a variety of ways in which the API specification can be accessed.
+The Nextlinux Engine API is documented using the OpenAPI Specification (Swagger) and the source for the latest development version can be found in GitHub in [swagger.yaml](https://github.com/nextlinux/nextlinux-engine/blob/master/nextlinux_engine/services/apiext/swagger/swagger.yaml) document within the external API service.  There are also a variety of ways in which the API specification can be accessed.
 
 ### Online
 
-You can browse latest stable the Anchore API specification [here](./specs/swagger.yaml)
+You can browse latest stable the Nextlinux API specification [here](./specs/swagger.yaml)
 
 ### Local Swagger JSON
 
-The JSON definition for the API specification for your specific instance of Anchore can be downloaded from a running Anchore Engine service at the following URI:
+The JSON definition for the API specification for your specific instance of Nextlinux can be downloaded from a running Nextlinux Engine service at the following URI:
 
 http://{servername:port}/v1/swagger.json
 

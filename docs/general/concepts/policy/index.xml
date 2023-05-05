@@ -1,7 +1,7 @@
 <rss version="2.0"
     xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Anchore Engine – Policy</title>
+        <title>Nextlinux Engine – Policy</title>
         <link>/docs/general/concepts/policy/</link>
         <description>Recent Hugo news from gohugo.io</description>
         <generator>Hugo -- gohugo.io</generator>
@@ -17,7 +17,7 @@
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/general/concepts/policy/bundles/</guid>
             <description>
-&lt;p>Policy bundles are the unit of policy definition and evaluation in Anchore Engine. A user may have multiple bundles, but for a policy evaluation, the user must specify a bundle to be evaluated or default to the bundle currently marked &amp;lsquo;active&amp;rsquo;. See Working with Policies for more detail on manipulating and configuring policies using the Engine CLI.&lt;/p>
+&lt;p>Policy bundles are the unit of policy definition and evaluation in Nextlinux Engine. A user may have multiple bundles, but for a policy evaluation, the user must specify a bundle to be evaluated or default to the bundle currently marked &amp;lsquo;active&amp;rsquo;. See Working with Policies for more detail on manipulating and configuring policies using the Engine CLI.&lt;/p>
 &lt;h3 id="components-of-a-policy-bundle">Components of a Policy Bundle&lt;/h3>
 &lt;p>A policy bundle is a single JSON document, composed of several parts:&lt;/p>
 &lt;ul>
@@ -232,7 +232,7 @@
 &lt;/ol>
 &lt;p>A &lt;em>pass&lt;/em> status means the image evaluated against the bundle and only &lt;em>go&lt;/em> or &lt;em>warn&lt;/em> actions resulted from the policy evaluation and whitelist evaluations, or the image was whitelisted. A fail status means the image evaluated against the bundle and at least one &lt;em>stop&lt;/em> action resulted from the policy evaluation and whitelist evaluation, or the image was blacklisted.&lt;/p>
 &lt;p>The flow chart for policy bundle evaluation:&lt;/p>
-&lt;p>&lt;img src="AnchoreFlowchart.jpg" alt="alt text">&lt;/p></description>
+&lt;p>&lt;img src="NextlinuxFlowchart.jpg" alt="alt text">&lt;/p></description>
         </item>
         <item>
             <title>Docs: Policy Mappings</title>
@@ -415,7 +415,7 @@ Policy Id&lt;/li>
 &lt;span style="color:#000;font-weight:bold">}&lt;/span>
 &lt;/code>&lt;/pre>&lt;/div>&lt;p>The above example defines a stop action to be produced for all package vulnerabilities found in an image that are severity &lt;em>medium&lt;/em> or higher.&lt;/p>
 &lt;p>Policy evaluation is the execution of all defined triggers in the policy against the image analysis result and feed data and results in a set of output trigger matches, each of which contains the &lt;em>defined&lt;/em> action from the rule definition. The final recommendation value for the policy evaluation is called the &lt;em>final action&lt;/em>, and is computed from the set of output matches: &lt;em>stop&lt;/em>, &lt;em>go&lt;/em>, or &lt;em>warn&lt;/em>.&lt;/p>
-&lt;p>&lt;img src="AnchorePolicyOutcome.jpg" alt="alt text">&lt;/p>
+&lt;p>&lt;img src="NextlinuxPolicyOutcome.jpg" alt="alt text">&lt;/p>
 &lt;h3 id="policy-rules">Policy Rules&lt;/h3>
 &lt;p>Rules define the behavior of the policy at evaluation time. Each rule defines:&lt;/p>
 &lt;ul>
@@ -434,7 +434,7 @@ Policy Id&lt;/li>
 &lt;li>&lt;em>files&lt;/em>&lt;/li>
 &lt;li>&lt;em>&amp;hellip;&lt;/em>&lt;/li>
 &lt;/ul>
-&lt;p>For a complete listing see: Anchore Policy Checks&lt;/p>
+&lt;p>For a complete listing see: Nextlinux Policy Checks&lt;/p>
 &lt;h3 id="triggers">Triggers&lt;/h3>
 &lt;p>Triggers define a specific condition to check within the context of a gate, optionally with one or more input parameters. A trigger is logically a piece of code that executes with the image analysis content and feed data as inputs and performs a specific check. A trigger emits matches for each instance of the condition for which it checks in the image. Thus, a single gate/trigger policy rule may result in many matches in final policy result, often with different match specifics (e.g. package names, cves, or filenames&amp;hellip;).&lt;/p>
 &lt;p>Trigger parameters are passed as name, value pairs in the rule JSON:&lt;/p>
@@ -448,7 +448,7 @@ Policy Id&lt;/li>
 &lt;span style="color:#204a87;font-weight:bold">&amp;#34;gate&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;vulnerabilities&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span>
 &lt;span style="color:#204a87;font-weight:bold">&amp;#34;trigger&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span> &lt;span style="color:#4e9a06">&amp;#34;packages&amp;#34;&lt;/span>&lt;span style="color:#000;font-weight:bold">,&lt;/span>
 &lt;span style="color:#000;font-weight:bold">}&lt;/span>
-&lt;/code>&lt;/pre>&lt;/div>&lt;p>For a complete listing of gates, triggers, and the parameters, see: Anchore Policy Checks&lt;/p>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>For a complete listing of gates, triggers, and the parameters, see: Nextlinux Policy Checks&lt;/p>
 &lt;h3 id="policy-evaluation">Policy Evaluation&lt;/h3>
 &lt;ul>
 &lt;li>All rules in a selected policy are evaluated, no short-circuits&lt;/li>
@@ -456,7 +456,7 @@ Policy Id&lt;/li>
 &lt;li>Each firing of a trigger generates a trigger_id for that match&lt;/li>
 &lt;li>Rules may be executed in any order, and are executed in isolation (e.g. conflicting rules are allowed, it&amp;rsquo;s up to the user to ensure that policies make sense)&lt;/li>
 &lt;/ul>
-&lt;p>See Anchore Policy Checks for a complete list of all gates, triggers, and parameters&lt;/p>
+&lt;p>See Nextlinux Policy Checks for a complete list of all gates, triggers, and parameters&lt;/p>
 &lt;p>Each output match from a rule contains the matching rule&amp;rsquo;s:&lt;/p>
 &lt;ul>
 &lt;li>Gate&lt;/li>
@@ -518,7 +518,7 @@ false,
 &lt;p>The policy evaluation is one part of the broader policy bundle evaluation which includes things like image whitelists and blacklists and makes a final bundle evaluation status determination based on the combination of several component executions. See policy bundles for more information on that process.&lt;/p></description>
         </item>
         <item>
-            <title>Docs: Anchore Policy Checks</title>
+            <title>Docs: Nextlinux Policy Checks</title>
             <link>/docs/general/concepts/policy/policy_checks/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/general/concepts/policy/policy_checks/</guid>
@@ -1303,7 +1303,7 @@ false,
 &lt;/tbody>
 &lt;/table>
 &lt;h3 id="next-steps">Next Steps&lt;/h3>
-&lt;p>Now that you have a good grasp on the core concepts and architecture, check out the &lt;a href="/docs/install/requirements/">Requirements&lt;/a> section for running Anchore.&lt;/p></description>
+&lt;p>Now that you have a good grasp on the core concepts and architecture, check out the &lt;a href="/docs/install/requirements/">Requirements&lt;/a> section for running Nextlinux.&lt;/p></description>
         </item>
     </channel>
 </rss>

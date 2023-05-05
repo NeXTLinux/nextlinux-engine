@@ -3,7 +3,7 @@ from .entities.common import initialize
 from .entities.common import get_thread_scoped_session
 from .entities.common import end_session, get_session
 
-from .entities.catalog import Anchore
+from .entities.catalog import Nextlinux
 from .entities.catalog import LegacyArchiveDocument
 from .entities.catalog import CatalogImage
 from .entities.catalog import CatalogImageDocker

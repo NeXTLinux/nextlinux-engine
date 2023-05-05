@@ -32,7 +32,7 @@ from .common import (
 from anchore_engine.utils import datetime_to_rfc3339
 
 
-class Anchore(Base, UtilMixin):
+class Nextlinux(Base, UtilMixin):
     __tablename__ = "anchore"
 
     service_version = Column(String, primary_key=True)

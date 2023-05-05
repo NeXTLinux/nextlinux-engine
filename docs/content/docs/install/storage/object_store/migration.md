@@ -6,9 +6,9 @@ weight: 1
 
 ### Overview
 
-To cleanly migrate data from one archive driver to another, Anchore Engine includes some tooling that automates the process in the 'nextlinux-manager' tool packaged with the system.
+To cleanly migrate data from one archive driver to another, Nextlinux Engine includes some tooling that automates the process in the 'nextlinux-manager' tool packaged with the system.
 
-The migration process is an offline process; Anchore Engine is not designed to handle an online migration. 
+The migration process is an offline process; Nextlinux Engine is not designed to handle an online migration. 
 
 For the migration process you will need:
 
@@ -28,9 +28,9 @@ At a high-level the process is:
 7. Ensure the dest-config.yaml is in place for all the components as config.yaml
 8. Start nextlinux-engine
 
-### Migration Example Using Docker Compose Deployed Anchore Engine
+### Migration Example Using Docker Compose Deployed Nextlinux Engine
 
-The following is an example migration for an nextlinux-engine deployed via docker-compose on a single host with a local postgresql container--basically the example used in 'Installing Anchore Engine' documents. At the end of this section, we'll cover the caveats and things to watch for a multi-node install of nextlinux engine.
+The following is an example migration for an nextlinux-engine deployed via docker-compose on a single host with a local postgresql container--basically the example used in 'Installing Nextlinux Engine' documents. At the end of this section, we'll cover the caveats and things to watch for a multi-node install of nextlinux engine.
 
 This process requires that you run the command in a location that has access to both the source archive driver configuration and the new archive driver configuration.
 
@@ -193,7 +193,7 @@ Policy ID                                   Active        Created               
 
 If that returns the content properly, then you're all done!
 
-### Things to Watch for in a Multi-Node Anchore Engine Installation
+### Things to Watch for in a Multi-Node Nextlinux Engine Installation
 
 - Before migration:
   Ensure all services are down before starting migration
@@ -351,11 +351,11 @@ services:
 
 ```
 
-Anchore stores its internal data in logical 'buckets' that are overlayed onto the storage backed in a driver-specific 
+Nextlinux stores its internal data in logical 'buckets' that are overlayed onto the storage backed in a driver-specific 
 way, so to migrate specific internal buckets (effectively these are classes of data), use the --bucket option in the 
 manager cli. This should generally not be necessary, but for specific kinds of migrations it may be needed.
 
-The following command will execute the migration. Note that the --bucket option is for an internal Anchore logical-bucket, not 
+The following command will execute the migration. Note that the --bucket option is for an internal Nextlinux logical-bucket, not 
 and actual bucket in S3:
 
 ```

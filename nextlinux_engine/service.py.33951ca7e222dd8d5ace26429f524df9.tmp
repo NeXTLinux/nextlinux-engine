@@ -28,7 +28,7 @@ from nextlinux_engine.configuration.localconfig import (
     OauthNotConfiguredError,
     InvalidOauthConfigurationError,
 )
-from nextlinux_engine.apis.exceptions import AnchoreApiError
+from nextlinux_engine.apis.exceptions import NextlinuxApiError
 from nextlinux_engine.common.helpers import make_response_error
 
 
@@ -64,9 +64,9 @@ _default_lifecycle_handlers = {
 }
 
 
-def handle_api_exception(ex: AnchoreApiError):
+def handle_api_exception(ex: NextlinuxApiError):
     """
-    Returns the proper json for marshalling an AnchoreApiError
+    Returns the proper json for marshalling an NextlinuxApiError
     :param ex:
     :return:
     """
@@ -615,7 +615,7 @@ class ApiService(BaseService):
             self.init_auth()
 
             flask_app.before_request(self._inject_service)
-            flask_app.register_error_handler(AnchoreApiError,
+            flask_app.register_error_handler(NextlinuxApiError,
                                              handle_api_exception)
 
             metrics.init_flask_metrics(flask_app, servicename=service_name)

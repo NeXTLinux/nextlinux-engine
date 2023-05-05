@@ -6,7 +6,7 @@ weight: 1
 
 ## Introduction
 
-In this section, you'll learn how to get up and running with a stand-alone Anchore Engine installation for trial, demonstration and review with [Docker Compose](https://docs.docker.com/compose/install/).
+In this section, you'll learn how to get up and running with a stand-alone Nextlinux Engine installation for trial, demonstration and review with [Docker Compose](https://docs.docker.com/compose/install/).
 
 ## Configuration Files for this Quickstart:
 
@@ -31,7 +31,7 @@ The following instructions assume you are using a system running Docker v1.12 or
 
 ### Step 2: Verify service availability
 
-After a few moments (depending on system speed), your Anchore Engine services should be up and running, ready to use. You can verify the containers are running with docker-compose:
+After a few moments (depending on system speed), your Nextlinux Engine services should be up and running, ready to use. You can verify the containers are running with docker-compose:
 
 ```
 # docker-compose ps
@@ -45,7 +45,7 @@ nextlinuxquickstart_policy-engine_1         /docker-entrypoint.sh anch ...   Up 
 nextlinuxquickstart_simpleq_1               /docker-entrypoint.sh anch ...   Up      8228/tcp
 ```
 
-You can run a command to get the status of the Anchore Engine services:
+You can run a command to get the status of the Nextlinux Engine services:
 
 ```
 # docker-compose exec api nextlinux-cli system status
@@ -59,7 +59,7 @@ Engine DB Version: 0.0.13
 Engine Code Version: 0.8.1
 ```
 
-**Note:** The first time you run Anchore Engine, it will take some time (10+ minutes, depending on network speed) for the vulnerability data to get synced into the engine. For the best experience, wait until the core vulnerability data feeds have completed before proceeding. You can check the status of your feed sync using the CLI:
+**Note:** The first time you run Nextlinux Engine, it will take some time (10+ minutes, depending on network speed) for the vulnerability data to get synced into the engine. For the best experience, wait until the core vulnerability data feeds have completed before proceeding. You can check the status of your feed sync using the CLI:
 
 ```
 # docker-compose exec api nextlinux-cli system feeds list
@@ -110,7 +110,7 @@ vulnerabilities        ubuntu:19.10           pending                           
 vulnerabilities        ubuntu:20.04           pending                           None
 ```
 
-As soon as you see RecordCount values > 0 for all vulnerability groups, the system is fully populated and ready to present vulnerability results. Note that feed syncs are incremental, so the next time you start up Anchore Engine it will be ready immediately. The CLI tool includes a useful utility that will block until the feeds have completed a successful sync:
+As soon as you see RecordCount values > 0 for all vulnerability groups, the system is fully populated and ready to present vulnerability results. Note that feed syncs are incremental, so the next time you start up Nextlinux Engine it will be ready immediately. The CLI tool includes a useful utility that will block until the feeds have completed a successful sync:
 
 ```
 # docker-compose exec api nextlinux-cli system wait
@@ -127,7 +127,7 @@ Feed sync: Success.
 
 ```
 
-### Step 3: Begin using Anchore
+### Step 3: Begin using Nextlinux
 
 Start using the nextlinux-engine service to analyze images - a short example follows which demonstrates a basic workflow of adding a container image for analysis, waiting for the analysis to complete, then running content reports, vulnerability scans and policy evaluations against the analyzed image.
 
@@ -170,15 +170,15 @@ Last Eval: 2018-11-06T22:51:47Z
 Policy ID: 2c53a13c-1765-11e8-82ef-23527761d060
 ```
 
-**Note:** This document is intended to serve as a quickstart guide. Before moving further with Anchore to explore the scanning, policy evaluation, image content reporting, CI/CD integrations and other capabilities, it is highly recommended that you enhance your learning by reading the [Overview]({{< ref "/docs/general" >}}) sections to gain a deeper understanding of fundamentals, concepts, and proper usage.
+**Note:** This document is intended to serve as a quickstart guide. Before moving further with Nextlinux to explore the scanning, policy evaluation, image content reporting, CI/CD integrations and other capabilities, it is highly recommended that you enhance your learning by reading the [Overview]({{< ref "/docs/general" >}}) sections to gain a deeper understanding of fundamentals, concepts, and proper usage.
 
 ### Next Steps
 
-Now that you have Anchore Engine running, you can begin to learning more about Anchore Architecture, Anchore Concepts and Anchore Usage.
+Now that you have Nextlinux Engine running, you can begin to learning more about Nextlinux Architecture, Nextlinux Concepts and Nextlinux Usage.
 
-- To learn more about Anchore Engine, go to [Overview]({{< ref "/docs/general" >}})
-- To learn more about Anchore Concepts, go to [Concepts]({{< ref "/docs/general/concepts" >}})
-- To learn more about using Anchore Usage, go to [Usage]({{< ref "/docs/usage" >}})
+- To learn more about Nextlinux Engine, go to [Overview]({{< ref "/docs/general" >}})
+- To learn more about Nextlinux Concepts, go to [Concepts]({{< ref "/docs/general/concepts" >}})
+- To learn more about using Nextlinux Usage, go to [Usage]({{< ref "/docs/usage" >}})
 
 ### Optional: Enabling Prometheus Monitoring
 

@@ -5,7 +5,7 @@ weight: 1
 
 This article reviews the "dockerfile" gate and its triggers. The dockerfile gate allows users to perform checks on the content of the dockerfile or docker history for an image and make policy actions based on the construction of an image, not just its content. This is particularly useful for enforcing best practices or metadata inclusion (e.g. labels) on images.
 
-Anchore is either given a dockerfile or infers one from the docker image layer history. There are implications to what data is available and what it means depending on these differing sources, so first, we'll cover the input data for the gate and how it impacts the triggers and parameters used.
+Nextlinux is either given a dockerfile or infers one from the docker image layer history. There are implications to what data is available and what it means depending on these differing sources, so first, we'll cover the input data for the gate and how it impacts the triggers and parameters used.
 
 ### The "dockerfile"
 
@@ -17,7 +17,7 @@ The data that this gate operates on can come from two different sources:
 All images have data from history available, but data from the actual dockerfile is only available when a user provides it. This also means that any images analyzed by the tag watcher functionality will not have an actual dockerfile.
 
 #### The FROM line
-In the actual dockerfile, the FROM instruction is preserved and available as used to build the image, however in the history data, the FROM line will always be the very first FROM instruction used to build the image and all of its dependent based image. Thus, for most images, the value in the history will be omitted and Anchore will automatically infer a FROM scratch line, which is logically inserted for this gate if the dockerfile/history does not contain an explicit FROM entry.
+In the actual dockerfile, the FROM instruction is preserved and available as used to build the image, however in the history data, the FROM line will always be the very first FROM instruction used to build the image and all of its dependent based image. Thus, for most images, the value in the history will be omitted and Nextlinux will automatically infer a FROM scratch line, which is logically inserted for this gate if the dockerfile/history does not contain an explicit FROM entry.
 
 For example, using the docker.io/jenkins/jenkins image:
 
@@ -161,7 +161,7 @@ COPY plugins.sh /usr/local/bin/plugins.sh
 COPY install-plugins.sh /usr/local/bin/install-plugins.sh
 ```
 
-Anchore will detect the history/dockerfile as this, if not explicitly provided (note order is reversed from docker history output, so it reads in same order as actual dockerfile):
+Nextlinux will detect the history/dockerfile as this, if not explicitly provided (note order is reversed from docker history output, so it reads in same order as actual dockerfile):
 
 ```
 [
@@ -233,7 +233,7 @@ Anchore will detect the history/dockerfile as this, if not explicitly provided (
 ]
 ```
 
-NOTE: Anchore processes the leading /bin/sh commands, so you do not have to include those in any trigger param config if using the docker history output.
+NOTE: Nextlinux processes the leading /bin/sh commands, so you do not have to include those in any trigger param config if using the docker history output.
 
 #### The actual_dockerfile_only Parameter
 
@@ -261,7 +261,7 @@ With Docker History data, when no dockerfile is provided:
 
 This trigger evaluates instructions found in the "dockerfile"
 
-Supported Directives/Instructions (as of Anchore Engine v.0.3.2):
+Supported Directives/Instructions (as of Nextlinux Engine v.0.3.2):
 
 #### Parameters
 

@@ -5,7 +5,7 @@ weight: 1
 
 ## Special Considerations for installing on Docker for Mac
 
-If you are running Anchore Engine using Docker for Mac the default memory allocation will be insufficient to run the Anchore Engine. It is recommended that a minimum of 4GB of RAM is allocated to Docker for Mac's virtual machine.
+If you are running Nextlinux Engine using Docker for Mac the default memory allocation will be insufficient to run the Nextlinux Engine. It is recommended that a minimum of 4GB of RAM is allocated to Docker for Mac's virtual machine.
 
 - Click on the Moby (Whale) icon on the right side of the menu bar.
 - Select Preferences

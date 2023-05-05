@@ -143,9 +143,9 @@ class DataFeed(object):
         raise NotImplementedError()
 
 
-class AnchoreServiceFeed(DataFeed):
+class NextlinuxServiceFeed(DataFeed):
     """
-    A data feed provided by the Anchore Feeds service.
+    A data feed provided by the Nextlinux Feeds service.
 
     Metadata persisted in the backing db.
     Instance load will fire a load from the db to get the latest metadata in db, and sync
@@ -166,7 +166,7 @@ class AnchoreServiceFeed(DataFeed):
                     "Must have feed metadata in db already, should sync metadata before invoking instance operations"
                 )
 
-        super(AnchoreServiceFeed, self).__init__(metadata=metadata)
+        super(NextlinuxServiceFeed, self).__init__(metadata=metadata)
 
     def record_count(self, group_name, db):
         # Implement in subclasses
@@ -559,7 +559,7 @@ class AnchoreServiceFeed(DataFeed):
             return None
 
 
-class VulnerabilityFeed(AnchoreServiceFeed):
+class VulnerabilityFeed(NextlinuxServiceFeed):
     """
     Vulnerabilities feed from nextlinux feed service backend. Unique in that the records are nested and have structure.
     Each vulnerability record maps to a set of records in the DB: one for the vulnerability and a set for each of the FixedIn and
@@ -949,7 +949,7 @@ class VulnerabilityFeed(AnchoreServiceFeed):
             raise
 
 
-class PackagesFeed(AnchoreServiceFeed):
+class PackagesFeed(NextlinuxServiceFeed):
     """
     Feed for package data, served from the nextlinux feed service backend
     """
@@ -1014,7 +1014,7 @@ class PackagesFeed(AnchoreServiceFeed):
         db.flush()
 
 
-class NvdV2Feed(AnchoreServiceFeed):
+class NvdV2Feed(NextlinuxServiceFeed):
     """
     Feed for package data, served from the nextlinux feed service backend
     """
@@ -1079,7 +1079,7 @@ class NvdV2Feed(AnchoreServiceFeed):
             raise
 
 
-class NvdFeed(AnchoreServiceFeed):
+class NvdFeed(NextlinuxServiceFeed):
     """
     Legacy NVD feed, no longer used. Replaced by NVDv2. This is added back in to support clean removal of those records.
 
@@ -1159,7 +1159,7 @@ class NvdFeed(AnchoreServiceFeed):
             raise
 
 
-class VulnDBFeed(AnchoreServiceFeed):
+class VulnDBFeed(NextlinuxServiceFeed):
     """
     Feed for VulnDB data served from on-prem enterprise feed service
     """

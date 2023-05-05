@@ -9,11 +9,11 @@ weight: 70
 If your processing of nextlinux output relies on RHSA keys as vulnerability matches, or you have large RHSA-based whitelists that cannot be converted to CVE-based,
 then it is possible, though not recommended, to migrate your system back to using the RHSA-based feeds (centos:* groups).
 
-Here is the process. It requires the Anchore CLI with access to the API as well as direct access to the internal policy engine API endpoint. That may require a `docker exec` or `kubectl exec` call
+Here is the process. It requires the Nextlinux CLI with access to the API as well as direct access to the internal policy engine API endpoint. That may require a `docker exec` or `kubectl exec` call
 to achieve and will be deployment/environment specific.
 
 1. Revert the distro mapping records that map centos, fedora, and rhel to use the RHEL vuln data.
-    1. With API access to the policy engine directly (output omitted for brevity), remove the existing _distro mappings_ to RHEL data. These are the used by Anchore:
+    1. With API access to the policy engine directly (output omitted for brevity), remove the existing _distro mappings_ to RHEL data. These are the used by Nextlinux:
 
     ```
     curl -X DELETE -u admin:foobar http://localhost:8087/v1/distro_mappings?from_distro=centos
@@ -32,7 +32,7 @@ to achieve and will be deployment/environment specific.
    
     Note: if something went wrong and you want to undo the progress you've made, just make the same set of calls as the last two steps in the same order but with the `to_distro` values set to 'rhel'.
        
-    1. Now, ensure you are back where you have access to the main Anchore API and the Anchore CLI installed. Disable the existing rhel feed groups
+    1. Now, ensure you are back where you have access to the main Nextlinux API and the Nextlinux CLI installed. Disable the existing rhel feed groups
 
     ```
     nextlinux-cli system feeds config vulnerabilities --disable --group rhel:5

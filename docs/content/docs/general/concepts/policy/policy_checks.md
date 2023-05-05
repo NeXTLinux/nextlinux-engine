@@ -1,5 +1,5 @@
 ---
-title: "Anchore Policy Checks"
+title: "Nextlinux Policy Checks"
 linkTitle: "Policy Checks"
 weight: 6
 ---
@@ -186,4 +186,4 @@ Checks against content and/or presence of files retrieved at analysis time from 
 
 ### Next Steps
 
-Now that you have a good grasp on the core concepts and architecture, check out the [Requirements]({{< ref "/docs/install/requirements" >}}) section for running Anchore. 
+Now that you have a good grasp on the core concepts and architecture, check out the [Requirements]({{< ref "/docs/install/requirements" >}}) section for running Nextlinux. 

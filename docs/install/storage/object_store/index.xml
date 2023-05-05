@@ -1,7 +1,7 @@
 <rss version="2.0"
     xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Anchore Engine – Object Storage</title>
+        <title>Nextlinux Engine – Object Storage</title>
         <link>/docs/install/storage/object_store/</link>
         <description>Recent Hugo news from gohugo.io</description>
         <generator>Hugo -- gohugo.io</generator>
@@ -18,8 +18,8 @@
             <guid>/docs/install/storage/object_store/migration/</guid>
             <description>
 &lt;h3 id="overview">Overview&lt;/h3>
-&lt;p>To cleanly migrate data from one archive driver to another, Anchore Engine includes some tooling that automates the process in the &amp;lsquo;nextlinux-manager&amp;rsquo; tool packaged with the system.&lt;/p>
-&lt;p>The migration process is an offline process; Anchore Engine is not designed to handle an online migration.&lt;/p>
+&lt;p>To cleanly migrate data from one archive driver to another, Nextlinux Engine includes some tooling that automates the process in the &amp;lsquo;nextlinux-manager&amp;rsquo; tool packaged with the system.&lt;/p>
+&lt;p>The migration process is an offline process; Nextlinux Engine is not designed to handle an online migration.&lt;/p>
 &lt;p>For the migration process you will need:&lt;/p>
 &lt;ol>
 &lt;li>The original config.yaml used by the services already, if services are split out or using different config.yaml for different services, you need the config.yaml used by the catalog services&lt;/li>
@@ -38,8 +38,8 @@
 &lt;li>Ensure the dest-config.yaml is in place for all the components as config.yaml&lt;/li>
 &lt;li>Start nextlinux-engine&lt;/li>
 &lt;/ol>
-&lt;h3 id="migration-example-using-docker-compose-deployed-nextlinux-engine">Migration Example Using Docker Compose Deployed Anchore Engine&lt;/h3>
-&lt;p>The following is an example migration for an nextlinux-engine deployed via docker-compose on a single host with a local postgresql container&amp;ndash;basically the example used in &amp;lsquo;Installing Anchore Engine&amp;rsquo; documents. At the end of this section, we&amp;rsquo;ll cover the caveats and things to watch for a multi-node install of nextlinux engine.&lt;/p>
+&lt;h3 id="migration-example-using-docker-compose-deployed-nextlinux-engine">Migration Example Using Docker Compose Deployed Nextlinux Engine&lt;/h3>
+&lt;p>The following is an example migration for an nextlinux-engine deployed via docker-compose on a single host with a local postgresql container&amp;ndash;basically the example used in &amp;lsquo;Installing Nextlinux Engine&amp;rsquo; documents. At the end of this section, we&amp;rsquo;ll cover the caveats and things to watch for a multi-node install of nextlinux engine.&lt;/p>
 &lt;p>This process requires that you run the command in a location that has access to both the source archive driver configuration and the new archive driver configuration.&lt;/p>
 &lt;h4 id="step-1-shutdown-all-services">Step 1: Shutdown all services&lt;/h4>
 &lt;p>All services should be stopped, but the postgresql db must still be available and running.&lt;/p>
@@ -160,7 +160,7 @@ Policy ID Active Created Updated
 &amp;quot;id&amp;quot;: &amp;quot;2c53a13c-1765-11e8-82ef-23527761d060&amp;quot;,
 ... &amp;lt;lots of json&amp;gt;
 &lt;/code>&lt;/pre>&lt;p>If that returns the content properly, then you&amp;rsquo;re all done!&lt;/p>
-&lt;h3 id="things-to-watch-for-in-a-multi-node-nextlinux-engine-installation">Things to Watch for in a Multi-Node Anchore Engine Installation&lt;/h3>
+&lt;h3 id="things-to-watch-for-in-a-multi-node-nextlinux-engine-installation">Things to Watch for in a Multi-Node Nextlinux Engine Installation&lt;/h3>
 &lt;ul>
 &lt;li>Before migration:
 Ensure all services are down before starting migration&lt;/li>
@@ -296,10 +296,10 @@ url: 'http://minio-ephemeral-test:9000'
 region: null
 bucket: analysisarchive
 ...
-&lt;/code>&lt;/pre>&lt;p>Anchore stores its internal data in logical &amp;lsquo;buckets&amp;rsquo; that are overlayed onto the storage backed in a driver-specific
+&lt;/code>&lt;/pre>&lt;p>Nextlinux stores its internal data in logical &amp;lsquo;buckets&amp;rsquo; that are overlayed onto the storage backed in a driver-specific
 way, so to migrate specific internal buckets (effectively these are classes of data), use the &amp;ndash;bucket option in the
 manager cli. This should generally not be necessary, but for specific kinds of migrations it may be needed.&lt;/p>
-&lt;p>The following command will execute the migration. Note that the &amp;ndash;bucket option is for an internal Anchore logical-bucket, not
+&lt;p>The following command will execute the migration. Note that the &amp;ndash;bucket option is for an internal Nextlinux logical-bucket, not
 and actual bucket in S3:&lt;/p>
 &lt;pre>&lt;code>nextlinux-manager objectstorage --db-connect migrate --to-analysis-archive --bucket analysis_archive source-config.yaml dest-config.yaml
 &lt;/code>&lt;/pre>&lt;h3 id="migrating-from-dual-object-storage-backends-to-a-single-backend">Migrating from dual object storage backends to a single backend&lt;/h3>
@@ -384,12 +384,12 @@ bucket: newnextlinuxbucket
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/install/storage/object_store/filesystem_driver/</guid>
             <description>
-&lt;p>Using the file system driver object store documents can be stored on a filesystem volume passed to the Anchore Engine container.&lt;/p>
+&lt;p>Using the file system driver object store documents can be stored on a filesystem volume passed to the Nextlinux Engine container.&lt;/p>
 &lt;p>&lt;strong>The filesystem driver does not handle distribution or replication.&lt;/strong> To replicate the file system across nodes for performance and redundancy a clustered / shared filesystem such as Gluster, CephFS or Amazon EFS should be used.&lt;/p>
 &lt;p>&lt;strong>WARNING:&lt;/strong> This driver is not recommended for scale-out production deployments&lt;/p>
 &lt;p>For environments who do not want to utilize the default PostgresSQL storage and need scale or redundancy an object store such as S3 or Swift will provide a better solution than the filesystem driver.&lt;/p>
 &lt;h3 id="compression">Compression&lt;/h3>
-&lt;p>The localfs (filesystem) driver supports compression of object_store documents. The object_store documents are JSON formatted and will see significant reduction in size through compression there is an overhead incurred by running compression and decompression on every access of these documents. The Anchore Engine can be configured to only compress documents above a certain size to reduce unnecessary overhead. In the example below any document over 100kb in size will be compressed.&lt;/p>
+&lt;p>The localfs (filesystem) driver supports compression of object_store documents. The object_store documents are JSON formatted and will see significant reduction in size through compression there is an overhead incurred by running compression and decompression on every access of these documents. The Nextlinux Engine can be configured to only compress documents above a certain size to reduce unnecessary overhead. In the example below any document over 100kb in size will be compressed.&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-YAML" data-lang="YAML">&lt;span style="color:#204a87;font-weight:bold">object_store&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">compression&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">enabled&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">True&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
@@ -424,10 +424,10 @@ bucket: newnextlinuxbucket
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="compression">Compression&lt;/h3>
 &lt;p>The S3 driver supports compression of documents. The documents are JSON formatted and will see significant reduction in
 size through compression there is an overhead incurred by running compression and decompression on every access of these
-documents. The Anchore Engine can be configured to only compress documents above a certain size to reduce unnecessary
+documents. The Nextlinux Engine can be configured to only compress documents above a certain size to reduce unnecessary
 overhead. In the example below any document over 100kb in size will be compressed.&lt;/p>
 &lt;h3 id="authentication">Authentication&lt;/h3>
-&lt;p>The Anchore Engine can authenticate against the S3 service using one of two methods:&lt;/p>
+&lt;p>The Nextlinux Engine can authenticate against the S3 service using one of two methods:&lt;/p>
 &lt;ul>
 &lt;li>
 &lt;p>Amazon Access Keys
@@ -436,8 +436,8 @@ access_key and secret_key&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>Inherit IAM Role
-The Anchore Engine can be configured to inherit the IAM role from the EC2 or ECS instance that is running the Anchore
-Engine. When launching the EC2 instance that will run the Anchore Engine you need to specify a role that includes the
+The Nextlinux Engine can be configured to inherit the IAM role from the EC2 or ECS instance that is running the Nextlinux
+Engine. When launching the EC2 instance that will run the Nextlinux Engine you need to specify a role that includes the
 ability to read and write from the archive bucket. To use IAM roles to authenticate the access_key and secret_access
 configurations should be replaced by iamauto: True
 Parameters: iamauto&lt;/p>
@@ -449,7 +449,7 @@ Parameters: iamauto&lt;/p>
 &lt;li>The region parameter should be set to the AWS region hosting the bucket or False for an AWS compatible service that
 does not support regions&lt;/li>
 &lt;li>The bucket parameter should be set to the name of the bucket that will be used to store the archive documents.&lt;/li>
-&lt;li>The create_bucket parameter is used to configure if the Anchore Engine attempts to create a bucket. If this option is
+&lt;li>The create_bucket parameter is used to configure if the Nextlinux Engine attempts to create a bucket. If this option is
 set then ensure that the IAM role or Access Keys have sufficient access to create a new bucket.&lt;/li>
 &lt;/ul></description>
         </item>
@@ -468,11 +468,11 @@ set then ensure that the IAM role or Access Keys have sufficient access to creat
 &lt;/ul>
 &lt;h3 id="common-configuration-options">Common Configuration Options&lt;/h3>
 &lt;h4 id="compression">Compression&lt;/h4>
-&lt;p>The Swift driver supports compression of archive documents. The archive documents are JSON formatted and will see significant reduction in size through compression there is an overhead incurred by running compression and decompression on every access of these documents. The Anchore Engine can be configured to only compress documents above a certain size to reduce unnecessary overhead. In the example below any document over 100kb in size will be compressed.&lt;/p>
+&lt;p>The Swift driver supports compression of archive documents. The archive documents are JSON formatted and will see significant reduction in size through compression there is an overhead incurred by running compression and decompression on every access of these documents. The Nextlinux Engine can be configured to only compress documents above a certain size to reduce unnecessary overhead. In the example below any document over 100kb in size will be compressed.&lt;/p>
 &lt;h4 id="container">Container&lt;/h4>
 &lt;ul>
 &lt;li>The container parameter specifies the name of the container to be used.&lt;/li>
-&lt;li>The create_container parameter is used to configure if the Anchore Engine attempts to create a container. If this option is set then ensure that the user has the appropriate rights to create a container.&lt;/li>
+&lt;li>The create_container parameter is used to configure if the Nextlinux Engine attempts to create a container. If this option is set then ensure that the user has the appropriate rights to create a container.&lt;/li>
 &lt;/ul>
 &lt;h3 id="legacy-authentication">Legacy Authentication&lt;/h3>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-YAML" data-lang="YAML">&lt;span style="color:#204a87;font-weight:bold">object_store&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
@@ -537,7 +537,7 @@ set then ensure that the IAM role or Access Keys have sufficient access to creat
 &lt;li>The os_auth_url parameter specifies the URL to the OpenStack Keystone service&lt;/li>
 &lt;/ul>
 &lt;h4 id="note">Note&lt;/h4>
-&lt;p>The Anchore Engine archive drivers users the OpenStack Python SwiftClient library. The config section is passed to the SwiftClient library allowing any advanced parameters supported by the Swift library to be configured.&lt;/p></description>
+&lt;p>The Nextlinux Engine archive drivers users the OpenStack Python SwiftClient library. The config section is passed to the SwiftClient library allowing any advanced parameters supported by the Swift library to be configured.&lt;/p></description>
         </item>
     </channel>
 </rss>

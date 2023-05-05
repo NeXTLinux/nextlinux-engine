@@ -14,12 +14,12 @@ The Swift driver supports three authentication methods:
 
 #### Compression
 
-The Swift driver supports compression of archive documents. The archive documents are JSON formatted and will see significant reduction in size through compression there is an overhead incurred by running compression and decompression on every access of these documents. The Anchore Engine can be configured to only compress documents above a certain size to reduce unnecessary overhead. In the example below any document over 100kb in size will be compressed.
+The Swift driver supports compression of archive documents. The archive documents are JSON formatted and will see significant reduction in size through compression there is an overhead incurred by running compression and decompression on every access of these documents. The Nextlinux Engine can be configured to only compress documents above a certain size to reduce unnecessary overhead. In the example below any document over 100kb in size will be compressed.
 
 #### Container
 
 - The container parameter specifies the name of the container to be used.
-- The create_container parameter is used to configure if the Anchore Engine attempts to create a container. If this option is set then ensure that the user has the appropriate rights to create a container.
+- The create_container parameter is used to configure if the Nextlinux Engine attempts to create a container. If this option is set then ensure that the user has the appropriate rights to create a container.
 
 ### Legacy Authentication
 
@@ -94,5 +94,5 @@ object_store:
 
 #### Note
 
-The Anchore Engine archive drivers users the OpenStack Python SwiftClient library. The config section is passed to the SwiftClient library allowing any advanced parameters supported by the Swift library to be configured.
+The Nextlinux Engine archive drivers users the OpenStack Python SwiftClient library. The config section is passed to the SwiftClient library allowing any advanced parameters supported by the Swift library to be configured.
 

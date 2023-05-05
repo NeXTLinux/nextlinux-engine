@@ -1,7 +1,7 @@
 import json
 
 
-class AnchoreApiError(Exception):
+class NextlinuxApiError(Exception):
     __response_code__ = 500
 
     def __init__(self, message: str, detail: dict):
@@ -19,22 +19,22 @@ class AnchoreApiError(Exception):
         )
 
 
-class ResourceNotFound(AnchoreApiError):
+class ResourceNotFound(NextlinuxApiError):
     __response_code__ = 404
 
     def __init__(self, resource: str, detail: dict):
         super().__init__("Resource {} not found".format(resource), detail)
 
 
-class BadRequest(AnchoreApiError):
+class BadRequest(NextlinuxApiError):
     __response_code__ = 400
 
 
-class ConflictingRequest(AnchoreApiError):
+class ConflictingRequest(NextlinuxApiError):
     __response_code__ = 409
 
 
-class AccessDeniedError(AnchoreApiError):
+class AccessDeniedError(NextlinuxApiError):
     __response_code__ = 403
 
 
@@ -43,7 +43,7 @@ class PermissionDenied(AccessDeniedError):
         super().__init__("Access Denied", {"permission_required": permission})
 
 
-class UnauthorizedError(AnchoreApiError):
+class UnauthorizedError(NextlinuxApiError):
     __response_code__ = 401
 
 
@@ -52,15 +52,15 @@ class BadCredentials(UnauthorizedError):
         super().__init__("Invalid Credentials", None)
 
 
-class InternalError(AnchoreApiError):
+class InternalError(NextlinuxApiError):
     __response_code__ = 500
 
 
-class UnavailableError(AnchoreApiError):
+class UnavailableError(NextlinuxApiError):
     __response_code__ = 503
 
 
-class BadGatewayError(AnchoreApiError):
+class BadGatewayError(NextlinuxApiError):
     __response_code__ = 502
 
 

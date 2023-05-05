@@ -1,5 +1,5 @@
 ---
-title: "Upgrading Anchore Engine"
+title: "Upgrading Nextlinux Engine"
 linkTitle: "Upgrade"
 weight: 6
 ---
@@ -30,13 +30,13 @@ Whether or not you wish to have the ability to downgrade, we recommend backing u
 
 ### Upgrade Procedure (for deployments using Helm)
 
-For the latest upgrade instructions using the Helm chart, please refer to the official Anchore Helm Chart documentation
+For the latest upgrade instructions using the Helm chart, please refer to the official Nextlinux Helm Chart documentation
 
-- [Anchore Helm Chart](https://github.com/nextlinux/nextlinux-charts/blob/master/stable/nextlinux-engine)
+- [Nextlinux Helm Chart](https://github.com/nextlinux/nextlinux-charts/blob/master/stable/nextlinux-engine)
 
 ### Upgrade Procedure (example with docker-compose)
 
-1. Stop all running instances of the Anchore Engine
+1. Stop all running instances of the Nextlinux Engine
 
 ```
 # docker-compose down
@@ -62,7 +62,7 @@ For the latest upgrade instructions using the Helm chart, please refer to the of
 
 5. Review the latest docker-compose.yaml and merge any edits/changes from your original docker-compose.yaml.backup to the latest docker-compose.yaml
 
-6. Restart the Anchore Engine containers
+6. Restart the Nextlinux Engine containers
 
 ```
 # docker-compose up -d

@@ -10,7 +10,7 @@ def policy_json_to_txt(policy_json):
     """
     Taken from nurmi's branch of anchore.
 
-    :param policy_json: a parsed json object that is a single policy from the Anchore PolicyBundle format
+    :param policy_json: a parsed json object that is a single policy from the Nextlinux PolicyBundle format
     :return native anchore policy document as a string to be written to a file
     """
     ret = []

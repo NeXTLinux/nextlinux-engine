@@ -4,20 +4,20 @@ linkTitle: "Network Proxies"
 weight: 5
 ---
 
-As covered in the Network sections of the requirements document the Anchore Engine requires three categories of network connectivity. 
+As covered in the Network sections of the requirements document the Nextlinux Engine requires three categories of network connectivity. 
 
 - Registry Access
-  Network connectivity, including DNS resolution, to the registries from which the Anchore Engine needs to download images.
+  Network connectivity, including DNS resolution, to the registries from which the Nextlinux Engine needs to download images.
 
 - Feed Service
-  The Anchore Engine synchronizes feed data such as operating system vulnerabilities (CVEs) from the Anchore Cloud Service. Only a single end point is required for this synchronization, host: ancho.re TCP port: 443
+  The Nextlinux Engine synchronizes feed data such as operating system vulnerabilities (CVEs) from the Nextlinux Cloud Service. Only a single end point is required for this synchronization, host: ancho.re TCP port: 443
 
-- Access to Anchore Internal Services
-  The Anchore Engine is comprised of six smaller micro-services that can be deployed in a single container or scaled out to handle load. Each Anchore service should be able to connect the other services over the network.
+- Access to Nextlinux Internal Services
+  The Nextlinux Engine is comprised of six smaller micro-services that can be deployed in a single container or scaled out to handle load. Each Nextlinux service should be able to connect the other services over the network.
 
-In environments were access to the public internet is restricted then a proxy server may be required to allow the Anchore Engine to connect to the Anchore Cloud Feed Service or to a publicly hosted container registry.
+In environments were access to the public internet is restricted then a proxy server may be required to allow the Nextlinux Engine to connect to the Nextlinux Cloud Feed Service or to a publicly hosted container registry.
 
-The Anchore Engine can be configured to access a proxy server by using environment variables that are read by the Anchore Engine at run time.
+The Nextlinux Engine can be configured to access a proxy server by using environment variables that are read by the Nextlinux Engine at run time.
 
 - https_proxy:
   Address of the proxy service to use for HTTPS traffic in the following form: {PROTOCOL}://{IP or HOSTNAME}:{PORT}

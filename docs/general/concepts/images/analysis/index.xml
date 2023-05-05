@@ -1,7 +1,7 @@
 <rss version="2.0"
     xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Anchore Engine – Image Analysis Process</title>
+        <title>Nextlinux Engine – Image Analysis Process</title>
         <link>/docs/general/concepts/images/analysis/</link>
         <description>Recent Hugo news from gohugo.io</description>
         <generator>Hugo -- gohugo.io</generator>
@@ -18,7 +18,7 @@
             <guid>/docs/general/concepts/images/analysis/malware_scanning/</guid>
             <description>
 &lt;h2 id="overview">Overview&lt;/h2>
-&lt;p>Anchore Engine now supports the use of the open-source &lt;a href="https://clamav.net">ClamAV&lt;/a> malware scanner to detect malicious code embedded in container images.
+&lt;p>Nextlinux Engine now supports the use of the open-source &lt;a href="https://clamav.net">ClamAV&lt;/a> malware scanner to detect malicious code embedded in container images.
 This scan occurs only at analysis time when the image content itself is available, and the scan results are available via the Engine API as well as for consumption
 in new policy gates to allow gating of image with malware findings.&lt;/p>
 &lt;h2 id="signature-db-updates">Signature DB Updates&lt;/h2>
@@ -70,14 +70,14 @@ if malware was detected during the analysis scan.&lt;/p>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/general/concepts/images/analysis/content_hints/</guid>
             <description>
-&lt;p>Anchore Engine includes the ability to read a user-supplied &amp;lsquo;hints&amp;rsquo; file to allow users to add software artifacts to Anchore&amp;rsquo;s
+&lt;p>Nextlinux Engine includes the ability to read a user-supplied &amp;lsquo;hints&amp;rsquo; file to allow users to add software artifacts to Nextlinux&amp;rsquo;s
 analysis report. The hints file, if present, contains records that describe a software package characteristics explicitly,
 and are then added to the software bill of materials (SBOM). For example, if the owner of a CI/CD container build process
 knows that there are some
-software packages installed explicitly in a container image, but Anchore&amp;rsquo;s regular analyzers fail to identify them, this mechanism
+software packages installed explicitly in a container image, but Nextlinux&amp;rsquo;s regular analyzers fail to identify them, this mechanism
 can be used to include that information in the image&amp;rsquo;s SBOM, exactly as if the packages were discovered normally.&lt;/p>
-&lt;p>Hints cannot be used to modify the findings of Anchore&amp;rsquo;s analyzer beyond adding new packages to the report. If a user specifies
-a package in the hints file that is found by Anchore&amp;rsquo;s image analyzers, the hint is ignored and a warning message is logged
+&lt;p>Hints cannot be used to modify the findings of Nextlinux&amp;rsquo;s analyzer beyond adding new packages to the report. If a user specifies
+a package in the hints file that is found by Nextlinux&amp;rsquo;s image analyzers, the hint is ignored and a warning message is logged
 to notify the user of the conflict.&lt;/p>
 &lt;h3 id="configuration">Configuration&lt;/h3>
 &lt;p>See &lt;a href="/docs/install/configuration/content_hints/">Configuring Content Hints&lt;/a>&lt;/p>
@@ -87,7 +87,7 @@ The format of the file is illustrated using some examples, below.&lt;/p>
 &lt;p>OS Packages are those that will represent packages installed using OS / Distro style package managers. Currently supported package types are &lt;code>rpm, dpkg, apkg&lt;/code>
 for RedHat, Debian, and Alpine flavored package managers respectively. Note that, for OS Packages, the name of the package is unique per SBOM, meaning
 that only one package named &amp;lsquo;somepackage&amp;rsquo; can exist in an image&amp;rsquo;s SBOM, and specifying a name in the hints file that conflicts with one with the same name
-discovered by the Anchore analyzers will result in the record from the hints file taking precedence (override).&lt;/p>
+discovered by the Nextlinux analyzers will result in the record from the hints file taking precedence (override).&lt;/p>
 &lt;ul>
 &lt;li>Minimum required values for a package record in nextlinux_hints.json&lt;/li>
 &lt;/ul>
@@ -114,7 +114,7 @@ discovered by the Anchore analyzers will result in the record from the hints fil
 &lt;p>Non-OS / language package records are similar in form to the OS package records, but with some extra/different characteristics being supplied, namely
 the &lt;code>location&lt;/code> field. Since multiple non-os packages can be installed that have the same name, the location field is particularly important as it
 is used to distinguish between package records that might otherwise be identical. Valid types for non-os packages are currently &lt;code>java, python, gem, npm, nuget, go, binary&lt;/code>.&lt;br>
-For the latest types that are available, see the &lt;code>nextlinux-cli image content &amp;lt;someimage&amp;gt;&lt;/code> output, which lists available types for any given deployment of Anchore Engine.&lt;/p>
+For the latest types that are available, see the &lt;code>nextlinux-cli image content &amp;lt;someimage&amp;gt;&lt;/code> output, which lists available types for any given deployment of Nextlinux Engine.&lt;/p>
 &lt;ul>
 &lt;li>Minimum required values for a package record in nextlinux_hints.json&lt;/li>
 &lt;/ul>
@@ -137,7 +137,7 @@ For the latest types that are available, see the &lt;code>nextlinux-cli image co
 &amp;quot;type&amp;quot;: &amp;quot;gem&amp;quot;
 }
 &lt;/code>&lt;/pre>&lt;h3 id="putting-it-all-together">Putting it all together&lt;/h3>
-&lt;p>Using the above examples, a complete nextlinux_hints.json file, when discovered by Anchore Engine located in &lt;code>/nextlinux_hints.json&lt;/code> inside any container image, is provided here:&lt;/p>
+&lt;p>Using the above examples, a complete nextlinux_hints.json file, when discovered by Nextlinux Engine located in &lt;code>/nextlinux_hints.json&lt;/code> inside any container image, is provided here:&lt;/p>
 &lt;pre>&lt;code>{
 &amp;quot;packages&amp;quot;: [
 {
@@ -158,7 +158,7 @@ to view the &lt;code>musl&lt;/code> and &lt;code>wicked&lt;/code> package record
 &lt;h5 id="note-about-using-the-hints-file-feature">Note about using the hints file feature&lt;/h5>
 &lt;p>The hints file feature is disabled by default, and is meant to be used in very specific circumstances where a trusted entity is entrusted with creating
 and installing, or removing an nextlinux_hints.json file from all containers being built. It is not meant to be enabled when the container image builds
-are not explicitly controlled, as the entity that is building container images could override any SBOM entry that Anchore would normally discover, which
+are not explicitly controlled, as the entity that is building container images could override any SBOM entry that Nextlinux would normally discover, which
 affects the vulnerability/policy status of an image. For this reason, the feature is disabled by default and must be explicitly enabled in configuration
 only if appropriate for your use case .&lt;/p></description>
         </item>

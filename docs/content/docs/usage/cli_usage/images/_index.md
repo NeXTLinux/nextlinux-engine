@@ -6,11 +6,11 @@ weight: 1
 
 ### Adding An Image
 
-The `image add` command instructs the Anchore Engine to pull (download) and analyze an image from a registry.
+The `image add` command instructs the Nextlinux Engine to pull (download) and analyze an image from a registry.
 
 `nextlinux-cli image add docker.io/library/nginx:latest`
 
-The Anchore Engine will attempt to retrieve metadata about the image from the Docker registry and if successful will initiate a pull of the image and queue the image for analysis. The command will output details about the image including the image digest, image ID, and full name of the image.
+The Nextlinux Engine will attempt to retrieve metadata about the image from the Docker registry and if successful will initiate a pull of the image and queue the image for analysis. The command will output details about the image including the image digest, image ID, and full name of the image.
 
 ```
 Image Digest: sha256:2b0e9b0e40202e2a6a0619f327c9acb9d0adc39d7dc292fefc1a886fc8cefee3
@@ -34,7 +34,7 @@ The image type is shown as `docker`, future release will support the analysis of
 
 ### Adding Images That You Own
 
-For images that you are building yourself, the Dockerfile used to build the image should always be passsed to the Anchore Engine at the time of image addition. This is achieved by adding the image as above, but with the additional option to pass the Dockerfile contents to be stored with the engine alongside the image analysis data.
+For images that you are building yourself, the Dockerfile used to build the image should always be passsed to the Nextlinux Engine at the time of image addition. This is achieved by adding the image as above, but with the additional option to pass the Dockerfile contents to be stored with the engine alongside the image analysis data.
 
 `nextlinux-cli image add myrepo.example.com:5000/app/webapp:latest --dockerfile=/path/to/Dockerfile`
 
@@ -53,11 +53,11 @@ the `--annotation` parameter can be used to specify 'key=value' pairs to associa
 
 `nextlinux-cli image add alpine:latest --noautosubscribe`
 
-the '--noautosubscribe' flag can be used if you do not wish for the engine to automatically subscribe the input tag to the 'tag_update' subscription, which controls whether or not the engine will automatically watch the added tag for image content updates and pull in the latest content for analysis.  See Subscriptions for more information about using subscriptions and notifications in Anchore.
+the '--noautosubscribe' flag can be used if you do not wish for the engine to automatically subscribe the input tag to the 'tag_update' subscription, which controls whether or not the engine will automatically watch the added tag for image content updates and pull in the latest content for analysis.  See Subscriptions for more information about using subscriptions and notifications in Nextlinux.
 
 ### Image Tags
 
-In the previous example we added `docker.io/mysql:latest`, if we attempted to add a tag that mapped to the same image, for example `docker.io/mysql:5` the Anchore Engine will detect the duplicate image identifiers and return a detail of all tags matching that image.
+In the previous example we added `docker.io/mysql:latest`, if we attempted to add a tag that mapped to the same image, for example `docker.io/mysql:5` the Nextlinux Engine will detect the duplicate image identifiers and return a detail of all tags matching that image.
 
 ```
 Image Digest: sha256:2b0e9b0e40202e2a6a0619f327c9acb9d0adc39d7dc292fefc1a886fc8cefee3
@@ -78,7 +78,7 @@ Full Tag: docker.io/mysql:5
 
 ### Deleting An Image
 
-The `image del` command instructs the Anchore Engine to delete the image from the repository.
+The `image del` command instructs the Nextlinux Engine to delete the image from the repository.
 
 #### Get The Image Digest
 
@@ -123,4 +123,4 @@ Success
 
 ### Advanced
 
-Anchore engine also allows adding images directly by digest / tag / timestamp tuple, which can be useful to add images that are still available in a registry but not associated with a current tag any longer.  This functionality is available via the nextlinux engine API directly for advanced use cases, by constructing a message body that has 'digest', 'tag' and 'created_at' fields populated - see the API for more details.
+Nextlinux engine also allows adding images directly by digest / tag / timestamp tuple, which can be useful to add images that are still available in a registry but not associated with a current tag any longer.  This functionality is available via the nextlinux engine API directly for advanced use cases, by constructing a message body that has 'digest', 'tag' and 'created_at' fields populated - see the API for more details.

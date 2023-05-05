@@ -1,4 +1,4 @@
-# Anchore Engine default configuration file bundled into the container. These values should provide a simple starting point
+# Nextlinux Engine default configuration file bundled into the container. These values should provide a simple starting point
 # To fully customize configuration, provide a different config.yaml to container at startup by mounting a directory
 # at /config that has the config.yaml
 

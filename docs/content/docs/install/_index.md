@@ -1,12 +1,12 @@
 ---
-title: "Anchore Engine Installation"
+title: "Nextlinux Engine Installation"
 linkTitle: "Installing"
 weight: 3
 ---
 
-The Anchore Engine is distributed as a [Docker Image](https://hub.docker.com/r/nextlinux/nextlinux-engine) available from DockerHub that can be scaled horizontally to handle hundreds of thousands of images.
+The Nextlinux Engine is distributed as a [Docker Image](https://hub.docker.com/r/nextlinux/nextlinux-engine) available from DockerHub that can be scaled horizontally to handle hundreds of thousands of images.
 
-A PostgreSQL database is required to provide persistent storage for the Anchore Engine, this database can be run as a Docker Container or provided as an external service to be accessed by the Anchore Engine. For detailed requirements for the database, network and storage please refer to the System Requirements page.
+A PostgreSQL database is required to provide persistent storage for the Nextlinux Engine, this database can be run as a Docker Container or provided as an external service to be accessed by the Nextlinux Engine. For detailed requirements for the database, network and storage please refer to the System Requirements page.
 
 The Engine is comprised of six smaller micro-services that can be deployed in a single container or scaled out to handle load.
 
@@ -20,16 +20,16 @@ The Engine is comprised of six smaller micro-services that can be deployed in a 
 - Workers
     - Image Analyzer Service
 
-For most installations a single instance of the Anchore Engine container running all 6 services is sufficient however multiple Analyzer services can be spun up to handle heavy load and to reduce analysis time for large deployments.
+For most installations a single instance of the Nextlinux Engine container running all 6 services is sufficient however multiple Analyzer services can be spun up to handle heavy load and to reduce analysis time for large deployments.
 
 ### Deployment Models
 
-The Anchore Engine container can be deployed manually, using Docker Compose, Kubernetes or any container orchestration platform.
+The Nextlinux Engine container can be deployed manually, using Docker Compose, Kubernetes or any container orchestration platform.
 
-The following guides outline deployment of the Anchore Engine using common deployment models.
+The following guides outline deployment of the Nextlinux Engine using common deployment models.
 
 - Docker Compose
-    Install and run Anchore using Docker Compose including a PostgreSQL container.
+    Install and run Nextlinux using Docker Compose including a PostgreSQL container.
 
 - Kubernetes
     Install and run on Kubernetes using PostgreSQL within the POD or as an external service.

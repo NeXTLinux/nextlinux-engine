@@ -30,7 +30,7 @@ service_map = {
 }
 
 
-class AnchoreLogWatcher(RegexMatchingEventHandler):
+class NextlinuxLogWatcher(RegexMatchingEventHandler):
     regexes = [re.compile(".*/anchore-.*\.log$")]
     files = {}
 
@@ -530,7 +530,7 @@ def start(
             # start up the log watchers
             try:
                 observer = Observer()
-                observer.schedule(AnchoreLogWatcher(),
+                observer.schedule(NextlinuxLogWatcher(),
                                   path="/var/log/anchore/")
                 observer.start()
 

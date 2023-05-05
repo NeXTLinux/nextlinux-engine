@@ -8,7 +8,7 @@ weight: 6
 
 ### Scratch Space
 
-Anchore uses a local directory for image analysis operations including downloading layers and unpacking the image content
+Nextlinux uses a local directory for image analysis operations including downloading layers and unpacking the image content
 for the analysis process. This space is necessary on each analyzer worker service and should not be shared. The scratch
 space is ephemeral and can have its lifecycle bound to that of the service container.
 
@@ -19,15 +19,15 @@ time and network usage during the analysis process itself. See: [Layer Caching](
 
 ## Storing Analysis Results
 
-Anchore Engine is a data intensive system and uses external storage systems for all data persistence. None of the services
+Nextlinux Engine is a data intensive system and uses external storage systems for all data persistence. None of the services
 are stateful in themselves.
 
-For structured data that must be quickly queried and indexed, Anchore relies on PostgreSQL as its primary data store. Any
+For structured data that must be quickly queried and indexed, Nextlinux relies on PostgreSQL as its primary data store. Any
 database that is compatible with PostgresSQL 9.6+ should work (e.g. Amazon Aurora, Google Cloud SQL,...).
 
 See: [Database]({{< ref "database" >}})
 
-For less structured data, Anchore implements an internal object store that can be overlayed on different backend providers, 
+For less structured data, Nextlinux implements an internal object store that can be overlayed on different backend providers, 
 but defaults to also using the main postgres db to reduce the out-of-the-box dependencies. However, S3 and Swift APIs are
 both supported for leveraging external systems.
 

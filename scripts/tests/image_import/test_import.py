@@ -1,7 +1,7 @@
 #!/usr/bin/env python3.8
 
 """
-Simple example of an import flow of data output from `syft docker:nginx --output json` into Anchore. Uses syft v0.10.0 output.
+Simple example of an import flow of data output from `syft docker:nginx --output json` into Nextlinux. Uses syft v0.10.0 output.
 """
 
 import sys

@@ -1,7 +1,7 @@
-from anchore_engine.utils import AnchoreException
+from anchore_engine.utils import NextlinuxException
 
 
-class TagManifestParseError(AnchoreException):
+class TagManifestParseError(NextlinuxException):
     def __init__(self, cause, tag, manifest, msg="Failed to parse manifest"):
         self.cause = str(cause)
         self.tag = tag
@@ -15,7 +15,7 @@ class TagManifestParseError(AnchoreException):
         return "{} ({}) - exception: {}".format(self.msg, self.tag, self.cause)
 
 
-class TagManifestNotFoundError(AnchoreException):
+class TagManifestNotFoundError(NextlinuxException):
     def __init__(self, tag, msg="Tag manifest not found"):
         self.tag = tag
         self.msg = msg
@@ -27,7 +27,7 @@ class TagManifestNotFoundError(AnchoreException):
         return "{} ({})".format(self.msg, self.tag)
 
 
-class PolicyBundleDownloadError(AnchoreException):
+class PolicyBundleDownloadError(NextlinuxException):
     def __init__(self, url, status, cause, msg="Failed to download policy bundle"):
         self.url = url
         self.status = status
@@ -41,7 +41,7 @@ class PolicyBundleDownloadError(AnchoreException):
         return "{} ({}) - exception: {}".format(self.msg, self.url, self.cause)
 
 
-class PolicyBundleValidationError(AnchoreException):
+class PolicyBundleValidationError(NextlinuxException):
     def __init__(self, cause, msg="Policy bundle validation failed"):
         self.cause = cause
         self.msg = msg

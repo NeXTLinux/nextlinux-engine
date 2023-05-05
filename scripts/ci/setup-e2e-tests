@@ -10,7 +10,7 @@ TEST_IMAGE_NAME="${4:?'Missing required parameter: TEST_IMAGE_NAME'}"
 # Optional - only used for print_colorized
 source nextlinux-ci/utils
 
-print_colorized INFO "Setting up Anchore Engine end-to-end tests."; echo
+print_colorized INFO "Setting up Nextlinux Engine end-to-end tests."; echo
 
 # Get the latest RC git tag for this semver & use it for the image tag
 if [[ "${GIT_TAG}" =~ ^v[0-9]+(\.[0-9]+)*$ ]]; then
@@ -43,4 +43,4 @@ fi
 # Patch nextlinux-engine-api nodeport to the configured port thats mapped with kind to localhost:8228
 kubectl patch service e2e-testing-nextlinux-engine-api --type=json --patch '[{"op": "replace", "path": "/spec/ports/0/nodePort", "value":30028}]'
 
-print_colorized INFO "Finished setting up Anchore Engine end-to-end tests."; echo
+print_colorized INFO "Finished setting up Nextlinux Engine end-to-end tests."; echo

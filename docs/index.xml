@@ -1,7 +1,7 @@
 <rss version="2.0"
     xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Anchore Engine – Anchore Engine</title>
+        <title>Nextlinux Engine – Nextlinux Engine</title>
         <link>/docs/</link>
         <description>Recent Hugo news from gohugo.io</description>
         <generator>Hugo -- gohugo.io</generator>
@@ -50,7 +50,7 @@ create_bucket: True
 &lt;/code>&lt;/pre>&lt;h2 id="default-configuration">Default Configuration&lt;/h2>
 &lt;p>By default, if no &lt;code>analysis_archive&lt;/code> config is found or the property is not present in the config.yaml, the analysis archive
 will use the &lt;code>object_store&lt;/code> or &lt;code>archive&lt;/code> (for backwards compatibility) config sections and those defaults (e.g. db if found).&lt;/p>
-&lt;p>Anchore stores all of the analysis archive objects in an internal logical bucket: &lt;em>analysis_archive&lt;/em> that is distinct in
+&lt;p>Nextlinux stores all of the analysis archive objects in an internal logical bucket: &lt;em>analysis_archive&lt;/em> that is distinct in
 the configured backends (e.g a key prefix in the s3 bucket or swift container)&lt;/p>
 &lt;h2 id="changing-configuration">Changing Configuration&lt;/h2>
 &lt;p>Unless there are image analyses actually in the archive, there is no data to move if you need to update the configuration
@@ -78,7 +78,7 @@ archive to ensure the db is kept small and the analysis archive handles the data
 &lt;/ol></description>
         </item>
         <item>
-            <title>Docs: Anchore Policies Checks</title>
+            <title>Docs: Nextlinux Policies Checks</title>
             <link>/docs/usage/cli_usage/policies/policy_checks/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/usage/cli_usage/policies/policy_checks/</guid>
@@ -149,7 +149,7 @@ archive to ensure the db is kept small and the analysis archive handles the data
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;p>For a more in-depth list of available gates/triggers, refer to &lt;a href="/docs/general/concepts/policy/policy_checks/">Anchore Policy Checks&lt;/a>&lt;/p></description>
+&lt;p>For a more in-depth list of available gates/triggers, refer to &lt;a href="/docs/general/concepts/policy/policy_checks/">Nextlinux Policy Checks&lt;/a>&lt;/p></description>
         </item>
         <item>
             <title>Docs: Migrating Data to New Drivers</title>
@@ -158,8 +158,8 @@ archive to ensure the db is kept small and the analysis archive handles the data
             <guid>/docs/install/storage/object_store/migration/</guid>
             <description>
 &lt;h3 id="overview">Overview&lt;/h3>
-&lt;p>To cleanly migrate data from one archive driver to another, Anchore Engine includes some tooling that automates the process in the &amp;lsquo;nextlinux-manager&amp;rsquo; tool packaged with the system.&lt;/p>
-&lt;p>The migration process is an offline process; Anchore Engine is not designed to handle an online migration.&lt;/p>
+&lt;p>To cleanly migrate data from one archive driver to another, Nextlinux Engine includes some tooling that automates the process in the &amp;lsquo;nextlinux-manager&amp;rsquo; tool packaged with the system.&lt;/p>
+&lt;p>The migration process is an offline process; Nextlinux Engine is not designed to handle an online migration.&lt;/p>
 &lt;p>For the migration process you will need:&lt;/p>
 &lt;ol>
 &lt;li>The original config.yaml used by the services already, if services are split out or using different config.yaml for different services, you need the config.yaml used by the catalog services&lt;/li>
@@ -178,8 +178,8 @@ archive to ensure the db is kept small and the analysis archive handles the data
 &lt;li>Ensure the dest-config.yaml is in place for all the components as config.yaml&lt;/li>
 &lt;li>Start nextlinux-engine&lt;/li>
 &lt;/ol>
-&lt;h3 id="migration-example-using-docker-compose-deployed-nextlinux-engine">Migration Example Using Docker Compose Deployed Anchore Engine&lt;/h3>
-&lt;p>The following is an example migration for an nextlinux-engine deployed via docker-compose on a single host with a local postgresql container&amp;ndash;basically the example used in &amp;lsquo;Installing Anchore Engine&amp;rsquo; documents. At the end of this section, we&amp;rsquo;ll cover the caveats and things to watch for a multi-node install of nextlinux engine.&lt;/p>
+&lt;h3 id="migration-example-using-docker-compose-deployed-nextlinux-engine">Migration Example Using Docker Compose Deployed Nextlinux Engine&lt;/h3>
+&lt;p>The following is an example migration for an nextlinux-engine deployed via docker-compose on a single host with a local postgresql container&amp;ndash;basically the example used in &amp;lsquo;Installing Nextlinux Engine&amp;rsquo; documents. At the end of this section, we&amp;rsquo;ll cover the caveats and things to watch for a multi-node install of nextlinux engine.&lt;/p>
 &lt;p>This process requires that you run the command in a location that has access to both the source archive driver configuration and the new archive driver configuration.&lt;/p>
 &lt;h4 id="step-1-shutdown-all-services">Step 1: Shutdown all services&lt;/h4>
 &lt;p>All services should be stopped, but the postgresql db must still be available and running.&lt;/p>
@@ -300,7 +300,7 @@ Policy ID Active Created Updated
 &amp;quot;id&amp;quot;: &amp;quot;2c53a13c-1765-11e8-82ef-23527761d060&amp;quot;,
 ... &amp;lt;lots of json&amp;gt;
 &lt;/code>&lt;/pre>&lt;p>If that returns the content properly, then you&amp;rsquo;re all done!&lt;/p>
-&lt;h3 id="things-to-watch-for-in-a-multi-node-nextlinux-engine-installation">Things to Watch for in a Multi-Node Anchore Engine Installation&lt;/h3>
+&lt;h3 id="things-to-watch-for-in-a-multi-node-nextlinux-engine-installation">Things to Watch for in a Multi-Node Nextlinux Engine Installation&lt;/h3>
 &lt;ul>
 &lt;li>Before migration:
 Ensure all services are down before starting migration&lt;/li>
@@ -436,10 +436,10 @@ url: 'http://minio-ephemeral-test:9000'
 region: null
 bucket: analysisarchive
 ...
-&lt;/code>&lt;/pre>&lt;p>Anchore stores its internal data in logical &amp;lsquo;buckets&amp;rsquo; that are overlayed onto the storage backed in a driver-specific
+&lt;/code>&lt;/pre>&lt;p>Nextlinux stores its internal data in logical &amp;lsquo;buckets&amp;rsquo; that are overlayed onto the storage backed in a driver-specific
 way, so to migrate specific internal buckets (effectively these are classes of data), use the &amp;ndash;bucket option in the
 manager cli. This should generally not be necessary, but for specific kinds of migrations it may be needed.&lt;/p>
-&lt;p>The following command will execute the migration. Note that the &amp;ndash;bucket option is for an internal Anchore logical-bucket, not
+&lt;p>The following command will execute the migration. Note that the &amp;ndash;bucket option is for an internal Nextlinux logical-bucket, not
 and actual bucket in S3:&lt;/p>
 &lt;pre>&lt;code>nextlinux-manager objectstorage --db-connect migrate --to-analysis-archive --bucket analysis_archive source-config.yaml dest-config.yaml
 &lt;/code>&lt;/pre>&lt;h3 id="migrating-from-dual-object-storage-backends-to-a-single-backend">Migrating from dual object storage backends to a single backend&lt;/h3>
@@ -505,7 +505,7 @@ bucket: newnextlinuxbucket
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/usage/integration/ci_cd/circleci/</guid>
             <description>
-&lt;p>Integrating Anchore engine into your CircleCI pipeline can be accomplished seamlessly using the official Anchore Engine Orb.&lt;/p>
+&lt;p>Integrating Nextlinux engine into your CircleCI pipeline can be accomplished seamlessly using the official Nextlinux Engine Orb.&lt;/p>
 &lt;p>Orb source code &amp;amp; usage examples can be found on our &lt;a href="https://github.com/nextlinux/ci-tools/tree/master/circleci-orbs/nextlinux-engine">GitHub Repository&lt;/a>.&lt;/p>
 &lt;p>To read more about CircleCI orbs, view the official documentation - &lt;a href="https://circleci.com/docs/2.0/orb-intro/">CircleCi Orbs&lt;/a>&lt;/p></description>
         </item>
@@ -516,7 +516,7 @@ bucket: newnextlinuxbucket
             <guid>/docs/install/configuration/feed_configuration/</guid>
             <description>
 &lt;h3 id="feed-synchronization-interval">Feed Synchronization Interval&lt;/h3>
-&lt;p>The default configuration for the Anchore Engine will download vulnerability data from Anchore&amp;rsquo;s feed service every 21,600 seconds (6hours).&lt;/p>
+&lt;p>The default configuration for the Nextlinux Engine will download vulnerability data from Nextlinux&amp;rsquo;s feed service every 21,600 seconds (6hours).&lt;/p>
 &lt;p>For most users the only configuration option that is typically updated is the feed synchronization interval - the time interval (in seconds) at which the feed sync is run.&lt;/p>
 &lt;pre>&lt;code class="language-policy_engine:" data-lang="policy_engine:"> .....
 cycle_timers:
@@ -525,9 +525,9 @@ feed_sync: 14400
 &lt;/code>&lt;/pre>&lt;h3 id="feed-settings">Feed Settings&lt;/h3>
 &lt;p>Feed sync configuration is set in the config.yaml file used by policy engine service. The &lt;code>services.policy_engine.vulnerabilities.sync.data&lt;/code> section
 of the configuration file in the policy engine&amp;rsquo;s container controls the behavior of feed syncs done by that particular container. Ensure this config is synchronized between containers if you are running more than one policy engine. This is usually handled for you by Helm Charts on Kubernetes, for example.&lt;/p>
-&lt;p>The Anchore Engine will default to downloading feed data from Anchore&amp;rsquo;s feed service hosted at &lt;a href="https://ancho.re/v1/service/feeds">https://ancho.re/v1/service/feeds&lt;/a> and running in AWS in the
+&lt;p>The Nextlinux Engine will default to downloading feed data from Nextlinux&amp;rsquo;s feed service hosted at &lt;a href="https://ancho.re/v1/service/feeds">https://ancho.re/v1/service/feeds&lt;/a> and running in AWS in the
 us-west-2 region.&lt;/p>
-&lt;p>By default, Anchore Engine will only sync the non-grype feeds enabled in the config section shown below. Setting additional feed types to true or false will
+&lt;p>By default, Nextlinux Engine will only sync the non-grype feeds enabled in the config section shown below. Setting additional feed types to true or false will
 enable or disable, respectively, synchronization of the specified feed.&lt;/p>
 &lt;pre>&lt;code>services:
 ...
@@ -544,7 +544,7 @@ url: ${NEXTLINUX_GRYPE_DB_URL}
 packages:
 enabled: true
 url: ${NEXTLINUX_FEEDS_URL}
-&lt;/code>&lt;/pre>&lt;p>&lt;em>&lt;strong>Note:&lt;/strong>&lt;/em> As shown above, Anchore Engine&amp;rsquo;s default is now Grype. The Grype feed is the default, and the only one that Anchore Engine syncs.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>&lt;em>&lt;strong>Note:&lt;/strong>&lt;/em> As shown above, Nextlinux Engine&amp;rsquo;s default is now Grype. The Grype feed is the default, and the only one that Nextlinux Engine syncs.&lt;/p>
 &lt;h4 id="read-timeout">Read Timeout&lt;/h4>
 &lt;p>Under rare circumstances you may see syncs failing with errors to fetch data due to timeouts. This is typically due to load on the feed service, network issues, or
 some other temporary condition. However, if you want to increase the timeout to improve the likelihood of success, modify the &lt;em>read_timeout_seconds&lt;/em> of the feeds configuration:&lt;/p>
@@ -818,7 +818,7 @@ Feed Group Status Records Updated Sync Duration
 vulnerabilities centos:5 success 1347 27.41s
 ...
 &lt;/code>&lt;/pre>&lt;p>With these controls you can better customize the data set that nextlinux stores in the database. However, note that this should not normally be necessary
-and modifying feed groups &amp;amp; data has implications on the sets of distros and types of artifacts Anchore can match vulnerabilities against.&lt;/p></description>
+and modifying feed groups &amp;amp; data has implications on the sets of distros and types of artifacts Nextlinux can match vulnerabilities against.&lt;/p></description>
         </item>
         <item>
             <title>Docs: Feed Configuration</title>
@@ -827,7 +827,7 @@ and modifying feed groups &amp;amp; data has implications on the sets of distros
             <guid>/docs/usage/cli_usage/feeds/feed_configuration/</guid>
             <description>
 &lt;h3 id="feed-synchronization-interval">Feed Synchronization Interval&lt;/h3>
-&lt;p>The default configuration for the Anchore Engine will download vulnerability data from Anchore&amp;rsquo;s feed service every 21,600 seconds (6hours).&lt;/p>
+&lt;p>The default configuration for the Nextlinux Engine will download vulnerability data from Nextlinux&amp;rsquo;s feed service every 21,600 seconds (6hours).&lt;/p>
 &lt;p>For most users the only configuration option that is typically updated is the feed synchronization interval - the time interval (in seconds) at which the feed sync is run.&lt;/p>
 &lt;pre>&lt;code class="language-policy_engine:" data-lang="policy_engine:"> .....
 cycle_timers:
@@ -836,8 +836,8 @@ feed_sync: 14400
 &lt;/code>&lt;/pre>&lt;h3 id="feed-settings">Feed Settings&lt;/h3>
 &lt;p>Feed sync configuration is set in the config.yaml file used by policy engine service. The &lt;code>feeds&lt;/code> section of the configuration file in the policy engine&amp;rsquo;s container controls the behavior of feed syncs done by that particular container. Ensure these are synchronized between
 containers if you are running more than one policy engine. This is usually handled for you by Helm Charts on Kubernetes, for example.&lt;/p>
-&lt;p>The Anchore Engine will default to downloading feed data from Anchore&amp;rsquo;s feed service hosted at &lt;a href="https://ancho.re/v1/service/feeds">https://ancho.re/v1/service/feeds&lt;/a> and running in AWS in the us-west-2 region.&lt;/p>
-&lt;p>By default the Anchore Engine will perform a selective sync enabling only the vulnerabilities feed. Setting the (selective_sync) enabled flag to false, or updating the other feed types to True will enable synchronization of the specified feed.&lt;/p>
+&lt;p>The Nextlinux Engine will default to downloading feed data from Nextlinux&amp;rsquo;s feed service hosted at &lt;a href="https://ancho.re/v1/service/feeds">https://ancho.re/v1/service/feeds&lt;/a> and running in AWS in the us-west-2 region.&lt;/p>
+&lt;p>By default the Nextlinux Engine will perform a selective sync enabling only the vulnerabilities feed. Setting the (selective_sync) enabled flag to false, or updating the other feed types to True will enable synchronization of the specified feed.&lt;/p>
 &lt;pre>&lt;code>feeds:
 selective_sync:
 # If enabled only sync specific feeds instead of all.
@@ -1123,7 +1123,7 @@ Feed Group Status Records Updated Sync Duration
 vulnerabilities centos:5 success 1347 27.41s
 ...
 &lt;/code>&lt;/pre>&lt;p>With these controls you can better customize the data set that nextlinux stores in the db. However, note that this should not normally be necessary
-and modifying feed groups &amp;amp; data has implication on the sets of distros and types of artifacts Anchore can match vulnerabilities against.&lt;/p></description>
+and modifying feed groups &amp;amp; data has implication on the sets of distros and types of artifacts Nextlinux can match vulnerabilities against.&lt;/p></description>
         </item>
         <item>
             <title>Docs: Configuring Registries</title>
@@ -1131,7 +1131,7 @@ and modifying feed groups &amp;amp; data has implication on the sets of distros 
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/usage/cli_usage/registries/configuring_registries/</guid>
             <description>
-&lt;p>The Anchore Engine will attempt to download images from any registry without requiring further configuration.
+&lt;p>The Nextlinux Engine will attempt to download images from any registry without requiring further configuration.
 However if your registry requires authentication then the registry and corresponding credentials will need to be defined.&lt;/p>
 &lt;h3 id="listing-registries">Listing Registries&lt;/h3>
 &lt;p>Running the following command lists the defined registries.&lt;/p>
@@ -1141,12 +1141,12 @@ docker.io nextlinux
 quay.io nextlinux
 registry.example.com johndoe
 192.168.1.200:5000 janedoe
-&lt;/code>&lt;/pre>&lt;p>Here we can see that 4 registries have been defined. If no registry was defined then the Anchore Engine would attempt to pull images without authentication but a registry is defined then all pulls for images from that registry will use the specified username and password.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>Here we can see that 4 registries have been defined. If no registry was defined then the Nextlinux Engine would attempt to pull images without authentication but a registry is defined then all pulls for images from that registry will use the specified username and password.&lt;/p>
 &lt;h3 id="adding-a-registry">Adding a Registry&lt;/h3>
 &lt;p>Registries can be added using the following syntax.&lt;/p>
 &lt;p>&lt;code>nextlinux-cli registry add REGISTRY USERNAME PASSWORD&lt;/code>&lt;/p>
 &lt;p>The REGISTRY parameter should include the fully qualified hostname and port number of the registry. For example: registry.nextlinux.com:5000&lt;/p>
-&lt;p>Anchore Engine will only pull images from a TLS/SSL enabled registry. If the registry is protected with a self signed certificate or a certificated signed by an unknown certificate authority then the &lt;code>--insecure&lt;/code> parameter can be passed which instructs the Anchore Engine not to validate the certificate.&lt;/p>
+&lt;p>Nextlinux Engine will only pull images from a TLS/SSL enabled registry. If the registry is protected with a self signed certificate or a certificated signed by an unknown certificate authority then the &lt;code>--insecure&lt;/code> parameter can be passed which instructs the Nextlinux Engine not to validate the certificate.&lt;/p>
 &lt;p>Most Docker V2 compatible registries require username and password for authentication. Amazon ECR, Google GCR and Microsoft Azure include support
 for their own native credentialing. See Working with &lt;a href="/docs/usage/cli_usage/registries/ecr_configuration/">AWS ECR Registry Credentials&lt;/a>,
 &lt;a href="/docs/usage/cli_usage/registries/gcr_configuration/">Working with Google GCR Registry Credentials&lt;/a> and
@@ -1160,28 +1160,28 @@ User: johndoe
 Verify TLS: False
 Created: 2017-09-02T18:25:34
 Updated: 2017-09-02T18:25:34
-&lt;/code>&lt;/pre>&lt;p>In this example we can see that the registry.example.com registry was added to the Anchore Engine on the 2nd September at 18:25 UTC. This registry. The password for the registry cannot be retrieved through the API or CLI.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>In this example we can see that the registry.example.com registry was added to the Nextlinux Engine on the 2nd September at 18:25 UTC. This registry. The password for the registry cannot be retrieved through the API or CLI.&lt;/p>
 &lt;h3 id="updating-registry-details">Updating Registry Details&lt;/h3>
 &lt;p>Once a registry had been defined the parameters can be updated using the &lt;em>update&lt;/em> command. This allows a registry&amp;rsquo;s username, password and insecure (validate TLS) parameters to be updated.&lt;/p>
 &lt;p>&lt;code>nextlinux-cli registry update REGISTRY USERNAME PASSWORD [--insecure]&lt;/code>&lt;/p>
 &lt;h3 id="deleting-registries">Deleting Registries&lt;/h3>
-&lt;p>A Registry can be deleted from Anchore&amp;rsquo;s configuration using the &lt;code>del&lt;/code> command.&lt;/p>
+&lt;p>A Registry can be deleted from Nextlinux&amp;rsquo;s configuration using the &lt;code>del&lt;/code> command.&lt;/p>
 &lt;p>For example to delete the configuration for registry.example.com the following command should be issued:&lt;/p>
 &lt;p>&lt;code>nextlinux-cli registry delete registry.example.com&lt;/code>&lt;/p>
 &lt;p>&lt;strong>Note:&lt;/strong> Deleting a registry record does not delete the records of images/tags associated with that registry.&lt;/p>
 &lt;h3 id="advanced">Advanced&lt;/h3>
-&lt;p>Anchore engine attempts to perform a credential validation upon registry addition, but there are cases where a credential can be valid but the validation routine can fail (in particular, credential validation methods are changing for public registries over time). If you are unable to add a registry but believe that the credential you are providing is valid, or you wish to add a credential to nextlinux before it is in place in the registry, you can bypass the registry credential validation process using the &lt;code>--skip-validation&lt;/code> option to the &lt;code>registry add&lt;/code> command.&lt;/p></description>
+&lt;p>Nextlinux engine attempts to perform a credential validation upon registry addition, but there are cases where a credential can be valid but the validation routine can fail (in particular, credential validation methods are changing for public registries over time). If you are unable to add a registry but believe that the credential you are providing is valid, or you wish to add a credential to nextlinux before it is in place in the registry, you can bypass the registry credential validation process using the &lt;code>--skip-validation&lt;/code> option to the &lt;code>registry add&lt;/code> command.&lt;/p></description>
         </item>
         <item>
-            <title>Docs: Configuring the Anchore CLI</title>
+            <title>Docs: Configuring the Nextlinux CLI</title>
             <link>/docs/install/nextlinux_cli/cli_config/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/install/nextlinux_cli/cli_config/</guid>
             <description>
-&lt;p>By default the Anchore CLI will try to connect to the Anchore Engine at http://localhost/v1 with no authentication.&lt;/p>
-&lt;p>The username, password and URL for the server can be passed to the Anchore CLI using one of three methods:&lt;/p>
+&lt;p>By default the Nextlinux CLI will try to connect to the Nextlinux Engine at http://localhost/v1 with no authentication.&lt;/p>
+&lt;p>The username, password and URL for the server can be passed to the Nextlinux CLI using one of three methods:&lt;/p>
 &lt;h3 id="command-line-parameters">Command Line Parameters&lt;/h3>
-&lt;p>The following command line parameters are used to configure the Anchore CLI to connect to and authenticate with the Anchore Engine.&lt;/p>
+&lt;p>The following command line parameters are used to configure the Nextlinux CLI to connect to and authenticate with the Nextlinux Engine.&lt;/p>
 &lt;pre>&lt;code>--u TEXT Username eg. admin
 --p TEXT Password eg. foobar
 --url TEXT Service URL eg. http://localhost:8228/v1
@@ -1190,7 +1190,7 @@ Updated: 2017-09-02T18:25:34
 eg.&lt;/p>
 &lt;p>&lt;code>$ nextlinux-cli --u admin --p foobar --url http://nextlinux.example.com:8228/v1&lt;/code>&lt;/p>
 &lt;h3 id="environment-variables">Environment Variables&lt;/h3>
-&lt;p>Rather than passing command line parameters for every call to the Anchore CLI they can be stored as environment variables.&lt;/p>
+&lt;p>Rather than passing command line parameters for every call to the Nextlinux CLI they can be stored as environment variables.&lt;/p>
 &lt;pre>&lt;code>NEXTLINUX_CLI_URL=http://myserver.example.com:8228/v1 NEXTLINUX_CLI_USER=admin NEXTLINUX_CLI_PASS=foobar NEXTLINUX_CLI_SSL_VERIFY=n
 &lt;/code>&lt;/pre>&lt;h3 id="credentials-file-recommended">Credentials File (recommended)&lt;/h3>
 &lt;p>The server URL and authentications credentials can be stored in a configuration file stored in the user&amp;rsquo;s home directory.&lt;/p>
@@ -1200,7 +1200,7 @@ NEXTLINUX_CLI_USER: 'admin'
 NEXTLINUX_CLI_PASS: 'foobar'
 NEXTLINUX_CLI_URL: 'http://localhost:8228/v1'
 &lt;/code>&lt;/pre>&lt;h3 id="order-or-precedence">Order or Precedence&lt;/h3>
-&lt;p>The Anchore CLi will first look for configuration via command line parameters. If no command line parameters are passed then the environment is checked, finally the CLI will check for a credentials file.&lt;/p>
+&lt;p>The Nextlinux CLi will first look for configuration via command line parameters. If no command line parameters are passed then the environment is checked, finally the CLI will check for a credentials file.&lt;/p>
 &lt;p>&lt;strong>Note:&lt;/strong> All examples in the documentation will presume that the credentials have been configured using either environment variables or the credentials file.&lt;/p></description>
         </item>
         <item>
@@ -1210,7 +1210,7 @@ NEXTLINUX_CLI_URL: 'http://localhost:8228/v1'
             <guid>/docs/install/considerations/mac_special_considerations/</guid>
             <description>
 &lt;h2 id="special-considerations-for-installing-on-docker-for-mac">Special Considerations for installing on Docker for Mac&lt;/h2>
-&lt;p>If you are running Anchore Engine using Docker for Mac the default memory allocation will be insufficient to run the Anchore Engine. It is recommended that a minimum of 4GB of RAM is allocated to Docker for Mac&amp;rsquo;s virtual machine.&lt;/p>
+&lt;p>If you are running Nextlinux Engine using Docker for Mac the default memory allocation will be insufficient to run the Nextlinux Engine. It is recommended that a minimum of 4GB of RAM is allocated to Docker for Mac&amp;rsquo;s virtual machine.&lt;/p>
 &lt;ul>
 &lt;li>Click on the Moby (Whale) icon on the right side of the menu bar.&lt;/li>
 &lt;li>Select Preferences&lt;/li>
@@ -1226,13 +1226,13 @@ NEXTLINUX_CLI_URL: 'http://localhost:8228/v1'
             <guid>/docs/install/considerations/rhel_special_considerations/</guid>
             <description>
 &lt;h3 id="special-considerations-for-installing-on-red-hat-enterprise-linux-andor-any-docker-host-using-overlayfs-as-storage-drivers">Special Considerations for installing on Red Hat Enterprise Linux (and/or any docker host using OverlayFS* as storage drivers)&lt;/h3>
-&lt;p>If the Anchore Engine container is run on a Red Hat Enterprise Linux (RHEL) system or derivative such as CentOS or Oracle Linux (or any docker host configured to use the OverlayFS* storage drivers) then special consideration should be taken with configuring storage.&lt;/p>
+&lt;p>If the Nextlinux Engine container is run on a Red Hat Enterprise Linux (RHEL) system or derivative such as CentOS or Oracle Linux (or any docker host configured to use the OverlayFS* storage drivers) then special consideration should be taken with configuring storage.&lt;/p>
 &lt;p>Red Hat Enterprise Linux 7.5 defaults to using OverlayFS for storage of container images including ephemeral container storage. Previous versions of Red Hat Enterprise Linux used the devicemapper storage driver.&lt;/p>
 &lt;p>There is a bug in the OverlayFS driver in kernels older than 4.13 that may result in errors during image analysis. During the image extraction process the following error may be logged:&lt;/p>
 &lt;p>&lt;code>Directory renamed before its status could be extracted&lt;/code>&lt;/p>
 &lt;p>This error is seen during the extraction of the image layer tar files.&lt;/p>
 &lt;p>To work around this error, until the appropriate fix can be backported into Red Hat Enterprise Linux&amp;rsquo;s 3.1 kernel it is recommended that an external volume is used to during image extraction.&lt;/p>
-&lt;p>By default the Anchore Engine uses the /tmp directory within the container to download and extract images. Configure a volume to be mounted into the container at a specified path and configure this path in config.yaml&lt;/p>
+&lt;p>By default the Nextlinux Engine uses the /tmp directory within the container to download and extract images. Configure a volume to be mounted into the container at a specified path and configure this path in config.yaml&lt;/p>
 &lt;p>&lt;code>tmp_dir: '/scratch'&lt;/code>&lt;/p>
 &lt;p>In this example a volume has been mounted as /scratch within the container and config.yaml updated to use /scratch as the temporary directory for image analysis. This volume should be sized to at least 3 times the uncompressed image size to be analyzed.&lt;/p></description>
         </item>
@@ -1242,8 +1242,8 @@ NEXTLINUX_CLI_URL: 'http://localhost:8228/v1'
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/install/requirements/database/</guid>
             <description>
-&lt;p>The Anchore Engine requires PostgreSQL version 9.6 or higher database to provide persistent storage for image, policy and analysis data.&lt;/p>
-&lt;p>This database can be run in a container, as configured in the example Docker Compose file or can be provided as an external service to the Anchore Engine.
+&lt;p>The Nextlinux Engine requires PostgreSQL version 9.6 or higher database to provide persistent storage for image, policy and analysis data.&lt;/p>
+&lt;p>This database can be run in a container, as configured in the example Docker Compose file or can be provided as an external service to the Nextlinux Engine.
 PostgreSQL compatible databases such as Amazon RDS for PostgreSQL can be used for highly scalable cloud deployments.&lt;/p></description>
         </item>
         <item>
@@ -1252,7 +1252,7 @@ PostgreSQL compatible databases such as Amazon RDS for PostgreSQL can be used fo
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/install/storage/database/</guid>
             <description>
-&lt;p>Anchore stores all metadata in a structured format in a PostgreSQL database to support API operations and searches.&lt;/p>
+&lt;p>Nextlinux stores all metadata in a structured format in a PostgreSQL database to support API operations and searches.&lt;/p>
 &lt;p>Examples of data persisted in the database:&lt;/p>
 &lt;ul>
 &lt;li>Image metadata (distro, version, layer counts, &amp;hellip;)&lt;/li>
@@ -1320,7 +1320,7 @@ DOCKERFILECHECK NOHEALTHCHECK Dockerfile does not contain any HEALTHCHECK instru
 NEXTLINUXSEC VULNHIGH HIGH Vulnerability found in package - mount (CVE-2016-2779 - https://security-tracker.debian.org/tracker/CVE-2016-2779) stop
 NEXTLINUXSEC VULNHIGH HIGH Vulnerability found in package - libuuid1 (CVE-2016-2779 - https://security-tracker.debian.org/tracker/CVE-2016-2779) stop
 &lt;/code>&lt;/pre>&lt;p>In this example we specified library/repo:tag which could be ambiguous. At the time of writing the image Digest for &lt;code>library/debian:latest&lt;/code> was &lt;code>sha:256:427752aa.....&lt;/code> however previously different images may have been tagged as &lt;code>library/debian:latest&lt;/code>. The &lt;code>--show-history&lt;/code> parameter can be passed to show historic evaluations based on previous images or previous policy bundles.&lt;/p>
-&lt;p>Anchore supports whitelisting and blacklisting images by their name, ID or digest. A blacklist or whitelist takes precedence over any policy checks. For example if an image is explicitly listed as &lt;em>blacklisted&lt;/em> then even if all the individual policy checks pass the image will still fail evaluation.&lt;/p>
+&lt;p>Nextlinux supports whitelisting and blacklisting images by their name, ID or digest. A blacklist or whitelist takes precedence over any policy checks. For example if an image is explicitly listed as &lt;em>blacklisted&lt;/em> then even if all the individual policy checks pass the image will still fail evaluation.&lt;/p>
 &lt;pre>&lt;code>$ nextlinux-cli evaluate check library/alpine:latest --detail
 Image Digest: sha256:8c03bb07a531c53ad7d0f6e7041b64d81f99c6e493cb39abba56d956b40eacbc
 Full Tag: docker.io/library/alpine:latest
@@ -1348,12 +1348,12 @@ dockerfile instruction Dockerfile directive 'HEALTHCHECK' not found, matching co
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/install/storage/object_store/filesystem_driver/</guid>
             <description>
-&lt;p>Using the file system driver object store documents can be stored on a filesystem volume passed to the Anchore Engine container.&lt;/p>
+&lt;p>Using the file system driver object store documents can be stored on a filesystem volume passed to the Nextlinux Engine container.&lt;/p>
 &lt;p>&lt;strong>The filesystem driver does not handle distribution or replication.&lt;/strong> To replicate the file system across nodes for performance and redundancy a clustered / shared filesystem such as Gluster, CephFS or Amazon EFS should be used.&lt;/p>
 &lt;p>&lt;strong>WARNING:&lt;/strong> This driver is not recommended for scale-out production deployments&lt;/p>
 &lt;p>For environments who do not want to utilize the default PostgresSQL storage and need scale or redundancy an object store such as S3 or Swift will provide a better solution than the filesystem driver.&lt;/p>
 &lt;h3 id="compression">Compression&lt;/h3>
-&lt;p>The localfs (filesystem) driver supports compression of object_store documents. The object_store documents are JSON formatted and will see significant reduction in size through compression there is an overhead incurred by running compression and decompression on every access of these documents. The Anchore Engine can be configured to only compress documents above a certain size to reduce unnecessary overhead. In the example below any document over 100kb in size will be compressed.&lt;/p>
+&lt;p>The localfs (filesystem) driver supports compression of object_store documents. The object_store documents are JSON formatted and will see significant reduction in size through compression there is an overhead incurred by running compression and decompression on every access of these documents. The Nextlinux Engine can be configured to only compress documents above a certain size to reduce unnecessary overhead. In the example below any document over 100kb in size will be compressed.&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-YAML" data-lang="YAML">&lt;span style="color:#204a87;font-weight:bold">object_store&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">compression&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">enabled&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">True&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
@@ -1371,7 +1371,7 @@ dockerfile instruction Dockerfile directive 'HEALTHCHECK' not found, matching co
             <guid>/docs/install/configuration/config/</guid>
             <description>
 &lt;h2 id="initial-configuration">Initial Configuration&lt;/h2>
-&lt;p>A single configuration file config.yaml is required to run the Anchore Engine - by default, this file is embedded in the nextlinux-engine container image, located in /config/config.yaml. The default configuration file is provided as a way to get started, which is functional out of the box, without modification, when combined with either the Helm method or docker-compose method of installing nextlinux-engine. The default configuration is set up to use environment variable substitutions so that configuration values can be controlled by setting the corresponding environment variables at deployment time (see &lt;a href="/docs/install/configuration/using_env_vars/">Using Environment Variables in Anchore&lt;/a>. To review the embedded configuration file settings, see the &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/conf/default_config.yaml">default config.yaml on github&lt;/a> which is populated with several environment variables (all starting with NEXTLINUX_), the &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/docker-compose.yaml">example docker-compose.yaml on github&lt;/a> which includes several site-specific environment variable default settings, and the &lt;a href="https://github.com/nextlinux/nextlinux-engine/tree/master/Dockerfile">nextlinux engine Dockerfile on github&lt;/a> which sets baseline environment variable settings.&lt;/p>
+&lt;p>A single configuration file config.yaml is required to run the Nextlinux Engine - by default, this file is embedded in the nextlinux-engine container image, located in /config/config.yaml. The default configuration file is provided as a way to get started, which is functional out of the box, without modification, when combined with either the Helm method or docker-compose method of installing nextlinux-engine. The default configuration is set up to use environment variable substitutions so that configuration values can be controlled by setting the corresponding environment variables at deployment time (see &lt;a href="/docs/install/configuration/using_env_vars/">Using Environment Variables in Nextlinux&lt;/a>. To review the embedded configuration file settings, see the &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/conf/default_config.yaml">default config.yaml on github&lt;/a> which is populated with several environment variables (all starting with NEXTLINUX_), the &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/docker-compose.yaml">example docker-compose.yaml on github&lt;/a> which includes several site-specific environment variable default settings, and the &lt;a href="https://github.com/nextlinux/nextlinux-engine/tree/master/Dockerfile">nextlinux engine Dockerfile on github&lt;/a> which sets baseline environment variable settings.&lt;/p>
 &lt;p>Each environment variable (starting with NEXTLINUX_) in the default config.yaml is set (either the baseline as set in the Dockerfile, or an override in docker-compose or Helm) to ensure that the system comes up with a fully populated configuration.&lt;/p>
 &lt;p>Some examples of useful initial settings follow.&lt;/p>
 &lt;ul>
@@ -1438,7 +1438,7 @@ dockerfile instruction Dockerfile directive 'HEALTHCHECK' not found, matching co
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/usage/cli_usage/images/inspecting_image_content/</guid>
             <description>
-&lt;p>During the analysis of container images the Anchore Engine performs deep inspection, collecting data on all artifacts in the image including files, operating system packages and software artifacts such as Ruby GEMs and Node.JS NPM modules.&lt;/p>
+&lt;p>During the analysis of container images the Nextlinux Engine performs deep inspection, collecting data on all artifacts in the image including files, operating system packages and software artifacts such as Ruby GEMs and Node.JS NPM modules.&lt;/p>
 &lt;p>The &lt;code>image content&lt;/code> command can be used to return detailed information about the content of the container image.&lt;/p>
 &lt;p>&lt;code>nextlinux-cli image content INPUT_IMAGE CONTENT_TYPE&lt;/code>&lt;/p>
 &lt;p>The INPUT_IMAGE can be specified in one of the following formats:&lt;/p>
@@ -1475,10 +1475,10 @@ dockerfile instruction Dockerfile directive 'HEALTHCHECK' not found, matching co
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/install/storage/layer_caching/</guid>
             <description>
-&lt;p>Once an image is submitted to the Anchore Engine for analysis the Engine will attempt to retrieve metadata about the image from the Docker registry and if successful will download the image and queue the image for analysis.&lt;/p>
-&lt;p>The Anchore Engine can run one or more analyzer services to scale out processing of images. The next available analyzer worker will process the image.&lt;/p>
+&lt;p>Once an image is submitted to the Nextlinux Engine for analysis the Engine will attempt to retrieve metadata about the image from the Docker registry and if successful will download the image and queue the image for analysis.&lt;/p>
+&lt;p>The Nextlinux Engine can run one or more analyzer services to scale out processing of images. The next available analyzer worker will process the image.&lt;/p>
 &lt;p>Docker Images are made up of one or more layers, which are described in the manifest. The manifest lists the layers which are typically stored as gzipped compressed TAR files.&lt;/p>
-&lt;p>As part of image analysis the Anchore Engine will:&lt;/p>
+&lt;p>As part of image analysis the Nextlinux Engine will:&lt;/p>
 &lt;ul>
 &lt;li>Download all layers that comprise an image&lt;/li>
 &lt;li>Extract the layers to a temporary file system location&lt;/li>
@@ -1493,16 +1493,16 @@ dockerfile instruction Dockerfile directive 'HEALTHCHECK' not found, matching co
 &lt;/li>
 &lt;/ul>
 &lt;p>Following the analysis the extracted layers and downloaded layer tar files are deleted.&lt;/p>
-&lt;p>In many cases the images will share a number of common layers, especially if images are built form a consistent set of base images. To speed up the Anchore Engine can be configure to cache image layers to eliminate the need to download the same layer for many different images. The layer cache is displayed in the default Anchore Engine configuration. To enable the cache the following changes should be made:&lt;/p>
+&lt;p>In many cases the images will share a number of common layers, especially if images are built form a consistent set of base images. To speed up the Nextlinux Engine can be configure to cache image layers to eliminate the need to download the same layer for many different images. The layer cache is displayed in the default Nextlinux Engine configuration. To enable the cache the following changes should be made:&lt;/p>
 &lt;ol>
 &lt;li>Define temporary directory for cache data&lt;/li>
 &lt;/ol>
 &lt;p>It is recommended that the cache data is stored in an external volume to ensure that the cache does not use up the ephemeral storage space allocated to the container host.&lt;/p>
-&lt;p>By default the Anchore Engine uses the /tmp directory within the container to download and extract images. Configure a volume to be mounted into the container at a specified path and configure this path in config.yaml&lt;/p>
+&lt;p>By default the Nextlinux Engine uses the /tmp directory within the container to download and extract images. Configure a volume to be mounted into the container at a specified path and configure this path in config.yaml&lt;/p>
 &lt;p>&lt;code>tmp_dir: '/scratch'&lt;/code>&lt;/p>
 &lt;p>In this example a volume has been mounted as /scratch within the container and config.yaml updated to use /scratch as the temporary directory for image analysis.&lt;/p>
 &lt;p>With the cache disabled the temporary directory should be sized to at least 3 times the uncompressed image size to be analyzed.
-To enable layer caching the layer_cache_enable parameter and layer_cache_max_gigabytes parameter should be added to the analyzer section of the Anchore Engine configuration file config.yaml.&lt;/p>
+To enable layer caching the layer_cache_enable parameter and layer_cache_max_gigabytes parameter should be added to the analyzer section of the Nextlinux Engine configuration file config.yaml.&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-YAML" data-lang="YAML">&lt;span style="color:#204a87;font-weight:bold">analyzer&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">enabled&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">True&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">require_auth&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">True&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
@@ -1527,7 +1527,7 @@ To enable layer caching the layer_cache_enable parameter and layer_cache_max_gig
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/install/requirements/memory/</guid>
             <description>
-&lt;p>The Anchore Engine container will typically operate at a steady state using less than 2 GB of memory. However under load and during large feed synchronization operations, memory usage may burst above 4GB. Anchore recommends a minimum of 8GB for each service, for production deployments.&lt;/p></description>
+&lt;p>The Nextlinux Engine container will typically operate at a steady state using less than 2 GB of memory. However under load and during large feed synchronization operations, memory usage may burst above 4GB. Nextlinux recommends a minimum of 8GB for each service, for production deployments.&lt;/p></description>
         </item>
         <item>
             <title>Docs: Network</title>
@@ -1535,18 +1535,18 @@ To enable layer caching the layer_cache_enable parameter and layer_cache_max_gig
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/install/requirements/network/</guid>
             <description>
-&lt;p>The Anchore Engine requires two categories of network access:&lt;/p>
+&lt;p>The Nextlinux Engine requires two categories of network access:&lt;/p>
 &lt;ul>
 &lt;li>Registry Access
-Network connectivity, including DNS resolution, to the registries from which the Anchore Engine needs to download images.&lt;/li>
+Network connectivity, including DNS resolution, to the registries from which the Nextlinux Engine needs to download images.&lt;/li>
 &lt;li>Feed Service
-The Anchore Engine synchronizes feed data such as operating system vulnerabilities (CVEs) from the Anchore Cloud Service. The initial synchronization may take 5 to 10 minutes, based on network speed, after which time the Anchore Engine will download updated feed data at a user configurable interval, by default every 4 hours. Only a single end point is required for this synchronization, host: ancho.re TCP port: 443&lt;/li>
+The Nextlinux Engine synchronizes feed data such as operating system vulnerabilities (CVEs) from the Nextlinux Cloud Service. The initial synchronization may take 5 to 10 minutes, based on network speed, after which time the Nextlinux Engine will download updated feed data at a user configurable interval, by default every 4 hours. Only a single end point is required for this synchronization, host: ancho.re TCP port: 443&lt;/li>
 &lt;/ul>
 &lt;p>Notes:&lt;/p>
 &lt;ul>
-&lt;li>No data is uploaded to Anchore, the synchronization is one-way.&lt;/li>
+&lt;li>No data is uploaded to Nextlinux, the synchronization is one-way.&lt;/li>
 &lt;li>An optional on-premises feed service and policy editor is available to commercial users.&lt;/li>
-&lt;li>A Network Proxy can be used to provide external connectivity to the Anchore Engine. See: &lt;a href="/docs/install/configuration/network_proxies/">Network Proxy documentation&lt;/a>.&lt;/li>
+&lt;li>A Network Proxy can be used to provide external connectivity to the Nextlinux Engine. See: &lt;a href="/docs/install/configuration/network_proxies/">Network Proxy documentation&lt;/a>.&lt;/li>
 &lt;/ul></description>
         </item>
         <item>
@@ -1556,7 +1556,7 @@ The Anchore Engine synchronizes feed data such as operating system vulnerabiliti
             <guid>/docs/usage/cli_usage/policies/policy_gate_dockerfile/</guid>
             <description>
 &lt;p>This article reviews the &amp;ldquo;dockerfile&amp;rdquo; gate and its triggers. The dockerfile gate allows users to perform checks on the content of the dockerfile or docker history for an image and make policy actions based on the construction of an image, not just its content. This is particularly useful for enforcing best practices or metadata inclusion (e.g. labels) on images.&lt;/p>
-&lt;p>Anchore is either given a dockerfile or infers one from the docker image layer history. There are implications to what data is available and what it means depending on these differing sources, so first, we&amp;rsquo;ll cover the input data for the gate and how it impacts the triggers and parameters used.&lt;/p>
+&lt;p>Nextlinux is either given a dockerfile or infers one from the docker image layer history. There are implications to what data is available and what it means depending on these differing sources, so first, we&amp;rsquo;ll cover the input data for the gate and how it impacts the triggers and parameters used.&lt;/p>
 &lt;h3 id="the-dockerfile">The &amp;ldquo;dockerfile&amp;rdquo;&lt;/h3>
 &lt;p>The data that this gate operates on can come from two different sources:&lt;/p>
 &lt;ol>
@@ -1565,7 +1565,7 @@ The Anchore Engine synchronizes feed data such as operating system vulnerabiliti
 &lt;/ol>
 &lt;p>All images have data from history available, but data from the actual dockerfile is only available when a user provides it. This also means that any images analyzed by the tag watcher functionality will not have an actual dockerfile.&lt;/p>
 &lt;h4 id="the-from-line">The FROM line&lt;/h4>
-&lt;p>In the actual dockerfile, the FROM instruction is preserved and available as used to build the image, however in the history data, the FROM line will always be the very first FROM instruction used to build the image and all of its dependent based image. Thus, for most images, the value in the history will be omitted and Anchore will automatically infer a FROM scratch line, which is logically inserted for this gate if the dockerfile/history does not contain an explicit FROM entry.&lt;/p>
+&lt;p>In the actual dockerfile, the FROM instruction is preserved and available as used to build the image, however in the history data, the FROM line will always be the very first FROM instruction used to build the image and all of its dependent based image. Thus, for most images, the value in the history will be omitted and Nextlinux will automatically infer a FROM scratch line, which is logically inserted for this gate if the dockerfile/history does not contain an explicit FROM entry.&lt;/p>
 &lt;p>For example, using the docker.io/jenkins/jenkins image:&lt;/p>
 &lt;pre>&lt;code>IMAGE CREATED CREATED BY SIZE COMMENT
 sha256:3b9c9666a66e53473c05a3c69eb2cb888a8268f76935eecc7530653cddc28981 11 hours ago /bin/sh -c #(nop) COPY file:3a15c25533fd87983edc33758f62af7b543ccc3ce9dd570e473eb0702f5f298e in /usr/local/bin/install-plugins.sh 8.79kB
@@ -1681,7 +1681,7 @@ ENTRYPOINT [&amp;quot;/sbin/tini&amp;quot;, &amp;quot;--&amp;quot;, &amp;quot;/u
 # from a derived Dockerfile, can use `RUN plugins.sh active.txt` to setup /usr/share/jenkins/ref/plugins from a support bundle
 COPY plugins.sh /usr/local/bin/plugins.sh
 COPY install-plugins.sh /usr/local/bin/install-plugins.sh
-&lt;/code>&lt;/pre>&lt;p>Anchore will detect the history/dockerfile as this, if not explicitly provided (note order is reversed from docker history output, so it reads in same order as actual dockerfile):&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>Nextlinux will detect the history/dockerfile as this, if not explicitly provided (note order is reversed from docker history output, so it reads in same order as actual dockerfile):&lt;/p>
 &lt;pre>&lt;code>[
 {
 &amp;quot;Size&amp;quot; : 45323792,
@@ -1749,7 +1749,7 @@ COPY install-plugins.sh /usr/local/bin/install-plugins.sh
 &amp;quot;Id&amp;quot; : &amp;quot;sha256:b0ce8ab5a5a7da5d762f25af970f4423b98437a8318cb9852c3f21354cbf914f&amp;quot;
 }
 ]
-&lt;/code>&lt;/pre>&lt;p>NOTE: Anchore processes the leading /bin/sh commands, so you do not have to include those in any trigger param config if using the docker history output.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>NOTE: Nextlinux processes the leading /bin/sh commands, so you do not have to include those in any trigger param config if using the docker history output.&lt;/p>
 &lt;h4 id="the-actual_dockerfile_only-parameter">The actual_dockerfile_only Parameter&lt;/h4>
 &lt;p>The actual vs history impacts the semantics of the dockerfile gate&amp;rsquo;s triggers. To allow explicit control of the differences, most triggers in this gate includes a parameter: actual_dockerfile_only that if set to true or false will ensure the trigger check is only done on the source of data specified. If actual_dockerfile_only = true, then the trigger will evaluate only if an actual dockerfile is available for the image and will skip evaluation if not. If actual_dockerfile_only is false or omitted, then the trigger will run on the actual dockerfile if available, or the history data if the dockerfile was not provided.&lt;/p>
 &lt;h4 id="differences-in-data-between-docker-history-and-actual-dockerfile">Differences in data between Docker History and actual Dockerfile&lt;/h4>
@@ -1773,7 +1773,7 @@ COPY install-plugins.sh /usr/local/bin/install-plugins.sh
 &lt;/ol>
 &lt;h3 id="trigger-instruction">Trigger: instruction&lt;/h3>
 &lt;p>This trigger evaluates instructions found in the &amp;ldquo;dockerfile&amp;rdquo;&lt;/p>
-&lt;p>Supported Directives/Instructions (as of Anchore Engine v.0.3.2):&lt;/p>
+&lt;p>Supported Directives/Instructions (as of Nextlinux Engine v.0.3.2):&lt;/p>
 &lt;h4 id="parameters">Parameters&lt;/h4>
 &lt;p>actual_dockerfile_only (optional): See above&lt;/p>
 &lt;p>instruction: The dockerfile instruction to check against. One of:&lt;/p>
@@ -2074,10 +2074,10 @@ COPY install-plugins.sh /usr/local/bin/install-plugins.sh
 &lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="compression">Compression&lt;/h3>
 &lt;p>The S3 driver supports compression of documents. The documents are JSON formatted and will see significant reduction in
 size through compression there is an overhead incurred by running compression and decompression on every access of these
-documents. The Anchore Engine can be configured to only compress documents above a certain size to reduce unnecessary
+documents. The Nextlinux Engine can be configured to only compress documents above a certain size to reduce unnecessary
 overhead. In the example below any document over 100kb in size will be compressed.&lt;/p>
 &lt;h3 id="authentication">Authentication&lt;/h3>
-&lt;p>The Anchore Engine can authenticate against the S3 service using one of two methods:&lt;/p>
+&lt;p>The Nextlinux Engine can authenticate against the S3 service using one of two methods:&lt;/p>
 &lt;ul>
 &lt;li>
 &lt;p>Amazon Access Keys
@@ -2086,8 +2086,8 @@ access_key and secret_key&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>Inherit IAM Role
-The Anchore Engine can be configured to inherit the IAM role from the EC2 or ECS instance that is running the Anchore
-Engine. When launching the EC2 instance that will run the Anchore Engine you need to specify a role that includes the
+The Nextlinux Engine can be configured to inherit the IAM role from the EC2 or ECS instance that is running the Nextlinux
+Engine. When launching the EC2 instance that will run the Nextlinux Engine you need to specify a role that includes the
 ability to read and write from the archive bucket. To use IAM roles to authenticate the access_key and secret_access
 configurations should be replaced by iamauto: True
 Parameters: iamauto&lt;/p>
@@ -2099,7 +2099,7 @@ Parameters: iamauto&lt;/p>
 &lt;li>The region parameter should be set to the AWS region hosting the bucket or False for an AWS compatible service that
 does not support regions&lt;/li>
 &lt;li>The bucket parameter should be set to the name of the bucket that will be used to store the archive documents.&lt;/li>
-&lt;li>The create_bucket parameter is used to configure if the Anchore Engine attempts to create a bucket. If this option is
+&lt;li>The create_bucket parameter is used to configure if the Nextlinux Engine attempts to create a bucket. If this option is
 set then ensure that the IAM role or Access Keys have sufficient access to create a new bucket.&lt;/li>
 &lt;/ul></description>
         </item>
@@ -2109,8 +2109,8 @@ set then ensure that the IAM role or Access Keys have sufficient access to creat
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/install/requirements/security/</guid>
             <description>
-&lt;p>The Anchore Engine is deployed as container images that can be run manually, using Docker Compose, Kubernetes or any container platform that supports Docker compatible images.&lt;/p>
-&lt;p>By default, the Anchore Engine does not require any special permissions and can be run as an unprivileged container with no access to the underlying Docker host. &lt;em>Note:&lt;/em> The Engine can be configured to pull images through the Docker Socket however this is not a recommended configuration as it grants the Anchore container added privileges and may incur a performance impact on the Docker Host.&lt;/p></description>
+&lt;p>The Nextlinux Engine is deployed as container images that can be run manually, using Docker Compose, Kubernetes or any container platform that supports Docker compatible images.&lt;/p>
+&lt;p>By default, the Nextlinux Engine does not require any special permissions and can be run as an unprivileged container with no access to the underlying Docker host. &lt;em>Note:&lt;/em> The Engine can be configured to pull images through the Docker Socket however this is not a recommended configuration as it grants the Nextlinux container added privileges and may incur a performance impact on the Docker Host.&lt;/p></description>
         </item>
         <item>
             <title>Docs: Storage</title>
@@ -2118,14 +2118,14 @@ set then ensure that the IAM role or Access Keys have sufficient access to creat
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/install/requirements/storage/</guid>
             <description>
-&lt;p>The Anchore Engine uses a PostgreSQL database to store persistent data for images, tags, policies, subscriptions and other artifacts. One persistent storage volume is required for configuration information and two optional storage volumes may be provided as described below.&lt;/p>
+&lt;p>The Nextlinux Engine uses a PostgreSQL database to store persistent data for images, tags, policies, subscriptions and other artifacts. One persistent storage volume is required for configuration information and two optional storage volumes may be provided as described below.&lt;/p>
 &lt;ul>
 &lt;li>&lt;strong>Configuration volume&lt;/strong>
 This volume is used to provide persistent storage to the container from which it will read its configuration files and optionally certificates. &lt;em>Requirement&lt;/em>: Less than 1MB&lt;/li>
 &lt;li>[Optional] &lt;strong>Temporary storage&lt;/strong>
-The temporary storage volume is recommended but not required. During the analysis of images Anchore Engine downloads and extracts all of the layers required for an image. These layers are extracted and analyzed after which the layers and extracted data are deleted. If a temporary storage is not configured then the container&amp;rsquo;s ephemeral storage will be used to store temporary files, however performance is likely be improved by using a dedicated volume. A temporary storage volume may also be used for image layer caching to speed up analysis. Requirement: 3 times the uncompressed image size to be analyzed. &lt;em>Note&lt;/em>: For container hosts using OverlayFS or OverlayFS2 storage with a kernel older than 4.13 a temporary volume is required to work around a kernel driver bug.&lt;/li>
+The temporary storage volume is recommended but not required. During the analysis of images Nextlinux Engine downloads and extracts all of the layers required for an image. These layers are extracted and analyzed after which the layers and extracted data are deleted. If a temporary storage is not configured then the container&amp;rsquo;s ephemeral storage will be used to store temporary files, however performance is likely be improved by using a dedicated volume. A temporary storage volume may also be used for image layer caching to speed up analysis. Requirement: 3 times the uncompressed image size to be analyzed. &lt;em>Note&lt;/em>: For container hosts using OverlayFS or OverlayFS2 storage with a kernel older than 4.13 a temporary volume is required to work around a kernel driver bug.&lt;/li>
 &lt;li>[Optional] &lt;strong>Object storage&lt;/strong>
-The Anchore Engine stores documents containing archives of image analysis data and policies as JSON documents. By default these documents are be stored within the PostgreSQL database however the Anchore Engine can be configured to store archive documents in a filesystem (volume), S3 Object store, or Swift Object Store. &lt;em>Requirement&lt;/em>: Number of images x 10MB (estimated).&lt;/li>
+The Nextlinux Engine stores documents containing archives of image analysis data and policies as JSON documents. By default these documents are be stored within the PostgreSQL database however the Nextlinux Engine can be configured to store archive documents in a filesystem (volume), S3 Object store, or Swift Object Store. &lt;em>Requirement&lt;/em>: Number of images x 10MB (estimated).&lt;/li>
 &lt;/ul></description>
         </item>
         <item>
@@ -2143,11 +2143,11 @@ The Anchore Engine stores documents containing archives of image analysis data a
 &lt;/ul>
 &lt;h3 id="common-configuration-options">Common Configuration Options&lt;/h3>
 &lt;h4 id="compression">Compression&lt;/h4>
-&lt;p>The Swift driver supports compression of archive documents. The archive documents are JSON formatted and will see significant reduction in size through compression there is an overhead incurred by running compression and decompression on every access of these documents. The Anchore Engine can be configured to only compress documents above a certain size to reduce unnecessary overhead. In the example below any document over 100kb in size will be compressed.&lt;/p>
+&lt;p>The Swift driver supports compression of archive documents. The archive documents are JSON formatted and will see significant reduction in size through compression there is an overhead incurred by running compression and decompression on every access of these documents. The Nextlinux Engine can be configured to only compress documents above a certain size to reduce unnecessary overhead. In the example below any document over 100kb in size will be compressed.&lt;/p>
 &lt;h4 id="container">Container&lt;/h4>
 &lt;ul>
 &lt;li>The container parameter specifies the name of the container to be used.&lt;/li>
-&lt;li>The create_container parameter is used to configure if the Anchore Engine attempts to create a container. If this option is set then ensure that the user has the appropriate rights to create a container.&lt;/li>
+&lt;li>The create_container parameter is used to configure if the Nextlinux Engine attempts to create a container. If this option is set then ensure that the user has the appropriate rights to create a container.&lt;/li>
 &lt;/ul>
 &lt;h3 id="legacy-authentication">Legacy Authentication&lt;/h3>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-YAML" data-lang="YAML">&lt;span style="color:#204a87;font-weight:bold">object_store&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
@@ -2212,7 +2212,7 @@ The Anchore Engine stores documents containing archives of image analysis data a
 &lt;li>The os_auth_url parameter specifies the URL to the OpenStack Keystone service&lt;/li>
 &lt;/ul>
 &lt;h4 id="note">Note&lt;/h4>
-&lt;p>The Anchore Engine archive drivers users the OpenStack Python SwiftClient library. The config section is passed to the SwiftClient library allowing any advanced parameters supported by the Swift library to be configured.&lt;/p></description>
+&lt;p>The Nextlinux Engine archive drivers users the OpenStack Python SwiftClient library. The config section is passed to the SwiftClient library allowing any advanced parameters supported by the Swift library to be configured.&lt;/p></description>
         </item>
         <item>
             <title>Docs: Feed Synchronization</title>
@@ -2220,10 +2220,10 @@ The Anchore Engine stores documents containing archives of image analysis data a
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/usage/cli_usage/feeds/feed_synchronization/</guid>
             <description>
-&lt;p>When the Anchore Engine runs it will begin to synchronize security feed data from the Anchore feed service.&lt;/p>
+&lt;p>When the Nextlinux Engine runs it will begin to synchronize security feed data from the Nextlinux feed service.&lt;/p>
 &lt;p>CVE data for Linux distributions such as Alpine, CentOS, Debian, Oracle, Red Hat and Ubuntu will be downloaded. The initial sync may take anywhere from 10 to 60 minutes depending on the speed of your network connection.&lt;/p>
 &lt;h3 id="checking-feed-status">Checking Feed Status&lt;/h3>
-&lt;p>Starting with Anchore Engine version 0.2.0 the status of the feed synchronization can be retrieved through the API and Anchore CLI.&lt;/p>
+&lt;p>Starting with Nextlinux Engine version 0.2.0 the status of the feed synchronization can be retrieved through the API and Nextlinux CLI.&lt;/p>
 &lt;pre>&lt;code>nextlinux-cli system feeds list
 Feed Group LastSync RecordCount
 vulnerabilities alpine:3.3 2018-04-25T11:51:33.567214Z 457
@@ -2253,30 +2253,30 @@ vulnerabilities ubuntu:16.04 2018-04-25T11:51:26.467438Z 12288
 vulnerabilities ubuntu:16.10 2018-04-25T11:51:27.961046Z 8646
 vulnerabilities ubuntu:17.04 2018-04-25T11:51:39.485986Z 9156
 vulnerabilities ubuntu:17.10 2018-04-25T11:51:22.047635Z 7169
-&lt;/code>&lt;/pre>&lt;p>This command will report list the feeds synchronized by the Anchore engine, last sync time and current record count.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>This command will report list the feeds synchronized by the Nextlinux engine, last sync time and current record count.&lt;/p>
 &lt;p>Note: Time is reported as UTC, not local time.&lt;/p>
 &lt;h3 id="manually-initiating-feed-sync">Manually initiating feed sync&lt;/h3>
 &lt;p>After the initial sync has completed the engine will run an incremental sync at a user defined period, by default every 4 hours. At any time a feed sync can be initiated through the API or CLI.&lt;/p>
 &lt;p>A sync operation can be manually initiated by running the system feeds sync command however this should not be required under normal operation.&lt;/p>
 &lt;p>&lt;code>nextlinux-cli system feeds sync&lt;/code>&lt;/p>
 &lt;h3 id="performing-full-resync">Performing full resync&lt;/h3>
-&lt;p>The Anchore Engine can be instructed to flush the current feed data and perform a full synchronization.&lt;/p>
-&lt;p>Under normal circumstances this operation should not be required since the Anchore Engine performs regular incremental sync.&lt;/p>
+&lt;p>The Nextlinux Engine can be instructed to flush the current feed data and perform a full synchronization.&lt;/p>
+&lt;p>Under normal circumstances this operation should not be required since the Nextlinux Engine performs regular incremental sync.&lt;/p>
 &lt;p>This process may take anywhere from 10 to 60 minutes depending on the speed of your network connection.&lt;/p>
 &lt;p>&lt;code>nextlinux-cli system feeds sync --flush&lt;/code>&lt;/p>
 &lt;p>The CLI will issue a warning and prompt for confirmation before proceeding with a sync.&lt;/p></description>
         </item>
         <item>
-            <title>Docs: Upgrading the Anchore CLI</title>
+            <title>Docs: Upgrading the Nextlinux CLI</title>
             <link>/docs/install/nextlinux_cli/cli_upgrade/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/install/nextlinux_cli/cli_upgrade/</guid>
             <description>
-&lt;p>The Anchore CLI is published as a Python Package that can be installed from source from the Python PyPI package repository on any platform supporting PyPi. Upgrades to the Anchore CLI are performed using the identical method used for installation.&lt;/p>
+&lt;p>The Nextlinux CLI is published as a Python Package that can be installed from source from the Python PyPI package repository on any platform supporting PyPi. Upgrades to the Nextlinux CLI are performed using the identical method used for installation.&lt;/p>
 &lt;p>&lt;code>$ pip install --user --upgrade nextlinuxcli&lt;/code>&lt;/p>
 &lt;p>To check if an update is available from the PyPI package repository run the following command:&lt;/p>
 &lt;pre>&lt;code>$ pip search nextlinuxcli
-nextlinuxcli (0.2.0) - Anchore Service CLI
+nextlinuxcli (0.2.0) - Nextlinux Service CLI
 INSTALLED: 0.1.10
 LATEST: 0.2.0
 &lt;/code>&lt;/pre>&lt;p>In this example the pip search command shows that we have nextlinuxcli version 0.1.10 installed however the latest available version is 0.2.0.&lt;/p>
@@ -2395,16 +2395,16 @@ Policy Id&lt;/li>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/usage/cli_usage/registries/ecr_configuration/</guid>
             <description>
-&lt;p>Amazon AWS typically uses keys instead of traditional usernames &amp;amp; passwords. These keys consist of an access key ID and a secret access key. While it is possible to use the aws ecr get-login command to create an access token, this will expire after 12 hours so it is not appropriate for use with Anchore Engine, otherwise a user would need to update their registry credentials regularly. So when adding an Amazon ECR registry to Anchore Engine you should pass the aws_access_key_id and aws_secret_access_key.&lt;/p>
+&lt;p>Amazon AWS typically uses keys instead of traditional usernames &amp;amp; passwords. These keys consist of an access key ID and a secret access key. While it is possible to use the aws ecr get-login command to create an access token, this will expire after 12 hours so it is not appropriate for use with Nextlinux Engine, otherwise a user would need to update their registry credentials regularly. So when adding an Amazon ECR registry to Nextlinux Engine you should pass the aws_access_key_id and aws_secret_access_key.&lt;/p>
 &lt;pre>&lt;code>nextlinux-cli registry add /
 1234567890.dkr.ecr.us-east-1.amazonaws.com /
 MY_AWS_ACCESS_KEY_ID /
 MY_AWS_SECRET_ACCESS_KEY / --registry-type=awsecr
-&lt;/code>&lt;/pre>&lt;p>The registry-type parameter instructs Anchore Engine to handle these credentials as AWS credentials rather than traditional usernames and passwords. Currently the Anchore Engine supports two types of registry authentication standard username and password for most Docker V2 registries and Amazon ECR. In this example we specified the registry type on the command line however if this parameter is omitted then the CLI will attempt to guess the registry type from the URL which uses a standard format.&lt;/p>
-&lt;p>The Anchore Engine will use the AWS access key and secret access keys to generate authentication tokens to access the Amazon ECR registry, the Anchore Engine will manage regeneration of these tokens which typically expire after 12 hours.&lt;/p>
-&lt;p>In addition to supporting AWS access key credentials Anchore also supports the use of IAM roles for authenticating with Amazon ECR if the Anchore Engine is run on an EC2 instance.&lt;/p>
-&lt;p>In this case you can configure the Anchore Engine to inherit the IAM role from the EC2 instance hosting the engine.&lt;/p>
-&lt;p>When launching the EC2 instance that will run the Anchore Engine you need to specify a role that includes the &lt;em>AmazonEC2ContainerRegistryReadOnly&lt;/em> policy.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>The registry-type parameter instructs Nextlinux Engine to handle these credentials as AWS credentials rather than traditional usernames and passwords. Currently the Nextlinux Engine supports two types of registry authentication standard username and password for most Docker V2 registries and Amazon ECR. In this example we specified the registry type on the command line however if this parameter is omitted then the CLI will attempt to guess the registry type from the URL which uses a standard format.&lt;/p>
+&lt;p>The Nextlinux Engine will use the AWS access key and secret access keys to generate authentication tokens to access the Amazon ECR registry, the Nextlinux Engine will manage regeneration of these tokens which typically expire after 12 hours.&lt;/p>
+&lt;p>In addition to supporting AWS access key credentials Nextlinux also supports the use of IAM roles for authenticating with Amazon ECR if the Nextlinux Engine is run on an EC2 instance.&lt;/p>
+&lt;p>In this case you can configure the Nextlinux Engine to inherit the IAM role from the EC2 instance hosting the engine.&lt;/p>
+&lt;p>When launching the EC2 instance that will run the Nextlinux Engine you need to specify a role that includes the &lt;em>AmazonEC2ContainerRegistryReadOnly&lt;/em> policy.&lt;/p>
 &lt;p>While this is best performed using a CloudFormation template, you can manually configure from the launch instance wizard.&lt;/p>
 &lt;p>&lt;strong>Step 1:&lt;/strong> Select &lt;em>Create new IAM role.&lt;/em>&lt;/p>
 &lt;p>&lt;img src="https://nextlinux.com/wp-content/uploads/2018/01/pasted-image-0.png" alt="logo">&lt;/p>
@@ -2423,12 +2423,12 @@ MY_AWS_SECRET_ACCESS_KEY / --registry-type=awsecr
 &amp;quot;InstanceProfileArn&amp;quot; : &amp;quot;arn:aws:iam::123456789012:instance-profile/ECR-ReadOnly&amp;quot;,
 &amp;quot;InstanceProfileId&amp;quot; : &amp;quot;ABCDEFGHIJKLMNOP”
 }
-&lt;/code>&lt;/pre>&lt;p>&lt;strong>Step 5:&lt;/strong> Enable IAM Authentication in the Anchore Engine.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>&lt;strong>Step 5:&lt;/strong> Enable IAM Authentication in the Nextlinux Engine.&lt;/p>
 &lt;p>By default the support for inheriting the IAM role is disabled.&lt;/p>
-&lt;p>To enable IAM based authentication add the following entry to the top of the Anchore Engine config.yaml file:&lt;/p>
+&lt;p>To enable IAM based authentication add the following entry to the top of the Nextlinux Engine config.yaml file:&lt;/p>
 &lt;p>&lt;code>allow_awsecr_iam_auto: True&lt;/code>&lt;/p>
 &lt;p>&lt;strong>Step 6:&lt;/strong> Add the Registry using the &lt;em>AWSAUTO&lt;/em> user.&lt;/p>
-&lt;p>When IAM support is enabled instead of passing the access key and secret access key use “awsauto” for both username and password. This will instruct the Anchore Engine to inherit the role from the underlying EC2 instance.&lt;/p>
+&lt;p>When IAM support is enabled instead of passing the access key and secret access key use “awsauto” for both username and password. This will instruct the Nextlinux Engine to inherit the role from the underlying EC2 instance.&lt;/p>
 &lt;pre>&lt;code>nextlinux-cli registry add /
 1234567890.dkr.ecr.us-east-1.amazonaws.com /
 awsauto /
@@ -2441,7 +2441,7 @@ awsauto / --registry-type=awsecr
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/usage/cli_usage/registries/acr_configuration/</guid>
             <description>
-&lt;p>To use an Azure Registry, you can configure Anchore to use either the admin credential(s) or a service principal. Refer to Azure documentation for differences and how to setup each. When you&amp;rsquo;ve chosen a credential type, use the following to determine which registry command options correspond to each value for your credential type&lt;/p>
+&lt;p>To use an Azure Registry, you can configure Nextlinux to use either the admin credential(s) or a service principal. Refer to Azure documentation for differences and how to setup each. When you&amp;rsquo;ve chosen a credential type, use the following to determine which registry command options correspond to each value for your credential type&lt;/p>
 &lt;ul>
 &lt;li>
 &lt;p>Admin Account&lt;/p>
@@ -2484,7 +2484,7 @@ Password: The service principal password&lt;/li>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/install/configuration/custom_certs/</guid>
             <description>
-&lt;p>If a custom CA certificate is required to access an external resource then the Trust Store in the Anchore Engine container needs to be updated in two places.&lt;/p>
+&lt;p>If a custom CA certificate is required to access an external resource then the Trust Store in the Nextlinux Engine container needs to be updated in two places.&lt;/p>
 &lt;ol>
 &lt;li>The operating system provided trust store.&lt;/li>
 &lt;li>The Certifi trust store.&lt;/li>
@@ -2498,7 +2498,7 @@ Password: The service principal password&lt;/li>
 &lt;li>For nextlinux 0.4.X and newer, the base container is Red Hat Universal Base Image 7, which stores certs in &lt;code>/etc/pki/ca-trust/source/anchors/&lt;/code> and requires user to run update-ca-trust command as root to update the system certs.&lt;/li>
 &lt;li>For nextlinux 0.7.X and newer, the base container is Red Hat Universal Base Image 8, which stores certs in &lt;code>/etc/pki/ca-trust/source/anchors/&lt;/code> and requires user to run update-ca-trust command as root to update the system certs.&lt;/li>
 &lt;/ul>
-&lt;p>&lt;a href="https://pypi.org/project/certifi/">Certifi&lt;/a> is a curated list of trusted certificate authorities that is used by the Python requests HTTP client library. The Python requests library is used by Anchore Engine for all HTTP interactions, including when communicating with Anchore Feed service, when webhooks are sent to a TLS enabled endpoint and inbetween Anchore Engine services if TLS has been configured. To update the Certifi trust store the CA certificate should be appended onto the cacert.pem file provided by the Certifi library.&lt;/p>
+&lt;p>&lt;a href="https://pypi.org/project/certifi/">Certifi&lt;/a> is a curated list of trusted certificate authorities that is used by the Python requests HTTP client library. The Python requests library is used by Nextlinux Engine for all HTTP interactions, including when communicating with Nextlinux Feed service, when webhooks are sent to a TLS enabled endpoint and inbetween Nextlinux Engine services if TLS has been configured. To update the Certifi trust store the CA certificate should be appended onto the cacert.pem file provided by the Certifi library.&lt;/p>
 &lt;ul>
 &lt;li>For nextlinux 0.2.X and earlier, the base container is CentOS 7, certifi&amp;rsquo;s cacert.pem is installed in &lt;code>/usr/lib/python2.7/site-packages/certifi/cacert.pem&lt;/code>&lt;/li>
 &lt;li>For nextlinux 0.3.X, the base container is Ubuntu 18.04, certifi&amp;rsquo;s cacert.pem is installed in &lt;code>/usr/local/lib/python3.6/dist-packages/certifi/cacert.pem&lt;/code>&lt;/li>
@@ -2524,7 +2524,7 @@ USER nextlinux:nextlinux
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/usage/integration/ci_cd/jenkins/</guid>
             <description>
-&lt;p>We keep the latest Anchore/Jenkins integration documentation hosted alongside the official Anchore Jenkins plugin module, &lt;a href="https://plugins.jenkins.io/nextlinux-container-scanner">here&lt;/a>.&lt;/p></description>
+&lt;p>We keep the latest Nextlinux/Jenkins integration documentation hosted alongside the official Nextlinux Jenkins plugin module, &lt;a href="https://plugins.jenkins.io/nextlinux-container-scanner">here&lt;/a>.&lt;/p></description>
         </item>
         <item>
             <title>Docs: Malware Scanning</title>
@@ -2533,7 +2533,7 @@ USER nextlinux:nextlinux
             <guid>/docs/general/concepts/images/analysis/malware_scanning/</guid>
             <description>
 &lt;h2 id="overview">Overview&lt;/h2>
-&lt;p>Anchore Engine now supports the use of the open-source &lt;a href="https://clamav.net">ClamAV&lt;/a> malware scanner to detect malicious code embedded in container images.
+&lt;p>Nextlinux Engine now supports the use of the open-source &lt;a href="https://clamav.net">ClamAV&lt;/a> malware scanner to detect malicious code embedded in container images.
 This scan occurs only at analysis time when the image content itself is available, and the scan results are available via the Engine API as well as for consumption
 in new policy gates to allow gating of image with malware findings.&lt;/p>
 &lt;h2 id="signature-db-updates">Signature DB Updates&lt;/h2>
@@ -2585,22 +2585,22 @@ if malware was detected during the analysis scan.&lt;/p>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/usage/integration/ci_cd/github/</guid>
             <description>
-&lt;p>Image Scanning can be easily integrated into your GitHub Actions pipeline using the official Anchore Engine Scan Action.&lt;/p>
+&lt;p>Image Scanning can be easily integrated into your GitHub Actions pipeline using the official Nextlinux Engine Scan Action.&lt;/p>
 &lt;p>Documentation on how to use the action can be found in the official GitHub repository &lt;a href="https://github.com/nextlinux/scan-action">nextlinux scan-action&lt;/a>&lt;/p>
-&lt;p>Check out our Anchore Scan Action &lt;a href="https://www.brighttalk.com/webcast/17878/378430?utm_source=brighttalk-portal&amp;amp;utm_medium=web&amp;amp;utm_content=nextlinux%20github&amp;amp;utm_campaign=webcasts-search-results-feed">webinar demo&lt;/a>&lt;/p></description>
+&lt;p>Check out our Nextlinux Scan Action &lt;a href="https://www.brighttalk.com/webcast/17878/378430?utm_source=brighttalk-portal&amp;amp;utm_medium=web&amp;amp;utm_content=nextlinux%20github&amp;amp;utm_campaign=webcasts-search-results-feed">webinar demo&lt;/a>&lt;/p></description>
         </item>
         <item>
-            <title>Docs: Anchore Engine Inline Image Analysis/Engine Import</title>
+            <title>Docs: Nextlinux Engine Inline Image Analysis/Engine Import</title>
             <link>/docs/usage/integration/ci_cd/inline_analysis/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/usage/integration/ci_cd/inline_analysis/</guid>
             <description>
-&lt;p>&lt;em>&lt;strong>Warning&lt;/strong>: The Anchore Inline Scan script is deprecated and will reach &lt;strong>EOL on Jan 10, 2022&lt;/strong>. Please update your integrations to use &lt;a href="https://github.com/nextlinux/grype">Grype&lt;/a> for CI-based vulnerability scanning or &lt;a href="https://github.com/nextlinux/syft">Syft&lt;/a>. We will be updating our integrations that use inline_scan during that time to use Grype directly. Until that time all integrations will continue to function and get updated vulnerability data.&lt;/em>&lt;/p>
-&lt;p>&lt;em>&lt;strong>Until Jan 10, 2022&lt;/strong>: we will continue building inline_scan images based on v0.10.x of Anchore Engine and they will be updated daily for latest feed data.
+&lt;p>&lt;em>&lt;strong>Warning&lt;/strong>: The Nextlinux Inline Scan script is deprecated and will reach &lt;strong>EOL on Jan 10, 2022&lt;/strong>. Please update your integrations to use &lt;a href="https://github.com/nextlinux/grype">Grype&lt;/a> for CI-based vulnerability scanning or &lt;a href="https://github.com/nextlinux/syft">Syft&lt;/a>. We will be updating our integrations that use inline_scan during that time to use Grype directly. Until that time all integrations will continue to function and get updated vulnerability data.&lt;/em>&lt;/p>
+&lt;p>&lt;em>&lt;strong>Until Jan 10, 2022&lt;/strong>: we will continue building inline_scan images based on v0.10.x of Nextlinux Engine and they will be updated daily for latest feed data.
 On Jan 10, 2022, we will stop building new versions of the images with updated vulnerability data and the data will be stale.&lt;/em>&lt;/p>
 &lt;p>&lt;em>&lt;strong>After Jan 10, 2022&lt;/strong>: users should be transitioned to &lt;a href="https://github.com/nextlinux/grype">Grype&lt;/a> or Grype-based integrations.&lt;/em>&lt;/p>
 &lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>For use cases where it is desirable to perform image analysis for a locally build container image, and import the image analysis to an existing Anchore Engine installation, we support a methodology using the inline_scan tool. With this technique, you can &amp;lsquo;add&amp;rsquo; an image to your nextlinux engine service by analyzing any image that is available locally (say, on the docker host on which the image was built). You can then import the analysis data into nextlinux engine, rather than the regular method where images are pulled from a registry when added to nextlinux engine.&lt;/p>
+&lt;p>For use cases where it is desirable to perform image analysis for a locally build container image, and import the image analysis to an existing Nextlinux Engine installation, we support a methodology using the inline_scan tool. With this technique, you can &amp;lsquo;add&amp;rsquo; an image to your nextlinux engine service by analyzing any image that is available locally (say, on the docker host on which the image was built). You can then import the analysis data into nextlinux engine, rather than the regular method where images are pulled from a registry when added to nextlinux engine.&lt;/p>
 &lt;p>The only requirements to run the inline_scan script with the &amp;lsquo;analyze&amp;rsquo; operation is the ability to execute Docker commands, network connectivity to an nextlinux engine API endpoint &amp;amp; bash. We host a versioned copy of this script that can be downloaded directly with curl and executed in a bash pipeline.&lt;/p>
 &lt;ul>
 &lt;li>&lt;em>Note - For the rest of this document, &lt;code>USER&lt;/code>, &lt;code>PASS&lt;/code>, and &lt;code>URL&lt;/code> refer to an nextlinux engine user, password, and engine endpoint URL (http://&lt;!-- raw HTML omitted -->:&lt;!-- raw HTML omitted -->/v1) respectively.&lt;/em>&lt;/li>
@@ -2608,13 +2608,13 @@ On Jan 10, 2022, we will stop building new versions of the images with updated v
 &lt;p>To run the script on your workstation, use the following command syntax.&lt;/p>
 &lt;p>&lt;code>curl -s https://ci-tools.nextlinux.io/inline_scan-latest | bash -s -- analyze -u &amp;lt;USER&amp;gt; -p &amp;lt;PASS&amp;gt; -r &amp;lt;URL&amp;gt; [ OPTIONS ] &amp;lt;FULL_IMAGE_TAG&amp;gt;&lt;/code>&lt;/p>
 &lt;h3 id="inline-analysis-options">Inline Analysis Options&lt;/h3>
-&lt;pre>&lt;code>-r &amp;lt;TEXT&amp;gt; [required] URL to remote Anchore Engine API endpoint (ex: -r 'https://nextlinux.example.com:8228/v1')
--u &amp;lt;TEXT&amp;gt; [required] Username for remote Anchore Engine auth (ex: -u 'admin')
--p &amp;lt;TEXT&amp;gt; [required] Password for remote Anchore Engine auth (ex: -p 'foobar')
+&lt;pre>&lt;code>-r &amp;lt;TEXT&amp;gt; [required] URL to remote Nextlinux Engine API endpoint (ex: -r 'https://nextlinux.example.com:8228/v1')
+-u &amp;lt;TEXT&amp;gt; [required] Username for remote Nextlinux Engine auth (ex: -u 'admin')
+-p &amp;lt;TEXT&amp;gt; [required] Password for remote Nextlinux Engine auth (ex: -p 'foobar')
 -a &amp;lt;TEXT&amp;gt; [optional] Add annotations (ex: -a 'key=value,key=value')
 -d &amp;lt;PATH&amp;gt; [optional] Specify image digest (ex: -d 'sha256:&amp;lt;64 hex characters&amp;gt;')
 -f &amp;lt;PATH&amp;gt; [optional] Path to Dockerfile (ex: -f ./Dockerfile)
--i &amp;lt;TEXT&amp;gt; [optional] Specify image ID used within Anchore Engine (ex: -i '&amp;lt;64 hex characters&amp;gt;')
+-i &amp;lt;TEXT&amp;gt; [optional] Specify image ID used within Nextlinux Engine (ex: -i '&amp;lt;64 hex characters&amp;gt;')
 -m &amp;lt;PATH&amp;gt; [optional] Path to Docker image manifest (ex: -m ./manifest.json)
 -t &amp;lt;TEXT&amp;gt; [optional] Specify timeout for image analysis in seconds. Defaults to 300s. (ex: -t 500)
 -g [optional] Generate an image digest from docker save tarball
@@ -2648,13 +2648,13 @@ Image Digest: sha256:acd3ca9941a85e8ed16515bfc5328e4e2f8c128caa72959a58a127b7801
 &lt;/code>&lt;/pre></description>
         </item>
         <item>
-            <title>Docs: Anchore Engine Inline Scanning</title>
+            <title>Docs: Nextlinux Engine Inline Scanning</title>
             <link>/docs/usage/integration/ci_cd/inline_scanning/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/usage/integration/ci_cd/inline_scanning/</guid>
             <description>
-&lt;p>&lt;em>&lt;strong>Warning&lt;/strong>: The Anchore Inline Scan script is deprecated and will reach &lt;strong>EOL on Jan 10, 2022&lt;/strong>. Please update your integrations to use &lt;a href="https://github.com/nextlinux/grype">Grype&lt;/a> for CI-based vulnerability scanning or &lt;a href="https://github.com/nextlinux/syft">Syft&lt;/a>. We will be updating our integrations that use inline_scan during that time to use Grype directly. Until that time all integrations will continue to function and get updated vulnerability data.&lt;/em>&lt;/p>
-&lt;p>&lt;em>&lt;strong>Until Jan 10, 2022&lt;/strong>: we will continue building inline_scan images based on v0.10.x of Anchore Engine and they will be updated daily for latest feed data.
+&lt;p>&lt;em>&lt;strong>Warning&lt;/strong>: The Nextlinux Inline Scan script is deprecated and will reach &lt;strong>EOL on Jan 10, 2022&lt;/strong>. Please update your integrations to use &lt;a href="https://github.com/nextlinux/grype">Grype&lt;/a> for CI-based vulnerability scanning or &lt;a href="https://github.com/nextlinux/syft">Syft&lt;/a>. We will be updating our integrations that use inline_scan during that time to use Grype directly. Until that time all integrations will continue to function and get updated vulnerability data.&lt;/em>&lt;/p>
+&lt;p>&lt;em>&lt;strong>Until Jan 10, 2022&lt;/strong>: we will continue building inline_scan images based on v0.10.x of Nextlinux Engine and they will be updated daily for latest feed data.
 On Jan 10, 2022, we will stop building new versions of the images with updated vulnerability data and the data will be stale.&lt;/em>&lt;/p>
 &lt;p>&lt;em>&lt;strong>After Jan 10, 2022&lt;/strong>: users should be transitioned to &lt;a href="https://github.com/nextlinux/grype">Grype&lt;/a> or Grype-based integrations.&lt;/em>&lt;/p>
 &lt;h2 id="introduction">Introduction&lt;/h2>
@@ -2663,11 +2663,11 @@ On Jan 10, 2022, we will stop building new versions of the images with updated v
 &lt;p>To run the script on your workstation, use the following command syntax.&lt;/p>
 &lt;p>&lt;code>curl -s https://ci-tools.nextlinux.io/inline_scan-latest | bash -s -- [options] IMAGE_NAME(s)&lt;/code>&lt;/p>
 &lt;h3 id="inline-scan-options">Inline Scan Options&lt;/h3>
-&lt;pre>&lt;code>-b &amp;lt;PATH&amp;gt; [optional] Path to local Anchore policy bundle (ex: -b ./policy_bundle.json)
+&lt;pre>&lt;code>-b &amp;lt;PATH&amp;gt; [optional] Path to local Nextlinux policy bundle (ex: -b ./policy_bundle.json)
 -d &amp;lt;PATH&amp;gt; [optional] Path to local Dockerfile (ex: -d ./dockerfile)
 -v &amp;lt;PATH&amp;gt; [optional] Path to directory, all image archives in directory will be scanned (ex: -v /tmp/scan_images/)
 -t &amp;lt;TEXT&amp;gt; [optional] Specify timeout for image scanning in seconds. Defaults to 300s. (ex: -t 500)
--f [optional] Exit script upon failed Anchore policy evaluation
+-f [optional] Exit script upon failed Nextlinux policy evaluation
 -p [optional] Pull remote docker images
 -r [optional] Generate analysis reports in your current working directory
 -V [optional] Increase verbosity
@@ -2841,16 +2841,16 @@ commands:
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/install/configuration/tls_ssl_config/</guid>
             <description>
-&lt;p>Communication with the Anchore Engine and between Anchore Engine service can be secured with TLS/SSL. This can be performed in two ways&lt;/p>
+&lt;p>Communication with the Nextlinux Engine and between Nextlinux Engine service can be secured with TLS/SSL. This can be performed in two ways&lt;/p>
 &lt;ul>
 &lt;li>Externally through a load balancing, ingress controller or reverse proxy such as NGINX&lt;/li>
-&lt;li>Natively within the Anchore Engine&lt;/li>
+&lt;li>Natively within the Nextlinux Engine&lt;/li>
 &lt;/ul>
 &lt;p>For most use cases an external service such as a proxy or load balancer will provide the simplest approach, especially when keys need to be rotated, new instances added, etc.&lt;/p>
-&lt;p>The Anchore Engine is comprised of 6 services, typically only the external API service (apiext) and Kubernetes webhook service are published externally, all other services are used for internal communication.&lt;/p>
+&lt;p>The Nextlinux Engine is comprised of 6 services, typically only the external API service (apiext) and Kubernetes webhook service are published externally, all other services are used for internal communication.&lt;/p>
 &lt;p>Transport Level Security (TLS/SSL) is enabled on a per-service basis. In the sample configuration the SSL/TLS configuration options are commented out.&lt;/p>
 &lt;p>In the following example the external API service is configured to listen on port 443 and is configured with a certificate for its external hostname nextlinux.example.com&lt;/p>
-&lt;p>Each service published in the Anchore Engine configuration (apiext, catalog, simplequeue, analyzer, policy_engine and kubernetes_webhook) can be configured to use transport level security.&lt;/p>
+&lt;p>Each service published in the Nextlinux Engine configuration (apiext, catalog, simplequeue, analyzer, policy_engine and kubernetes_webhook) can be configured to use transport level security.&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-YAML" data-lang="YAML">&lt;span style="color:#204a87;font-weight:bold">services&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">apiext&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">enabled&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">True&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
@@ -2899,11 +2899,11 @@ commands:
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;p>The certificate files should be placed on a path accessible to the Anchore Engine service, for example in the /config directory which is typically mapped as a volume into the container. Note that the location outside the container will depend on your configuration - for example if you are volume mounting &amp;lsquo;/path/to/aevolume/config/&amp;rsquo; on the docker host to &amp;lsquo;/config&amp;rsquo; within the container, you&amp;rsquo;ll need to place the ssl files in &amp;lsquo;/path/to/aevolume/config/&amp;rsquo; on the docker host, so that they are accessible in &amp;lsquo;/config/&amp;rsquo; inside the container, before starting the service.&lt;/p>
+&lt;p>The certificate files should be placed on a path accessible to the Nextlinux Engine service, for example in the /config directory which is typically mapped as a volume into the container. Note that the location outside the container will depend on your configuration - for example if you are volume mounting &amp;lsquo;/path/to/aevolume/config/&amp;rsquo; on the docker host to &amp;lsquo;/config&amp;rsquo; within the container, you&amp;rsquo;ll need to place the ssl files in &amp;lsquo;/path/to/aevolume/config/&amp;rsquo; on the docker host, so that they are accessible in &amp;lsquo;/config/&amp;rsquo; inside the container, before starting the service.&lt;/p>
 &lt;p>The ssl_chain file is optional and may be required by some certificate authorities. If your certificate authority provides a chain certificate then include it within the configuration.&lt;/p>
 &lt;p>&lt;strong>Note:&lt;/strong> While a certificate may be purchased from a well-known and trusted certificate authority in some cases the certificate is signed by an intermediate certificate which is not included within a TLS/SSL clients trust stores. In these cases the intermediate certificate is signed by the certificate authority however without the full &amp;lsquo;chain&amp;rsquo; showing the provenance and integrity of the certificate the TLS/SSL client may not trust the certificate.&lt;/p>
-&lt;p>Any certificates used by the Anchore Engine services need to be trusted by all other Anchore Engine services.&lt;/p>
-&lt;p>If an internal certificate authority is used the root certificate for the internal CA can be added to the Anchore engine using the following procedure or SSL verification can be disabled by setting the following parameter:&lt;/p>
+&lt;p>Any certificates used by the Nextlinux Engine services need to be trusted by all other Nextlinux Engine services.&lt;/p>
+&lt;p>If an internal certificate authority is used the root certificate for the internal CA can be added to the Nextlinux engine using the following procedure or SSL verification can be disabled by setting the following parameter:&lt;/p>
 &lt;p>&lt;code>internal_ssl_verify: True&lt;/code>&lt;/p></description>
         </item>
         <item>
@@ -2913,22 +2913,22 @@ commands:
             <guid>/docs/install/configuration/user_credential_storage/</guid>
             <description>
 &lt;h2 id="overview">Overview&lt;/h2>
-&lt;p>When using the Anchore internal DB to manage user identities (external management is optional in the Enterprise version), all user information is stored in
-the Anchore DB. The credentials can be stored plaintext in the DB, which allows efficient usage internally for dev/test systems, or the credentials can be
+&lt;p>When using the Nextlinux internal DB to manage user identities (external management is optional in the Enterprise version), all user information is stored in
+the Nextlinux DB. The credentials can be stored plaintext in the DB, which allows efficient usage internally for dev/test systems, or the credentials can be
 stored in hashed form using the Argon2 hashing algorithm.&lt;/p>
-&lt;p>Hashed passwords are much more secure, but are expensive to compare and cannot be used for internal service communication since they cannot be reversed. Anchore
+&lt;p>Hashed passwords are much more secure, but are expensive to compare and cannot be used for internal service communication since they cannot be reversed. Nextlinux
 provides a token based authentication mechanism as well (a simplified Password-Grant flow of Oauth2) to mitigate the performance issue, but it requires that
-all Anchore services be deployed with a shared secret in the configuration or a public/private keypair common to all services.&lt;/p>
+all Nextlinux services be deployed with a shared secret in the configuration or a public/private keypair common to all services.&lt;/p>
 &lt;h2 id="passwords">Passwords&lt;/h2>
-&lt;p>The configuration of how passwords are stored is set in the &lt;code>user_authentication&lt;/code> section of the &lt;em>config.yaml&lt;/em> file and &lt;em>must&lt;/em> be consistent across all components of an Anchore Engine deployment. Mismatch
+&lt;p>The configuration of how passwords are stored is set in the &lt;code>user_authentication&lt;/code> section of the &lt;em>config.yaml&lt;/em> file and &lt;em>must&lt;/em> be consistent across all components of an Nextlinux Engine deployment. Mismatch
 in this configuration between components of the system will result in the system not being able to communicate internally.&lt;/p>
 &lt;pre>&lt;code>user_authentication:
 hashed_passwords: true|false
-&lt;/code>&lt;/pre>&lt;p>By default, &lt;code>hashed_passwords&lt;/code> is set to &lt;code>false&lt;/code>. This supports upgrade from previous versions of Anchore as well as usage for installations without a shared key or public/private keys for Anchore. When oauth
-is not configured in the system, Anchore must be able to use HTTP Basic authentication between internal services and thus requires credentials that can be read.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>By default, &lt;code>hashed_passwords&lt;/code> is set to &lt;code>false&lt;/code>. This supports upgrade from previous versions of Nextlinux as well as usage for installations without a shared key or public/private keys for Nextlinux. When oauth
+is not configured in the system, Nextlinux must be able to use HTTP Basic authentication between internal services and thus requires credentials that can be read.&lt;/p>
 &lt;h2 id="bearer-tokensoauth2">Bearer Tokens/OAuth2&lt;/h2>
-&lt;p>If Anchore is configured to support bearer tokens, the tokens are generated and returned to the user but never persisted in the database. All tokens expire, and currently
-Anchore does not support refresh tokens, upon expiration a user must re-authenticate with the username and password to get a new token. Users must still have password credentials, however.
+&lt;p>If Nextlinux is configured to support bearer tokens, the tokens are generated and returned to the user but never persisted in the database. All tokens expire, and currently
+Nextlinux does not support refresh tokens, upon expiration a user must re-authenticate with the username and password to get a new token. Users must still have password credentials, however.
 Password persistence and protection configuration still applies as in the Password section above.&lt;/p>
 &lt;h2 id="configuring-hashed-passwords-and-oauth">Configuring Hashed Passwords and OAuth&lt;/h2>
 &lt;p>NOTE: password storage configuration must be done at the time of deployment, it cannot be modified at runtime or after installation with an existing DB since
@@ -2952,7 +2952,7 @@ keys:
 private_key_path: &amp;lt;path to private key pem file&amp;gt;
 public_key_path: &amp;lt;path to public key pem file&amp;gt;
 &lt;/code>&lt;/pre>
-&lt;p>Using environment variables with the &lt;em>config.yaml&lt;/em> bundled into the Anchore provided nextlinux-engine image is also an option.
+&lt;p>Using environment variables with the &lt;em>config.yaml&lt;/em> bundled into the Nextlinux provided nextlinux-engine image is also an option.
 NOTE: These are &lt;em>only&lt;/em> valid when using the &lt;em>config.yaml&lt;/em> provided in the image due to that file referencing them explicitly as replacement values.&lt;/p>
 &lt;pre>&lt;code>NEXTLINUX_AUTH_SECRET = the string to use as a secret
 NEXTLINUX_AUTH_PUBKEY = path to public key file
@@ -2968,17 +2968,17 @@ NEXTLINUX_AUTH_ENABLE_HASHED_PASSWORDS = boolean to enable/disable hashed passwo
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/usage/integration/ci_cd/gitlab/</guid>
             <description>
-&lt;h3 id="adding-nextlinux-scanning-to-gitlab">Adding Anchore Scanning to Gitlab&lt;/h3>
-&lt;p>The &amp;lsquo;on premises&amp;rsquo; solution requires a functional installation of Anchore Engine running on a system that is accessible from your GitLab runners.&lt;/p>
+&lt;h3 id="adding-nextlinux-scanning-to-gitlab">Adding Nextlinux Scanning to Gitlab&lt;/h3>
+&lt;p>The &amp;lsquo;on premises&amp;rsquo; solution requires a functional installation of Nextlinux Engine running on a system that is accessible from your GitLab runners.&lt;/p>
 &lt;h4 id="on-premises-solution">On Premises Solution:&lt;/h4>
 &lt;p>This sample job can run a Gitlab Runner including shared runners on Gitlab.com.
 The Docker executor is not required and no special privileges are required for scanning.&lt;/p>
 &lt;p>The runner will require network access to two end points:&lt;/p>
 &lt;p>Registry that contains the nextlinux/nextlinux-cli:latest
 By default that is hosted on DockerHub however the image can be pushed to any registry&lt;/p>
-&lt;p>Network access to communicate to an Anchore Engine service. Typically on port 8228&lt;/p>
-&lt;p>A running Anchore Engine is required, this does not need to be run within the Gitlab infrastructure as long as the HTTP(s) endpoint of the Anchore Engine is accessible by the Github runner.&lt;/p>
-&lt;p>If the Anchore Engine will require credentials to pull the image to be analyzed from a Docker registry then the credentials should be added to Anchore Engine using the following procedures.&lt;/p>
+&lt;p>Network access to communicate to an Nextlinux Engine service. Typically on port 8228&lt;/p>
+&lt;p>A running Nextlinux Engine is required, this does not need to be run within the Gitlab infrastructure as long as the HTTP(s) endpoint of the Nextlinux Engine is accessible by the Github runner.&lt;/p>
+&lt;p>If the Nextlinux Engine will require credentials to pull the image to be analyzed from a Docker registry then the credentials should be added to Nextlinux Engine using the following procedures.&lt;/p>
 &lt;p>An example job is shown below and is attached at the bottom of this page named nextlinux-on-prem-gitlab.txt&lt;/p>
 &lt;pre>&lt;code>nextlinux_scan:
 image: nextlinux/engine-cli:latest
@@ -2991,7 +2991,7 @@ NEXTLINUX_SCAN_IMAGE: docker.io/library/debian
 NEXTLINUX_TIMEOUT: 300
 NEXTLINUX_FAIL_ON_POLICY: &amp;quot;false&amp;quot;
 script:
-- echo &amp;quot;Adding image to Anchore engine at ${NEXTLINUX_CLI_URL}&amp;quot;
+- echo &amp;quot;Adding image to Nextlinux engine at ${NEXTLINUX_CLI_URL}&amp;quot;
 - nextlinux-cli image add ${NEXTLINUX_SCAN_IMAGE}
 - echo &amp;quot;Waiting for analysis to complete&amp;quot;
 - nextlinux-cli image wait ${NEXTLINUX_SCAN_IMAGE} --timeout ${NEXTLINUX_TIMEOUT}
@@ -3019,16 +3019,16 @@ paths:
 - image-gem.json
 - image-npm.json
 - image-packages.json
-&lt;/code>&lt;/pre>&lt;p>The container to be scanned should have been pushed to a registry from which the Anchore Engine can pull the image.&lt;/p>
-&lt;p>The first step of the job uses the Anchore CLI to instruct the Anchore Engine to analyze the image. The analysis process may take anywhere from 20 second to a few minutes depending on the size of the image, storage performance and network connectivity. During this period the Anchore Engine will:&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>The container to be scanned should have been pushed to a registry from which the Nextlinux Engine can pull the image.&lt;/p>
+&lt;p>The first step of the job uses the Nextlinux CLI to instruct the Nextlinux Engine to analyze the image. The analysis process may take anywhere from 20 second to a few minutes depending on the size of the image, storage performance and network connectivity. During this period the Nextlinux Engine will:&lt;/p>
 &lt;ul>
-&lt;li>Download all the layers of the image to the Anchore Engine&lt;/li>
+&lt;li>Download all the layers of the image to the Nextlinux Engine&lt;/li>
 &lt;li>Extract the layers to a temporary location&lt;/li>
 &lt;li>Analyze the image including reading package data, scanning for secrets or other sensitive information, recording file data such as a digests (checksum) of all files in the image including details such as file size and ownership&lt;/li>
-&lt;li>Add analysis data to the Anchore database&lt;/li>
+&lt;li>Add analysis data to the Nextlinux database&lt;/li>
 &lt;li>Delete temporary files&lt;/li>
 &lt;/ul>
-&lt;p>The job will poll the Anchore Engine every 10 seconds to check if the image has been analyzed and will repeat this until the maximum number of retries specified has been reached.&lt;/p>
+&lt;p>The job will poll the Nextlinux Engine every 10 seconds to check if the image has been analyzed and will repeat this until the maximum number of retries specified has been reached.&lt;/p>
 &lt;p>The job will output 8 JSON artifacts for storage within the Job&amp;rsquo;s workspace.&lt;/p>
 &lt;p>If the NEXTLINUX_FAIL_ON_POLICY is set to true then if the policy evaluation result is fail the entire job will fail.&lt;/p></description>
         </item>
@@ -3053,14 +3053,14 @@ paths:
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/general/concepts/images/analysis/content_hints/</guid>
             <description>
-&lt;p>Anchore Engine includes the ability to read a user-supplied &amp;lsquo;hints&amp;rsquo; file to allow users to add software artifacts to Anchore&amp;rsquo;s
+&lt;p>Nextlinux Engine includes the ability to read a user-supplied &amp;lsquo;hints&amp;rsquo; file to allow users to add software artifacts to Nextlinux&amp;rsquo;s
 analysis report. The hints file, if present, contains records that describe a software package characteristics explicitly,
 and are then added to the software bill of materials (SBOM). For example, if the owner of a CI/CD container build process
 knows that there are some
-software packages installed explicitly in a container image, but Anchore&amp;rsquo;s regular analyzers fail to identify them, this mechanism
+software packages installed explicitly in a container image, but Nextlinux&amp;rsquo;s regular analyzers fail to identify them, this mechanism
 can be used to include that information in the image&amp;rsquo;s SBOM, exactly as if the packages were discovered normally.&lt;/p>
-&lt;p>Hints cannot be used to modify the findings of Anchore&amp;rsquo;s analyzer beyond adding new packages to the report. If a user specifies
-a package in the hints file that is found by Anchore&amp;rsquo;s image analyzers, the hint is ignored and a warning message is logged
+&lt;p>Hints cannot be used to modify the findings of Nextlinux&amp;rsquo;s analyzer beyond adding new packages to the report. If a user specifies
+a package in the hints file that is found by Nextlinux&amp;rsquo;s image analyzers, the hint is ignored and a warning message is logged
 to notify the user of the conflict.&lt;/p>
 &lt;h3 id="configuration">Configuration&lt;/h3>
 &lt;p>See &lt;a href="/docs/install/configuration/content_hints/">Configuring Content Hints&lt;/a>&lt;/p>
@@ -3070,7 +3070,7 @@ The format of the file is illustrated using some examples, below.&lt;/p>
 &lt;p>OS Packages are those that will represent packages installed using OS / Distro style package managers. Currently supported package types are &lt;code>rpm, dpkg, apkg&lt;/code>
 for RedHat, Debian, and Alpine flavored package managers respectively. Note that, for OS Packages, the name of the package is unique per SBOM, meaning
 that only one package named &amp;lsquo;somepackage&amp;rsquo; can exist in an image&amp;rsquo;s SBOM, and specifying a name in the hints file that conflicts with one with the same name
-discovered by the Anchore analyzers will result in the record from the hints file taking precedence (override).&lt;/p>
+discovered by the Nextlinux analyzers will result in the record from the hints file taking precedence (override).&lt;/p>
 &lt;ul>
 &lt;li>Minimum required values for a package record in nextlinux_hints.json&lt;/li>
 &lt;/ul>
@@ -3097,7 +3097,7 @@ discovered by the Anchore analyzers will result in the record from the hints fil
 &lt;p>Non-OS / language package records are similar in form to the OS package records, but with some extra/different characteristics being supplied, namely
 the &lt;code>location&lt;/code> field. Since multiple non-os packages can be installed that have the same name, the location field is particularly important as it
 is used to distinguish between package records that might otherwise be identical. Valid types for non-os packages are currently &lt;code>java, python, gem, npm, nuget, go, binary&lt;/code>.&lt;br>
-For the latest types that are available, see the &lt;code>nextlinux-cli image content &amp;lt;someimage&amp;gt;&lt;/code> output, which lists available types for any given deployment of Anchore Engine.&lt;/p>
+For the latest types that are available, see the &lt;code>nextlinux-cli image content &amp;lt;someimage&amp;gt;&lt;/code> output, which lists available types for any given deployment of Nextlinux Engine.&lt;/p>
 &lt;ul>
 &lt;li>Minimum required values for a package record in nextlinux_hints.json&lt;/li>
 &lt;/ul>
@@ -3120,7 +3120,7 @@ For the latest types that are available, see the &lt;code>nextlinux-cli image co
 &amp;quot;type&amp;quot;: &amp;quot;gem&amp;quot;
 }
 &lt;/code>&lt;/pre>&lt;h3 id="putting-it-all-together">Putting it all together&lt;/h3>
-&lt;p>Using the above examples, a complete nextlinux_hints.json file, when discovered by Anchore Engine located in &lt;code>/nextlinux_hints.json&lt;/code> inside any container image, is provided here:&lt;/p>
+&lt;p>Using the above examples, a complete nextlinux_hints.json file, when discovered by Nextlinux Engine located in &lt;code>/nextlinux_hints.json&lt;/code> inside any container image, is provided here:&lt;/p>
 &lt;pre>&lt;code>{
 &amp;quot;packages&amp;quot;: [
 {
@@ -3141,7 +3141,7 @@ to view the &lt;code>musl&lt;/code> and &lt;code>wicked&lt;/code> package record
 &lt;h5 id="note-about-using-the-hints-file-feature">Note about using the hints file feature&lt;/h5>
 &lt;p>The hints file feature is disabled by default, and is meant to be used in very specific circumstances where a trusted entity is entrusted with creating
 and installing, or removing an nextlinux_hints.json file from all containers being built. It is not meant to be enabled when the container image builds
-are not explicitly controlled, as the entity that is building container images could override any SBOM entry that Anchore would normally discover, which
+are not explicitly controlled, as the entity that is building container images could override any SBOM entry that Nextlinux would normally discover, which
 affects the vulnerability/policy status of an image. For this reason, the feature is disabled by default and must be explicitly enabled in configuration
 only if appropriate for your use case .&lt;/p></description>
         </item>
@@ -3152,8 +3152,8 @@ only if appropriate for your use case .&lt;/p></description>
             <guid>/docs/install/configuration/max_image_size/</guid>
             <description>
 &lt;h2 id="setting-size-filter">Setting Size Filter&lt;/h2>
-&lt;p>As of v0.9.1, Anchore Engine can be configured to have a size limit for images being added for analysis. Images that exceed the configured maximum size will not be added to Anchore and the catalog service will log an error message providing details of the failure. This size limit is applied when adding images to nextlinux via the &lt;a href="/docs/usage/cli_usage/images/#adding-an-image">api/cli&lt;/a>, &lt;a href="/docs/usage/cli_usage/subscriptions/#tag-updates">tag subscriptions&lt;/a>, and &lt;a href="/docs/usage/cli_usage/repositories/#watching-repositories">repository watchers&lt;/a>.&lt;/p>
-&lt;p>The max size feature is disabled by default but can be enabled via &lt;code>max_compressed_image_size_mb&lt;/code> in the configuration file, which represents the size limit in MB of the compressed image. Values less than 0 will disable the feature and allow images of any size to be added to Anchore. A value of 0 will be enforced and prevent any images from being added. Non-integer values will cause bootstrap of the service to fail. If using compose with the default config, this can be set through the &lt;code>NEXTLINUX_MAX_COMPRESSED_IMAGE_SIZE_MB&lt;/code> env variable on the catalog service. If using helm, it can be defined in the values file via &lt;code>nextlinuxGlobal.maxCompressedImageSizeMB&lt;/code>&lt;/p></description>
+&lt;p>As of v0.9.1, Nextlinux Engine can be configured to have a size limit for images being added for analysis. Images that exceed the configured maximum size will not be added to Nextlinux and the catalog service will log an error message providing details of the failure. This size limit is applied when adding images to nextlinux via the &lt;a href="/docs/usage/cli_usage/images/#adding-an-image">api/cli&lt;/a>, &lt;a href="/docs/usage/cli_usage/subscriptions/#tag-updates">tag subscriptions&lt;/a>, and &lt;a href="/docs/usage/cli_usage/repositories/#watching-repositories">repository watchers&lt;/a>.&lt;/p>
+&lt;p>The max size feature is disabled by default but can be enabled via &lt;code>max_compressed_image_size_mb&lt;/code> in the configuration file, which represents the size limit in MB of the compressed image. Values less than 0 will disable the feature and allow images of any size to be added to Nextlinux. A value of 0 will be enforced and prevent any images from being added. Non-integer values will cause bootstrap of the service to fail. If using compose with the default config, this can be set through the &lt;code>NEXTLINUX_MAX_COMPRESSED_IMAGE_SIZE_MB&lt;/code> env variable on the catalog service. If using helm, it can be defined in the values file via &lt;code>nextlinuxGlobal.maxCompressedImageSizeMB&lt;/code>&lt;/p></description>
         </item>
         <item>
             <title>Docs: Network Proxies</title>
@@ -3161,23 +3161,23 @@ only if appropriate for your use case .&lt;/p></description>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/install/configuration/network_proxies/</guid>
             <description>
-&lt;p>As covered in the Network sections of the requirements document the Anchore Engine requires three categories of network connectivity.&lt;/p>
+&lt;p>As covered in the Network sections of the requirements document the Nextlinux Engine requires three categories of network connectivity.&lt;/p>
 &lt;ul>
 &lt;li>
 &lt;p>Registry Access
-Network connectivity, including DNS resolution, to the registries from which the Anchore Engine needs to download images.&lt;/p>
+Network connectivity, including DNS resolution, to the registries from which the Nextlinux Engine needs to download images.&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>Feed Service
-The Anchore Engine synchronizes feed data such as operating system vulnerabilities (CVEs) from the Anchore Cloud Service. Only a single end point is required for this synchronization, host: ancho.re TCP port: 443&lt;/p>
+The Nextlinux Engine synchronizes feed data such as operating system vulnerabilities (CVEs) from the Nextlinux Cloud Service. Only a single end point is required for this synchronization, host: ancho.re TCP port: 443&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Access to Anchore Internal Services
-The Anchore Engine is comprised of six smaller micro-services that can be deployed in a single container or scaled out to handle load. Each Anchore service should be able to connect the other services over the network.&lt;/p>
+&lt;p>Access to Nextlinux Internal Services
+The Nextlinux Engine is comprised of six smaller micro-services that can be deployed in a single container or scaled out to handle load. Each Nextlinux service should be able to connect the other services over the network.&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;p>In environments were access to the public internet is restricted then a proxy server may be required to allow the Anchore Engine to connect to the Anchore Cloud Feed Service or to a publicly hosted container registry.&lt;/p>
-&lt;p>The Anchore Engine can be configured to access a proxy server by using environment variables that are read by the Anchore Engine at run time.&lt;/p>
+&lt;p>In environments were access to the public internet is restricted then a proxy server may be required to allow the Nextlinux Engine to connect to the Nextlinux Cloud Feed Service or to a publicly hosted container registry.&lt;/p>
+&lt;p>The Nextlinux Engine can be configured to access a proxy server by using environment variables that are read by the Nextlinux Engine at run time.&lt;/p>
 &lt;ul>
 &lt;li>
 &lt;p>https_proxy:
@@ -3218,14 +3218,14 @@ eg. localhost,127.0.0.1,registry,example.com&lt;/p>
 &lt;/ul></description>
         </item>
         <item>
-            <title>Docs: Using Environment Variables in Anchore</title>
+            <title>Docs: Using Environment Variables in Nextlinux</title>
             <link>/docs/install/configuration/using_env_vars/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/install/configuration/using_env_vars/</guid>
             <description>
-&lt;p>Environment variable references may be used in the Anchore config.yaml file to set values that need to be configurable during deployment.&lt;/p>
-&lt;p>Using this mechanism a common configuration file can be used with multiple Anchore Engine instances with key values being passed using environment variables.&lt;/p>
-&lt;p>The config.yaml configuration file is read by the Anchore Engine any references to variables prefixed with NEXTLINUX will be replaced by the value of the matching environment variable.&lt;/p>
+&lt;p>Environment variable references may be used in the Nextlinux config.yaml file to set values that need to be configurable during deployment.&lt;/p>
+&lt;p>Using this mechanism a common configuration file can be used with multiple Nextlinux Engine instances with key values being passed using environment variables.&lt;/p>
+&lt;p>The config.yaml configuration file is read by the Nextlinux Engine any references to variables prefixed with NEXTLINUX will be replaced by the value of the matching environment variable.&lt;/p>
 &lt;p>For example in the sample configuration file the &lt;em>host_id&lt;/em> parameter is set be appending the NEXTLINUX_HOST_ID variable to the string &lt;em>dockerhostid&lt;/em>&lt;/p>
 &lt;p>&lt;code>host_id: 'dockerhostid-${NEXTLINUX_HOST_ID}'&lt;/code>&lt;/p>
 &lt;p>Notes:&lt;/p>
@@ -3237,11 +3237,11 @@ eg. localhost,127.0.0.1,registry,example.com&lt;/p>
 &lt;h3 id="passing-environment-variables-as-a-file">Passing Environment Variables as a File&lt;/h3>
 &lt;p>Environment Variables may also be passed as a file contained key value pairs.&lt;/p>
 &lt;pre>&lt;code>NEXTLINUX_HOST_ID=myservice1 NEXTLINUX_LOG_LEVEL=DEBUG
-&lt;/code>&lt;/pre>&lt;p>The Anchore Engine will check for an environment variable named &lt;em>NEXTLINUX_ENV_FILE&lt;/em> if this variable is set the the Anchore Engine will attempt to read a file at the location specified in this variable.&lt;/p>
-&lt;p>The Anchore environment file is read before any other Anchore environment variables so any NEXTLINUX variables passed in the environment will override the values set in the environment file.&lt;/p></description>
+&lt;/code>&lt;/pre>&lt;p>The Nextlinux Engine will check for an environment variable named &lt;em>NEXTLINUX_ENV_FILE&lt;/em> if this variable is set the the Nextlinux Engine will attempt to read a file at the location specified in this variable.&lt;/p>
+&lt;p>The Nextlinux environment file is read before any other Nextlinux environment variables so any NEXTLINUX variables passed in the environment will override the values set in the environment file.&lt;/p></description>
         </item>
         <item>
-            <title>Docs: Anchore Policy Checks</title>
+            <title>Docs: Nextlinux Policy Checks</title>
             <link>/docs/general/concepts/policy/policy_checks/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/general/concepts/policy/policy_checks/</guid>
@@ -4026,7 +4026,7 @@ eg. localhost,127.0.0.1,registry,example.com&lt;/p>
 &lt;/tbody>
 &lt;/table>
 &lt;h3 id="next-steps">Next Steps&lt;/h3>
-&lt;p>Now that you have a good grasp on the core concepts and architecture, check out the &lt;a href="/docs/install/requirements/">Requirements&lt;/a> section for running Anchore.&lt;/p></description>
+&lt;p>Now that you have a good grasp on the core concepts and architecture, check out the &lt;a href="/docs/install/requirements/">Requirements&lt;/a> section for running Nextlinux.&lt;/p></description>
         </item>
         <item>
             <title>Docs: Configuring Malware Scans of Images</title>
@@ -4093,16 +4093,16 @@ If you would like to override any of the default values of those commands or rep
 &lt;/code>&lt;/pre>&lt;/div></description>
         </item>
         <item>
-            <title>Docs: Anchore Engine Release Notes - Version 1.1.0</title>
+            <title>Docs: Nextlinux Engine Release Notes - Version 1.1.0</title>
             <link>/docs/releasenotes/110/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/releasenotes/110/</guid>
             <description>
-&lt;h2 id="nextlinux-engine-110">Anchore Engine 1.1.0&lt;/h2>
+&lt;h2 id="nextlinux-engine-110">Nextlinux Engine 1.1.0&lt;/h2>
 &lt;p>API version - 0.1.20&lt;/p>
 &lt;p>DB Schema version - 0.0.16&lt;/p>
 &lt;h3 id="rocky-linux-support">Rocky Linux support&lt;/h3>
-&lt;p>Anchore Enterprise can now scan Rocky Linux images for vulnerabilities.&lt;/p>
+&lt;p>Nextlinux Enterprise can now scan Rocky Linux images for vulnerabilities.&lt;/p>
 &lt;h3 id="fixes">Fixes&lt;/h3>
 &lt;ul>
 &lt;li>Images that had Go content and hints enabled were failing analysis. This has been fixed.&lt;/li>
@@ -4111,7 +4111,7 @@ If you would like to override any of the default values of those commands or rep
 &lt;/ul>
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
-&lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
+&lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Nextlinux Engine&lt;/a>&lt;/li>
 &lt;/ul></description>
         </item>
     </channel>

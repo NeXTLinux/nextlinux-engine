@@ -3,7 +3,7 @@ title: "Policy Bundles"
 weight: 1
 ---
 
-Policy bundles are the unit of policy definition and evaluation in Anchore Engine. A user may have multiple bundles, but for a policy evaluation, the user must specify a bundle to be evaluated or default to the bundle currently marked 'active'. See Working with Policies for more detail on manipulating and configuring policies using the Engine CLI.
+Policy bundles are the unit of policy definition and evaluation in Nextlinux Engine. A user may have multiple bundles, but for a policy evaluation, the user must specify a bundle to be evaluated or default to the bundle currently marked 'active'. See Working with Policies for more detail on manipulating and configuring policies using the Engine CLI.
 
 ### Components of a Policy Bundle
 
@@ -266,4 +266,4 @@ A *pass* status means the image evaluated against the bundle and only *go* or *w
 
 The flow chart for policy bundle evaluation:
 
-![alt text](AnchoreFlowchart.jpg)
+![alt text](NextlinuxFlowchart.jpg)

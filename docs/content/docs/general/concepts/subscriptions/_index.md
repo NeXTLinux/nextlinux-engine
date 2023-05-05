@@ -4,18 +4,18 @@ linkTitle: "Subscriptions"
 weight: 4
 ---
 
-The Anchore Engine can be configured to emit webhooks corresponding to changes in images and tags.
+The Nextlinux Engine can be configured to emit webhooks corresponding to changes in images and tags.
 
 - New TAG analyzed
     - This class of notification is triggered when a new TAG had be analyzed.
 A new tag can be explicitly added to the system, for example adding myrepo.example.com/prodapp/web:latest
 In this case once the corresponding image has been downloaded and analyzed the notification will triggered.
-If the Anchore Engine has been configured to watch a repository then it will implicitly add new tags that are found.
+If the Nextlinux Engine has been configured to watch a repository then it will implicitly add new tags that are found.
 
 - Image updated
     - This class of notification is triggered if a new image is tagged with the tag to which you have subscribed. For example a new image is tagged as prod/myapp:latest 
 
-Anchore will monitor repositories for changes to images and tags and if a user is subscribed to a Tag that has been updated then a notification is triggered.
+Nextlinux will monitor repositories for changes to images and tags and if a user is subscribed to a Tag that has been updated then a notification is triggered.
 
 - Vulnerability updates
     - This class of notification is triggered if the list of CVEs or other security vulnerabilities in the image changes. These updates are based on the changes in data from the upstream providers of CVE data (operating system vendors and NIST) CVEs may be added, removed or modified – for example a CVE initially marked as severity level Unknown may be upgraded to a higher severity level.

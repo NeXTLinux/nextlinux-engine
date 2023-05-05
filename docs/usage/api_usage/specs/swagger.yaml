@@ -1,15 +1,15 @@
 swagger: "2.0"
 info:
-  description: "This is the Anchore Engine API. Provides the primary external API for users of the service."
+  description: "This is the Nextlinux Engine API. Provides the primary external API for users of the service."
   version: "0.1.15"
-  title: "Anchore Engine API Server"
+  title: "Nextlinux Engine API Server"
   contact:
     email: "nurmi@nextlinux.com"
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 #externalDocs:
-#  description: "Anchore Engine"
+#  description: "Nextlinux Engine"
 #  url: "http://github.com/nextlinux/nextlinux-engine"
 tags:
 - name: Subscriptions
@@ -368,7 +368,7 @@ paths:
         200:
           description: "successful operation"
           schema:
-            $ref: "#/definitions/AnchoreImageTagSummaryList"
+            $ref: "#/definitions/NextlinuxImageTagSummaryList"
         500:
           description: Internal Error
           schema:
@@ -403,7 +403,7 @@ paths:
         200:
           description: Successfully added image to analysis queue
           schema:
-            $ref: "#/definitions/AnchoreImageList"
+            $ref: "#/definitions/NextlinuxImageList"
         500:
           description: Internal Error
           schema:
@@ -452,7 +452,7 @@ paths:
         200:
           description: "successful operation"
           schema:
-            $ref: "#/definitions/AnchoreImageList"
+            $ref: "#/definitions/NextlinuxImageList"
         500:
           description: Internal Error
           schema:
@@ -508,7 +508,7 @@ paths:
         200:
           description: Successfully imported image to the engine
           schema:
-            $ref: "#/definitions/AnchoreImageList"
+            $ref: "#/definitions/NextlinuxImageList"
         500:
           description: Internal Error
           schema:
@@ -531,7 +531,7 @@ paths:
         200:
           description: Image lookup success
           schema:
-            $ref: "#/definitions/AnchoreImageList"
+            $ref: "#/definitions/NextlinuxImageList"
         500:
           description: Internal error
           schema:
@@ -576,7 +576,7 @@ paths:
         200:
           description: Image lookup success
           schema:
-            $ref: "#/definitions/AnchoreImageList"
+            $ref: "#/definitions/NextlinuxImageList"
         500:
           description: Internal error
           schema:
@@ -1650,7 +1650,7 @@ paths:
             type: array
             description: List of Error Code Descriptions
             items:
-              $ref: "#/definitions/AnchoreErrorCode"
+              $ref: "#/definitions/NextlinuxErrorCode"
       x-swagger-router-controller: nextlinux_engine.services.apiext.api.controllers.system
   /event_types:
     get:
@@ -2693,7 +2693,7 @@ definitions:
         description: The image id if available
       analyzed_at:
         type: string
-        description: Timestamp, in rfc3339 format, indicating when the image state became 'analyzed' in Anchore Engine.
+        description: Timestamp, in rfc3339 format, indicating when the image state became 'analyzed' in Nextlinux Engine.
       tag_history:
         type: array
         items:
@@ -2717,7 +2717,7 @@ definitions:
       detected_at:
         type: string
         format: date-time
-        description: The timestamp at which the Anchore Engine detected this tag was mapped to the image digest. Does not necessarily indicate when the tag was actually pushed to the registry.
+        description: The timestamp at which the Nextlinux Engine detected this tag was mapped to the image digest. Does not necessarily indicate when the tag was actually pushed to the registry.
     description: A docker-pullable tag value as well as deconstructed components
   VulnerableImage:
     type: object
@@ -3124,13 +3124,13 @@ definitions:
         x-nullable: True
       imageDigest:
         type: string
-        description: The parent Anchore Image record to which this detail maps
-  AnchoreImageTagSummaryList:
-    description: a list of AnchoreImageTagSummary objects
+        description: The parent Nextlinux Image record to which this detail maps
+  NextlinuxImageTagSummaryList:
+    description: a list of NextlinuxImageTagSummary objects
     type: array
     items:
-      $ref: "#/definitions/AnchoreImageTagSummary"
-  AnchoreImageTagSummary:
+      $ref: "#/definitions/NextlinuxImageTagSummary"
+  NextlinuxImageTagSummary:
     description: A unique image in the engine.
     type: object
     properties:
@@ -3152,7 +3152,7 @@ definitions:
         type: integer
       image_status:
         type: string
-  AnchoreImage:
+  NextlinuxImage:
     description: A unique image in the engine. May have multiple tags or references. Unique to an image content across registries or repositories.
     type: object
     properties:
@@ -3190,11 +3190,11 @@ definitions:
         - analyzing
         - analyzed
         - analysis_failed
-  AnchoreImageList:
-    description: A list of Anchore Images
+  NextlinuxImageList:
+    description: A list of Nextlinux Images
     type: array
     items:
-      $ref: "#/definitions/AnchoreImage"
+      $ref: "#/definitions/NextlinuxImage"
   SystemStatusResponse:
     type: object
     description: System status response
@@ -3662,7 +3662,7 @@ definitions:
         type: string
       digest:
         type: string
-  AnchoreErrorCode:
+  NextlinuxErrorCode:
     type: object
     description: A description of an nextlinux error code (name, description)
     properties:

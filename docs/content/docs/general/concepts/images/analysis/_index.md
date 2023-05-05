@@ -18,4 +18,4 @@ Adding more detail, the API call trace between services looks approximately like
 
 ### Next Steps
 
-Now let's get familiar with [Watching Images and Tags]({{< ref "/docs/general/concepts/images/watchers" >}}) with Anchore.
+Now let's get familiar with [Watching Images and Tags]({{< ref "/docs/general/concepts/images/watchers" >}}) with Nextlinux.

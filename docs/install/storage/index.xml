@@ -1,7 +1,7 @@
 <rss version="2.0"
     xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Anchore Engine – Storage Overview</title>
+        <title>Nextlinux Engine – Storage Overview</title>
         <link>/docs/install/storage/</link>
         <description>Recent Hugo news from gohugo.io</description>
         <generator>Hugo -- gohugo.io</generator>
@@ -50,7 +50,7 @@ create_bucket: True
 &lt;/code>&lt;/pre>&lt;h2 id="default-configuration">Default Configuration&lt;/h2>
 &lt;p>By default, if no &lt;code>analysis_archive&lt;/code> config is found or the property is not present in the config.yaml, the analysis archive
 will use the &lt;code>object_store&lt;/code> or &lt;code>archive&lt;/code> (for backwards compatibility) config sections and those defaults (e.g. db if found).&lt;/p>
-&lt;p>Anchore stores all of the analysis archive objects in an internal logical bucket: &lt;em>analysis_archive&lt;/em> that is distinct in
+&lt;p>Nextlinux stores all of the analysis archive objects in an internal logical bucket: &lt;em>analysis_archive&lt;/em> that is distinct in
 the configured backends (e.g a key prefix in the s3 bucket or swift container)&lt;/p>
 &lt;h2 id="changing-configuration">Changing Configuration&lt;/h2>
 &lt;p>Unless there are image analyses actually in the archive, there is no data to move if you need to update the configuration
@@ -83,7 +83,7 @@ archive to ensure the db is kept small and the analysis archive handles the data
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/install/storage/database/</guid>
             <description>
-&lt;p>Anchore stores all metadata in a structured format in a PostgreSQL database to support API operations and searches.&lt;/p>
+&lt;p>Nextlinux stores all metadata in a structured format in a PostgreSQL database to support API operations and searches.&lt;/p>
 &lt;p>Examples of data persisted in the database:&lt;/p>
 &lt;ul>
 &lt;li>Image metadata (distro, version, layer counts, &amp;hellip;)&lt;/li>
@@ -107,10 +107,10 @@ the database but can be &lt;a href="../object_store/migration">migrated&lt;/a>&l
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/install/storage/layer_caching/</guid>
             <description>
-&lt;p>Once an image is submitted to the Anchore Engine for analysis the Engine will attempt to retrieve metadata about the image from the Docker registry and if successful will download the image and queue the image for analysis.&lt;/p>
-&lt;p>The Anchore Engine can run one or more analyzer services to scale out processing of images. The next available analyzer worker will process the image.&lt;/p>
+&lt;p>Once an image is submitted to the Nextlinux Engine for analysis the Engine will attempt to retrieve metadata about the image from the Docker registry and if successful will download the image and queue the image for analysis.&lt;/p>
+&lt;p>The Nextlinux Engine can run one or more analyzer services to scale out processing of images. The next available analyzer worker will process the image.&lt;/p>
 &lt;p>Docker Images are made up of one or more layers, which are described in the manifest. The manifest lists the layers which are typically stored as gzipped compressed TAR files.&lt;/p>
-&lt;p>As part of image analysis the Anchore Engine will:&lt;/p>
+&lt;p>As part of image analysis the Nextlinux Engine will:&lt;/p>
 &lt;ul>
 &lt;li>Download all layers that comprise an image&lt;/li>
 &lt;li>Extract the layers to a temporary file system location&lt;/li>
@@ -125,16 +125,16 @@ the database but can be &lt;a href="../object_store/migration">migrated&lt;/a>&l
 &lt;/li>
 &lt;/ul>
 &lt;p>Following the analysis the extracted layers and downloaded layer tar files are deleted.&lt;/p>
-&lt;p>In many cases the images will share a number of common layers, especially if images are built form a consistent set of base images. To speed up the Anchore Engine can be configure to cache image layers to eliminate the need to download the same layer for many different images. The layer cache is displayed in the default Anchore Engine configuration. To enable the cache the following changes should be made:&lt;/p>
+&lt;p>In many cases the images will share a number of common layers, especially if images are built form a consistent set of base images. To speed up the Nextlinux Engine can be configure to cache image layers to eliminate the need to download the same layer for many different images. The layer cache is displayed in the default Nextlinux Engine configuration. To enable the cache the following changes should be made:&lt;/p>
 &lt;ol>
 &lt;li>Define temporary directory for cache data&lt;/li>
 &lt;/ol>
 &lt;p>It is recommended that the cache data is stored in an external volume to ensure that the cache does not use up the ephemeral storage space allocated to the container host.&lt;/p>
-&lt;p>By default the Anchore Engine uses the /tmp directory within the container to download and extract images. Configure a volume to be mounted into the container at a specified path and configure this path in config.yaml&lt;/p>
+&lt;p>By default the Nextlinux Engine uses the /tmp directory within the container to download and extract images. Configure a volume to be mounted into the container at a specified path and configure this path in config.yaml&lt;/p>
 &lt;p>&lt;code>tmp_dir: '/scratch'&lt;/code>&lt;/p>
 &lt;p>In this example a volume has been mounted as /scratch within the container and config.yaml updated to use /scratch as the temporary directory for image analysis.&lt;/p>
 &lt;p>With the cache disabled the temporary directory should be sized to at least 3 times the uncompressed image size to be analyzed.
-To enable layer caching the layer_cache_enable parameter and layer_cache_max_gigabytes parameter should be added to the analyzer section of the Anchore Engine configuration file config.yaml.&lt;/p>
+To enable layer caching the layer_cache_enable parameter and layer_cache_max_gigabytes parameter should be added to the analyzer section of the Nextlinux Engine configuration file config.yaml.&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-YAML" data-lang="YAML">&lt;span style="color:#204a87;font-weight:bold">analyzer&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">enabled&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">True&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">require_auth&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">True&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
@@ -159,10 +159,10 @@ To enable layer caching the layer_cache_enable parameter and layer_cache_max_gig
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/install/storage/object_store/</guid>
             <description>
-&lt;p>Anchore Engine uses a PostgreSQL database to store structured data for images, tags, policies, subscriptions and metdata
+&lt;p>Nextlinux Engine uses a PostgreSQL database to store structured data for images, tags, policies, subscriptions and metdata
 about images, but other types of data in the system are less structured and tend to be larger pieces of data. Because of
 that, there are benefits to supporting key-value access patterns for things like image manifests, analysis reports, and
-policy evaluations. For such data, Anchore has an internal object storage interface that, while defaulted to use the
+policy evaluations. For such data, Nextlinux has an internal object storage interface that, while defaulted to use the
 same postgres db for storage, can be configured to use external object storage providers to support simpler capacity
 management and lower costs. The options are:&lt;/p>
 &lt;ul>
@@ -172,8 +172,8 @@ management and lower costs. The options are:&lt;/p>
 &lt;li>Swift Object Store&lt;/li>
 &lt;/ul>
 &lt;p>The configuration for the object store is set in the catalog&amp;rsquo;s service configuration in the config.yaml.&lt;/p>
-&lt;h3 id="changed-in-040-of-nextlinux-engine">Changed in 0.4.0 of Anchore Engine&lt;/h3>
-&lt;p>In releases before 0.4.0 of Anchore Engine, the configuration key was &lt;code>archive&lt;/code>. As of 0.4.0 that has been changed to
+&lt;h3 id="changed-in-040-of-nextlinux-engine">Changed in 0.4.0 of Nextlinux Engine&lt;/h3>
+&lt;p>In releases before 0.4.0 of Nextlinux Engine, the configuration key was &lt;code>archive&lt;/code>. As of 0.4.0 that has been changed to
 &lt;code>object_store&lt;/code> but will still support &lt;code>archive&lt;/code> for backwards compatibility, though that key is now deprecated. The
 reason for the change is the new in 0.4.0 analysis archive feature, which uses the configuration key &lt;code>analysis_archive&lt;/code>.&lt;/p>
 &lt;p>The change helps differentiate the analysis archive, which is an object store with specific lifecycle semantics, from

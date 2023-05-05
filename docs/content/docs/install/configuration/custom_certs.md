@@ -4,7 +4,7 @@ linkTitle: "Custom Certificates"
 weight: 2
 ---
 
-If a custom CA certificate is required to access an external resource then the Trust Store in the Anchore Engine container needs to be updated in two places.
+If a custom CA certificate is required to access an external resource then the Trust Store in the Nextlinux Engine container needs to be updated in two places.
 
 1. The operating system provided trust store.
 2. The Certifi trust store.
@@ -20,7 +20,7 @@ To add a certificate to the operating system trust store the CA certificate shou
 - For nextlinux 0.4.X and newer, the base container is Red Hat Universal Base Image 7, which stores certs in `/etc/pki/ca-trust/source/anchors/` and requires user to run update-ca-trust command as root to update the system certs.
 - For nextlinux 0.7.X and newer, the base container is Red Hat Universal Base Image 8, which stores certs in `/etc/pki/ca-trust/source/anchors/` and requires user to run update-ca-trust command as root to update the system certs.
 
-[Certifi](https://pypi.org/project/certifi/) is a curated list of trusted certificate authorities that is used by the Python requests HTTP client library. The Python requests library is used by Anchore Engine for all HTTP interactions, including when communicating with Anchore Feed service, when webhooks are sent to a TLS enabled endpoint and inbetween Anchore Engine services if TLS has been configured. To update the Certifi trust store the CA certificate should be appended onto the cacert.pem file provided by the Certifi library.
+[Certifi](https://pypi.org/project/certifi/) is a curated list of trusted certificate authorities that is used by the Python requests HTTP client library. The Python requests library is used by Nextlinux Engine for all HTTP interactions, including when communicating with Nextlinux Feed service, when webhooks are sent to a TLS enabled endpoint and inbetween Nextlinux Engine services if TLS has been configured. To update the Certifi trust store the CA certificate should be appended onto the cacert.pem file provided by the Certifi library.
 
 - For nextlinux 0.2.X and earlier, the base container is CentOS 7, certifi's cacert.pem is installed in `/usr/lib/python2.7/site-packages/certifi/cacert.pem`
 - For nextlinux 0.3.X, the base container is Ubuntu 18.04, certifi's cacert.pem is installed in `/usr/local/lib/python3.6/dist-packages/certifi/cacert.pem`

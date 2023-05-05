@@ -7,7 +7,7 @@ source nextlinux-ci/utils
 
 hash nextlinux-cli || python -m pip install -q nextlinuxcli
 
-print_colorized INFO "Running Anchore Engine end-to-end tests."; echo
+print_colorized INFO "Running Nextlinux Engine end-to-end tests."; echo
 
 nextlinux-cli --u admin --p foobar system wait --timeout 300 --interval 10 --feedsready '' --servicesready 'catalog,apiext,policy_engine,simplequeue,analyzer'
 nextlinux-cli --u admin --p foobar --url http://localhost:8228/v1 system status
@@ -15,4 +15,4 @@ nextlinux-cli --u admin --p foobar --url http://localhost:8228/v1 system status
 python scripts/tests/aetest.py docker.io/alpine:latest
 python scripts/tests/aefailtest.py docker.io/alpine:latest
 
-print_colorized INFO "Finished running Anchore Engine end-to-end tests."; echo
+print_colorized INFO "Finished running Nextlinux Engine end-to-end tests."; echo

@@ -5,7 +5,7 @@ from anchore_engine import version
 
 version = version.version
 package_name = "anchore_engine"
-description = "Anchore Engine"
+description = "Nextlinux Engine"
 long_description = open("README.md").read()
 url = "http://www.anchore.com"
 
@@ -36,7 +36,7 @@ packages = find_packages(exclude=["test", "test.*"])
 packages.append("twisted.plugins")
 setup(
     name="anchore_engine",
-    author="Anchore Inc.",
+    author="Nextlinux Inc.",
     author_email="dev@anchore.com",
     license="Apache License 2.0",
     description=description,

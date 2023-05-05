@@ -313,7 +313,7 @@ def get_threadbased_id(guarantee_uniq=False):
     )
 
 
-class AnchoreException(Exception):
+class NextlinuxException(Exception):
     def to_dict(self):
         return {
             self.__class__.__name__: dict(

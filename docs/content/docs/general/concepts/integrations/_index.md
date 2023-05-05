@@ -6,7 +6,7 @@ weight: 6
 
 ## Introduction
 
-There are several different ways to integrate with Anchore Engine:
+There are several different ways to integrate with Nextlinux Engine:
 
 - [CI/CD Integration]({{< ref "/docs/general/concepts/integrations/ci_cd" >}})
 - [Kubernetes Integration]({{< ref "/docs/general/concepts/integrations/kubernetes" >}})

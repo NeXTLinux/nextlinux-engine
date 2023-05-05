@@ -31,7 +31,7 @@ from anchore_engine.db import (
 )
 from anchore_engine.clients.services import internal_client_for
 from anchore_engine.clients.services.policy_engine import PolicyEngineClient
-from anchore_engine.apis.exceptions import BadRequest, AnchoreApiError
+from anchore_engine.apis.exceptions import BadRequest, NextlinuxApiError
 import anchore_engine.subsys.events
 from anchore_engine.db import session_scope
 from collections import namedtuple
@@ -634,7 +634,7 @@ def image(dbsession, request_inputs, bodycontent=None):
                     if image_records:
                         image_record = image_records[0]
 
-            except AnchoreApiError:
+            except NextlinuxApiError:
                 raise
             except Exception as err:
                 logger.exception("Error adding image")
@@ -648,7 +648,7 @@ def image(dbsession, request_inputs, bodycontent=None):
                 httpcode = 404
                 raise Exception("could not add input image")
 
-    except AnchoreApiError as err:
+    except NextlinuxApiError as err:
         logger.exception("Error processing image request")
         return_object = anchore_engine.common.helpers.make_response_error(
             err.message, in_httpcode=err.__response_code__

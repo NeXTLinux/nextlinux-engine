@@ -1,11 +1,11 @@
 ---
-title: "Anchore Engine Inline Image Analysis/Engine Import"
+title: "Nextlinux Engine Inline Image Analysis/Engine Import"
 linkTitle: "Inline Image Analysis"
 weight: 3
 ---
 
 ## Introduction
-For use cases where it is desirable to perform image analysis for a locally build container image, and import the image analysis to an existing Anchore Engine installation, we support a methodology using the inline_scan tool.  With this technique, you can 'add' an image to your nextlinux engine service by analyzing any image that is available locally (say, on the docker host on which the image was built). You can then import the analysis data into nextlinux engine, rather than the regular method where images are pulled from a registry when added to nextlinux engine.
+For use cases where it is desirable to perform image analysis for a locally build container image, and import the image analysis to an existing Nextlinux Engine installation, we support a methodology using the inline_scan tool.  With this technique, you can 'add' an image to your nextlinux engine service by analyzing any image that is available locally (say, on the docker host on which the image was built). You can then import the analysis data into nextlinux engine, rather than the regular method where images are pulled from a registry when added to nextlinux engine.
 
 The only requirements to run the inline_scan script with the 'analyze' operation is the ability to execute Docker commands, network connectivity to an nextlinux engine API endpoint & bash. We host a versioned copy of this script that can be downloaded directly with curl and executed in a bash pipeline.
 
@@ -17,13 +17,13 @@ To run the script on your workstation, use the following command syntax.
 
 ### Inline Analysis Options
 ```
--r <TEXT>  [required] URL to remote Anchore Engine API endpoint (ex: -r 'https://nextlinux.example.com:8228/v1')
--u <TEXT>  [required] Username for remote Anchore Engine auth (ex: -u 'admin')
--p <TEXT>  [required] Password for remote Anchore Engine auth (ex: -p 'foobar')
+-r <TEXT>  [required] URL to remote Nextlinux Engine API endpoint (ex: -r 'https://nextlinux.example.com:8228/v1')
+-u <TEXT>  [required] Username for remote Nextlinux Engine auth (ex: -u 'admin')
+-p <TEXT>  [required] Password for remote Nextlinux Engine auth (ex: -p 'foobar')
 -a <TEXT>  [optional] Add annotations (ex: -a 'key=value,key=value')
 -d <PATH>  [optional] Specify image digest (ex: -d 'sha256:<64 hex characters>')
 -f <PATH>  [optional] Path to Dockerfile (ex: -f ./Dockerfile)
--i <TEXT>  [optional] Specify image ID used within Anchore Engine (ex: -i '<64 hex characters>')
+-i <TEXT>  [optional] Specify image ID used within Nextlinux Engine (ex: -i '<64 hex characters>')
 -m <PATH>  [optional] Path to Docker image manifest (ex: -m ./manifest.json)
 -t <TEXT>  [optional] Specify timeout for image analysis in seconds. Defaults to 300s. (ex: -t 500)
 -g  [optional] Generate an image digest from docker save tarball

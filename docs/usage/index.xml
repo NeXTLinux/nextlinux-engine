@@ -1,7 +1,7 @@
 <rss version="2.0"
     xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Anchore Engine – Using Anchore Engine</title>
+        <title>Nextlinux Engine – Using Nextlinux Engine</title>
         <link>/docs/usage/</link>
         <description>Recent Hugo news from gohugo.io</description>
         <generator>Hugo -- gohugo.io</generator>
@@ -12,13 +12,13 @@
         </image>
         <atom:link href="/docs/usage/index.xml" rel="self" type="application/rss+xml"/>
         <item>
-            <title>Docs: Using the Anchore CLI</title>
+            <title>Docs: Using the Nextlinux CLI</title>
             <link>/docs/usage/cli_usage/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/usage/cli_usage/</guid>
             <description>
-&lt;p>The Anchore CLI provides a command line interface on top of the Anchore Engine REST API. The Anchore CLI is published as a Python Package that can be installed from source from the Python PyPI package repository on any platform supporting PyPi. Using the Anchore CLI users can manage and inspect images, policies, subscriptions, and registries.&lt;/p>
-&lt;p>If you have not installed the Anchore CLI, please refer to the &lt;a href="/docs/install/nextlinux_cli/">installation guide&lt;/a>.&lt;/p>
+&lt;p>The Nextlinux CLI provides a command line interface on top of the Nextlinux Engine REST API. The Nextlinux CLI is published as a Python Package that can be installed from source from the Python PyPI package repository on any platform supporting PyPi. Using the Nextlinux CLI users can manage and inspect images, policies, subscriptions, and registries.&lt;/p>
+&lt;p>If you have not installed the Nextlinux CLI, please refer to the &lt;a href="/docs/install/nextlinux_cli/">installation guide&lt;/a>.&lt;/p>
 &lt;p>To jump to a particular guide, select from the following below:&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="/docs/usage/cli_usage/images/">Analyzing Images&lt;/a>&lt;/li>
@@ -28,17 +28,17 @@
 &lt;/ul></description>
         </item>
         <item>
-            <title>Docs: Accessing the Anchore Engine API</title>
+            <title>Docs: Accessing the Nextlinux Engine API</title>
             <link>/docs/usage/api_usage/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/usage/api_usage/</guid>
             <description>
 &lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>The Anchore Engine API is documented using the OpenAPI Specification (Swagger) and the source for the latest development version can be found in GitHub in &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/nextlinux_engine/services/apiext/swagger/swagger.yaml">swagger.yaml&lt;/a> document within the external API service. There are also a variety of ways in which the API specification can be accessed.&lt;/p>
+&lt;p>The Nextlinux Engine API is documented using the OpenAPI Specification (Swagger) and the source for the latest development version can be found in GitHub in &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/nextlinux_engine/services/apiext/swagger/swagger.yaml">swagger.yaml&lt;/a> document within the external API service. There are also a variety of ways in which the API specification can be accessed.&lt;/p>
 &lt;h3 id="online">Online&lt;/h3>
-&lt;p>You can browse latest stable the Anchore API specification &lt;a href="./specs/swagger.yaml">here&lt;/a>&lt;/p>
+&lt;p>You can browse latest stable the Nextlinux API specification &lt;a href="./specs/swagger.yaml">here&lt;/a>&lt;/p>
 &lt;h3 id="local-swagger-json">Local Swagger JSON&lt;/h3>
-&lt;p>The JSON definition for the API specification for your specific instance of Anchore can be downloaded from a running Anchore Engine service at the following URI:&lt;/p>
+&lt;p>The JSON definition for the API specification for your specific instance of Nextlinux can be downloaded from a running Nextlinux Engine service at the following URI:&lt;/p>
 &lt;p>http://{servername:port}/v1/swagger.json&lt;/p>
 &lt;p>e.g.&lt;/p>
 &lt;p>http://localhost:8228/v1/swagger.json&lt;/p>
@@ -90,7 +90,7 @@ docker-compose up -d
             <guid>/docs/usage/integration/</guid>
             <description>
 &lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>There are several different ways to integrate with Anchore Engine:&lt;/p>
+&lt;p>There are several different ways to integrate with Nextlinux Engine:&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="/docs/usage/integration/ci_cd/">CI/CD Integration&lt;/a>&lt;/li>
 &lt;li>&lt;a href="/docs/usage/integration/kubernetes/">Kubernetes Integration&lt;/a>&lt;/li>

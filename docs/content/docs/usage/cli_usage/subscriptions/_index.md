@@ -6,9 +6,9 @@ weight: 4
 
 ## Working with Subscriptions
 
-The Anchore Engine supports 4 types of subscriptions: Image Updates, Policy Updates, CVE Updates and Analysis Updates.
+The Nextlinux Engine supports 4 types of subscriptions: Image Updates, Policy Updates, CVE Updates and Analysis Updates.
 
-Notifications will be sent over a webhook to an endpoint specified in the Anchore Engine configuration file.
+Notifications will be sent over a webhook to an endpoint specified in the Nextlinux Engine configuration file.
 
 **Note:** A fifth notification type, repo_update, is not used for notifications but is instead used as a mechanism for tracking repository updates. Please see the repository scanning documentation for details.
 
@@ -18,9 +18,9 @@ This class of notification is triggered if a new image is tagged with the tag to
 
 For example, if you had a subscription to the docker.io/library/node:latest tag and a new image was built, tagged as library/note:latest and pushed to the registry.
 
-This subscription is activated automatically when a new tag is added to the Anchore Engine.
+This subscription is activated automatically when a new tag is added to the Nextlinux Engine.
 
-**Note:** If this subscription is disabled the Anchore Engine will not monitor the registry for new images.
+**Note:** If this subscription is disabled the Nextlinux Engine will not monitor the registry for new images.
 
 ### Policy Updates
 
@@ -100,7 +100,7 @@ SUBSCRIPTION_KEY should be the name of the subscribed tag. eg. `docker.io/ubuntu
 
 ### Webhook Configuration
 
-Webhooks are configured in the Anchore Engine configuration file `config.yaml` In the sample configuration file webhooks are disabled (commented) out.
+Webhooks are configured in the Nextlinux Engine configuration file `config.yaml` In the sample configuration file webhooks are disabled (commented) out.
 
 ```
 webhooks:

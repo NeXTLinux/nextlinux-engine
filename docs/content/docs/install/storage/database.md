@@ -4,7 +4,7 @@ linkTitle: "Database"
 weight: 1
 ---
 
-Anchore stores all metadata in a structured format in a PostgreSQL database to support API operations and searches.
+Nextlinux stores all metadata in a structured format in a PostgreSQL database to support API operations and searches.
 
 Examples of data persisted in the database:
 

@@ -22,7 +22,7 @@ import anchore_engine.clients.skopeo_wrapper
 import anchore_engine.common.images
 import anchore_engine.analyzers.utils
 import anchore_engine.analyzers.syft
-from anchore_engine.utils import AnchoreException
+from anchore_engine.utils import NextlinuxException
 from anchore_engine.util.docker import (
     DockerV1ManifestMetadata,
     DockerV2ManifestMetadata,
@@ -595,7 +595,7 @@ def make_staging_dirs(rootdir, use_cache_dir=None):
     # found to programmatically inject hintsfiles without requiring the
     # hintsfile to exist in the image. Otherwise, it would require every
     # permutation of a hintsfile to be an actual unique image. It leverages the
-    # fact that Anchore Engine will not try to extract the hinstfile if it has
+    # fact that Nextlinux Engine will not try to extract the hinstfile if it has
     # already been unpacked in the unpack directory.
     try:
         if os.environ.get("NEXTLINUX_TEST_HINTSFILE"):
@@ -1183,7 +1183,7 @@ def analyze_image(
     return image_report, manifest
 
 
-class AnalysisError(AnchoreException):
+class AnalysisError(NextlinuxException):
 
     def __init__(self, cause, pull_string, tag, msg):
         self.cause = str(cause)

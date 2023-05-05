@@ -7,7 +7,7 @@ WORKSPACE_DIR=/tmp/job-workspace
 # Optional - only used for print_colorized
 source nextlinux-ci/utils
 
-print_colorized INFO "Running Anchore Engine functional tests."; echo
+print_colorized INFO "Running Nextlinux Engine functional tests."; echo
 
 print_colorized WARN "TOX_ENV: ${TOX_ENV}"; echo
 
@@ -23,4 +23,4 @@ for e in $(echo "${tox_env}"); do
         "
 done
 
-print_colorized INFO "Finished running Anchore Engine functional tests."; echo
+print_colorized INFO "Finished running Nextlinux Engine functional tests."; echo

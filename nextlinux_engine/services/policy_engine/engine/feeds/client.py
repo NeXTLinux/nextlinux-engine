@@ -12,7 +12,7 @@ import ijson
 
 from anchore_engine.configuration import localconfig
 from anchore_engine.subsys import logger
-from anchore_engine.utils import ensure_str, ensure_bytes, AnchoreException
+from anchore_engine.utils import ensure_str, ensure_bytes, NextlinuxException
 from anchore_engine.services.policy_engine.engine.feeds import (
     IFeedSource,
     FeedGroupList,
@@ -241,7 +241,7 @@ def get_client(
 
     Uses the admin user's credentials for the feed service if they are available in the external_service_auths/anchoreio/anchorecli/auth json path of the config file. If no specific user credentials are found then the anonymous user credentials are used.
 
-    :return: initialize AnchoreIOFeedClient
+    :return: initialize NextlinuxIOFeedClient
     """
 
     logger.debug(
@@ -490,7 +490,7 @@ class HTTPBasicAuthClient(IAuthenticatedHTTPClientBase):
         return ret
 
 
-class AnchoreIOClientError(AnchoreException):
+class NextlinuxIOClientError(NextlinuxException):
     def __init__(
         self,
         cause,

@@ -1,7 +1,7 @@
 <rss version="2.0"
     xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Anchore Engine – Configuring Anchore</title>
+        <title>Nextlinux Engine – Configuring Nextlinux</title>
         <link>/docs/install/configuration/</link>
         <description>Recent Hugo news from gohugo.io</description>
         <generator>Hugo -- gohugo.io</generator>
@@ -18,7 +18,7 @@
             <guid>/docs/install/configuration/feed_configuration/</guid>
             <description>
 &lt;h3 id="feed-synchronization-interval">Feed Synchronization Interval&lt;/h3>
-&lt;p>The default configuration for the Anchore Engine will download vulnerability data from Anchore&amp;rsquo;s feed service every 21,600 seconds (6hours).&lt;/p>
+&lt;p>The default configuration for the Nextlinux Engine will download vulnerability data from Nextlinux&amp;rsquo;s feed service every 21,600 seconds (6hours).&lt;/p>
 &lt;p>For most users the only configuration option that is typically updated is the feed synchronization interval - the time interval (in seconds) at which the feed sync is run.&lt;/p>
 &lt;pre>&lt;code class="language-policy_engine:" data-lang="policy_engine:"> .....
 cycle_timers:
@@ -27,9 +27,9 @@ feed_sync: 14400
 &lt;/code>&lt;/pre>&lt;h3 id="feed-settings">Feed Settings&lt;/h3>
 &lt;p>Feed sync configuration is set in the config.yaml file used by policy engine service. The &lt;code>services.policy_engine.vulnerabilities.sync.data&lt;/code> section
 of the configuration file in the policy engine&amp;rsquo;s container controls the behavior of feed syncs done by that particular container. Ensure this config is synchronized between containers if you are running more than one policy engine. This is usually handled for you by Helm Charts on Kubernetes, for example.&lt;/p>
-&lt;p>The Anchore Engine will default to downloading feed data from Anchore&amp;rsquo;s feed service hosted at &lt;a href="https://ancho.re/v1/service/feeds">https://ancho.re/v1/service/feeds&lt;/a> and running in AWS in the
+&lt;p>The Nextlinux Engine will default to downloading feed data from Nextlinux&amp;rsquo;s feed service hosted at &lt;a href="https://ancho.re/v1/service/feeds">https://ancho.re/v1/service/feeds&lt;/a> and running in AWS in the
 us-west-2 region.&lt;/p>
-&lt;p>By default, Anchore Engine will only sync the non-grype feeds enabled in the config section shown below. Setting additional feed types to true or false will
+&lt;p>By default, Nextlinux Engine will only sync the non-grype feeds enabled in the config section shown below. Setting additional feed types to true or false will
 enable or disable, respectively, synchronization of the specified feed.&lt;/p>
 &lt;pre>&lt;code>services:
 ...
@@ -46,7 +46,7 @@ url: ${NEXTLINUX_GRYPE_DB_URL}
 packages:
 enabled: true
 url: ${NEXTLINUX_FEEDS_URL}
-&lt;/code>&lt;/pre>&lt;p>&lt;em>&lt;strong>Note:&lt;/strong>&lt;/em> As shown above, Anchore Engine&amp;rsquo;s default is now Grype. The Grype feed is the default, and the only one that Anchore Engine syncs.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>&lt;em>&lt;strong>Note:&lt;/strong>&lt;/em> As shown above, Nextlinux Engine&amp;rsquo;s default is now Grype. The Grype feed is the default, and the only one that Nextlinux Engine syncs.&lt;/p>
 &lt;h4 id="read-timeout">Read Timeout&lt;/h4>
 &lt;p>Under rare circumstances you may see syncs failing with errors to fetch data due to timeouts. This is typically due to load on the feed service, network issues, or
 some other temporary condition. However, if you want to increase the timeout to improve the likelihood of success, modify the &lt;em>read_timeout_seconds&lt;/em> of the feeds configuration:&lt;/p>
@@ -320,7 +320,7 @@ Feed Group Status Records Updated Sync Duration
 vulnerabilities centos:5 success 1347 27.41s
 ...
 &lt;/code>&lt;/pre>&lt;p>With these controls you can better customize the data set that nextlinux stores in the database. However, note that this should not normally be necessary
-and modifying feed groups &amp;amp; data has implications on the sets of distros and types of artifacts Anchore can match vulnerabilities against.&lt;/p></description>
+and modifying feed groups &amp;amp; data has implications on the sets of distros and types of artifacts Nextlinux can match vulnerabilities against.&lt;/p></description>
         </item>
         <item>
             <title>Docs: Configuration</title>
@@ -329,7 +329,7 @@ and modifying feed groups &amp;amp; data has implications on the sets of distros
             <guid>/docs/install/configuration/config/</guid>
             <description>
 &lt;h2 id="initial-configuration">Initial Configuration&lt;/h2>
-&lt;p>A single configuration file config.yaml is required to run the Anchore Engine - by default, this file is embedded in the nextlinux-engine container image, located in /config/config.yaml. The default configuration file is provided as a way to get started, which is functional out of the box, without modification, when combined with either the Helm method or docker-compose method of installing nextlinux-engine. The default configuration is set up to use environment variable substitutions so that configuration values can be controlled by setting the corresponding environment variables at deployment time (see &lt;a href="/docs/install/configuration/using_env_vars/">Using Environment Variables in Anchore&lt;/a>. To review the embedded configuration file settings, see the &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/conf/default_config.yaml">default config.yaml on github&lt;/a> which is populated with several environment variables (all starting with NEXTLINUX_), the &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/docker-compose.yaml">example docker-compose.yaml on github&lt;/a> which includes several site-specific environment variable default settings, and the &lt;a href="https://github.com/nextlinux/nextlinux-engine/tree/master/Dockerfile">nextlinux engine Dockerfile on github&lt;/a> which sets baseline environment variable settings.&lt;/p>
+&lt;p>A single configuration file config.yaml is required to run the Nextlinux Engine - by default, this file is embedded in the nextlinux-engine container image, located in /config/config.yaml. The default configuration file is provided as a way to get started, which is functional out of the box, without modification, when combined with either the Helm method or docker-compose method of installing nextlinux-engine. The default configuration is set up to use environment variable substitutions so that configuration values can be controlled by setting the corresponding environment variables at deployment time (see &lt;a href="/docs/install/configuration/using_env_vars/">Using Environment Variables in Nextlinux&lt;/a>. To review the embedded configuration file settings, see the &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/conf/default_config.yaml">default config.yaml on github&lt;/a> which is populated with several environment variables (all starting with NEXTLINUX_), the &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/docker-compose.yaml">example docker-compose.yaml on github&lt;/a> which includes several site-specific environment variable default settings, and the &lt;a href="https://github.com/nextlinux/nextlinux-engine/tree/master/Dockerfile">nextlinux engine Dockerfile on github&lt;/a> which sets baseline environment variable settings.&lt;/p>
 &lt;p>Each environment variable (starting with NEXTLINUX_) in the default config.yaml is set (either the baseline as set in the Dockerfile, or an override in docker-compose or Helm) to ensure that the system comes up with a fully populated configuration.&lt;/p>
 &lt;p>Some examples of useful initial settings follow.&lt;/p>
 &lt;ul>
@@ -396,7 +396,7 @@ and modifying feed groups &amp;amp; data has implications on the sets of distros
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/install/configuration/custom_certs/</guid>
             <description>
-&lt;p>If a custom CA certificate is required to access an external resource then the Trust Store in the Anchore Engine container needs to be updated in two places.&lt;/p>
+&lt;p>If a custom CA certificate is required to access an external resource then the Trust Store in the Nextlinux Engine container needs to be updated in two places.&lt;/p>
 &lt;ol>
 &lt;li>The operating system provided trust store.&lt;/li>
 &lt;li>The Certifi trust store.&lt;/li>
@@ -410,7 +410,7 @@ and modifying feed groups &amp;amp; data has implications on the sets of distros
 &lt;li>For nextlinux 0.4.X and newer, the base container is Red Hat Universal Base Image 7, which stores certs in &lt;code>/etc/pki/ca-trust/source/anchors/&lt;/code> and requires user to run update-ca-trust command as root to update the system certs.&lt;/li>
 &lt;li>For nextlinux 0.7.X and newer, the base container is Red Hat Universal Base Image 8, which stores certs in &lt;code>/etc/pki/ca-trust/source/anchors/&lt;/code> and requires user to run update-ca-trust command as root to update the system certs.&lt;/li>
 &lt;/ul>
-&lt;p>&lt;a href="https://pypi.org/project/certifi/">Certifi&lt;/a> is a curated list of trusted certificate authorities that is used by the Python requests HTTP client library. The Python requests library is used by Anchore Engine for all HTTP interactions, including when communicating with Anchore Feed service, when webhooks are sent to a TLS enabled endpoint and inbetween Anchore Engine services if TLS has been configured. To update the Certifi trust store the CA certificate should be appended onto the cacert.pem file provided by the Certifi library.&lt;/p>
+&lt;p>&lt;a href="https://pypi.org/project/certifi/">Certifi&lt;/a> is a curated list of trusted certificate authorities that is used by the Python requests HTTP client library. The Python requests library is used by Nextlinux Engine for all HTTP interactions, including when communicating with Nextlinux Feed service, when webhooks are sent to a TLS enabled endpoint and inbetween Nextlinux Engine services if TLS has been configured. To update the Certifi trust store the CA certificate should be appended onto the cacert.pem file provided by the Certifi library.&lt;/p>
 &lt;ul>
 &lt;li>For nextlinux 0.2.X and earlier, the base container is CentOS 7, certifi&amp;rsquo;s cacert.pem is installed in &lt;code>/usr/lib/python2.7/site-packages/certifi/cacert.pem&lt;/code>&lt;/li>
 &lt;li>For nextlinux 0.3.X, the base container is Ubuntu 18.04, certifi&amp;rsquo;s cacert.pem is installed in &lt;code>/usr/local/lib/python3.6/dist-packages/certifi/cacert.pem&lt;/code>&lt;/li>
@@ -436,16 +436,16 @@ USER nextlinux:nextlinux
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/install/configuration/tls_ssl_config/</guid>
             <description>
-&lt;p>Communication with the Anchore Engine and between Anchore Engine service can be secured with TLS/SSL. This can be performed in two ways&lt;/p>
+&lt;p>Communication with the Nextlinux Engine and between Nextlinux Engine service can be secured with TLS/SSL. This can be performed in two ways&lt;/p>
 &lt;ul>
 &lt;li>Externally through a load balancing, ingress controller or reverse proxy such as NGINX&lt;/li>
-&lt;li>Natively within the Anchore Engine&lt;/li>
+&lt;li>Natively within the Nextlinux Engine&lt;/li>
 &lt;/ul>
 &lt;p>For most use cases an external service such as a proxy or load balancer will provide the simplest approach, especially when keys need to be rotated, new instances added, etc.&lt;/p>
-&lt;p>The Anchore Engine is comprised of 6 services, typically only the external API service (apiext) and Kubernetes webhook service are published externally, all other services are used for internal communication.&lt;/p>
+&lt;p>The Nextlinux Engine is comprised of 6 services, typically only the external API service (apiext) and Kubernetes webhook service are published externally, all other services are used for internal communication.&lt;/p>
 &lt;p>Transport Level Security (TLS/SSL) is enabled on a per-service basis. In the sample configuration the SSL/TLS configuration options are commented out.&lt;/p>
 &lt;p>In the following example the external API service is configured to listen on port 443 and is configured with a certificate for its external hostname nextlinux.example.com&lt;/p>
-&lt;p>Each service published in the Anchore Engine configuration (apiext, catalog, simplequeue, analyzer, policy_engine and kubernetes_webhook) can be configured to use transport level security.&lt;/p>
+&lt;p>Each service published in the Nextlinux Engine configuration (apiext, catalog, simplequeue, analyzer, policy_engine and kubernetes_webhook) can be configured to use transport level security.&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-YAML" data-lang="YAML">&lt;span style="color:#204a87;font-weight:bold">services&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">apiext&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">enabled&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">True&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
@@ -494,11 +494,11 @@ USER nextlinux:nextlinux
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;p>The certificate files should be placed on a path accessible to the Anchore Engine service, for example in the /config directory which is typically mapped as a volume into the container. Note that the location outside the container will depend on your configuration - for example if you are volume mounting &amp;lsquo;/path/to/aevolume/config/&amp;rsquo; on the docker host to &amp;lsquo;/config&amp;rsquo; within the container, you&amp;rsquo;ll need to place the ssl files in &amp;lsquo;/path/to/aevolume/config/&amp;rsquo; on the docker host, so that they are accessible in &amp;lsquo;/config/&amp;rsquo; inside the container, before starting the service.&lt;/p>
+&lt;p>The certificate files should be placed on a path accessible to the Nextlinux Engine service, for example in the /config directory which is typically mapped as a volume into the container. Note that the location outside the container will depend on your configuration - for example if you are volume mounting &amp;lsquo;/path/to/aevolume/config/&amp;rsquo; on the docker host to &amp;lsquo;/config&amp;rsquo; within the container, you&amp;rsquo;ll need to place the ssl files in &amp;lsquo;/path/to/aevolume/config/&amp;rsquo; on the docker host, so that they are accessible in &amp;lsquo;/config/&amp;rsquo; inside the container, before starting the service.&lt;/p>
 &lt;p>The ssl_chain file is optional and may be required by some certificate authorities. If your certificate authority provides a chain certificate then include it within the configuration.&lt;/p>
 &lt;p>&lt;strong>Note:&lt;/strong> While a certificate may be purchased from a well-known and trusted certificate authority in some cases the certificate is signed by an intermediate certificate which is not included within a TLS/SSL clients trust stores. In these cases the intermediate certificate is signed by the certificate authority however without the full &amp;lsquo;chain&amp;rsquo; showing the provenance and integrity of the certificate the TLS/SSL client may not trust the certificate.&lt;/p>
-&lt;p>Any certificates used by the Anchore Engine services need to be trusted by all other Anchore Engine services.&lt;/p>
-&lt;p>If an internal certificate authority is used the root certificate for the internal CA can be added to the Anchore engine using the following procedure or SSL verification can be disabled by setting the following parameter:&lt;/p>
+&lt;p>Any certificates used by the Nextlinux Engine services need to be trusted by all other Nextlinux Engine services.&lt;/p>
+&lt;p>If an internal certificate authority is used the root certificate for the internal CA can be added to the Nextlinux engine using the following procedure or SSL verification can be disabled by setting the following parameter:&lt;/p>
 &lt;p>&lt;code>internal_ssl_verify: True&lt;/code>&lt;/p></description>
         </item>
         <item>
@@ -508,22 +508,22 @@ USER nextlinux:nextlinux
             <guid>/docs/install/configuration/user_credential_storage/</guid>
             <description>
 &lt;h2 id="overview">Overview&lt;/h2>
-&lt;p>When using the Anchore internal DB to manage user identities (external management is optional in the Enterprise version), all user information is stored in
-the Anchore DB. The credentials can be stored plaintext in the DB, which allows efficient usage internally for dev/test systems, or the credentials can be
+&lt;p>When using the Nextlinux internal DB to manage user identities (external management is optional in the Enterprise version), all user information is stored in
+the Nextlinux DB. The credentials can be stored plaintext in the DB, which allows efficient usage internally for dev/test systems, or the credentials can be
 stored in hashed form using the Argon2 hashing algorithm.&lt;/p>
-&lt;p>Hashed passwords are much more secure, but are expensive to compare and cannot be used for internal service communication since they cannot be reversed. Anchore
+&lt;p>Hashed passwords are much more secure, but are expensive to compare and cannot be used for internal service communication since they cannot be reversed. Nextlinux
 provides a token based authentication mechanism as well (a simplified Password-Grant flow of Oauth2) to mitigate the performance issue, but it requires that
-all Anchore services be deployed with a shared secret in the configuration or a public/private keypair common to all services.&lt;/p>
+all Nextlinux services be deployed with a shared secret in the configuration or a public/private keypair common to all services.&lt;/p>
 &lt;h2 id="passwords">Passwords&lt;/h2>
-&lt;p>The configuration of how passwords are stored is set in the &lt;code>user_authentication&lt;/code> section of the &lt;em>config.yaml&lt;/em> file and &lt;em>must&lt;/em> be consistent across all components of an Anchore Engine deployment. Mismatch
+&lt;p>The configuration of how passwords are stored is set in the &lt;code>user_authentication&lt;/code> section of the &lt;em>config.yaml&lt;/em> file and &lt;em>must&lt;/em> be consistent across all components of an Nextlinux Engine deployment. Mismatch
 in this configuration between components of the system will result in the system not being able to communicate internally.&lt;/p>
 &lt;pre>&lt;code>user_authentication:
 hashed_passwords: true|false
-&lt;/code>&lt;/pre>&lt;p>By default, &lt;code>hashed_passwords&lt;/code> is set to &lt;code>false&lt;/code>. This supports upgrade from previous versions of Anchore as well as usage for installations without a shared key or public/private keys for Anchore. When oauth
-is not configured in the system, Anchore must be able to use HTTP Basic authentication between internal services and thus requires credentials that can be read.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>By default, &lt;code>hashed_passwords&lt;/code> is set to &lt;code>false&lt;/code>. This supports upgrade from previous versions of Nextlinux as well as usage for installations without a shared key or public/private keys for Nextlinux. When oauth
+is not configured in the system, Nextlinux must be able to use HTTP Basic authentication between internal services and thus requires credentials that can be read.&lt;/p>
 &lt;h2 id="bearer-tokensoauth2">Bearer Tokens/OAuth2&lt;/h2>
-&lt;p>If Anchore is configured to support bearer tokens, the tokens are generated and returned to the user but never persisted in the database. All tokens expire, and currently
-Anchore does not support refresh tokens, upon expiration a user must re-authenticate with the username and password to get a new token. Users must still have password credentials, however.
+&lt;p>If Nextlinux is configured to support bearer tokens, the tokens are generated and returned to the user but never persisted in the database. All tokens expire, and currently
+Nextlinux does not support refresh tokens, upon expiration a user must re-authenticate with the username and password to get a new token. Users must still have password credentials, however.
 Password persistence and protection configuration still applies as in the Password section above.&lt;/p>
 &lt;h2 id="configuring-hashed-passwords-and-oauth">Configuring Hashed Passwords and OAuth&lt;/h2>
 &lt;p>NOTE: password storage configuration must be done at the time of deployment, it cannot be modified at runtime or after installation with an existing DB since
@@ -547,7 +547,7 @@ keys:
 private_key_path: &amp;lt;path to private key pem file&amp;gt;
 public_key_path: &amp;lt;path to public key pem file&amp;gt;
 &lt;/code>&lt;/pre>
-&lt;p>Using environment variables with the &lt;em>config.yaml&lt;/em> bundled into the Anchore provided nextlinux-engine image is also an option.
+&lt;p>Using environment variables with the &lt;em>config.yaml&lt;/em> bundled into the Nextlinux provided nextlinux-engine image is also an option.
 NOTE: These are &lt;em>only&lt;/em> valid when using the &lt;em>config.yaml&lt;/em> provided in the image due to that file referencing them explicitly as replacement values.&lt;/p>
 &lt;pre>&lt;code>NEXTLINUX_AUTH_SECRET = the string to use as a secret
 NEXTLINUX_AUTH_PUBKEY = path to public key file
@@ -579,8 +579,8 @@ NEXTLINUX_AUTH_ENABLE_HASHED_PASSWORDS = boolean to enable/disable hashed passwo
             <guid>/docs/install/configuration/max_image_size/</guid>
             <description>
 &lt;h2 id="setting-size-filter">Setting Size Filter&lt;/h2>
-&lt;p>As of v0.9.1, Anchore Engine can be configured to have a size limit for images being added for analysis. Images that exceed the configured maximum size will not be added to Anchore and the catalog service will log an error message providing details of the failure. This size limit is applied when adding images to nextlinux via the &lt;a href="/docs/usage/cli_usage/images/#adding-an-image">api/cli&lt;/a>, &lt;a href="/docs/usage/cli_usage/subscriptions/#tag-updates">tag subscriptions&lt;/a>, and &lt;a href="/docs/usage/cli_usage/repositories/#watching-repositories">repository watchers&lt;/a>.&lt;/p>
-&lt;p>The max size feature is disabled by default but can be enabled via &lt;code>max_compressed_image_size_mb&lt;/code> in the configuration file, which represents the size limit in MB of the compressed image. Values less than 0 will disable the feature and allow images of any size to be added to Anchore. A value of 0 will be enforced and prevent any images from being added. Non-integer values will cause bootstrap of the service to fail. If using compose with the default config, this can be set through the &lt;code>NEXTLINUX_MAX_COMPRESSED_IMAGE_SIZE_MB&lt;/code> env variable on the catalog service. If using helm, it can be defined in the values file via &lt;code>nextlinuxGlobal.maxCompressedImageSizeMB&lt;/code>&lt;/p></description>
+&lt;p>As of v0.9.1, Nextlinux Engine can be configured to have a size limit for images being added for analysis. Images that exceed the configured maximum size will not be added to Nextlinux and the catalog service will log an error message providing details of the failure. This size limit is applied when adding images to nextlinux via the &lt;a href="/docs/usage/cli_usage/images/#adding-an-image">api/cli&lt;/a>, &lt;a href="/docs/usage/cli_usage/subscriptions/#tag-updates">tag subscriptions&lt;/a>, and &lt;a href="/docs/usage/cli_usage/repositories/#watching-repositories">repository watchers&lt;/a>.&lt;/p>
+&lt;p>The max size feature is disabled by default but can be enabled via &lt;code>max_compressed_image_size_mb&lt;/code> in the configuration file, which represents the size limit in MB of the compressed image. Values less than 0 will disable the feature and allow images of any size to be added to Nextlinux. A value of 0 will be enforced and prevent any images from being added. Non-integer values will cause bootstrap of the service to fail. If using compose with the default config, this can be set through the &lt;code>NEXTLINUX_MAX_COMPRESSED_IMAGE_SIZE_MB&lt;/code> env variable on the catalog service. If using helm, it can be defined in the values file via &lt;code>nextlinuxGlobal.maxCompressedImageSizeMB&lt;/code>&lt;/p></description>
         </item>
         <item>
             <title>Docs: Network Proxies</title>
@@ -588,23 +588,23 @@ NEXTLINUX_AUTH_ENABLE_HASHED_PASSWORDS = boolean to enable/disable hashed passwo
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/install/configuration/network_proxies/</guid>
             <description>
-&lt;p>As covered in the Network sections of the requirements document the Anchore Engine requires three categories of network connectivity.&lt;/p>
+&lt;p>As covered in the Network sections of the requirements document the Nextlinux Engine requires three categories of network connectivity.&lt;/p>
 &lt;ul>
 &lt;li>
 &lt;p>Registry Access
-Network connectivity, including DNS resolution, to the registries from which the Anchore Engine needs to download images.&lt;/p>
+Network connectivity, including DNS resolution, to the registries from which the Nextlinux Engine needs to download images.&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>Feed Service
-The Anchore Engine synchronizes feed data such as operating system vulnerabilities (CVEs) from the Anchore Cloud Service. Only a single end point is required for this synchronization, host: ancho.re TCP port: 443&lt;/p>
+The Nextlinux Engine synchronizes feed data such as operating system vulnerabilities (CVEs) from the Nextlinux Cloud Service. Only a single end point is required for this synchronization, host: ancho.re TCP port: 443&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>Access to Anchore Internal Services
-The Anchore Engine is comprised of six smaller micro-services that can be deployed in a single container or scaled out to handle load. Each Anchore service should be able to connect the other services over the network.&lt;/p>
+&lt;p>Access to Nextlinux Internal Services
+The Nextlinux Engine is comprised of six smaller micro-services that can be deployed in a single container or scaled out to handle load. Each Nextlinux service should be able to connect the other services over the network.&lt;/p>
 &lt;/li>
 &lt;/ul>
-&lt;p>In environments were access to the public internet is restricted then a proxy server may be required to allow the Anchore Engine to connect to the Anchore Cloud Feed Service or to a publicly hosted container registry.&lt;/p>
-&lt;p>The Anchore Engine can be configured to access a proxy server by using environment variables that are read by the Anchore Engine at run time.&lt;/p>
+&lt;p>In environments were access to the public internet is restricted then a proxy server may be required to allow the Nextlinux Engine to connect to the Nextlinux Cloud Feed Service or to a publicly hosted container registry.&lt;/p>
+&lt;p>The Nextlinux Engine can be configured to access a proxy server by using environment variables that are read by the Nextlinux Engine at run time.&lt;/p>
 &lt;ul>
 &lt;li>
 &lt;p>https_proxy:
@@ -645,14 +645,14 @@ eg. localhost,127.0.0.1,registry,example.com&lt;/p>
 &lt;/ul></description>
         </item>
         <item>
-            <title>Docs: Using Environment Variables in Anchore</title>
+            <title>Docs: Using Environment Variables in Nextlinux</title>
             <link>/docs/install/configuration/using_env_vars/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/install/configuration/using_env_vars/</guid>
             <description>
-&lt;p>Environment variable references may be used in the Anchore config.yaml file to set values that need to be configurable during deployment.&lt;/p>
-&lt;p>Using this mechanism a common configuration file can be used with multiple Anchore Engine instances with key values being passed using environment variables.&lt;/p>
-&lt;p>The config.yaml configuration file is read by the Anchore Engine any references to variables prefixed with NEXTLINUX will be replaced by the value of the matching environment variable.&lt;/p>
+&lt;p>Environment variable references may be used in the Nextlinux config.yaml file to set values that need to be configurable during deployment.&lt;/p>
+&lt;p>Using this mechanism a common configuration file can be used with multiple Nextlinux Engine instances with key values being passed using environment variables.&lt;/p>
+&lt;p>The config.yaml configuration file is read by the Nextlinux Engine any references to variables prefixed with NEXTLINUX will be replaced by the value of the matching environment variable.&lt;/p>
 &lt;p>For example in the sample configuration file the &lt;em>host_id&lt;/em> parameter is set be appending the NEXTLINUX_HOST_ID variable to the string &lt;em>dockerhostid&lt;/em>&lt;/p>
 &lt;p>&lt;code>host_id: 'dockerhostid-${NEXTLINUX_HOST_ID}'&lt;/code>&lt;/p>
 &lt;p>Notes:&lt;/p>
@@ -664,8 +664,8 @@ eg. localhost,127.0.0.1,registry,example.com&lt;/p>
 &lt;h3 id="passing-environment-variables-as-a-file">Passing Environment Variables as a File&lt;/h3>
 &lt;p>Environment Variables may also be passed as a file contained key value pairs.&lt;/p>
 &lt;pre>&lt;code>NEXTLINUX_HOST_ID=myservice1 NEXTLINUX_LOG_LEVEL=DEBUG
-&lt;/code>&lt;/pre>&lt;p>The Anchore Engine will check for an environment variable named &lt;em>NEXTLINUX_ENV_FILE&lt;/em> if this variable is set the the Anchore Engine will attempt to read a file at the location specified in this variable.&lt;/p>
-&lt;p>The Anchore environment file is read before any other Anchore environment variables so any NEXTLINUX variables passed in the environment will override the values set in the environment file.&lt;/p></description>
+&lt;/code>&lt;/pre>&lt;p>The Nextlinux Engine will check for an environment variable named &lt;em>NEXTLINUX_ENV_FILE&lt;/em> if this variable is set the the Nextlinux Engine will attempt to read a file at the location specified in this variable.&lt;/p>
+&lt;p>The Nextlinux environment file is read before any other Nextlinux environment variables so any NEXTLINUX variables passed in the environment will override the values set in the environment file.&lt;/p></description>
         </item>
         <item>
             <title>Docs: Configuring Malware Scans of Images</title>

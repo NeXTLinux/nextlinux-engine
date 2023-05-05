@@ -4,9 +4,9 @@ linkTitle: "Authentication Modes"
 weight: 4
 ---
 
-## Anchore Engine Authentication Overview
+## Nextlinux Engine Authentication Overview
 
-Anchore Engine supports two ways for users to authenticate to the API: HTTP Basic and Bearer Tokens. HTTP Basic is always 
+Nextlinux Engine supports two ways for users to authenticate to the API: HTTP Basic and Bearer Tokens. HTTP Basic is always 
 supported but Bearer token auth must be explicitly configured to be used.
 
 For production installation, it is recommended to [configure bearer tokens as well as hashed password storage]({{< ref "/docs/install/configuration/user_credential_storage" >}}) 
@@ -20,7 +20,7 @@ exactly the same secret or key-pair present.
 
 ### Basic Auth
 
-By default, Anchore Engine uses [HTTP Basic](https://tools.ietf.org/html/rfc2617) auth for all internal and external API 
+By default, Nextlinux Engine uses [HTTP Basic](https://tools.ietf.org/html/rfc2617) auth for all internal and external API 
 operations. For production deployments with this mode, it is critical to use HTTPS to secure the communication channel 
 between services and users. See: [Configuring HTTPS]({{< ref "/docs/install/configuration/tls_ssl_config" >}}) for setup information.
 
@@ -56,7 +56,7 @@ Example Usage:
 
 ### Bearer Tokens/Oauth
 
-When configured, nextlinux implements the Oauth2 Password grant flow. Anchore is configured with a default 'anonymous' client 
+When configured, nextlinux implements the Oauth2 Password grant flow. Nextlinux is configured with a default 'anonymous' client 
 id that is used to avoid requiring registering specific clients.
 
 Required payload, must be www-form-urlencoded:

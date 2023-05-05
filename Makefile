@@ -1,5 +1,5 @@
 ############################################################
-# Makefile for the Anchore Engine, a service that analyzes
+# Makefile for the Nextlinux Engine, a service that analyzes
 # Docker images and applies user-defined policies for automated
 # container image validation and certification. The rules, directives, and variables in this
 # Makefile enable testing, Docker image generation, and pushing Docker
@@ -148,22 +148,22 @@ setup-and-test-e2e: setup-test-infra venv ## Set up and run end to end tests
 # Release targets
 #######################
 
-push-nightly: setup-test-infra ## Push nightly Anchore Engine Docker image to Docker Hub
+push-nightly: setup-test-infra ## Push nightly Nextlinux Engine Docker image to Docker Hub
 	@$(CI_CMD) push-nightly-image "$(COMMIT_SHA)" "$(DEV_IMAGE_REPO)" "$(GIT_BRANCH)" "$(TEST_IMAGE_NAME)"
 
-push-dev: setup-test-infra ## Push dev Anchore Engine Docker image to Docker Hub
+push-dev: setup-test-infra ## Push dev Nextlinux Engine Docker image to Docker Hub
 	@$(CI_CMD) push-dev-image "$(COMMIT_SHA)" "$(DEV_IMAGE_REPO)" "$(GIT_BRANCH)" "$(TEST_IMAGE_NAME)"
 
-push-rc: setup-test-infra ## Push RC Anchore Engine Docker image to Docker Hub (not available outside of CI)
+push-rc: setup-test-infra ## Push RC Nextlinux Engine Docker image to Docker Hub (not available outside of CI)
 	@$(CI_CMD) push-rc-image "$(DEV_IMAGE_REPO)" "$(GIT_TAG)" "$(TEST_IMAGE_NAME)"
 
-push-prod: setup-test-infra ## Push release Anchore Engine Docker image to Docker Hub (not available outside of CI
+push-prod: setup-test-infra ## Push release Nextlinux Engine Docker image to Docker Hub (not available outside of CI
 	@$(CI_CMD) push-prod-image-release "$(DEV_IMAGE_REPO)" "$(GIT_BRANCH)" "$(GIT_TAG)"
 
-push-redhat: setup-test-infra ## (Not available outside of CI) Push prod Anchore Engine docker image to RedHat Connect
+push-redhat: setup-test-infra ## (Not available outside of CI) Push prod Nextlinux Engine docker image to RedHat Connect
 	@$(CI_CMD) push-redhat-image "$(GIT_TAG)"
 
-push-rebuild: setup-test-infra ## Rebuild and push prod Anchore Engine docker image to Docker Hub (not available outside of CI)
+push-rebuild: setup-test-infra ## Rebuild and push prod Nextlinux Engine docker image to Docker Hub (not available outside of CI)
 	@$(CI_CMD) push-prod-image-rebuild "$(COMMIT_SHA)" "$(DEV_IMAGE_REPO)" "$(GIT_TAG)"
 
 

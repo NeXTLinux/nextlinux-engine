@@ -77,7 +77,7 @@ from anchore_engine.subsys.object_store.config import (
     DEFAULT_OBJECT_STORE_MANAGER_ID,
     ALT_OBJECT_STORE_CONFIG_KEY,
 )
-from anchore_engine.utils import AnchoreException
+from anchore_engine.utils import NextlinuxException
 
 
 ##########################################################
@@ -692,7 +692,7 @@ def handle_repo_watcher(*args, **kwargs):
                     curr_repotags = docker_registry.get_repo_tags(
                         userId, image_info, registry_creds=registry_creds
                     )
-                except AnchoreException as e:
+                except NextlinuxException as e:
                     event = events.ListTagsFailed(
                         user_id=userId,
                         registry=image_info.get("registry", None),
@@ -762,7 +762,7 @@ def handle_repo_watcher(*args, **kwargs):
                                         tag=fulltag,
                                         msg="No manifest from get_image_info",
                                     )
-                            except AnchoreException as e:
+                            except NextlinuxException as e:
                                 event = events.TagManifestParseFailed(
                                     user_id=userId, tag=fulltag, error=e.to_dict()
                                 )
@@ -968,7 +968,7 @@ def handle_image_watcher(*args, **kwargs):
                         raise TagManifestNotFoundError(
                             tag=fulltag, msg="No manifest from get_image_info"
                         )
-                except AnchoreException as e:
+                except NextlinuxException as e:
                     event = events.TagManifestParseFailed(
                         user_id=userId, tag=fulltag, error=e.to_dict()
                     )

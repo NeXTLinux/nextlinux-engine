@@ -4,15 +4,15 @@ linkTitle: "Images"
 weight: 1
 ---
 
-Once an image is submitted to the Anchore Engine for analysis the Engine will attempt to retrieve metadata about the image from the Docker registry and if successful will download the image and queue the image for analysis.
+Once an image is submitted to the Nextlinux Engine for analysis the Engine will attempt to retrieve metadata about the image from the Docker registry and if successful will download the image and queue the image for analysis.
 
-The Anchore Engine can run one or more analyzer services to scale out processing of images. The next available analyzer worker will process the image.
+The Nextlinux Engine can run one or more analyzer services to scale out processing of images. The next available analyzer worker will process the image.
 
 ![alt text](AnalyzingImages.png)
 
-During analysis every package, software library and file are inspected and this data is stored in the Anchore Database.
+During analysis every package, software library and file are inspected and this data is stored in the Nextlinux Database.
 
-The Anchore Engine includes a number of analyzer modules that extract data from the image including:
+The Nextlinux Engine includes a number of analyzer modules that extract data from the image including:
 
 - Image metadata
 - Image layers
@@ -25,7 +25,7 @@ The Anchore Engine includes a number of analyzer modules that extract data from 
 - .NET NuGet Packages
 - File content
 
-Once a tag has been added to the Anchore Engine the repository will be monitored for updates to that tag.
+Once a tag has been added to the Nextlinux Engine the repository will be monitored for updates to that tag.
 
 Any updated images will be downloaded and analyzed.
 

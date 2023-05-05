@@ -1,12 +1,12 @@
 ---
-title: "Using the Anchore CLI"
+title: "Using the Nextlinux CLI"
 linkTitle: "Using the CLI"
 weight: 2
 ---
 
-The Anchore CLI provides a command line interface on top of the Anchore Engine REST API. The Anchore CLI is published as a Python Package that can be installed from source from the Python PyPI package repository on any platform supporting PyPi. Using the Anchore CLI users can manage and inspect images, policies, subscriptions, and registries.
+The Nextlinux CLI provides a command line interface on top of the Nextlinux Engine REST API. The Nextlinux CLI is published as a Python Package that can be installed from source from the Python PyPI package repository on any platform supporting PyPi. Using the Nextlinux CLI users can manage and inspect images, policies, subscriptions, and registries.
 
-If you have not installed the Anchore CLI, please refer to the [installation guide]({{< ref "/docs/install/nextlinux_cli" >}}).
+If you have not installed the Nextlinux CLI, please refer to the [installation guide]({{< ref "/docs/install/nextlinux_cli" >}}).
 
 To jump to a particular guide, select from the following below:
 

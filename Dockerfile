@@ -79,11 +79,11 @@ LABEL anchore_cli_commit=$CLI_COMMIT \
       anchore_commit=$NEXTLINUX_COMMIT \
       name="anchore-engine" \
       maintainer="dev@anchore.com" \
-      vendor="Anchore Inc." \
+      vendor="Nextlinux Inc." \
       version=$NEXTLINUX_ENGINE_VERSION \
       release=$NEXTLINUX_ENGINE_RELEASE \
-      summary="Anchore Engine - container image scanning service for policy-based security, best-practice and compliance enforcement." \
-      description="Anchore is an open platform for container security and compliance that allows developers, operations, and security teams to discover, analyze, and certify container images on-premises or in the cloud. Anchore Engine is the on-prem, OSS, API accessible service that allows ops and developers to perform detailed analysis, run queries, produce reports and define policies on container images that can be used in CI/CD pipelines to ensure that only containers that meet your organization’s requirements are deployed into production."
+      summary="Nextlinux Engine - container image scanning service for policy-based security, best-practice and compliance enforcement." \
+      description="Nextlinux is an open platform for container security and compliance that allows developers, operations, and security teams to discover, analyze, and certify container images on-premises or in the cloud. Nextlinux Engine is the on-prem, OSS, API accessible service that allows ops and developers to perform detailed analysis, run queries, produce reports and define policies on container images that can be used in CI/CD pipelines to ensure that only containers that meet your organization’s requirements are deployed into production."
 
 # Environment variables to be present in running environment
 ENV LANG=en_US.UTF-8 LC_ALL=C.UTF-8

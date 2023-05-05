@@ -3,7 +3,7 @@ title: "Filesystem Driver"
 weight: 1
 ---
 
-Using the file system driver object store documents can be stored on a filesystem volume passed to the Anchore Engine container.
+Using the file system driver object store documents can be stored on a filesystem volume passed to the Nextlinux Engine container.
 
 **The filesystem driver does not handle distribution or replication.** To replicate the file system across nodes for performance and redundancy a clustered / shared filesystem such as Gluster, CephFS or Amazon EFS should be used.
 
@@ -17,7 +17,7 @@ For environments who do not want to utilize the default PostgresSQL storage and 
 
 ### Compression
 
-The localfs (filesystem) driver supports compression of object_store documents. The object_store documents are JSON formatted and will see significant reduction in size through compression there is an overhead incurred by running compression and decompression on every access of these documents. The Anchore Engine can be configured to only compress documents above a certain size to reduce unnecessary overhead. In the example below any document over 100kb in size will be compressed.
+The localfs (filesystem) driver supports compression of object_store documents. The object_store documents are JSON formatted and will see significant reduction in size through compression there is an overhead incurred by running compression and decompression on every access of these documents. The Nextlinux Engine can be configured to only compress documents above a certain size to reduce unnecessary overhead. In the example below any document over 100kb in size will be compressed.
 
 ```YAML
 object_store:

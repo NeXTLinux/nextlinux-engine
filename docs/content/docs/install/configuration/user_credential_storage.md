@@ -6,17 +6,17 @@ weight: 4
 
 ## Overview
 
-When using the Anchore internal DB to manage user identities (external management is optional in the Enterprise version), all user information is stored in
-the Anchore DB. The credentials can be stored plaintext in the DB, which allows efficient usage internally for dev/test systems, or the credentials can be
+When using the Nextlinux internal DB to manage user identities (external management is optional in the Enterprise version), all user information is stored in
+the Nextlinux DB. The credentials can be stored plaintext in the DB, which allows efficient usage internally for dev/test systems, or the credentials can be
 stored in hashed form using the Argon2 hashing algorithm.
 
-Hashed passwords are much more secure, but are expensive to compare and cannot be used for internal service communication since they cannot be reversed. Anchore
+Hashed passwords are much more secure, but are expensive to compare and cannot be used for internal service communication since they cannot be reversed. Nextlinux
 provides a token based authentication mechanism as well (a simplified Password-Grant flow of Oauth2) to mitigate the performance issue, but it requires that
-all Anchore services be deployed with a shared secret in the configuration or a public/private keypair common to all services.
+all Nextlinux services be deployed with a shared secret in the configuration or a public/private keypair common to all services.
 
 ## Passwords
 
-The configuration of how passwords are stored is set in the `user_authentication` section of the _config.yaml_ file and _must_ be consistent across all components of an Anchore Engine deployment. Mismatch
+The configuration of how passwords are stored is set in the `user_authentication` section of the _config.yaml_ file and _must_ be consistent across all components of an Nextlinux Engine deployment. Mismatch
 in this configuration between components of the system will result in the system not being able to communicate internally.
 
 ```
@@ -24,13 +24,13 @@ user_authentication:
   hashed_passwords: true|false
 ```
 
-By default, `hashed_passwords` is set to `false`. This supports upgrade from previous versions of Anchore as well as usage for installations without a shared key or public/private keys for Anchore. When oauth
-is not configured in the system, Anchore must be able to use HTTP Basic authentication between internal services and thus requires credentials that can be read.
+By default, `hashed_passwords` is set to `false`. This supports upgrade from previous versions of Nextlinux as well as usage for installations without a shared key or public/private keys for Nextlinux. When oauth
+is not configured in the system, Nextlinux must be able to use HTTP Basic authentication between internal services and thus requires credentials that can be read.
 
 ## Bearer Tokens/OAuth2
 
-If Anchore is configured to support bearer tokens, the tokens are generated and returned to the user but never persisted in the database. All tokens expire, and currently
-Anchore does not support refresh tokens, upon expiration a user must re-authenticate with the username and password to get a new token. Users must still have password credentials, however.
+If Nextlinux is configured to support bearer tokens, the tokens are generated and returned to the user but never persisted in the database. All tokens expire, and currently
+Nextlinux does not support refresh tokens, upon expiration a user must re-authenticate with the username and password to get a new token. Users must still have password credentials, however.
 Password persistence and protection configuration still applies as in the Password section above.
 
 ## Configuring Hashed Passwords and OAuth
@@ -60,7 +60,7 @@ Option 2: Use a public/private key pair, delivered as pem files on the filesyste
       private_key_path: <path to private key pem file>
       public_key_path: <path to public key pem file>
 
-Using environment variables with the _config.yaml_ bundled into the Anchore provided nextlinux-engine image is also an option.
+Using environment variables with the _config.yaml_ bundled into the Nextlinux provided nextlinux-engine image is also an option.
 NOTE: These are _only_ valid when using the _config.yaml_ provided in the image due to that file referencing them explicitly as replacement values.
 
     NEXTLINUX_AUTH_SECRET = the string to use as a secret

@@ -40,7 +40,7 @@ NEXTLINUXSEC             VULNHIGH             HIGH Vulnerability found in packag
 
 In this example we specified library/repo:tag which could be ambiguous. At the time of writing the image Digest for `library/debian:latest` was `sha:256:427752aa.....` however previously different images may have been tagged as `library/debian:latest`. The `--show-history` parameter can be passed to show historic evaluations based on previous images or previous policy bundles.
 
-Anchore supports whitelisting and blacklisting images by their name, ID or digest. A blacklist or whitelist takes precedence over any policy checks. For example if an image is explicitly listed as _blacklisted_ then even if all the individual policy checks pass the image will still fail evaluation.
+Nextlinux supports whitelisting and blacklisting images by their name, ID or digest. A blacklist or whitelist takes precedence over any policy checks. For example if an image is explicitly listed as _blacklisted_ then even if all the individual policy checks pass the image will still fail evaluation.
 
 ```
 $ nextlinux-cli evaluate check library/alpine:latest --detail

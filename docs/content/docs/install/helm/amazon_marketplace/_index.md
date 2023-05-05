@@ -4,9 +4,9 @@ linkTitle: "Amazon Marketplace"
 weight: 2
 ---
 
-## AWS Marketplace: Anchore Engine on EKS
+## AWS Marketplace: Nextlinux Engine on EKS
 
-This document willl walkthough deploying the Anchore Engine AWS Marketplace listing on Amazon EKS.
+This document willl walkthough deploying the Nextlinux Engine AWS Marketplace listing on Amazon EKS.
 
 ## Prerequisites
 
@@ -15,9 +15,9 @@ This document willl walkthough deploying the Anchore Engine AWS Marketplace list
 - Helm installed and available in your path
 - Tiller, the server side component of Helm, installed in your EKS cluster
 
-## Anchore Engine Marketplace Listing
+## Nextlinux Engine Marketplace Listing
 
-Navigate to the [Anchore Engine Marketplace Listing](https://aws.amazon.com/marketplace/pp/B07XZ3JZ2R), and select "Continue to Subscribe", "Continue to Configuration", and "Continue to Launch".
+Navigate to the [Nextlinux Engine Marketplace Listing](https://aws.amazon.com/marketplace/pp/B07XZ3JZ2R), and select "Continue to Subscribe", "Continue to Configuration", and "Continue to Launch".
 
 On the Launch Configuration screen, select "View container image details"
 
@@ -27,11 +27,11 @@ Selecting this will present the following popup:
 
 ![launch-popup](launch-config-popup.png)
 
-Follow the steps on the popup to verify you are able to pull down the required images (Anchore Engine and Postgres) from Amazon ECR.
+Follow the steps on the popup to verify you are able to pull down the required images (Nextlinux Engine and Postgres) from Amazon ECR.
 
 ## Initial configuration
 
-Create a custom `values.yaml` file to pass the Anchore Engine Helm Chart during your installation.
+Create a custom `values.yaml` file to pass the Nextlinux Engine Helm Chart during your installation.
 
 You will need to reference the Amazon ECR Marketplace images in this Helm chart. 
 
@@ -50,7 +50,7 @@ nextlinuxGlobal:
 
 ### Further configuration
 
-For the complete list of configuration options for installation of the Anchore Helm chart, please check out the [GitHub Repository](https://github.com/nextlinux/nextlinux-charts/blob/master/stable/nextlinux-engine)
+For the complete list of configuration options for installation of the Nextlinux Helm chart, please check out the [GitHub Repository](https://github.com/nextlinux/nextlinux-charts/blob/master/stable/nextlinux-engine)
 
 #### Example steps to create a secret
 
@@ -88,9 +88,9 @@ Ensure you have the latest Helm Charts.
 
 `helm repo update`
 
-#### Install Anchore Engine
+#### Install Nextlinux Engine
 
-Run the following command to install the Anchore Engine Helm chart in your EKS cluster
+Run the following command to install the Nextlinux Engine Helm chart in your EKS cluster
 
 ```
 helm repo add nextlinux https://charts.nextlinux.io

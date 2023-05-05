@@ -1,7 +1,7 @@
 <rss version="2.0"
     xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Anchore Engine – Working with Policies</title>
+        <title>Nextlinux Engine – Working with Policies</title>
         <link>/docs/usage/cli_usage/policies/</link>
         <description>Recent Hugo news from gohugo.io</description>
         <generator>Hugo -- gohugo.io</generator>
@@ -12,7 +12,7 @@
         </image>
         <atom:link href="/docs/usage/cli_usage/policies/index.xml" rel="self" type="application/rss+xml"/>
         <item>
-            <title>Docs: Anchore Policies Checks</title>
+            <title>Docs: Nextlinux Policies Checks</title>
             <link>/docs/usage/cli_usage/policies/policy_checks/</link>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/usage/cli_usage/policies/policy_checks/</guid>
@@ -83,7 +83,7 @@
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;p>For a more in-depth list of available gates/triggers, refer to &lt;a href="/docs/general/concepts/policy/policy_checks/">Anchore Policy Checks&lt;/a>&lt;/p></description>
+&lt;p>For a more in-depth list of available gates/triggers, refer to &lt;a href="/docs/general/concepts/policy/policy_checks/">Nextlinux Policy Checks&lt;/a>&lt;/p></description>
         </item>
         <item>
             <title>Docs: Evaluating Images Against Policies</title>
@@ -116,7 +116,7 @@ DOCKERFILECHECK NOHEALTHCHECK Dockerfile does not contain any HEALTHCHECK instru
 NEXTLINUXSEC VULNHIGH HIGH Vulnerability found in package - mount (CVE-2016-2779 - https://security-tracker.debian.org/tracker/CVE-2016-2779) stop
 NEXTLINUXSEC VULNHIGH HIGH Vulnerability found in package - libuuid1 (CVE-2016-2779 - https://security-tracker.debian.org/tracker/CVE-2016-2779) stop
 &lt;/code>&lt;/pre>&lt;p>In this example we specified library/repo:tag which could be ambiguous. At the time of writing the image Digest for &lt;code>library/debian:latest&lt;/code> was &lt;code>sha:256:427752aa.....&lt;/code> however previously different images may have been tagged as &lt;code>library/debian:latest&lt;/code>. The &lt;code>--show-history&lt;/code> parameter can be passed to show historic evaluations based on previous images or previous policy bundles.&lt;/p>
-&lt;p>Anchore supports whitelisting and blacklisting images by their name, ID or digest. A blacklist or whitelist takes precedence over any policy checks. For example if an image is explicitly listed as &lt;em>blacklisted&lt;/em> then even if all the individual policy checks pass the image will still fail evaluation.&lt;/p>
+&lt;p>Nextlinux supports whitelisting and blacklisting images by their name, ID or digest. A blacklist or whitelist takes precedence over any policy checks. For example if an image is explicitly listed as &lt;em>blacklisted&lt;/em> then even if all the individual policy checks pass the image will still fail evaluation.&lt;/p>
 &lt;pre>&lt;code>$ nextlinux-cli evaluate check library/alpine:latest --detail
 Image Digest: sha256:8c03bb07a531c53ad7d0f6e7041b64d81f99c6e493cb39abba56d956b40eacbc
 Full Tag: docker.io/library/alpine:latest
@@ -145,7 +145,7 @@ dockerfile instruction Dockerfile directive 'HEALTHCHECK' not found, matching co
             <guid>/docs/usage/cli_usage/policies/policy_gate_dockerfile/</guid>
             <description>
 &lt;p>This article reviews the &amp;ldquo;dockerfile&amp;rdquo; gate and its triggers. The dockerfile gate allows users to perform checks on the content of the dockerfile or docker history for an image and make policy actions based on the construction of an image, not just its content. This is particularly useful for enforcing best practices or metadata inclusion (e.g. labels) on images.&lt;/p>
-&lt;p>Anchore is either given a dockerfile or infers one from the docker image layer history. There are implications to what data is available and what it means depending on these differing sources, so first, we&amp;rsquo;ll cover the input data for the gate and how it impacts the triggers and parameters used.&lt;/p>
+&lt;p>Nextlinux is either given a dockerfile or infers one from the docker image layer history. There are implications to what data is available and what it means depending on these differing sources, so first, we&amp;rsquo;ll cover the input data for the gate and how it impacts the triggers and parameters used.&lt;/p>
 &lt;h3 id="the-dockerfile">The &amp;ldquo;dockerfile&amp;rdquo;&lt;/h3>
 &lt;p>The data that this gate operates on can come from two different sources:&lt;/p>
 &lt;ol>
@@ -154,7 +154,7 @@ dockerfile instruction Dockerfile directive 'HEALTHCHECK' not found, matching co
 &lt;/ol>
 &lt;p>All images have data from history available, but data from the actual dockerfile is only available when a user provides it. This also means that any images analyzed by the tag watcher functionality will not have an actual dockerfile.&lt;/p>
 &lt;h4 id="the-from-line">The FROM line&lt;/h4>
-&lt;p>In the actual dockerfile, the FROM instruction is preserved and available as used to build the image, however in the history data, the FROM line will always be the very first FROM instruction used to build the image and all of its dependent based image. Thus, for most images, the value in the history will be omitted and Anchore will automatically infer a FROM scratch line, which is logically inserted for this gate if the dockerfile/history does not contain an explicit FROM entry.&lt;/p>
+&lt;p>In the actual dockerfile, the FROM instruction is preserved and available as used to build the image, however in the history data, the FROM line will always be the very first FROM instruction used to build the image and all of its dependent based image. Thus, for most images, the value in the history will be omitted and Nextlinux will automatically infer a FROM scratch line, which is logically inserted for this gate if the dockerfile/history does not contain an explicit FROM entry.&lt;/p>
 &lt;p>For example, using the docker.io/jenkins/jenkins image:&lt;/p>
 &lt;pre>&lt;code>IMAGE CREATED CREATED BY SIZE COMMENT
 sha256:3b9c9666a66e53473c05a3c69eb2cb888a8268f76935eecc7530653cddc28981 11 hours ago /bin/sh -c #(nop) COPY file:3a15c25533fd87983edc33758f62af7b543ccc3ce9dd570e473eb0702f5f298e in /usr/local/bin/install-plugins.sh 8.79kB
@@ -270,7 +270,7 @@ ENTRYPOINT [&amp;quot;/sbin/tini&amp;quot;, &amp;quot;--&amp;quot;, &amp;quot;/u
 # from a derived Dockerfile, can use `RUN plugins.sh active.txt` to setup /usr/share/jenkins/ref/plugins from a support bundle
 COPY plugins.sh /usr/local/bin/plugins.sh
 COPY install-plugins.sh /usr/local/bin/install-plugins.sh
-&lt;/code>&lt;/pre>&lt;p>Anchore will detect the history/dockerfile as this, if not explicitly provided (note order is reversed from docker history output, so it reads in same order as actual dockerfile):&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>Nextlinux will detect the history/dockerfile as this, if not explicitly provided (note order is reversed from docker history output, so it reads in same order as actual dockerfile):&lt;/p>
 &lt;pre>&lt;code>[
 {
 &amp;quot;Size&amp;quot; : 45323792,
@@ -338,7 +338,7 @@ COPY install-plugins.sh /usr/local/bin/install-plugins.sh
 &amp;quot;Id&amp;quot; : &amp;quot;sha256:b0ce8ab5a5a7da5d762f25af970f4423b98437a8318cb9852c3f21354cbf914f&amp;quot;
 }
 ]
-&lt;/code>&lt;/pre>&lt;p>NOTE: Anchore processes the leading /bin/sh commands, so you do not have to include those in any trigger param config if using the docker history output.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>NOTE: Nextlinux processes the leading /bin/sh commands, so you do not have to include those in any trigger param config if using the docker history output.&lt;/p>
 &lt;h4 id="the-actual_dockerfile_only-parameter">The actual_dockerfile_only Parameter&lt;/h4>
 &lt;p>The actual vs history impacts the semantics of the dockerfile gate&amp;rsquo;s triggers. To allow explicit control of the differences, most triggers in this gate includes a parameter: actual_dockerfile_only that if set to true or false will ensure the trigger check is only done on the source of data specified. If actual_dockerfile_only = true, then the trigger will evaluate only if an actual dockerfile is available for the image and will skip evaluation if not. If actual_dockerfile_only is false or omitted, then the trigger will run on the actual dockerfile if available, or the history data if the dockerfile was not provided.&lt;/p>
 &lt;h4 id="differences-in-data-between-docker-history-and-actual-dockerfile">Differences in data between Docker History and actual Dockerfile&lt;/h4>
@@ -362,7 +362,7 @@ COPY install-plugins.sh /usr/local/bin/install-plugins.sh
 &lt;/ol>
 &lt;h3 id="trigger-instruction">Trigger: instruction&lt;/h3>
 &lt;p>This trigger evaluates instructions found in the &amp;ldquo;dockerfile&amp;rdquo;&lt;/p>
-&lt;p>Supported Directives/Instructions (as of Anchore Engine v.0.3.2):&lt;/p>
+&lt;p>Supported Directives/Instructions (as of Nextlinux Engine v.0.3.2):&lt;/p>
 &lt;h4 id="parameters">Parameters&lt;/h4>
 &lt;p>actual_dockerfile_only (optional): See above&lt;/p>
 &lt;p>instruction: The dockerfile instruction to check against. One of:&lt;/p>

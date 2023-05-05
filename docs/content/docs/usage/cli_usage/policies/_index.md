@@ -6,9 +6,9 @@ weight: 3
 
 ## Overview
 
-Policies are central to the concept of Anchore Engine, this article provides information on how to create, delete, update, and describe policies using the Anchore CLI to interact with a running Anchore Engine deployment. 
+Policies are central to the concept of Nextlinux Engine, this article provides information on how to create, delete, update, and describe policies using the Nextlinux CLI to interact with a running Nextlinux Engine deployment. 
 
-At a high-level Anchore Engine consumes policies store in a Policy Bundle that contain:
+At a high-level Nextlinux Engine consumes policies store in a Policy Bundle that contain:
 
 - Policies
 - Whitelists
@@ -16,18 +16,18 @@ At a high-level Anchore Engine consumes policies store in a Policy Bundle that c
 - Whitelisted Images
 - Blacklisted Images
 
-The Anchore Engine can store multiple policy bundles for each user, but only one bundle can be active at any point in time. It is common to store historic bundles to allow previous policies and evaluations to be inspected. The active bundle is the one used for evaluation for notifications, incoming kubernetes webhooks (unless configured otherwise), and other automatic system functions, but a user may request evaluation of any bundle stored in the system using that bundle's id.
+The Nextlinux Engine can store multiple policy bundles for each user, but only one bundle can be active at any point in time. It is common to store historic bundles to allow previous policies and evaluations to be inspected. The active bundle is the one used for evaluation for notifications, incoming kubernetes webhooks (unless configured otherwise), and other automatic system functions, but a user may request evaluation of any bundle stored in the system using that bundle's id.
 
 For more information on the content and semantics of policy bundles see: Policy Bundles and Evaluation
 
 ### Creating Policies
 
-Policy bundles are just JSON documents. Anchore Engine includes a default policy configured at installation that performs basic CVE checks as well as some Dockerfile checks.
+Policy bundles are just JSON documents. Nextlinux Engine includes a default policy configured at installation that performs basic CVE checks as well as some Dockerfile checks.
 
 To create custom polices, you may:
 
 - Edit JSON manually and upload a file
-- Use the Anchore Enterprise UI to edit policies
+- Use the Nextlinux Enterprise UI to edit policies
 
 ### Managing Policies
 
@@ -35,7 +35,7 @@ Policies can be managed directly using the REST API or the `nextlinux-cli policy
 
 #### Adding Policies from the CLI
 
-The `nextlinux-cli` tool allows you to upload policy bundles to the Anchore Engine.
+The `nextlinux-cli` tool allows you to upload policy bundles to the Nextlinux Engine.
 
 `nextlinux-cli policy add /path/to/policy/bundle.json`
 
@@ -43,7 +43,7 @@ The `nextlinux-cli` tool allows you to upload policy bundles to the Anchore Engi
 
 #### Listing Policies
 
-The Anchore Engine may store multiple policy bundles however at a given time only one bundle may be active. Policy bundles can be listed using the `policy list` command.
+The Nextlinux Engine may store multiple policy bundles however at a given time only one bundle may be active. Policy bundles can be listed using the `policy list` command.
 
 ```
 $ nextlinux-cli policy list
@@ -81,11 +81,11 @@ The `policy activate` command can be used to activate a policy bundle. The polic
 
 `$ nextlinux-cli policy activate 2170857d-b660-4b56-a1a7-06550bf02eb2`
 
-**Note:** If the Anchore Engine has been configured to automatically synchronize policy bundles from the Anchore Cloud then the active policy may be overridden automatically during the next sync.
+**Note:** If the Nextlinux Engine has been configured to automatically synchronize policy bundles from the Nextlinux Cloud then the active policy may be overridden automatically during the next sync.
 
 #### Deleting Policies
 
-Policies can be deleted from the Anchore Engine using the `policy del` command The policy is referenced using its unique id. A policy marked as *active* cannot be deleted, another policy has to be marked active before deleting the currently active policy.
+Policies can be deleted from the Nextlinux Engine using the `policy del` command The policy is referenced using its unique id. A policy marked as *active* cannot be deleted, another policy has to be marked active before deleting the currently active policy.
 
 `$ nextlinux-cli policy del 715a6056-87ab-49fb-abef-f4b4198c67bf`
 

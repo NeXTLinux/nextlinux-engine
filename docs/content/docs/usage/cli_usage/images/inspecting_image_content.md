@@ -3,7 +3,7 @@ title: "Inspecting Image Content"
 weight: 1
 ---
 
-During the analysis of container images the Anchore Engine performs deep inspection, collecting data on all artifacts in the image including files, operating system packages and software artifacts such as Ruby GEMs and Node.JS NPM modules.
+During the analysis of container images the Nextlinux Engine performs deep inspection, collecting data on all artifacts in the image including files, operating system packages and software artifacts such as Ruby GEMs and Node.JS NPM modules.
 
 The `image content` command can be used to return detailed information about the content of the container image.
 
