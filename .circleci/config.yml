@@ -1,11 +1,11 @@
 # CircleCI 2.1 configuration file
 # Check https://circleci.com/docs/2.0/configuration-reference/ for more details
 #
-# Note: YAML anchors allow an object to be re-used, reducing duplication.
+# Note: YAML nextlinux allow an object to be re-used, reducing duplication.
 # The ampersand declares an alias for an object, then later the `<<: *name`
 # syntax dereferences it.
 #
-# Define YAML anchors
+# Define YAML nextlinux
 .global_environment_vars: &global_environment_vars
   PROD_IMAGE_REPO: nextlinux/nextlinux-engine
   LATEST_RELEASE_MAJOR_VERSION: 0.8
