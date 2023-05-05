@@ -5,7 +5,7 @@ weight: 1
 
 The `image vuln` command can be used to return a list of vulnerabilities found in the container image.
 
-`anchore-cli image vuln INPUT_IMAGE VULN_TYPE`
+`nextlinux-cli image vuln INPUT_IMAGE VULN_TYPE`
 
 The `INPUT_IMAGE` can be specified in one of the following formats:
 
@@ -25,9 +25,9 @@ The system has been designed to incorporate 3rd party feeds for other vulnerabil
 
 To generate a report of OS package (RPM/DEB/APK) vulnerabilities found in the image including CVE identifier, Vulnerable Package, Severity Level, Vulnerability details and version of fixed package (if available).
 
-`anchore-cli image vuln debian:latest os`
+`nextlinux-cli image vuln debian:latest os`
 
-Currently the following the anchore-engine draws vulnerability data specifically matched to the following OS distros:
+Currently the following the nextlinux-engine draws vulnerability data specifically matched to the following OS distros:
 
 - Alpine
 - CentOS
@@ -41,15 +41,15 @@ Currently the following the anchore-engine draws vulnerability data specifically
 
 To generate a report of language package (NPM/GEM/Java/Python/NuGet) vulnerabilities, the system draws vulnerability data from the NVD data feed, and vulnerability reports can be viewed using the 'non-os' vulnerability type:
 
-`anchore-cli image vuln node:latest non-os`
+`nextlinux-cli image vuln node:latest non-os`
 
 To generate a list of all vulnerabilities that can be found, regardless of whether they are against an OS or non-OS package type, the 'all' vulnerability type can be used:
 
-`anchore-cli image vuln node:latest all`
+`nextlinux-cli image vuln node:latest all`
 
-Finally, for any of the above queries, these commands (and other anchore-cli commands) can be passed the `--json` flag to output the data in JSON format:
+Finally, for any of the above queries, these commands (and other nextlinux-cli commands) can be passed the `--json` flag to output the data in JSON format:
 
-`anchore-cli --json image vuln node:latest all`
+`nextlinux-cli --json image vuln node:latest all`
 
 ### Next Steps
 

@@ -55,10 +55,10 @@ Kubernetes: https://kubernetes.io/docs/tasks/inject-data-application/define-envi
 
 ### Deployment Architecture Notes
 
-When setting up a network proxy, keep in mind that you will need to explicitly allow inter-service communication within the anchore engine deployment to bypass the proxy, and potentially other hostnames as well (e.g. internal registries) to ensure that traffic is directed correctly.  In general, all anchore engine service endpoints (the URLs for enabled services in the output of an 'anchore-cli system status' command) as well as any internal registries (the hostnames you may have set up with 'anchore-cli registry add <hostname> ...' or as part of an un-credentialed image add 'anchore-cli image add <registry:port>/....'), should not be proxied (i.e. added to the no_proxy list, as described above).
+When setting up a network proxy, keep in mind that you will need to explicitly allow inter-service communication within the nextlinux engine deployment to bypass the proxy, and potentially other hostnames as well (e.g. internal registries) to ensure that traffic is directed correctly.  In general, all nextlinux engine service endpoints (the URLs for enabled services in the output of an 'nextlinux-cli system status' command) as well as any internal registries (the hostnames you may have set up with 'nextlinux-cli registry add <hostname> ...' or as part of an un-credentialed image add 'nextlinux-cli image add <registry:port>/....'), should not be proxied (i.e. added to the no_proxy list, as described above).
 
 If you wish to tune this further, below is a list of each component that makes an external URL fetch for various purposes:
 
-- catalog: makes connections to image registries (any host added via 'anchore-cli registry add' or directly via 'anchore-cli image add')
+- catalog: makes connections to image registries (any host added via 'nextlinux-cli registry add' or directly via 'nextlinux-cli image add')
 - analyzer: same as catalog
 - policy_engine: by default, makes HTTPS connection to https://ancho.re feed service, unless on-prem feed service is deployed

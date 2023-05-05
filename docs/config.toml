@@ -57,8 +57,8 @@ anchor = "smart"
 
 [params]
 copyright = "Anchore Inc"
-privacy_policy = "https://anchore.com/privacy"
-github_repo = "https://github.com/anchore/anchore-engine"
+privacy_policy = "https://nextlinux.com/privacy"
+github_repo = "https://github.com/nextlinux/nextlinux-engine"
 
 # Google Custom Search Engine ID. Remove or comment out to disable search.
 #gcs_engine_id = ""
@@ -77,24 +77,24 @@ breadcrumb_disable = false
 [params.ui.feedback]
 enable = true
 # The responses that the user sees after clicking "yes" (the page was helpful) or "no" (the page was not helpful).
-yes = 'Glad to hear it! Please <a href="https://github.com/anchore/anchore-engine/issues/new">tell us how we can improve</a>.'
-no = 'Sorry to hear that. Please <a href="https://github.com/anchore/anchore-engine/issues/new">tell us how we can improve</a>.'
+yes = 'Glad to hear it! Please <a href="https://github.com/nextlinux/nextlinux-engine/issues/new">tell us how we can improve</a>.'
+no = 'Sorry to hear that. Please <a href="https://github.com/nextlinux/nextlinux-engine/issues/new">tell us how we can improve</a>.'
 
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
   name = "Slack"
-  url = "https://anchore.com/slack"
+  url = "https://nextlinux.com/slack"
   icon = "fab fa-slack"
     desc = "Chat with other users and project developers!"
 
 [[params.links.developer]]
 	name = "GitHub"
-	url = "https://github.com/anchore/anchore-engine"
+	url = "https://github.com/nextlinux/nextlinux-engine"
 	icon = "fab fa-github"
     desc = "Anchore Engine Source"
 
 [[params.links.developer]]
   name = "Anchore, Inc."
-  url = "https://anchore.com"
+  url = "https://nextlinux.com"
   icon = "fas fa-university"
     desc = "Anchore Company Site"

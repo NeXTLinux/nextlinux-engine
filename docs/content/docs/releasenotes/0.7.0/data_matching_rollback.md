@@ -6,7 +6,7 @@ weight: 70
 
 *NOTE: This section is only for very specific situations where you absolutely must revert the matching system to use the RHSA data. This should not be done lightly. The newer CVE-based data is more accurate, specific, and provides a more consistent experience with other distros.*
 
-If your processing of anchore output relies on RHSA keys as vulnerability matches, or you have large RHSA-based whitelists that cannot be converted to CVE-based,
+If your processing of nextlinux output relies on RHSA keys as vulnerability matches, or you have large RHSA-based whitelists that cannot be converted to CVE-based,
 then it is possible, though not recommended, to migrate your system back to using the RHSA-based feeds (centos:* groups).
 
 Here is the process. It requires the Anchore CLI with access to the API as well as direct access to the internal policy engine API endpoint. That may require a `docker exec` or `kubectl exec` call
@@ -35,42 +35,42 @@ to achieve and will be deployment/environment specific.
     1. Now, ensure you are back where you have access to the main Anchore API and the Anchore CLI installed. Disable the existing rhel feed groups
 
     ```
-    anchore-cli system feeds config vulnerabilities --disable --group rhel:5
-    anchore-cli system feeds config vulnerabilities --disable --group rhel:6
-    anchore-cli system feeds config vulnerabilities --disable --group rhel:7
-    anchore-cli system feeds config vulnerabilities --disable --group rhel:8
+    nextlinux-cli system feeds config vulnerabilities --disable --group rhel:5
+    nextlinux-cli system feeds config vulnerabilities --disable --group rhel:6
+    nextlinux-cli system feeds config vulnerabilities --disable --group rhel:7
+    nextlinux-cli system feeds config vulnerabilities --disable --group rhel:8
     ```
 
     ```
-    anchore-cli system feeds delete vulnerabilities --group rhel:8
-    anchore-cli system feeds delete vulnerabilities --group rhel:7
-    anchore-cli system feeds delete vulnerabilities --group rhel:6
-    anchore-cli system feeds delete vulnerabilities --group rhel:5
+    nextlinux-cli system feeds delete vulnerabilities --group rhel:8
+    nextlinux-cli system feeds delete vulnerabilities --group rhel:7
+    nextlinux-cli system feeds delete vulnerabilities --group rhel:6
+    nextlinux-cli system feeds delete vulnerabilities --group rhel:5
     ```
    
    1. Enable the centos feed groups that have the RHSA vulnerability data
     ```
-    anchore-cli system feeds config vulnerabilities --enable --group centos:8
-    anchore-cli system feeds config vulnerabilities --enable --group centos:7
-    anchore-cli system feeds config vulnerabilities --enable --group centos:6
-    anchore-cli system feeds config vulnerabilities --enable --group centos:5
+    nextlinux-cli system feeds config vulnerabilities --enable --group centos:8
+    nextlinux-cli system feeds config vulnerabilities --enable --group centos:7
+    nextlinux-cli system feeds config vulnerabilities --enable --group centos:6
+    nextlinux-cli system feeds config vulnerabilities --enable --group centos:5
     ```
    
-   NOTE: if you already have centos data in your feeds (verify with `anchore-cli system feeds list`) then you'll need to delete the centos data groups as well
+   NOTE: if you already have centos data in your feeds (verify with `nextlinux-cli system feeds list`) then you'll need to delete the centos data groups as well
    to ensure a clean re-syncin the next steps. This is accomplished with: 
    ```
-   anchore-cli system feeds delete vulnerabilities --group centos:5
-   anchore-cli system feeds delete vulnerabilities --group centos:6
-   anchore-cli system feeds delete vulnerabilities --group centos:7
-   anchore-cli system feeds delete vulnerabilities --group centos:8
+   nextlinux-cli system feeds delete vulnerabilities --group centos:5
+   nextlinux-cli system feeds delete vulnerabilities --group centos:6
+   nextlinux-cli system feeds delete vulnerabilities --group centos:7
+   nextlinux-cli system feeds delete vulnerabilities --group centos:8
    ```   
    
    1. Now do a sync to re-match any images using rhel/centos to the RHSA data
    
     ```
-    [root@d64b49fe951c ~]# anchore-cli system feeds sync
+    [root@d64b49fe951c ~]# nextlinux-cli system feeds sync
     
-    WARNING: This operation should not normally need to be performed except when the anchore-engine operator is certain that it is required - the operation will take a long time (hours) to complete, and there may be an impact on anchore-engine performance during the re-sync/flush.
+    WARNING: This operation should not normally need to be performed except when the nextlinux-engine operator is certain that it is required - the operation will take a long time (hours) to complete, and there may be an impact on nextlinux-engine performance during the re-sync/flush.
     
     Really perform a manual feed data sync/flush? (y/N)y
     Feed                   Group                  Status         Records Updated        Sync Duration        
@@ -120,7 +120,7 @@ to achieve and will be deployment/environment specific.
     vulnerabilities        ubuntu:18.10           success        0                      0.37s                
     vulnerabilities        ubuntu:19.04           success        0                      0.45s                
     vulnerabilities        ubuntu:19.10           success        0                      0.32s                
-    [root@d64b49fe951c ~]# anchore-cli image vuln centos os
+    [root@d64b49fe951c ~]# nextlinux-cli image vuln centos os
     Vulnerability ID        Package                            Severity        Fix                     CVE Refs              Vulnerability URL                                      Type        Feed Group        Package Path        
     RHSA-2020:0271          libarchive-3.3.2-7.el8             High            0:3.3.2-8.el8_1         CVE-2019-18408        https://access.redhat.com/errata/RHSA-2020:0271        rpm         centos:8          pkgdb               
     RHSA-2020:0273          sqlite-libs-3.26.0-3.el8           High            0:3.26.0-4.el8_1        CVE-2019-13734        https://access.redhat.com/errata/RHSA-2020:0273        rpm         centos:8          pkgdb               

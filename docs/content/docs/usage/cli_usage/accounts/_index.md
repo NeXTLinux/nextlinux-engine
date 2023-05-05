@@ -10,7 +10,7 @@ When the system first initializes it creates a system service account (invisible
 
 - *default_admin_password* - To set the initial password (can be updated by using the API once the system is bootstrapped). Defaults to foobar if omitted or unset.
 
-- *default_admin_email* - To set the initial admin account email on bootstrap. Defaults to *admin@myanchore* if unset
+- *default_admin_email* - To set the initial admin account email on bootstrap. Defaults to *admin@mynextlinux* if unset
 
 ### Managing Accounts Using Anchore CLI
 
@@ -23,10 +23,10 @@ First, `exec` into the *engine-api* container, if using the quickstart docker-co
 ### Getting Account and User Information
 
 ```
-anchore-cli account whoami
+nextlinux-cli account whoami
 Username: admin
 AccountName: admin
-AccountEmail: admin@myanchore
+AccountEmail: admin@mynextlinux
 AccountType: admin
 ```
 
@@ -35,9 +35,9 @@ This shows the username and enclosing account of the requester. In this case, th
 ### Adding a New Account
 
 ```
-anchore-cli account add account1 --email account1admin@anchorexample.com
+nextlinux-cli account add account1 --email account1admin@nextlinuxxample.com
 Name: account1
-Email: account1admin@anchorexample.com
+Email: account1admin@nextlinuxxample.com
 Type: user
 State: enabled
 Created: 2018-11-05T23:23:55Z
@@ -52,7 +52,7 @@ At this point the account exists but contains no users. To create a user with a 
 Disabling an account prevents any of that account's users from being able to perform any actions in the system. It also disabled all asynchronous updates on resources in that account, effectively freezing the state of the account and all of its resources. Disabling an account is idempotent, if it is already disabled the operation has no effect. Accounts may be re-enabled after being disabled.
 
 ```
-anchore-cli account disable account1
+nextlinux-cli account disable account1
 Success
 ```
 
@@ -61,7 +61,7 @@ Success
 To restore a disabled account to allow user operations and resource updates, simply enable it. This is idempotent, enabling an already enabled account has no effect.
 
 ```
-anchore-cli account enable account1
+nextlinux-cli account enable account1
 Success
 ```
 
@@ -72,25 +72,25 @@ Success
 Deleting an account will synchronously delete all users and credentials for the account and transition the account to the deleting state. At this point the system will begin reaping all resources for the account. Once that reaping process is complete, the account record itself is deleted. An account must be in a disabled state prior to deletion. Failure to be in this state results in an error:
 
 ```
-anchore-cli account del account1
+nextlinux-cli account del account1
 This operation is irreversible. Really delete account account1 along with *all* users and resources associated with this account? (y/N)y
 Error: Invalid account state change requested. Cannot go from state enabled to state deleting
 HTTP Code: 400
 
-NOTE: accounts must be disabled (anchore-cli account disable <account>) in order to be deleted
+NOTE: accounts must be disabled (nextlinux-cli account disable <account>) in order to be deleted
 ```
 
 So, first you must disable the account, as shown above. Once disabled:
 
 ```
-anchore-cli account del account1
+nextlinux-cli account del account1
 This operation is irreversible. Really delete account account1 along with *all* users and resources associated with this account? (y/N)y
 Success
 
-root@1309ecbad8c1:~# anchore-cli account list
+root@1309ecbad8c1:~# nextlinux-cli account list
 Name            Email                                  Type         State           Created                     
-admin           admin@myanchore                        admin        enabled         2018-11-03T18:35:42Z        
-account1        account1admin@anchorexample.com        user         deleting        2018-11-05T23:23:55Z        
+admin           admin@mynextlinux                        admin        enabled         2018-11-03T18:35:42Z        
+account1        account1admin@nextlinuxxample.com        user         deleting        2018-11-05T23:23:55Z        
 ```
 
 ### Managing Users Using Anchore CLI
@@ -100,11 +100,11 @@ Users exist within accounts, but usernames themselves are globally unique since 
 ### Create User in a User-Type Account
 
 ```
-anchore-cli account user add --account account1 user1 password123
+nextlinux-cli account user add --account account1 user1 password123
 Name: user1
 Created: 2018-11-05T23:38:11Z
 
-root@1309ecbad8c1:~# anchore-cli account user list --account account1
+root@1309ecbad8c1:~# nextlinux-cli account user list --account account1
 Name         Created                     
 user1        2018-11-05T23:38:11Z 
 ```
@@ -112,32 +112,32 @@ user1        2018-11-05T23:38:11Z
 That user may now use the API:
 
 ```
-anchore-cli --u user1 --p password123 account whoami
+nextlinux-cli --u user1 --p password123 account whoami
 Username: user1
 AccountName: account1
-AccountEmail: account1admin@anchorexample.com
+AccountEmail: account1admin@nextlinuxxample.com
 AccountType: user
 ```
 
 ### Create User in the admin Account (or the account making the request)
 
 ```
-anchore-cli account user add admin2 password123
+nextlinux-cli account user add admin2 password123
 Name: admin2
 Created: 2018-11-05T23:41:24Z
 
 
-root@1309ecbad8c1:~# anchore-cli --u admin2 --p password123 account whoami
+root@1309ecbad8c1:~# nextlinux-cli --u admin2 --p password123 account whoami
 Username: admin2
 AccountName: admin
-AccountEmail: admin@myanchore
+AccountEmail: admin@mynextlinux
 AccountType: admin
 ```
 
 ### Deleting a User
 
 ```
-anchore-cli account user del admin2
+nextlinux-cli account user del admin2
 Success
 ```
 
@@ -148,7 +148,7 @@ Note that only system admins can execute this for a different user/account.
 As an admin, to reset another users credentials:
 
 ```
-anchore-cli account user setpassword --account account1 --username user1 password456
+nextlinux-cli account user setpassword --account account1 --username user1 password456
 Password (re)set success
 NOTE: Be sure to change the password you're using for this client if you have reset your own password
 ```
@@ -156,17 +156,17 @@ NOTE: Be sure to change the password you're using for this client if you have re
 To update your own password:
 
 ```
-anchore-cli --u user1 --p password456  account user setpassword password123_456
+nextlinux-cli --u user1 --p password456  account user setpassword password123_456
 Password (re)set success
 NOTE: Be sure to change the password you're using for this client if you have reset your own password
 
-root@1309ecbad8c1:~# anchore-cli --u user1 --p password456  account whoami
+root@1309ecbad8c1:~# nextlinux-cli --u user1 --p password456  account whoami
 Error: Unauthorized
 HTTP Code: 401
 
-root@1309ecbad8c1:~# anchore-cli --u user1 --p password123_456  account whoami
+root@1309ecbad8c1:~# nextlinux-cli --u user1 --p password123_456  account whoami
 Username: user1
 AccountName: account1
-AccountEmail: account1admin@anchorexample.com
+AccountEmail: account1admin@nextlinuxxample.com
 AccountType: user
 ```

@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anchore/enterprise-docs.git"
+    "url": "git+https://github.com/nextlinux/enterprise-docs.git"
   },
   "author": "",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/anchore/enterprise-docs/issues"
+    "url": "https://github.com/nextlinux/enterprise-docs/issues"
   },
   "homepage": "https://github.com/bep/tech-doc-hugo#readme",
   "devDependencies": {

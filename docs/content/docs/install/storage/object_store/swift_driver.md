@@ -33,8 +33,8 @@ object_store:
     config:
       user: 'user:password'
       auth: 'http://swift.example.com:8080/auth/v1.0'
-      key:  'anchore'
-      container: 'anchorearchive'
+      key:  'nextlinux'
+      container: 'nextlinuxarchive'
       create_container: True
 ```
 
@@ -58,7 +58,7 @@ object_store:
         os_project_name: myproject
         os_project_domain_name: example.com
         os_auth_url: 'foo.example.com:8000/auth/etc'
-       container: 'anchorearchive'
+       container: 'nextlinuxarchive'
        create_container: True
 ```
 

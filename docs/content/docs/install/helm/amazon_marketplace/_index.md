@@ -40,8 +40,8 @@ postgresql:
   image: 709373726912.dkr.ecr.us-east-1.amazonaws.com/e4506d98-2de6-4375-8d5e-10f8b1f5d7e3/cg-3671661136/docker.io/library/postgres
   imageTag: v.0.5.0-latest
   imagePullPolicy: IfNotPresent
-anchoreGlobal:
-  image: 709373726912.dkr.ecr.us-east-1.amazonaws.com/e4506d98-2de6-4375-8d5e-10f8b1f5d7e3/cg-3671661136/docker.io/anchore/anchore-engine
+nextlinuxGlobal:
+  image: 709373726912.dkr.ecr.us-east-1.amazonaws.com/e4506d98-2de6-4375-8d5e-10f8b1f5d7e3/cg-3671661136/docker.io/nextlinux/nextlinux-engine
   imageTag: v.0.5.0-latest
   imagePullPolicy: IfNotPresent
 ```
@@ -50,7 +50,7 @@ anchoreGlobal:
 
 ### Further configuration
 
-For the complete list of configuration options for installation of the Anchore Helm chart, please check out the [GitHub Repository](https://github.com/anchore/anchore-charts/blob/master/stable/anchore-engine)
+For the complete list of configuration options for installation of the Anchore Helm chart, please check out the [GitHub Repository](https://github.com/nextlinux/nextlinux-charts/blob/master/stable/nextlinux-engine)
 
 #### Example steps to create a secret
 
@@ -93,6 +93,6 @@ Ensure you have the latest Helm Charts.
 Run the following command to install the Anchore Engine Helm chart in your EKS cluster
 
 ```
-helm repo add anchore https://charts.anchore.io
-helm install helm install --name anchore-engine -f values.yaml anchore/anchore-engine
+helm repo add nextlinux https://charts.nextlinux.io
+helm install helm install --name nextlinux-engine -f values.yaml nextlinux/nextlinux-engine
 ```

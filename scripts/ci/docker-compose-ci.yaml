@@ -2,11 +2,11 @@
 ---
 version: "2.1"
 volumes:
-  anchore-db-volume:
-    # Set this to 'true' to use an external volume. In which case, it must be created manually with "docker volume create anchore-db-volume"
+  nextlinux-db-volume:
+    # Set this to 'true' to use an external volume. In which case, it must be created manually with "docker volume create nextlinux-db-volume"
     external: false
 
-  anchore-scratch: {}
+  nextlinux-scratch: {}
 
 services:
   job-runner:
@@ -18,13 +18,13 @@ services:
         - GID_DOCKER=${GID_DOCKER}
         - TEST_IMAGE_NAME=${TEST_IMAGE_NAME}
     environment:
-      ANCHORE_TEST_DOCKER_REGISTRY_USER: ${ANCHORE_TEST_DOCKER_REGISTRY_USER:-anchore}
-      ANCHORE_TEST_DOCKER_REGISTRY_PASS: ${ANCHORE_TEST_DOCKER_REGISTRY_PASS:-foobar}
-      ANCHORE_TEST_DOCKER_REGISTRY_HOST: localhost:5000 # note: for volumes, this must be relative to where the docker daemon is running, not where the registry service is accessible by (dns)
-      ANCHORE_BASE_URL: http://engine-api:8228/v1
-      ANCHORE_CLI_URL: http://engine-api:8228/v1
-      ANCHORE_CLI_USER: admin
-      ANCHORE_CLI_PASS: foobar
+      NEXTLINUX_TEST_DOCKER_REGISTRY_USER: ${NEXTLINUX_TEST_DOCKER_REGISTRY_USER:-nextlinux}
+      NEXTLINUX_TEST_DOCKER_REGISTRY_PASS: ${NEXTLINUX_TEST_DOCKER_REGISTRY_PASS:-foobar}
+      NEXTLINUX_TEST_DOCKER_REGISTRY_HOST: localhost:5000 # note: for volumes, this must be relative to where the docker daemon is running, not where the registry service is accessible by (dns)
+      NEXTLINUX_BASE_URL: http://engine-api:8228/v1
+      NEXTLINUX_CLI_URL: http://engine-api:8228/v1
+      NEXTLINUX_CLI_USER: admin
+      NEXTLINUX_CLI_PASS: foobar
     working_dir: /job-workspace
     volumes:
       - ../../:/job-workspace
@@ -37,25 +37,25 @@ services:
   engine-api:
     image: ${TEST_IMAGE_NAME}
     depends_on:
-      - anchore-db
+      - nextlinux-db
       - engine-catalog
     logging:
       driver: "json-file"
       options:
         max-size: 100m
     environment:
-      - ANCHORE_ENDPOINT_HOSTNAME=engine-api
-      - ANCHORE_DB_HOST=anchore-db
-      - ANCHORE_DB_PASSWORD=mysecretpassword
-      - ANCHORE_OAUTH_ENABLED=true
-      - ANCHORE_AUTH_SECRET=supersharedsecret
-    command: ["anchore-manager", "service", "start", "apiext"]
+      - NEXTLINUX_ENDPOINT_HOSTNAME=engine-api
+      - NEXTLINUX_DB_HOST=nextlinux-db
+      - NEXTLINUX_DB_PASSWORD=mysecretpassword
+      - NEXTLINUX_OAUTH_ENABLED=true
+      - NEXTLINUX_AUTH_SECRET=supersharedsecret
+    command: ["nextlinux-manager", "service", "start", "apiext"]
 
   # Catalog is the primary persistence and state manager of the system
   engine-catalog:
     image: ${TEST_IMAGE_NAME}
     depends_on:
-      - anchore-db
+      - nextlinux-db
     logging:
       driver: "json-file"
       options:
@@ -63,16 +63,16 @@ services:
     expose:
       - 8228
     environment:
-      - ANCHORE_ENDPOINT_HOSTNAME=engine-catalog
-      - ANCHORE_DB_HOST=anchore-db
-      - ANCHORE_DB_PASSWORD=mysecretpassword
-      - ANCHORE_OAUTH_ENABLED=true
-      - ANCHORE_AUTH_SECRET=supersharedsecret
-    command: ["anchore-manager", "service", "start", "catalog"]
+      - NEXTLINUX_ENDPOINT_HOSTNAME=engine-catalog
+      - NEXTLINUX_DB_HOST=nextlinux-db
+      - NEXTLINUX_DB_PASSWORD=mysecretpassword
+      - NEXTLINUX_OAUTH_ENABLED=true
+      - NEXTLINUX_AUTH_SECRET=supersharedsecret
+    command: ["nextlinux-manager", "service", "start", "catalog"]
   engine-simpleq:
     image: ${TEST_IMAGE_NAME}
     depends_on:
-      - anchore-db
+      - nextlinux-db
       - engine-catalog
     expose:
       - 8228
@@ -81,16 +81,16 @@ services:
       options:
         max-size: 100m
     environment:
-      - ANCHORE_ENDPOINT_HOSTNAME=engine-simpleq
-      - ANCHORE_DB_HOST=anchore-db
-      - ANCHORE_DB_PASSWORD=mysecretpassword
-      - ANCHORE_OAUTH_ENABLED=true
-      - ANCHORE_AUTH_SECRET=supersharedsecret
-    command: ["anchore-manager", "service", "start", "simplequeue"]
+      - NEXTLINUX_ENDPOINT_HOSTNAME=engine-simpleq
+      - NEXTLINUX_DB_HOST=nextlinux-db
+      - NEXTLINUX_DB_PASSWORD=mysecretpassword
+      - NEXTLINUX_OAUTH_ENABLED=true
+      - NEXTLINUX_AUTH_SECRET=supersharedsecret
+    command: ["nextlinux-manager", "service", "start", "simplequeue"]
   engine-policy-engine:
     image: ${TEST_IMAGE_NAME}
     depends_on:
-      - anchore-db
+      - nextlinux-db
       - engine-catalog
     expose:
       - 8228
@@ -99,17 +99,17 @@ services:
       options:
         max-size: 100m
     environment:
-      - ANCHORE_ENDPOINT_HOSTNAME=engine-policy-engine
-      - ANCHORE_DB_HOST=anchore-db
-      - ANCHORE_DB_PASSWORD=mysecretpassword
-      - ANCHORE_FEEDS_ENABLED=false
-      - ANCHORE_OAUTH_ENABLED=true
-      - ANCHORE_AUTH_SECRET=supersharedsecret
-    command: ["anchore-manager", "service", "start", "policy_engine"]
+      - NEXTLINUX_ENDPOINT_HOSTNAME=engine-policy-engine
+      - NEXTLINUX_DB_HOST=nextlinux-db
+      - NEXTLINUX_DB_PASSWORD=mysecretpassword
+      - NEXTLINUX_FEEDS_ENABLED=false
+      - NEXTLINUX_OAUTH_ENABLED=true
+      - NEXTLINUX_AUTH_SECRET=supersharedsecret
+    command: ["nextlinux-manager", "service", "start", "policy_engine"]
   engine-analyzer:
     image: ${TEST_IMAGE_NAME}
     depends_on:
-      - anchore-db
+      - nextlinux-db
       - engine-catalog
     expose:
       - 8228
@@ -118,18 +118,18 @@ services:
       options:
         max-size: 100m
     environment:
-      - ANCHORE_ENDPOINT_HOSTNAME=engine-analyzer
-      - ANCHORE_DB_HOST=anchore-db
-      - ANCHORE_DB_PASSWORD=mysecretpassword
-      - ANCHORE_OAUTH_ENABLED=true
-      - ANCHORE_AUTH_SECRET=supersharedsecret
+      - NEXTLINUX_ENDPOINT_HOSTNAME=engine-analyzer
+      - NEXTLINUX_DB_HOST=nextlinux-db
+      - NEXTLINUX_DB_PASSWORD=mysecretpassword
+      - NEXTLINUX_OAUTH_ENABLED=true
+      - NEXTLINUX_AUTH_SECRET=supersharedsecret
     volumes:
-      - anchore-scratch:/analysis_scratch
-    command: ["anchore-manager", "service", "start", "analyzer"]
-  anchore-db:
+      - nextlinux-scratch:/analysis_scratch
+    command: ["nextlinux-manager", "service", "start", "analyzer"]
+  nextlinux-db:
     image: "postgres:9"
     volumes:
-      - anchore-db-volume:/var/lib/postgresql/data
+      - nextlinux-db-volume:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=mysecretpassword
     expose:

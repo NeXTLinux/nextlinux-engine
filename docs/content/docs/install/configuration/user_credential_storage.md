@@ -16,7 +16,7 @@ all Anchore services be deployed with a shared secret in the configuration or a 
 
 ## Passwords
 
-The configuration of how passwords are stored is set in the `user_authentication` section of the _config.yaml_ file and *must* be consistent across all components of an Anchore Engine deployment. Mismatch
+The configuration of how passwords are stored is set in the `user_authentication` section of the _config.yaml_ file and _must_ be consistent across all components of an Anchore Engine deployment. Mismatch
 in this configuration between components of the system will result in the system not being able to communicate internally.
 
 ```
@@ -50,7 +50,7 @@ Option 1: Use a shared secret for signing/verifying oauth tokens
     keys:
       secret: mysecretvalue
 
-Option 2: Use a public/private key pair, delivered as pem files on the filesystem of the containers anchore runs in:
+Option 2: Use a public/private key pair, delivered as pem files on the filesystem of the containers nextlinux runs in:
 
     user_authentication:
       oauth:
@@ -60,12 +60,12 @@ Option 2: Use a public/private key pair, delivered as pem files on the filesyste
       private_key_path: <path to private key pem file>
       public_key_path: <path to public key pem file>
 
-Using environment variables with the _config.yaml_ bundled into the Anchore provided anchore-engine image is also an option.
-NOTE: These are *only* valid when using the _config.yaml_ provided in the image due to that file referencing them explicitly as replacement values.
+Using environment variables with the _config.yaml_ bundled into the Anchore provided nextlinux-engine image is also an option.
+NOTE: These are _only_ valid when using the _config.yaml_ provided in the image due to that file referencing them explicitly as replacement values.
 
-    ANCHORE_AUTH_SECRET = the string to use as a secret
-    ANCHORE_AUTH_PUBKEY = path to public key file
-    ANCHORE_AUTH_PRIVKEY = path to the private key file
-    ANCHORE_OAUTH_ENABLED = boolean to enable/disable oauth support
-    ANCHORE_OAUTH_TOKEN_EXPIRATION = the integer value to set number of seconds a token should be valid (default is 3600/1 hr)
-    ANCHORE_AUTH_ENABLE_HASHED_PASSWORDS = boolean to enable/disable hashed password storage in the anchore db instead of clear text
+    NEXTLINUX_AUTH_SECRET = the string to use as a secret
+    NEXTLINUX_AUTH_PUBKEY = path to public key file
+    NEXTLINUX_AUTH_PRIVKEY = path to the private key file
+    NEXTLINUX_OAUTH_ENABLED = boolean to enable/disable oauth support
+    NEXTLINUX_OAUTH_TOKEN_EXPIRATION = the integer value to set number of seconds a token should be valid (default is 3600/1 hr)
+    NEXTLINUX_AUTH_ENABLE_HASHED_PASSWORDS = boolean to enable/disable hashed password storage in the nextlinux db instead of clear text

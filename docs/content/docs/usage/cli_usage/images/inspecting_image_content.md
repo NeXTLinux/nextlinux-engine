@@ -7,7 +7,7 @@ During the analysis of container images the Anchore Engine performs deep inspect
 
 The `image content` command can be used to return detailed information about the content of the container image.
 
-`anchore-cli image content INPUT_IMAGE CONTENT_TYPE`
+`nextlinux-cli image content INPUT_IMAGE CONTENT_TYPE`
 
 The INPUT_IMAGE can be specified in one of the following formats:
 
@@ -27,11 +27,11 @@ the CONTENT_TYPE can be one of the following types:
 - malware: malware findings from scanners (default is ClamAV)
 - binary: specific binaries that are statically checked for metadata (e.g. python and go runtime)
 
-For example: `anchore-cli image content debian:latest files`
+For example: `nextlinux-cli image content debian:latest files`
 
 The CLI will output a subset of fields from the content view, for example for `files` on the file name and size are displayed. To retrieve the full output the `--json` parameter should be passed.
 
-For example: `anchore-cli --json image content debian:latest files`
+For example: `nextlinux-cli --json image content debian:latest files`
 
 ### Next Steps
 

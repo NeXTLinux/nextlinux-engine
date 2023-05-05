@@ -46,7 +46,7 @@ Example Usage:
     [
       {
         "created_at": "2019-08-28T07:32:39Z",
-        "email": "admin@myanchore",
+        "email": "admin@mynextlinux",
         "last_updated": "2019-08-28T07:32:39Z",
         "name": "admin",
         "state": "enabled",
@@ -56,7 +56,7 @@ Example Usage:
 
 ### Bearer Tokens/Oauth
 
-When configured, anchore implements the Oauth2 Password grant flow. Anchore is configured with a default 'anonymous' client 
+When configured, nextlinux implements the Oauth2 Password grant flow. Anchore is configured with a default 'anonymous' client 
 id that is used to avoid requiring registering specific clients.
 
 Required payload, must be www-form-urlencoded:
@@ -98,7 +98,7 @@ Example usage:
     root@4a1b1d9105a8 ~]# curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhbmNob3JlLWVuZ2luZSIsInN1YiI6IjRhYjQ3NzczOTQ0MjRkM2RiNmY1MTczMzU1ZjE3YTZhIiwiZXhwIjoxNTY3MDI3NTEyLCJpYXQiOjE1NjcwMjM5MTIsImp0aSI6IjMzY2I1NTA1NjU3ZDRkZjBhYzY2MWE5Yjk3NWEyYjJmIn0.nQkkZ17lU_UeWVuVAt2RlLJ-mY935bP6OV3R1fBL_24" http://localhost:8228/v1/account
     {
       "created_at": "2019-08-28T07:32:39Z",
-      "email": "admin@myanchore",
+      "email": "admin@mynextlinux",
       "last_updated": "2019-08-28T07:32:39Z",
       "name": "admin",
       "state": "enabled",

@@ -41,7 +41,7 @@ optionally with some data in an external object store. Specifically:
 ### Archive Set Images
 
 The archive set of images are image analyses that reside almost entirely in the object store, which can be configured to
-be a different location than the object store used for the working set, with minimal metadata in the anchore DB necessary
+be a different location than the object store used for the working set, with minimal metadata in the nextlinux DB necessary
 to track and restore the analysis back into the working set in the future. An archived image analysis preserves all the
 annotations, tags, and metadata of the original analysis as well as all existing policy evaluation histories, but
 are not updated with new vulnerabilities during feed syncs and are not available for new policy evaluations or content

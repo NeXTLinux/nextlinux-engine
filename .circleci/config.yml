@@ -7,7 +7,7 @@
 #
 # Define YAML anchors
 .global_environment_vars: &global_environment_vars
-  PROD_IMAGE_REPO: anchore/anchore-engine
+  PROD_IMAGE_REPO: nextlinux/nextlinux-engine
   LATEST_RELEASE_MAJOR_VERSION: 0.8
   TERM: xterm
 
@@ -25,7 +25,7 @@
   run:
     name: Forward remote-docker ports for testing
     command: |
-      ssh -MS anchore-api -fN4 -L 8228:localhost:8228 remote-docker
+      ssh -MS nextlinux-api -fN4 -L 8228:localhost:8228 remote-docker
       ssh -MS k8s-api -fN4 -L 32768:localhost:32768 remote-docker
 
 .filter_rc_tags: &filter_rc_tags
@@ -62,7 +62,7 @@
 # Start circleci configuration
 version: 2.1
 orbs:
-  anchore: anchore/anchore-engine@1
+  nextlinux: nextlinux/nextlinux-engine@1
 
 commands:
   run_tests:
@@ -148,31 +148,31 @@ jobs:
         type: string
     docker:
       - image: circleci/python:<<parameters.py_version>>
-      - image: anchore/test-infra-minio:latest
+      - image: nextlinux/test-infra-minio:latest
         command:
           - server
           - /data
-      - image: anchore/test-infra-swift:latest
+      - image: nextlinux/test-infra-swift:latest
       - image: circleci/postgres:9.6
         environment:
           POSTGRES_PASSWORD: "postgres"
     resource_class: large
     environment:
       <<: *global_environment_vars
-      ANCHORE_TEST_S3_ACCESS_KEY: "9EB92C7W61YPFQ6QLDOU"
-      ANCHORE_TEST_S3_SECRET_KEY: "TuHo2UbBx+amD3YiCeidy+R3q82MPTPiyd+dlW+s"
-      ANCHORE_TEST_S3_URL: "http://localhost:9000"
-      ANCHORE_TEST_S3_BUCKET: "testarchivebucket"
+      NEXTLINUX_TEST_S3_ACCESS_KEY: "9EB92C7W61YPFQ6QLDOU"
+      NEXTLINUX_TEST_S3_SECRET_KEY: "TuHo2UbBx+amD3YiCeidy+R3q82MPTPiyd+dlW+s"
+      NEXTLINUX_TEST_S3_URL: "http://localhost:9000"
+      NEXTLINUX_TEST_S3_BUCKET: "testarchivebucket"
 
-      ANCHORE_TEST_SWIFT_AUTH_URL: "http://localhost:8080/auth/v1.0"
-      ANCHORE_TEST_SWIFT_KEY: "testing"
-      ANCHORE_TEST_SWIFT_USER: "test:tester"
-      ANCHORE_TEST_SWIFT_CONTAINER: "testarchive"
+      NEXTLINUX_TEST_SWIFT_AUTH_URL: "http://localhost:8080/auth/v1.0"
+      NEXTLINUX_TEST_SWIFT_KEY: "testing"
+      NEXTLINUX_TEST_SWIFT_USER: "test:tester"
+      NEXTLINUX_TEST_SWIFT_CONTAINER: "testarchive"
 
-      ANCHORE_TEST_DB_URL: "postgresql+pg8000://postgres@localhost:5432/circle_test"
-      ANCHORE_TEST_DB_USER: "postgres"
-      ANCHORE_TEST_DB_PASS: "postgres"
-      ANCHORE_TEST_DATA_ENV_DIR: "test/data/test_data_env"
+      NEXTLINUX_TEST_DB_URL: "postgresql+pg8000://postgres@localhost:5432/circle_test"
+      NEXTLINUX_TEST_DB_USER: "postgres"
+      NEXTLINUX_TEST_DB_PASS: "postgres"
+      NEXTLINUX_TEST_DATA_ENV_DIR: "test/data/test_data_env"
     steps:
       - checkout
       - run_tests:
@@ -210,8 +210,8 @@ jobs:
       image: ubuntu-1604:202007-01
     environment:
       <<: *global_environment_vars
-      ANCHORE_TEST_DOCKER_REGISTRY_USER: anchore
-      ANCHORE_TEST_DOCKER_REGISTRY_PASS: foobar
+      NEXTLINUX_TEST_DOCKER_REGISTRY_USER: nextlinux
+      NEXTLINUX_TEST_DOCKER_REGISTRY_PASS: foobar
     steps:
       - checkout
       - <<: *attach_workspace
@@ -276,7 +276,7 @@ workflows:
           name: lint_38
           py_version: "3.8"
       - validate_swagger:
-          swagger_file: "anchore_engine/services/apiext/swagger/swagger.yaml"
+          swagger_file: "nextlinux_engine/services/apiext/swagger/swagger.yaml"
       - integration_tests:
           name: integration_tests_36
           py_version: "3.6"
@@ -315,11 +315,11 @@ workflows:
             - functional_tests_38
             - integration_tests_36
             - integration_tests_38
-      - anchore/image_scan:
+      - nextlinux/image_scan:
           context: dockerhub
           requires:
             - push_dev_image
-          image_name: anchore/anchore-engine-dev:${CIRCLE_SHA1}
+          image_name: nextlinux/nextlinux-engine-dev:${CIRCLE_SHA1}
           private_registry: true
           timeout: "2000"
 
@@ -409,12 +409,12 @@ workflows:
             - integration_tests_38
             - e2e_tests_36
             - e2e_tests_38
-      - anchore/image_scan:
+      - nextlinux/image_scan:
           context: dockerhub
           filters: *filter_nightly
           requires:
             - push_nightly_image
-          image_name: anchore/anchore-engine-dev:nightly
+          image_name: nextlinux/nextlinux-engine-dev:nightly
           private_registry: true
           timeout: "2000"
 
@@ -444,12 +444,12 @@ workflows:
           requires:
             - rc_e2e_tests_36
             - rc_e2e_tests_38
-      - anchore/image_scan:
+      - nextlinux/image_scan:
           context: dockerhub
           filters: *filter_rc_tags
           requires:
             - push_rc_image
-          image_name: anchore/anchore-engine-dev:${CIRCLE_TAG}
+          image_name: nextlinux/nextlinux-engine-dev:${CIRCLE_TAG}
           private_registry: true
           timeout: "2000"
           policy_failure: true
@@ -568,12 +568,12 @@ workflows:
             - functional_tests_38
             - integration_tests_36
             - integration_tests_38
-      - anchore/image_scan:
-          name: anchore_image_scan
+      - nextlinux/image_scan:
+          name: nextlinux_image_scan
           context: dockerhub
           requires:
             - push_dev_image
-          image_name: anchore/anchore-engine-dev:${CIRCLE_SHA1}
+          image_name: nextlinux/nextlinux-engine-dev:${CIRCLE_SHA1}
           private_registry: true
           timeout: "2000"
           policy_failure: true
@@ -581,7 +581,7 @@ workflows:
           type: approval
           filters: *filter_rebuild_tags
           requires:
-            - anchore_image_scan
+            - nextlinux_image_scan
       - push_image:
           name: push_rebuild_image
           make_job: push-rebuild

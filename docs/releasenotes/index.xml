@@ -1,5 +1,23 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Anchore Engine – Anchore Engine Release Notes</title><link>/docs/releasenotes/</link><description>Recent Hugo news from gohugo.io</description><generator>Hugo -- gohugo.io</generator><image><url>img/hugo.png</url><title>GoHugo.io</title><link>/docs/releasenotes/</link></image><atom:link href="/docs/releasenotes/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Anchore Engine Release Notes - Version 1.1.0</title><link>/docs/releasenotes/110/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/110/</guid><description>
-&lt;h2 id="anchore-engine-110">Anchore Engine 1.1.0&lt;/h2>
+<rss version="2.0"
+    xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Anchore Engine – Anchore Engine Release Notes</title>
+        <link>/docs/releasenotes/</link>
+        <description>Recent Hugo news from gohugo.io</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <image>
+            <url>img/hugo.png</url>
+            <title>GoHugo.io</title>
+            <link>/docs/releasenotes/</link>
+        </image>
+        <atom:link href="/docs/releasenotes/index.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 1.1.0</title>
+            <link>/docs/releasenotes/110/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/110/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-110">Anchore Engine 1.1.0&lt;/h2>
 &lt;p>API version - 0.1.20&lt;/p>
 &lt;p>DB Schema version - 0.0.16&lt;/p>
 &lt;h3 id="rocky-linux-support">Rocky Linux support&lt;/h3>
@@ -13,8 +31,15 @@
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 1.0.1</title><link>/docs/releasenotes/101/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/101/</guid><description>
-&lt;h2 id="anchore-engine-101">Anchore Engine 1.0.1&lt;/h2>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 1.0.1</title>
+            <link>/docs/releasenotes/101/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/101/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-101">Anchore Engine 1.0.1&lt;/h2>
 &lt;p>API version - 0.1.20&lt;/p>
 &lt;p>DB Schema version - 0.0.15&lt;/p>
 &lt;h3 id="change-fixes">Change Fixes&lt;/h3>
@@ -27,8 +52,15 @@
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 1.0.0</title><link>/docs/releasenotes/1.0.0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/1.0.0/</guid><description>
-&lt;h2 id="anchore-engine-100">Anchore Engine 1.0.0&lt;/h2>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 1.0.0</title>
+            <link>/docs/releasenotes/1.0.0/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/1.0.0/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-100">Anchore Engine 1.0.0&lt;/h2>
 &lt;p>API version - 0.1.19&lt;/p>
 &lt;p>DB Schema version - 0.0.16&lt;/p>
 &lt;p>This release contains a database schema update.&lt;/p>
@@ -44,8 +76,15 @@
 &lt;p>Upgrading to 1.0.0 involves a database upgrade that the system will handle itself. It may cause the upgrade to take several minutes.&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 0.10.2</title><link>/docs/releasenotes/0102/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/0102/</guid><description>
-&lt;h2 id="anchore-engine-0102">Anchore Engine 0.10.2&lt;/h2>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 0.10.2</title>
+            <link>/docs/releasenotes/0102/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/0102/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-0102">Anchore Engine 0.10.2&lt;/h2>
 &lt;p>API version - 0.1.19&lt;/p>
 &lt;p>DB Schema version - 0.0.15&lt;/p>
 &lt;h3 id="changes">Changes&lt;/h3>
@@ -56,8 +95,15 @@
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 0.10.1</title><link>/docs/releasenotes/0101/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/0101/</guid><description>
-&lt;h2 id="anchore-engine-0101">Anchore Engine 0.10.1&lt;/h2>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 0.10.1</title>
+            <link>/docs/releasenotes/0101/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/0101/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-0101">Anchore Engine 0.10.1&lt;/h2>
 &lt;p>API version - 0.1.19&lt;/p>
 &lt;p>DB Schema version - 0.0.15&lt;/p>
 &lt;h3 id="changes">Changes&lt;/h3>
@@ -77,15 +123,22 @@
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 0.10.0</title><link>/docs/releasenotes/0100/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/0100/</guid><description>
-&lt;h2 id="anchore-engine-0100">Anchore Engine 0.10.0&lt;/h2>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 0.10.0</title>
+            <link>/docs/releasenotes/0100/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/0100/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-0100">Anchore Engine 0.10.0&lt;/h2>
 &lt;p>API version - 0.1.18&lt;/p>
 &lt;p>DB Schema version - 0.0.15&lt;/p>
 &lt;p>This release contains a database schema update, but no data migration only new tables added.&lt;/p>
 &lt;h3 id="configurable-vulnerability-providers">Configurable Vulnerability Providers&lt;/h3>
-&lt;p>0.10.0 is a significant release for Engine as it now has both &lt;a href="https://github.com/anchore/syft">Syft&lt;/a> and &lt;a href="https://github.com/anchore/grype">Grype&lt;/a>
+&lt;p>0.10.0 is a significant release for Engine as it now has both &lt;a href="https://github.com/nextlinux/syft">Syft&lt;/a> and &lt;a href="https://github.com/nextlinux/grype">Grype&lt;/a>
 integrations in place to move to a unified vulnerability scanning core across local tools as well as stateful Engine services.
-This release adds &lt;a href="https://github.com/anchore/grype">Grype&lt;/a> integration as a new vulnerability scanning option in the policy
+This release adds &lt;a href="https://github.com/nextlinux/grype">Grype&lt;/a> integration as a new vulnerability scanning option in the policy
 engine. There is now a configuration option for specifying a vulnerability scanning provider in the policy engine service
 configuration. The legacy provider (non-Grype) is the default to ensure smooth upgrades and allow operators to choose whent to make the switch.
 The new Grype provider syncs vulnerability data from the same upstream sources as Engine, but uses the Grype DB update mechanism
@@ -139,9 +192,16 @@ the actual 1.0 release and formal timeline announcement. For 0.10.0, there are n
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 0.9.4</title><link>/docs/releasenotes/094/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/094/</guid><description>
-&lt;h2 id="anchore-engine-094">Anchore Engine 0.9.4&lt;/h2>
-&lt;p>Anchore Engine 0.9.4 bug fixes, and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/anchore/anchore-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 0.9.4</title>
+            <link>/docs/releasenotes/094/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/094/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-094">Anchore Engine 0.9.4&lt;/h2>
+&lt;p>Anchore Engine 0.9.4 bug fixes, and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
 &lt;h2 id="changes-of-note">Changes of Note&lt;/h2>
 &lt;h3 id="fixed">Fixed&lt;/h3>
 &lt;ul>
@@ -158,22 +218,36 @@ the actual 1.0 release and formal timeline announcement. For 0.10.0, there are n
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 0.9.3</title><link>/docs/releasenotes/093/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/093/</guid><description>
-&lt;h2 id="anchore-engine-093">Anchore Engine 0.9.3&lt;/h2>
-&lt;p>Anchore Engine 0.9.3 bug fixes, and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/anchore/anchore-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 0.9.3</title>
+            <link>/docs/releasenotes/093/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/093/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-093">Anchore Engine 0.9.3&lt;/h2>
+&lt;p>Anchore Engine 0.9.3 bug fixes, and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
 &lt;h2 id="changes-of-note">Changes of Note&lt;/h2>
 &lt;h3 id="fixed">Fixed&lt;/h3>
 &lt;ul>
 &lt;li>Fixed - Fixes issue where java artifacts are not being matched against records from GHSA feed - synthesize pom properties contents in syft mapper. Fixes #950&lt;/li>
-&lt;li>Fixed - Updates syft to 0.14.0 to fix missing java elements from image SBOM, for embedded java artifacts combined with malformed pom.properties metadata (see &lt;a href="https://github.com/anchore/syft">https://github.com/anchore/syft&lt;/a> Issue #349)&lt;/li>
+&lt;li>Fixed - Updates syft to 0.14.0 to fix missing java elements from image SBOM, for embedded java artifacts combined with malformed pom.properties metadata (see &lt;a href="https://github.com/nextlinux/syft">https://github.com/nextlinux/syft&lt;/a> Issue #349)&lt;/li>
 &lt;/ul>
 &lt;p>Additional minor fixes and enhancements&lt;/p>
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 0.9.2</title><link>/docs/releasenotes/092/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/092/</guid><description>
-&lt;h2 id="anchore-engine-092">Anchore Engine 0.9.2&lt;/h2>
-&lt;p>Anchore Engine 0.9.2 bug fixes, and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/anchore/anchore-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 0.9.2</title>
+            <link>/docs/releasenotes/092/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/092/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-092">Anchore Engine 0.9.2&lt;/h2>
+&lt;p>Anchore Engine 0.9.2 bug fixes, and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
 &lt;h2 id="changes-of-note">Changes of Note&lt;/h2>
 &lt;h3 id="fixed">Fixed&lt;/h3>
 &lt;ul>
@@ -188,9 +262,16 @@ the actual 1.0 release and formal timeline announcement. For 0.10.0, there are n
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 0.9.1</title><link>/docs/releasenotes/091/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/091/</guid><description>
-&lt;h2 id="anchore-engine-091">Anchore Engine 0.9.1&lt;/h2>
-&lt;p>Anchore Engine 0.9.1 bug fixes, and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/anchore/anchore-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 0.9.1</title>
+            <link>/docs/releasenotes/091/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/091/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-091">Anchore Engine 0.9.1&lt;/h2>
+&lt;p>Anchore Engine 0.9.1 bug fixes, and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
 &lt;h2 id="changes-of-note">Changes of Note&lt;/h2>
 &lt;h3 id="added">Added&lt;/h3>
 &lt;ul>
@@ -218,16 +299,23 @@ the actual 1.0 release and formal timeline announcement. For 0.10.0, there are n
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 0.9.0</title><link>/docs/releasenotes/090/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/090/</guid><description>
-&lt;h2 id="anchore-engine-090">Anchore Engine 0.9.0&lt;/h2>
-&lt;p>Anchore Engine 0.9.0, features, bug fixes, and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/anchore/anchore-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 0.9.0</title>
+            <link>/docs/releasenotes/090/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/090/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-090">Anchore Engine 0.9.0&lt;/h2>
+&lt;p>Anchore Engine 0.9.0, features, bug fixes, and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
 &lt;p>&lt;em>NOTE: this release does involve a database schema update including column updates for some tables that may be quite large for some deployments, schedule
 downtime appropriately as it may take minutes to an hour depending on your database size and number of images you&amp;rsquo;ve analyzed and are present in the DB&lt;/em>&lt;/p>
-&lt;p>Engine 0.9.0 begins the migration of image inspection and vulnerability scanning to the &lt;a href="https://github.com/anchore/Syft">Syft&lt;/a> and &lt;a href="https://github.com/anchore/Grype">Grype&lt;/a> tools
+&lt;p>Engine 0.9.0 begins the migration of image inspection and vulnerability scanning to the &lt;a href="https://github.com/nextlinux/Syft">Syft&lt;/a> and &lt;a href="https://github.com/nextlinux/Grype">Grype&lt;/a> tools
 which allow re-use of that logic outside of a deployed stateful system. Engine now consumes Syft internally for generating container bills-of-materials for all
 OS and application packages.&lt;/p>
 &lt;h3 id="new-api-revision">New API Revision&lt;/h3>
-&lt;p>The API is updated to version &lt;a href="https://github.com/anchore/anchore-engine/blob/v0.9.0/anchore_engine/services/apiext/swagger/swagger.yaml">0.1.16&lt;/a>&lt;/p>
+&lt;p>The API is updated to version &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/v0.9.0/nextlinux_engine/services/apiext/swagger/swagger.yaml">0.1.16&lt;/a>&lt;/p>
 &lt;h3 id="update-to-python-version">Update to Python Version&lt;/h3>
 &lt;p>Engine 0.9.0 is built and tested against Python 3.8, and that is what is installed in the container image as well. Previous release used Python 3.6.&lt;/p>
 &lt;h2 id="changes-of-note">Changes of Note&lt;/h2>
@@ -237,10 +325,10 @@ OS and application packages.&lt;/p>
 &lt;li>Support for analysis archive rules to trigger based on total number of images in each account. Fixes #700&lt;/li>
 &lt;li>Exclusion filters for analysis archive rules to allow specific registries or repos to be excluded from a broader rule. Fixes #699&lt;/li>
 &lt;li>Ability to exclude paths from vulnerability.packages rules using path regex. Fixes #229&lt;/li>
-&lt;li>Integrates new Syft tool (&lt;a href="https://github.com/anchore/syft">https://github.com/anchore/syft&lt;/a>) as package bill of materials analyzer. Fixes #679, #685, #682&lt;/li>
+&lt;li>Integrates new Syft tool (&lt;a href="https://github.com/nextlinux/syft">https://github.com/nextlinux/syft&lt;/a>) as package bill of materials analyzer. Fixes #679, #685, #682&lt;/li>
 &lt;li>Ability to set an expiration for individual whitelist rules. Fixes #178,&lt;/li>
 &lt;li>Ability to test webhook delivery via API call and provide schemas for webhook payloads. Fixes #489, #490&lt;/li>
-&lt;li>Success and error counters in prometheus metrics exported by analyzers (&amp;ldquo;anchore_analysis_success&amp;rdquo; and &amp;ldquo;anchore_analysis_error&amp;rdquo;)&lt;/li>
+&lt;li>Success and error counters in prometheus metrics exported by analyzers (&amp;ldquo;nextlinux_analysis_success&amp;rdquo; and &amp;ldquo;nextlinux_analysis_error&amp;rdquo;)&lt;/li>
 &lt;/ul>
 &lt;h3 id="fixed">Fixed&lt;/h3>
 &lt;ul>
@@ -258,51 +346,72 @@ OS and application packages.&lt;/p>
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 0.8.2</title><link>/docs/releasenotes/082/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/082/</guid><description>
-&lt;h2 id="anchore-engine-082">Anchore Engine 0.8.2&lt;/h2>
-&lt;p>Anchore Engine 0.8.2, features, bug fixes, and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/anchore/anchore-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 0.8.2</title>
+            <link>/docs/releasenotes/082/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/082/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-082">Anchore Engine 0.8.2&lt;/h2>
+&lt;p>Anchore Engine 0.8.2, features, bug fixes, and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
 &lt;h3 id="added">Added&lt;/h3>
 &lt;ul>
-&lt;li>Ability to set pool_recycle and other SQLAlchemy engine parameters via config. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/641">#641&lt;/a>&lt;/li>
-&lt;li>Updates image build to support dynamic UID mapping in OpenShift. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/586">#586&lt;/a>&lt;/li>
+&lt;li>Ability to set pool_recycle and other SQLAlchemy engine parameters via config. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/641">#641&lt;/a>&lt;/li>
+&lt;li>Updates image build to support dynamic UID mapping in OpenShift. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/586">#586&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h3 id="fixes">Fixes&lt;/h3>
 &lt;ul>
-&lt;li>Malware scan fails to find EICAR string in image over 25Mb. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/615">#615&lt;/a>&lt;/li>
-&lt;li>Policy engine should return HTTP 400 with instructive message on invalid bundle upload instead of HTTP 500. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/634">#634&lt;/a>&lt;/li>
-&lt;li>Vulnerability fix version not correct for vulnerabilities with multiple fixes. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/639">#639&lt;/a>&lt;/li>
-&lt;li>npm and gem packages not matching GHSA sources properly. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/633">#633&lt;/a>&lt;/li>
-&lt;li>Update urllib3 to 1.25.9 to address CVE-2020-26137. Engine not affected. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/662">#662&lt;/a>&lt;/li>
-&lt;li>Deactivating repo subscription does not halt repo scan. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/635">#635&lt;/a>&lt;/li>
+&lt;li>Malware scan fails to find EICAR string in image over 25Mb. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/615">#615&lt;/a>&lt;/li>
+&lt;li>Policy engine should return HTTP 400 with instructive message on invalid bundle upload instead of HTTP 500. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/634">#634&lt;/a>&lt;/li>
+&lt;li>Vulnerability fix version not correct for vulnerabilities with multiple fixes. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/639">#639&lt;/a>&lt;/li>
+&lt;li>npm and gem packages not matching GHSA sources properly. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/633">#633&lt;/a>&lt;/li>
+&lt;li>Update urllib3 to 1.25.9 to address CVE-2020-26137. Engine not affected. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/662">#662&lt;/a>&lt;/li>
+&lt;li>Deactivating repo subscription does not halt repo scan. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/635">#635&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;p>Additional minor bug fixes and enhancements&lt;/p>
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 0.8.1</title><link>/docs/releasenotes/081/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/081/</guid><description>
-&lt;h2 id="anchore-engine-081">Anchore Engine 0.8.1&lt;/h2>
-&lt;p>Anchore Engine 0.8.1, features, bug fixes, and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/anchore/anchore-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 0.8.1</title>
+            <link>/docs/releasenotes/081/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/081/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-081">Anchore Engine 0.8.1&lt;/h2>
+&lt;p>Anchore Engine 0.8.1, features, bug fixes, and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
 &lt;h3 id="added">Added&lt;/h3>
 &lt;ul>
-&lt;li>Additional trigger &amp;lsquo;scan_not_run&amp;rsquo; in &amp;lsquo;malware&amp;rsquo; trigger that fires if no scan was performed for the image. Implements &lt;a href="https://github.com/anchore/anchore-engine/issues/576">576&lt;/a>&lt;/li>
+&lt;li>Additional trigger &amp;lsquo;scan_not_run&amp;rsquo; in &amp;lsquo;malware&amp;rsquo; trigger that fires if no scan was performed for the image. Implements &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/576">576&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h3 id="improved">Improved&lt;/h3>
 &lt;ul>
-&lt;li>Do not always require a created_timestamp_override field for analysis by digest. Fixes &lt;a href="https://github.com/anchore/anchore-engine/552">552&lt;/a>&lt;/li>
+&lt;li>Do not always require a created_timestamp_override field for analysis by digest. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/552">552&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h3 id="fixes">Fixes&lt;/h3>
 &lt;ul>
-&lt;li>Image analysis scratch space cleanup may fail if image files have non-readable modes. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/579">579&lt;/a>&lt;/li>
-&lt;li>Prevent &amp;lsquo;admin&amp;rsquo; account from being disabled. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/522">522&lt;/a>&lt;/li>
-&lt;li>Make permissions consistent for /account and /accounts/&lt;!-- raw HTML omitted --> routes. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/565">565&lt;/a>&lt;/li>
+&lt;li>Image analysis scratch space cleanup may fail if image files have non-readable modes. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/579">579&lt;/a>&lt;/li>
+&lt;li>Prevent &amp;lsquo;admin&amp;rsquo; account from being disabled. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/522">522&lt;/a>&lt;/li>
+&lt;li>Make permissions consistent for /account and /accounts/&lt;!-- raw HTML omitted --> routes. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/565">565&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;p>Additional minor bug fixes and enhancements&lt;/p>
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 0.8.0</title><link>/docs/releasenotes/080/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/080/</guid><description>
-&lt;h2 id="anchore-engine-080">Anchore Engine 0.8.0&lt;/h2>
-&lt;p>Anchore Engine 0.8.0, features, bug fixes, and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/anchore/anchore-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 0.8.0</title>
+            <link>/docs/releasenotes/080/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/080/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-080">Anchore Engine 0.8.0&lt;/h2>
+&lt;p>Anchore Engine 0.8.0, features, bug fixes, and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
 &lt;p>Of specific note, 0.8.0 adds: malware scanning capabilities, makes deletion of images asynchronous, adds new analyzers for binaries not delivered in packages, and includes a &amp;ldquo;content hints&amp;rdquo; capability in the
 analyzers so developers or image builders can pass metadata to augmentation analysis results.&lt;/p>
 &lt;h3 id="malware-scanning">Malware Scanning&lt;/h3>
@@ -316,7 +425,7 @@ such as Python and Go images where the runtime is installed via an archive and t
 &lt;h3 id="content-hints">Content Hints&lt;/h3>
 &lt;p>A new &amp;ldquo;hints&amp;rdquo; feature allows users to pass specific metadata into the analyzers to help identify and augment content that existing analyzers would not have been discovered. This feature is useful
 if you have libraries statically compiled into another binary or installed outside of a package manager that you want to tell Anchore about so you can get vulnerability matches for and include them in the
-image&amp;rsquo;s content manifests. This is accomplished with a specific JSON file present in the image: &lt;code>/anchore_hints.JSON&lt;/code>. The entries are merged into the analyzer results to augment their findings for
+image&amp;rsquo;s content manifests. This is accomplished with a specific JSON file present in the image: &lt;code>/nextlinux_hints.JSON&lt;/code>. The entries are merged into the analyzer results to augment their findings for
 different content types.&lt;/p>
 &lt;p>For more information, see: &lt;a href="/docs/general/concepts/images/analysis/content_hints/">Content Hints&lt;/a>&lt;/p>
 &lt;h3 id="changed-image-deletion-behavior">Changed Image Deletion Behavior&lt;/h3>
@@ -326,51 +435,65 @@ load under a high volume of delete operations and also makes the client-perceive
 &lt;p>&lt;em>NOTE: Responses for &lt;code>GET /images&lt;/code> and &lt;code>GET /summaries/imagetags&lt;/code> do &lt;em>not&lt;/em> include images in the deleting state by default, though new query parameters
 allow those images to be returned in those calls if desired (&lt;code>image_status=deleting&lt;/code> or &lt;code>image_status=all&lt;/code>)&lt;/em>&lt;/p>
 &lt;h3 id="new-api-revision">New API Revision&lt;/h3>
-&lt;p>The API is updated to version &lt;a href="https://github.com/anchore/anchore-engine/blob/v0.8.0/anchore_engine/services/apiext/swagger/swagger.yaml">0.1.15&lt;/a>&lt;/p>
+&lt;p>The API is updated to version &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/v0.8.0/nextlinux_engine/services/apiext/swagger/swagger.yaml">0.1.15&lt;/a>&lt;/p>
 &lt;h3 id="added">Added&lt;/h3>
 &lt;ul>
 &lt;li>Changed image deletion to asynchronous behavior to make API more responsive and throttle db load during image deletes.&lt;/li>
-&lt;li>New dry-run mode for repository scan request to return list of tags that would be scanned without scanning or persisting the record. Implements &lt;a href="https://github.com/anchore/anchore-engine/issues/510">510&lt;/a>&lt;/li>
-&lt;li>Support for a &amp;ldquo;hints&amp;rdquo; JSON file in the image. JSON file to pass additional metadata to augment analyzer findings. Implements &lt;a href="https://github.com/anchore/anchore-engine/issues/550">550&lt;/a>&lt;/li>
-&lt;li>Adds API support for deleting multiple images in a single call. Implements &lt;a href="https://github.com/anchore/anchore-engine/issues/502">502&lt;/a>&lt;/li>
-&lt;li>Support for malware scanning using ClamAV and new &amp;lsquo;malware&amp;rsquo; content type in API and policy gate to trigger on findings. Disabled by default. Implements &lt;a href="https://github.com/anchore/anchore-engine/issues/498">498&lt;/a>&lt;/li>
-&lt;li>Support for content type &amp;lsquo;binary&amp;rsquo; with analyzers to detect specific binaries: python, golang, busybox not installed by package manager. Implements &lt;a href="https://github.com/anchore/anchore-engine/issues/531">531&lt;/a>, &lt;a href="https://github.com/anchore/anchore-engine/issues/533">533&lt;/a>, &lt;a href="https://github.com/anchore/anchore-engine/issues/534">534&lt;/a>, &lt;a href="https://github.com/anchore/anchore-engine/issues/340">340&lt;/a>&lt;/li>
-&lt;li>Query parameter filters for GET /images calls to filter by image_status and analysis_status. Implements &lt;a href="https://github.com/anchore/anchore-engine/issues/561">561&lt;/a>&lt;/li>
+&lt;li>New dry-run mode for repository scan request to return list of tags that would be scanned without scanning or persisting the record. Implements &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/510">510&lt;/a>&lt;/li>
+&lt;li>Support for a &amp;ldquo;hints&amp;rdquo; JSON file in the image. JSON file to pass additional metadata to augment analyzer findings. Implements &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/550">550&lt;/a>&lt;/li>
+&lt;li>Adds API support for deleting multiple images in a single call. Implements &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/502">502&lt;/a>&lt;/li>
+&lt;li>Support for malware scanning using ClamAV and new &amp;lsquo;malware&amp;rsquo; content type in API and policy gate to trigger on findings. Disabled by default. Implements &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/498">498&lt;/a>&lt;/li>
+&lt;li>Support for content type &amp;lsquo;binary&amp;rsquo; with analyzers to detect specific binaries: python, golang, busybox not installed by package manager. Implements &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/531">531&lt;/a>, &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/533">533&lt;/a>, &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/534">534&lt;/a>, &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/340">340&lt;/a>&lt;/li>
+&lt;li>Query parameter filters for GET /images calls to filter by image_status and analysis_status. Implements &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/561">561&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h3 id="improved">Improved&lt;/h3>
 &lt;ul>
-&lt;li>Change image analysis queue processing behavior from first come first served to fair share across accounts. Implements &lt;a href="https://github.com/anchore/anchore-engine/issues/491">491&lt;/a>&lt;/li>
-&lt;li>Removes image_to_get property in GET body of /images route, since body in GET operations is not standard behavior. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/562">562&lt;/a>&lt;/li>
+&lt;li>Change image analysis queue processing behavior from first come first served to fair share across accounts. Implements &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/491">491&lt;/a>&lt;/li>
+&lt;li>Removes image_to_get property in GET body of /images route, since body in GET operations is not standard behavior. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/562">562&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h3 id="fixes">Fixes&lt;/h3>
 &lt;ul>
-&lt;li>Handle scratch images correctly in files gate behavior. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/530">503&lt;/a>&lt;/li>
-&lt;li>Add missing fields in swagger JSON spec for GET /query/vulnerabilities. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/558">558&lt;/a>&lt;/li>
-&lt;li>Better handling of java packages missing certain metadata in MANIFEST.MF files. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/524">524&lt;/a>&lt;/li>
+&lt;li>Handle scratch images correctly in files gate behavior. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/530">503&lt;/a>&lt;/li>
+&lt;li>Add missing fields in swagger JSON spec for GET /query/vulnerabilities. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/558">558&lt;/a>&lt;/li>
+&lt;li>Better handling of java packages missing certain metadata in MANIFEST.MF files. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/524">524&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;p>Additional minor bug fixes and enhancements&lt;/p>
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 0.7.3</title><link>/docs/releasenotes/073/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/073/</guid><description>
-&lt;h2 id="anchore-engine-073">Anchore Engine 0.7.3&lt;/h2>
-&lt;p>Anchore Engine 0.7.3, features, bug fixes, and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/anchore/anchore-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 0.7.3</title>
+            <link>/docs/releasenotes/073/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/073/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-073">Anchore Engine 0.7.3&lt;/h2>
+&lt;p>Anchore Engine 0.7.3, features, bug fixes, and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
 &lt;h3 id="improved">Improved&lt;/h3>
 &lt;ul>
-&lt;li>Improved - Adds retry wrapper on image download operations on analyzer. Implements &lt;a href="https://github.com/anchore/anchore-engine/issues/483">#483&lt;/a>&lt;/li>
+&lt;li>Improved - Adds retry wrapper on image download operations on analyzer. Implements &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/483">#483&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h3 id="bug-fixes">Bug Fixes&lt;/h3>
 &lt;ul>
-&lt;li>Fix - Adds release to version string for all os package types if one is present. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/504">#504&lt;/a>&lt;/li>
-&lt;li>Fix - Fixes global analysis archive rule application for non-admin accounts. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/503">#503&lt;/a>&lt;/li>
+&lt;li>Fix - Adds release to version string for all os package types if one is present. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/504">#504&lt;/a>&lt;/li>
+&lt;li>Fix - Fixes global analysis archive rule application for non-admin accounts. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/503">#503&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;p>Additional minor bug fixes and enhancements&lt;/p>
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 0.7.2</title><link>/docs/releasenotes/072/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/072/</guid><description>
-&lt;h2 id="anchore-engine-072">Anchore Engine 0.7.2&lt;/h2>
-&lt;p>Anchore Engine 0.7.2, features, bug fixes, and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/anchore/anchore-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 0.7.2</title>
+            <link>/docs/releasenotes/072/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/072/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-072">Anchore Engine 0.7.2&lt;/h2>
+&lt;p>Anchore Engine 0.7.2, features, bug fixes, and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
 &lt;h3 id="added">Added&lt;/h3>
 &lt;ul>
 &lt;li>Added - CVE Blacklisting via new policy rule. Implements #173&lt;/li>
@@ -392,12 +515,19 @@ allow those images to be returned in those calls if desired (&lt;code>image_stat
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 0.7.1</title><link>/docs/releasenotes/071/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/071/</guid><description>
-&lt;h2 id="anchore-engine-071">Anchore Engine 0.7.1&lt;/h2>
-&lt;p>Anchore Engine 0.7.1 bug fixes and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/anchore/anchore-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 0.7.1</title>
+            <link>/docs/releasenotes/071/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/071/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-071">Anchore Engine 0.7.1&lt;/h2>
+&lt;p>Anchore Engine 0.7.1 bug fixes and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
 &lt;h3 id="added">Added&lt;/h3>
 &lt;ul>
-&lt;li>Added - anchore-manager command now has &amp;ndash;no-auto-upgrade option to support more deployment and upgrade control&lt;/li>
+&lt;li>Added - nextlinux-manager command now has &amp;ndash;no-auto-upgrade option to support more deployment and upgrade control&lt;/li>
 &lt;/ul>
 &lt;h3 id="bug-fixes">Bug Fixes&lt;/h3>
 &lt;ul>
@@ -415,10 +545,17 @@ allow those images to be returned in those calls if desired (&lt;code>image_stat
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 0.7.0</title><link>/docs/releasenotes/0.7.0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/0.7.0/</guid><description>
-&lt;h2 id="anchore-engine-070">Anchore Engine 0.7.0&lt;/h2>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 0.7.0</title>
+            <link>/docs/releasenotes/0.7.0/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/0.7.0/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-070">Anchore Engine 0.7.0&lt;/h2>
 &lt;p>NOTE: This version of Anchore Engine is not compatible with Anchore Enterprise 2.2.x. If you are an Enterprise user you should not upgrade to this version, but instead wait for the Enterprise 2.3 release.&lt;/p>
-&lt;p>Anchore Engine 0.7.0 new Features, bug fixes and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/anchore/anchore-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
+&lt;p>Anchore Engine 0.7.0 new Features, bug fixes and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
 &lt;h3 id="features">Features&lt;/h3>
 &lt;ul>
 &lt;li>
@@ -431,11 +568,11 @@ allow those images to be returned in those calls if desired (&lt;code>image_stat
 &lt;/li>
 &lt;li>
 &lt;p>New APIs for granular control of data feeds, including enable/disable toggles and data flush capabilities.&lt;/p>
-&lt;p>This provides finer grained control over which feeds will sync and which are used for matching vulnerabilities against images. Includes new anchore-cli commands
+&lt;p>This provides finer grained control over which feeds will sync and which are used for matching vulnerabilities against images. Includes new nextlinux-cli commands
 to use the API calls:&lt;/p>
-&lt;p>&lt;code>anchore-cli system feeds config --enable|--disable &amp;lt;feed&amp;gt; [ --group &amp;lt;group name&amp;gt; ]&lt;/code>&lt;br>
+&lt;p>&lt;code>nextlinux-cli system feeds config --enable|--disable &amp;lt;feed&amp;gt; [ --group &amp;lt;group name&amp;gt; ]&lt;/code>&lt;br>
 and&lt;br>
-&lt;code>anchore-cli system feeds delete &amp;lt;feed&amp;gt; [ --group &amp;lt;group name&amp;gt; ]&lt;/code>&lt;/p>
+&lt;code>nextlinux-cli system feeds delete &amp;lt;feed&amp;gt; [ --group &amp;lt;group name&amp;gt; ]&lt;/code>&lt;/p>
 &lt;p>For more information see &lt;a href="/docs/usage/cli_usage/feeds/feed_configuration/">CLI Usage - Feeds&lt;/a>&lt;/p>
 &lt;/li>
 &lt;li>
@@ -477,15 +614,22 @@ The ancho.re feed service has already been updated to serve the new data which s
 &lt;/ul>
 &lt;p>During the upgrade process the system will automatically perform the following steps:&lt;/p>
 &lt;ol>
-&lt;li>Disabled the &lt;em>centos:*&lt;/em> vulnerability feed groups. This means they will no longer be synced with updates. You&amp;rsquo;ll see this reflected in the output of &lt;code>anchore-cli system feeds list&lt;/code> if you upgrade to the 0.7.0 version of anchore-cli.a&lt;/li>
+&lt;li>Disabled the &lt;em>centos:*&lt;/em> vulnerability feed groups. This means they will no longer be synced with updates. You&amp;rsquo;ll see this reflected in the output of &lt;code>nextlinux-cli system feeds list&lt;/code> if you upgrade to the 0.7.0 version of nextlinux-cli.a&lt;/li>
 &lt;li>Rescans all images in your db that are rhel-based (centos, redhat, etc) using the vulnerabiliy data from the &lt;em>rhel:*&lt;/em> groups to update all matches&lt;/li>
 &lt;li>Flushes the &lt;em>centos:*&lt;/em> matches and all vulnerability records&lt;/li>
 &lt;/ol>
 &lt;p>The logging during this process is verbose to give you plenty of insight into what the system is doing. Because it must re-scan all rpm packages, step #2 can take quite a while depending on your specific deployment and how many images you have
 analyzed that are based on centos or rhel.&lt;/p>
-&lt;p>NOTE: Restoring RHSA-based matching is possible, but not recommended. See the &lt;a href="/docs/releasenotes/0.7.0/data_matching_rollback/">Reverting Back to RHSA Data&lt;/a>&lt;/p></description></item><item><title>Docs: Anchore Engine Release Notes - Version 0.6.1</title><link>/docs/releasenotes/061/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/061/</guid><description>
-&lt;h2 id="anchore-engine-061">Anchore Engine 0.6.1&lt;/h2>
-&lt;p>Anchore Engine 0.6.1 bug fixes and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/anchore/anchore-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
+&lt;p>NOTE: Restoring RHSA-based matching is possible, but not recommended. See the &lt;a href="/docs/releasenotes/0.7.0/data_matching_rollback/">Reverting Back to RHSA Data&lt;/a>&lt;/p></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 0.6.1</title>
+            <link>/docs/releasenotes/061/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/061/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-061">Anchore Engine 0.6.1&lt;/h2>
+&lt;p>Anchore Engine 0.6.1 bug fixes and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
 &lt;h3 id="bug-fixes">Bug Fixes&lt;/h3>
 &lt;ul>
 &lt;li>Fix - Adds the release component of package version for rpms in package listing of OS packages in API responses. Fixes #320.&lt;/li>
@@ -501,9 +645,16 @@ analyzed that are based on centos or rhel.&lt;/p>
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 0.6.0</title><link>/docs/releasenotes/060/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/060/</guid><description>
-&lt;h2 id="anchore-engine-060">Anchore Engine 0.6.0&lt;/h2>
-&lt;p>Anchore Engine 0.6.0 includes new features, bug fixes and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/anchore/anchore-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 0.6.0</title>
+            <link>/docs/releasenotes/060/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/060/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-060">Anchore Engine 0.6.0&lt;/h2>
+&lt;p>Anchore Engine 0.6.0 includes new features, bug fixes and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
 &lt;h3 id="new-features">New Features&lt;/h3>
 &lt;ul>
 &lt;li>Substantial updates to event subsystem, adding new many new info and error level event types and implementation.&lt;/li>
@@ -524,9 +675,16 @@ analyzed that are based on centos or rhel.&lt;/p>
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 0.5.2</title><link>/docs/releasenotes/052/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/052/</guid><description>
-&lt;h2 id="anchore-engine-052">Anchore Engine 0.5.2&lt;/h2>
-&lt;p>Anchore Engine 0.5.2 is a bug fix release. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/anchore/anchore-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 0.5.2</title>
+            <link>/docs/releasenotes/052/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/052/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-052">Anchore Engine 0.5.2&lt;/h2>
+&lt;p>Anchore Engine 0.5.2 is a bug fix release. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
 &lt;h3 id="bug-fixes">Bug Fixes&lt;/h3>
 &lt;ul>
 &lt;li>Remove failing (deprecated) code block from periodic vulnerability scan - Fixes #294.&lt;/li>
@@ -535,9 +693,16 @@ analyzed that are based on centos or rhel.&lt;/p>
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 0.5.1</title><link>/docs/releasenotes/051/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/051/</guid><description>
-&lt;h2 id="anchore-engine-051">Anchore Engine 0.5.1&lt;/h2>
-&lt;p>Anchore Engine 0.5.1 includes many new features, bug fixes and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/anchore/anchore-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 0.5.1</title>
+            <link>/docs/releasenotes/051/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/051/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-051">Anchore Engine 0.5.1&lt;/h2>
+&lt;p>Anchore Engine 0.5.1 includes many new features, bug fixes and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
 &lt;h3 id="new-features">New Features&lt;/h3>
 &lt;ul>
 &lt;li>Array support for the id param in /query/vulnerabilities and a namespace parameter for same route. Fixes #278.&lt;/li>
@@ -562,17 +727,24 @@ analyzed that are based on centos or rhel.&lt;/p>
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 0.5.0</title><link>/docs/releasenotes/050/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/050/</guid><description>
-&lt;h2 id="anchore-engine-050">Anchore Engine 0.5.0&lt;/h2>
-&lt;p>Anchore Engine 0.5.0 includes many new features, bug fixes and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/anchore/anchore-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 0.5.0</title>
+            <link>/docs/releasenotes/050/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/050/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-050">Anchore Engine 0.5.0&lt;/h2>
+&lt;p>Anchore Engine 0.5.0 includes many new features, bug fixes and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
 &lt;h3 id="new-features">New Features&lt;/h3>
 &lt;ul>
-&lt;li>Support for local image analysis tool and process, including local analyzer operation in anchore_manager and new image analysis archive import API operation&lt;/li>
+&lt;li>Support for local image analysis tool and process, including local analyzer operation in nextlinux_manager and new image analysis archive import API operation&lt;/li>
 &lt;li>Switch NVD feed driver to consume normalized vulnerability data from latest NVD JSON 1.0 Schema&lt;/li>
 &lt;li>New parameter to vulnerabilities gate to only trigger if a fix has been available for over a specified number of days&lt;/li>
 &lt;li>New parameters in vulnerabilities gate to allow for triggers based on CVSSv3 scoring information. Implements #164.&lt;/li>
 &lt;li>Structured CVSS scoring information throughout external API responses, where vulnerability information is returned (vulnerability scans, vulnerability queries). Implements #163, #160, #223.&lt;/li>
-&lt;li>Optional support using hashed passwords on anchore user credential storage, and adds support token-based user authentication&lt;/li>
+&lt;li>Optional support using hashed passwords on nextlinux user credential storage, and adds support token-based user authentication&lt;/li>
 &lt;/ul>
 &lt;h3 id="improvements">Improvements&lt;/h3>
 &lt;ul>
@@ -584,29 +756,43 @@ analyzed that are based on centos or rhel.&lt;/p>
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 0.4.2</title><link>/docs/releasenotes/042/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/042/</guid><description>
-&lt;h2 id="anchore-engine-042">Anchore Engine 0.4.2&lt;/h2>
-&lt;p>Anchore Engine 0.4.2 includes many new features, bug fixes and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/anchore/anchore-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 0.4.2</title>
+            <link>/docs/releasenotes/042/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/042/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-042">Anchore Engine 0.4.2&lt;/h2>
+&lt;p>Anchore Engine 0.4.2 includes many new features, bug fixes and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
 &lt;h3 id="improvements">Improvements&lt;/h3>
 &lt;ul>
 &lt;li>Update to image analysis speed for some images exhibiting long unpack times due to layer complications. Improves squashing speed by going through layer tarfiles sequentially.&lt;/li>
 &lt;/ul>
 &lt;h3 id="bug-fixes">Bug Fixes&lt;/h3>
 &lt;ul>
-&lt;li>Update to CPE match DB query, to account for package names that are not reported as lowercase. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/227">#227&lt;/a>&lt;/li>
+&lt;li>Update to CPE match DB query, to account for package names that are not reported as lowercase. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/227">#227&lt;/a>&lt;/li>
 &lt;li>Update to fix incorrect arg passing for error message construction of &amp;ldquo;detail&amp;rdquo; property, on policy bundle add validation failures.&lt;/li>
 &lt;/ul>
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 0.4.1</title><link>/docs/releasenotes/041/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/041/</guid><description>
-&lt;h2 id="anchore-engine-041">Anchore Engine 0.4.1&lt;/h2>
-&lt;p>Anchore Engine 0.4.1 includes many new features, bug fixes and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/anchore/anchore-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 0.4.1</title>
+            <link>/docs/releasenotes/041/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/041/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-041">Anchore Engine 0.4.1&lt;/h2>
+&lt;p>Anchore Engine 0.4.1 includes many new features, bug fixes and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
 &lt;h3 id="new-features">New Features&lt;/h3>
 &lt;ul>
 &lt;li>Store a set of digests in a subscription record, allowing engine to run vuln_update/policy_eval checks over specified digests as well as latest. Contribution by Mattia Pagnozzi &lt;a href="mailto:mattia.pagnozzi@gmail.com">mattia.pagnozzi@gmail.com&lt;/a>&lt;/li>
 &lt;li>New debug_exception logger function to dump stack only at debug or higher log level, otherwise just print error.&lt;/li>
-&lt;li>Adds global internal client timeouts configurable in the config.yaml file. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/210">#210&lt;/a> add annotations key to AnchoreImage response definition type in.&lt;/li>
+&lt;li>Adds global internal client timeouts configurable in the config.yaml file. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/210">#210&lt;/a> add annotations key to AnchoreImage response definition type in.&lt;/li>
 &lt;/ul>
 &lt;h3 id="improvements">Improvements&lt;/h3>
 &lt;ul>
@@ -614,36 +800,43 @@ analyzed that are based on centos or rhel.&lt;/p>
 &lt;/ul>
 &lt;h3 id="bug-fixes">Bug Fixes&lt;/h3>
 &lt;ul>
-&lt;li>GET /images?history=true not returning full history list. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/215">#215&lt;/a>&lt;/li>
-&lt;li>Allow distro discovery routine to handle case where system os metadata files are broken softlinks inside the container image. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/213">#213&lt;/a>&lt;/li>
-&lt;li>Update to analyzer code, to keep a consistent map of files regardless of any file name slash and dot prefixes that may be present in the layer tars. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/209">#209&lt;/a>&lt;/li>
-&lt;li>Add input validation for registry add to prevent trailing slash and prefix schema in the registry input string. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/208">#208&lt;/a>&lt;/li>
-&lt;li>Implement dockerfile update check to invoke on only the specific digest, not tag. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/201">#201&lt;/a>&lt;/li>
-&lt;li>Incorrect 500 response on successful feed sync call. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/198">#198&lt;/a>&lt;/li>
-&lt;li>On image add, ensure that subscriptions are (re)activated based on API input. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/195">#195&lt;/a>&lt;/li>
+&lt;li>GET /images?history=true not returning full history list. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/215">#215&lt;/a>&lt;/li>
+&lt;li>Allow distro discovery routine to handle case where system os metadata files are broken softlinks inside the container image. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/213">#213&lt;/a>&lt;/li>
+&lt;li>Update to analyzer code, to keep a consistent map of files regardless of any file name slash and dot prefixes that may be present in the layer tars. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/209">#209&lt;/a>&lt;/li>
+&lt;li>Add input validation for registry add to prevent trailing slash and prefix schema in the registry input string. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/208">#208&lt;/a>&lt;/li>
+&lt;li>Implement dockerfile update check to invoke on only the specific digest, not tag. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/201">#201&lt;/a>&lt;/li>
+&lt;li>Incorrect 500 response on successful feed sync call. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/198">#198&lt;/a>&lt;/li>
+&lt;li>On image add, ensure that subscriptions are (re)activated based on API input. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/195">#195&lt;/a>&lt;/li>
 &lt;li>Use of body in GET /images to filter by tag and/or digest rather than only using query param&lt;/li>
 &lt;li>Don&amp;rsquo;t require type and key on PUT /subscriptions, reconciling code behavior with swagger spec. Contribution by by Mattia Pagnozzi &lt;a href="mailto:mattia.pagnozzi@gmail.com">mattia.pagnozzi@gmail.com&lt;/a>&lt;/li>
 &lt;li>Add missing &amp;lsquo;annotations&amp;rsquo; key to AnchoreImage response definition type in swagger spec.&lt;/li>
-&lt;li>Add correct DB filter on userId to prevent images deleted from one user account from resulting in deletions of images in other accounts, when Image Digests align across accounts. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/224">#224&lt;/a>&lt;/li>
+&lt;li>Add correct DB filter on userId to prevent images deleted from one user account from resulting in deletions of images in other accounts, when Image Digests align across accounts. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/224">#224&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Anchore Engine Release Notes - Version 0.4.0</title><link>/docs/releasenotes/040/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/040/</guid><description>
-&lt;h2 id="anchore-engine-040">Anchore Engine 0.4.0&lt;/h2>
-&lt;p>Anchore Engine 0.4.0 includes many new features, bug fixes and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/anchore/anchore-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Engine Release Notes - Version 0.4.0</title>
+            <link>/docs/releasenotes/040/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/040/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-040">Anchore Engine 0.4.0&lt;/h2>
+&lt;p>Anchore Engine 0.4.0 includes many new features, bug fixes and improvements. The latest summary can always be found in the Anchore Engine &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
 &lt;h3 id="new-features">New Features&lt;/h3>
 &lt;ul>
-&lt;li>Image Analysis Archive Subsystem. See &lt;a href="https://github.com/anchore/anchore-engine/issues/165">#165&lt;/a>.&lt;/li>
-&lt;li>all anchore-engine services now run (by default) as non-root, including the analyzer (with new analyzer implementation)&lt;/li>
-&lt;li>optional policy parameter for vulnerabilities older than N days. Implements &lt;a href="https://github.com/anchore/anchore-engine/issues/156">#156&lt;/a>. Contribution by &lt;code>i845783 &amp;lt;dan.wilson01@sap.com&amp;gt;&lt;/code>&lt;/li>
-&lt;li>new facility to carry anchore error codes through to API error response envelope. Addresses &lt;a href="https://github.com/anchore/anchore-engine/issues/150">#150&lt;/a> and will extend in future for richer error information in API responses.&lt;/li>
-&lt;li>/system/error_codes route to describe possible anchore error codes.&lt;/li>
-&lt;li>re-platformed anchore engine and CLI container image on Red Hat Universal Base Image (UBI)&lt;/li>
+&lt;li>Image Analysis Archive Subsystem. See &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/165">#165&lt;/a>.&lt;/li>
+&lt;li>all nextlinux-engine services now run (by default) as non-root, including the analyzer (with new analyzer implementation)&lt;/li>
+&lt;li>optional policy parameter for vulnerabilities older than N days. Implements &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/156">#156&lt;/a>. Contribution by &lt;code>i845783 &amp;lt;dan.wilson01@sap.com&amp;gt;&lt;/code>&lt;/li>
+&lt;li>new facility to carry nextlinux error codes through to API error response envelope. Addresses &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/150">#150&lt;/a> and will extend in future for richer error information in API responses.&lt;/li>
+&lt;li>/system/error_codes route to describe possible nextlinux error codes.&lt;/li>
+&lt;li>re-platformed nextlinux engine and CLI container image on Red Hat Universal Base Image (UBI)&lt;/li>
 &lt;/ul>
 &lt;h3 id="improvements">Improvements&lt;/h3>
 &lt;ul>
-&lt;li>cleanup feed sync error path where another sync is in progress. use the new anchore error code mechanism&lt;/li>
+&lt;li>cleanup feed sync error path where another sync is in progress. use the new nextlinux error code mechanism&lt;/li>
 &lt;li>support for psycopg2 SQL Alchemy Driver&lt;/li>
 &lt;li>new docker-compose quickstart method&lt;/li>
 &lt;li>combined analyzer module functionality&lt;/li>
@@ -654,13 +847,16 @@ analyzed that are based on centos or rhel.&lt;/p>
 &lt;/ul>
 &lt;h3 id="bug-fixes">Bug Fixes&lt;/h3>
 &lt;ul>
-&lt;li>improved handling of case where default_bundle_file key is unset internally for initializers that reference that configuration key. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/113">#113&lt;/a>.&lt;/li>
-&lt;li>skip dpkg results that are not in the explicit installed (ii) state. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/169">#169&lt;/a>.&lt;/li>
+&lt;li>improved handling of case where default_bundle_file key is unset internally for initializers that reference that configuration key. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/113">#113&lt;/a>.&lt;/li>
+&lt;li>skip dpkg results that are not in the explicit installed (ii) state. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/169">#169&lt;/a>.&lt;/li>
 &lt;li>bug in passwd_file gate&amp;rsquo;s context setup that was parsing entries incorrectly.&lt;/li>
 &lt;li>bytes decode issue in the object store manager interface that is masked in py3.6 but exposed in py3.5&lt;/li>
-&lt;li>update to handle redirect for quay.io when trailing slash is omitted, during initial registry ping in validation routine. Fixes &lt;a href="https://github.com/anchore/anchore-engine/issues/175">#175&lt;/a>.&lt;/li>
+&lt;li>update to handle redirect for quay.io when trailing slash is omitted, during initial registry ping in validation routine. Fixes &lt;a href="https://github.com/nextlinux/nextlinux-engine/issues/175">#175&lt;/a>.&lt;/li>
 &lt;/ul>
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="/docs/install/upgrade/">Upgrading Anchore Engine&lt;/a>&lt;/li>
-&lt;/ul></description></item></channel></rss>
+&lt;/ul></description>
+        </item>
+    </channel>
+</rss>

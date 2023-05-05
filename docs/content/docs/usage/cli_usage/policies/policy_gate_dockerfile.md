@@ -11,7 +11,7 @@ Anchore is either given a dockerfile or infers one from the docker image layer h
 
 The data that this gate operates on can come from two different sources: 
 
-1. The actual dockerfile used to build an image, as provided by the user at the time of running `anchore-cli image add <img ref> --dockerfile <filename>` or the corresponding API call to: POST /images?dockerfile=<base64content> 
+1. The actual dockerfile used to build an image, as provided by the user at the time of running `nextlinux-cli image add <img ref> --dockerfile <filename>` or the corresponding API call to: POST /images?dockerfile=<base64content> 
 2. The history from layers as encoded in the image itself (see `docker history <img>` for this output)
 
 All images have data from history available, but data from the actual dockerfile is only available when a user provides it. This also means that any images analyzed by the tag watcher functionality will not have an actual dockerfile.

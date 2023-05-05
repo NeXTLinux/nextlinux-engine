@@ -1,4 +1,22 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Anchore Engine – Storage Overview</title><link>/docs/install/storage/</link><description>Recent Hugo news from gohugo.io</description><generator>Hugo -- gohugo.io</generator><image><url>img/hugo.png</url><title>GoHugo.io</title><link>/docs/install/storage/</link></image><atom:link href="/docs/install/storage/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Analysis Archive Storage Configuration</title><link>/docs/install/storage/analysis_archive/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/install/storage/analysis_archive/</guid><description>
+<rss version="2.0"
+    xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Anchore Engine – Storage Overview</title>
+        <link>/docs/install/storage/</link>
+        <description>Recent Hugo news from gohugo.io</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <image>
+            <url>img/hugo.png</url>
+            <title>GoHugo.io</title>
+            <link>/docs/install/storage/</link>
+        </image>
+        <atom:link href="/docs/install/storage/index.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title>Docs: Analysis Archive Storage Configuration</title>
+            <link>/docs/install/storage/analysis_archive/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/install/storage/analysis_archive/</guid>
+            <description>
 &lt;p>For information on what the analysis archive is and how it works, see &lt;a href="/docs/general/concepts/analysis_archive/">Concepts: Analysis Archive&lt;/a>&lt;/p>
 &lt;p>The Analysis Archive is an &lt;a href="../object_store">object store&lt;/a> with specific semantics and thus is configured as an object store using the same
 configuration options, just with a different config key: &lt;code>analysis_archive&lt;/code>&lt;/p>
@@ -27,7 +45,7 @@ secret_key: 'MY_SECRET_KEY'
 #iamauto: True
 url: 'https://S3-end-point.example.com'
 region: False
-bucket: 'anchorearchive'
+bucket: 'nextlinuxarchive'
 create_bucket: True
 &lt;/code>&lt;/pre>&lt;h2 id="default-configuration">Default Configuration&lt;/h2>
 &lt;p>By default, if no &lt;code>analysis_archive&lt;/code> config is found or the property is not present in the config.yaml, the analysis archive
@@ -57,7 +75,14 @@ needed for the object store and active data but lets you use more scalable exter
 approach is most beneficial if you can keep the working set of images small and quickly transition old analysis to the
 archive to ensure the db is kept small and the analysis archive handles the data scaling over time.&lt;/p>
 &lt;/li>
-&lt;/ol></description></item><item><title>Docs: Database Storage</title><link>/docs/install/storage/database/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/install/storage/database/</guid><description>
+&lt;/ol></description>
+        </item>
+        <item>
+            <title>Docs: Database Storage</title>
+            <link>/docs/install/storage/database/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/install/storage/database/</guid>
+            <description>
 &lt;p>Anchore stores all metadata in a structured format in a PostgreSQL database to support API operations and searches.&lt;/p>
 &lt;p>Examples of data persisted in the database:&lt;/p>
 &lt;ul>
@@ -74,7 +99,14 @@ archive to ensure the db is kept small and the analysis archive handles the data
 &lt;li>&amp;hellip;&lt;/li>
 &lt;/ul>
 &lt;p>If the &lt;a href="../object_store">object store&lt;/a> is not explicitly set to an external provider, then that data is also persisted in
-the database but can be &lt;a href="../object_store/migration">migrated&lt;/a>&lt;/p></description></item><item><title>Docs: Layer Caching</title><link>/docs/install/storage/layer_caching/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/install/storage/layer_caching/</guid><description>
+the database but can be &lt;a href="../object_store/migration">migrated&lt;/a>&lt;/p></description>
+        </item>
+        <item>
+            <title>Docs: Layer Caching</title>
+            <link>/docs/install/storage/layer_caching/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/install/storage/layer_caching/</guid>
+            <description>
 &lt;p>Once an image is submitted to the Anchore Engine for analysis the Engine will attempt to retrieve metadata about the image from the Docker registry and if successful will download the image and queue the image for analysis.&lt;/p>
 &lt;p>The Anchore Engine can run one or more analyzer services to scale out processing of images. The next available analyzer worker will process the image.&lt;/p>
 &lt;p>Docker Images are made up of one or more layers, which are described in the manifest. The manifest lists the layers which are typically stored as gzipped compressed TAR files.&lt;/p>
@@ -109,7 +141,7 @@ To enable layer caching the layer_cache_enable parameter and layer_cache_max_gig
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">cycle_timer_seconds&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#0000cf;font-weight:bold">1&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">max_threads&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#0000cf;font-weight:bold">1&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">analyzer_driver&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#4e9a06">&amp;#39;nodocker&amp;#39;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">endpoint_hostname&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#4e9a06">&amp;#39;${ANCHORE_HOST_ID}&amp;#39;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
+&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">endpoint_hostname&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#4e9a06">&amp;#39;${NEXTLINUX_HOST_ID}&amp;#39;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">listen&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#4e9a06">&amp;#39;0.0.0.0&amp;#39;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">port&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#0000cf;font-weight:bold">8084&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">layer_cache_enable&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">True&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
@@ -118,8 +150,15 @@ To enable layer caching the layer_cache_enable parameter and layer_cache_max_gig
 &lt;ul>
 &lt;li>The minimum size for the cache is 1 gigabyte.&lt;/li>
 &lt;li>The cache users a least recently used (LRU) policy.&lt;/li>
-&lt;li>The cache files will be stored in the anchore_layercache directory of the /tmp_dir volume.&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Object Storage</title><link>/docs/install/storage/object_store/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/install/storage/object_store/</guid><description>
+&lt;li>The cache files will be stored in the nextlinux_layercache directory of the /tmp_dir volume.&lt;/li>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Object Storage</title>
+            <link>/docs/install/storage/object_store/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/install/storage/object_store/</guid>
+            <description>
 &lt;p>Anchore Engine uses a PostgreSQL database to store structured data for images, tags, policies, subscriptions and metdata
 about images, but other types of data in the system are less structured and tend to be larger pieces of data. Because of
 that, there are benefits to supporting key-value access patterns for things like image manifests, analysis reports, and
@@ -133,9 +172,12 @@ management and lower costs. The options are:&lt;/p>
 &lt;li>Swift Object Store&lt;/li>
 &lt;/ul>
 &lt;p>The configuration for the object store is set in the catalog&amp;rsquo;s service configuration in the config.yaml.&lt;/p>
-&lt;h3 id="changed-in-040-of-anchore-engine">Changed in 0.4.0 of Anchore Engine&lt;/h3>
+&lt;h3 id="changed-in-040-of-nextlinux-engine">Changed in 0.4.0 of Anchore Engine&lt;/h3>
 &lt;p>In releases before 0.4.0 of Anchore Engine, the configuration key was &lt;code>archive&lt;/code>. As of 0.4.0 that has been changed to
 &lt;code>object_store&lt;/code> but will still support &lt;code>archive&lt;/code> for backwards compatibility, though that key is now deprecated. The
 reason for the change is the new in 0.4.0 analysis archive feature, which uses the configuration key &lt;code>analysis_archive&lt;/code>.&lt;/p>
 &lt;p>The change helps differentiate the analysis archive, which is an object store with specific lifecycle semantics, from
-the more generic object store configuration.&lt;/p></description></item></channel></rss>
+the more generic object store configuration.&lt;/p></description>
+        </item>
+    </channel>
+</rss>

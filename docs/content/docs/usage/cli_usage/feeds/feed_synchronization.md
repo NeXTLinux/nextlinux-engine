@@ -13,7 +13,7 @@ CVE data for Linux distributions such as Alpine, CentOS, Debian, Oracle, Red Hat
 Starting with Anchore Engine version 0.2.0 the status of the feed synchronization can be retrieved through the API and Anchore CLI.
 
 ```
-anchore-cli system feeds list 
+nextlinux-cli system feeds list 
 
 Feed                   Group                  LastSync                           RecordCount        
 vulnerabilities        alpine:3.3             2018-04-25T11:51:33.567214Z        457                
@@ -55,7 +55,7 @@ After the initial sync has completed the engine will run an incremental sync at 
 
 A sync operation can be manually initiated by running the system feeds sync command however this should not be required under normal operation.
 
-`anchore-cli system feeds sync`
+`nextlinux-cli system feeds sync`
 
 ### Performing full resync
 
@@ -65,6 +65,6 @@ Under normal circumstances this operation should not be required since the Ancho
 
 This process may take anywhere from  10 to 60 minutes depending on the speed of your network connection.
 
-`anchore-cli system feeds sync --flush`
+`nextlinux-cli system feeds sync --flush`
 
 The CLI will issue a warning and prompt for confirmation before proceeding with a sync.

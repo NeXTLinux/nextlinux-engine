@@ -53,7 +53,7 @@ A common use case for this trigger is to alert an external system that a new TAG
 
 ### Managing Subscriptions
 
-Subscriptions are managed through the REST API or through the anchore-cli. The current subscription types are:
+Subscriptions are managed through the REST API or through the nextlinux-cli. The current subscription types are:
 
 - tag_update : Tag update
 - policy_eval : Policy status update
@@ -68,7 +68,7 @@ Subscriptions are managed through the REST API or through the anchore-cli. The c
 Running the `subscription list` command will output a table showing the status of each Tag's subscriptions.
 
 ```
-anchore-cli subscription list
+nextlinux-cli subscription list
 
 Tag                                                            Subscription Type        Active        
 docker.io/library/alpine:latest                                analysis_update          True          
@@ -87,7 +87,7 @@ docker.io/library/centos:latest                                vuln_update      
 
 The `subscription activate` command is used to enable a subscription type for a given image. The command takes the following form:
 
-`anchore-cli subscription activate SUBSCRIPTION_TYPE SUBSCRIPTION_KEY`
+`nextlinux-cli subscription activate SUBSCRIPTION_TYPE SUBSCRIPTION_KEY`
 
 SUBSCRIPTION_TYPE should be either: 
 

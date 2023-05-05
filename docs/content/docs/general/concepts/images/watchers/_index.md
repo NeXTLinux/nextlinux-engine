@@ -19,7 +19,7 @@ The process for monitoring updates to repositories, the addition of new tag name
 
 The output of this process is new tag_update subscription records, which are subsequently processed by the Tag Update handlers as described below. You can view the tag_update subscriptions using the Anchore CLI:
 
-`anchore-cli subscription list | grep tag_update`
+`nextlinux-cli subscription list | grep tag_update`
 
 ### Tag Updates: New Images
 

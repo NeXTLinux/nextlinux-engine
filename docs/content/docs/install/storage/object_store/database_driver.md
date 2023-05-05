@@ -9,7 +9,7 @@ Compression is not supported for this driver since the underlying database will 
 
 There are no configuration options required for the Database driver.
 
-The embedded configuration for anchore engine includes the default configuration for the db driver.
+The embedded configuration for nextlinux engine includes the default configuration for the db driver.
 
 ```YAML
 object_store:

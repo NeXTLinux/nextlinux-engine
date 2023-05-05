@@ -13,7 +13,7 @@ The Anchore CLI is published as a Python Package that can be installed from sour
 ```
 sudo yum install -y epel-release
 sudo yum install -y python-pip
-pip install --user --upgrade anchorecli
+pip install --user --upgrade nextlinuxcli
 ```
 
 #### Installing Anchore CLI on Debian and Ubuntu
@@ -21,27 +21,27 @@ pip install --user --upgrade anchorecli
 ```
 sudo apt-get update
 sudo apt-get install python-pip
-pip install --user --upgrade anchorecli
+pip install --user --upgrade nextlinuxcli
 ```
 
 #### Installing Anchore CLI on Mac osX
 
 ```
 sudo easy_install pip
-pip install --user --upgrade anchorecli
+pip install --user --upgrade nextlinuxcli
 ```
 
-#### Installing the ANCHORE CLI from source
+#### Installing the NEXTLINUX CLI from source
 
 ```
-git clone https://github.com/anchore/anchore-cli
-cd anchore-cli
+git clone https://github.com/nextlinux/nextlinux-cli
+cd nextlinux-cli
 pip install --user --upgrade .
 ```
 
 #### Setting the Path
 
-Once installed the anchore-cli utility has been installed you may need to adjust your PATH to ensure that the anchore-cli executable is in the user's path.
+Once installed the nextlinux-cli utility has been installed you may need to adjust your PATH to ensure that the nextlinux-cli executable is in the user's path.
 
 The install location is system dependent, governed by PIP and may vary based the distribution on which you are running.
 The most common default locations are:
@@ -62,4 +62,4 @@ Executable files installed by pip --user will be placed in the bin sub directory
 
 Once the Anchore CLI has been installed it should be configured to access the Anchore Engine.
 
-See [Configuring the Anchore CLI]({{< ref "/docs/install/anchore_cli/cli_config" >}}).
+See [Configuring the Anchore CLI]({{< ref "/docs/install/nextlinux_cli/cli_config" >}}).

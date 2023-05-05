@@ -8,7 +8,7 @@ weight: 70
 
 NOTE: This version of Anchore Engine is not compatible with Anchore Enterprise 2.2.x. If you are an Enterprise user you should not upgrade to this version, but instead wait for the Enterprise 2.3 release.
 
-Anchore Engine 0.7.0 new Features, bug fixes and improvements.  The latest summary can always be found in the Anchore Engine [CHANGELOG](https://github.com/anchore/anchore-engine/blob/master/CHANGELOG.md) on github.
+Anchore Engine 0.7.0 new Features, bug fixes and improvements.  The latest summary can always be found in the Anchore Engine [CHANGELOG](https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md) on github.
 
 ### Features
 
@@ -22,12 +22,12 @@ Anchore Engine 0.7.0 new Features, bug fixes and improvements.  The latest summa
 
 + New APIs for granular control of data feeds, including enable/disable toggles and data flush capabilities.
 
-  This provides finer grained control over which feeds will sync and which are used for matching vulnerabilities against images. Includes new anchore-cli commands
+  This provides finer grained control over which feeds will sync and which are used for matching vulnerabilities against images. Includes new nextlinux-cli commands
   to use the API calls:
 
-  `anchore-cli system feeds config --enable|--disable <feed> [ --group <group name> ]`  
+  `nextlinux-cli system feeds config --enable|--disable <feed> [ --group <group name> ]`  
   and  
-  `anchore-cli system feeds delete <feed> [ --group <group name> ]`
+  `nextlinux-cli system feeds delete <feed> [ --group <group name> ]`
 
   For more information see [CLI Usage - Feeds]({{< ref "/docs/usage/cli_usage/feeds/feed_configuration" >}})
 
@@ -71,7 +71,7 @@ The ancho.re feed service has already been updated to serve the new data which s
 * `rhel:8`
 
 During the upgrade process the system will automatically perform the following steps:
-1. Disabled the _centos:*_ vulnerability feed groups. This means they will no longer be synced with updates. You'll see this reflected in the output of `anchore-cli system feeds list` if you upgrade to the 0.7.0 version of anchore-cli.a
+1. Disabled the _centos:*_ vulnerability feed groups. This means they will no longer be synced with updates. You'll see this reflected in the output of `nextlinux-cli system feeds list` if you upgrade to the 0.7.0 version of nextlinux-cli.a
 1. Rescans all images in your db that are rhel-based (centos, redhat, etc) using the vulnerabiliy data from the _rhel:*_ groups to update all matches
 1. Flushes the _centos:*_ matches and all vulnerability records
 

@@ -8,7 +8,7 @@ GIT_TAG="${3:?'Missing required parameter: GIT_TAG'}"
 TEST_IMAGE_NAME="${4:?'Missing required parameter: TEST_IMAGE_NAME'}"
 
 # Optional - only used for print_colorized
-source anchore-ci/utils
+source nextlinux-ci/utils
 
 print_colorized INFO "Setting up Anchore Engine end-to-end tests."; echo
 
@@ -31,16 +31,16 @@ if [[ "${CI:-false}" == true ]]; then
     test "${DOCKER_PASS:?'Missing required environment variable: DOCKER_PASS'}"
 
     # Create k8s secret using $DOCKER_USER & $DOCKER_PASS and set as default imagePullCreds
-    kubectl create secret docker-registry anchore-enterprise-pullcreds --docker-server=docker.io --docker-username="${DOCKER_USER}" --docker-password="${DOCKER_PASS}" --docker-email=anchoreci@anchore.com
-    kubectl patch serviceaccount default --type=merge --patch '{"imagePullSecrets":[{"name": "anchore-enterprise-pullcreds"}]}'
+    kubectl create secret docker-registry nextlinux-enterprise-pullcreds --docker-server=docker.io --docker-username="${DOCKER_USER}" --docker-password="${DOCKER_PASS}" --docker-email=nextlinuxci@nextlinux.com
+    kubectl patch serviceaccount default --type=merge --patch '{"imagePullSecrets":[{"name": "nextlinux-enterprise-pullcreds"}]}'
 fi
 
 if ! helm list | grep e2e-testing; then
-    helm repo add anchore https://charts.anchore.io
-    helm install e2e-testing -f tests/e2e/base-values.yaml --set anchoreGlobal.image="${engine_image}" anchore/anchore-engine | head -n6
+    helm repo add nextlinux https://charts.nextlinux.io
+    helm install e2e-testing -f tests/e2e/base-values.yaml --set nextlinuxGlobal.image="${engine_image}" nextlinux/nextlinux-engine | head -n6
 fi
 
-# Patch anchore-engine-api nodeport to the configured port thats mapped with kind to localhost:8228
-kubectl patch service e2e-testing-anchore-engine-api --type=json --patch '[{"op": "replace", "path": "/spec/ports/0/nodePort", "value":30028}]'
+# Patch nextlinux-engine-api nodeport to the configured port thats mapped with kind to localhost:8228
+kubectl patch service e2e-testing-nextlinux-engine-api --type=json --patch '[{"op": "replace", "path": "/spec/ports/0/nodePort", "value":30028}]'
 
 print_colorized INFO "Finished setting up Anchore Engine end-to-end tests."; echo

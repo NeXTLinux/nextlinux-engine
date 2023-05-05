@@ -11,11 +11,11 @@ However if your registry requires authentication then the registry and correspon
 Running the following command lists the defined registries.
 
 ```
-$ anchore-cli registry list 
+$ nextlinux-cli registry list 
 
 Registry                    User            
-docker.io                   anchore
-quay.io                     anchore
+docker.io                   nextlinux
+quay.io                     nextlinux
 registry.example.com        johndoe 
 192.168.1.200:5000          janedoe
 ```
@@ -26,9 +26,9 @@ Here we can see that 4 registries have been defined. If no registry was defined 
 
 Registries can be added using the following syntax.
 
-`anchore-cli registry add REGISTRY USERNAME PASSWORD`
+`nextlinux-cli registry add REGISTRY USERNAME PASSWORD`
 
-The REGISTRY parameter should include the fully qualified hostname and port number of the registry. For example: registry.anchore.com:5000
+The REGISTRY parameter should include the fully qualified hostname and port number of the registry. For example: registry.nextlinux.com:5000
 
 Anchore Engine will only pull images from a TLS/SSL enabled registry. If the registry is protected with a self signed certificate or a certificated signed by an unknown certificate authority then the `--insecure` parameter can be passed which instructs the Anchore Engine not to validate the certificate.
 
@@ -45,7 +45,7 @@ The *registry get* command allows the user to retrieve details about a specific 
 For example:
 
 ```
-$ anchore-cli registry get registry.example.com 
+$ nextlinux-cli registry get registry.example.com 
 
 Registry: registry.example.com
 User: johndoe
@@ -60,7 +60,7 @@ In this example we can see that the registry.example.com registry was added to t
 
 Once a registry had been defined the parameters can be updated using the *update* command. This allows a registry's username, password and insecure (validate TLS) parameters to be updated.
 
-`anchore-cli registry update REGISTRY USERNAME PASSWORD [--insecure]`
+`nextlinux-cli registry update REGISTRY USERNAME PASSWORD [--insecure]`
 
 ### Deleting Registries
 
@@ -68,13 +68,13 @@ A Registry can be deleted from Anchore's configuration using the `del` command.
 
 For example to delete the configuration for registry.example.com the following command should be issued:
 
-`anchore-cli registry delete registry.example.com`
+`nextlinux-cli registry delete registry.example.com`
 
 **Note:** Deleting a registry record does not delete the records of images/tags associated with that registry.
 
 ### Advanced
 
-Anchore engine attempts to perform a credential validation upon registry addition, but there are cases where a credential can be valid but the validation routine can fail (in particular, credential validation methods are changing for public registries over time).  If you are unable to add a registry but believe that the credential you are providing is valid, or you wish to add a credential to anchore before it is in place in the registry, you can bypass the registry credential validation process using the `--skip-validation` option to the `registry add` command.
+Anchore engine attempts to perform a credential validation upon registry addition, but there are cases where a credential can be valid but the validation routine can fail (in particular, credential validation methods are changing for public registries over time).  If you are unable to add a registry but believe that the credential you are providing is valid, or you wish to add a credential to nextlinux before it is in place in the registry, you can bypass the registry credential validation process using the `--skip-validation` option to the `registry add` command.
 
 
 

@@ -15,7 +15,7 @@ package is incomplete, this mechanism can be used to include that information in
 
 See [Configuring Content Hints]({{< ref "/docs/install/configuration/content_hints" >}})
 
-Once enabled, the analyzer services will look for a file with a specific name, location and format located within the container image - ```/anchore_hints.json```.  
+Once enabled, the analyzer services will look for a file with a specific name, location and format located within the container image - ```/nextlinux_hints.json```.  
 The format of the file is illustrated using some examples, below.
 
 
@@ -26,7 +26,7 @@ for RedHat, Debian, and Alpine flavored package managers respectively.  Note tha
 that only one package named 'somepackage' can exist in an image's SBOM, and specifying a name in the hints file that conflicts with one with the same name 
 discovered by the Anchore analyzers will result in the record from the hints file taking precedence (override).
 
-* Minimum required values for a package record in anchore_hints.json
+* Minimum required values for a package record in nextlinux_hints.json
 
 ```
 	{
@@ -57,9 +57,9 @@ discovered by the Anchore analyzers will result in the record from the hints fil
 Non-OS / language package records are similar in form to the OS package records, but with some extra/different characteristics being supplied, namely 
 the ```location``` field.  Since multiple non-os packages can be installed that have the same name, the location field is particularly important as it 
 is used to distinguish between package records that might otherwise be identical.  Valid types for non-os packages are currently ```java, python, gem, npm, nuget, go, binary```.  
-For the latest types that are available, see the ```anchore-cli image content <someimage>``` output, which lists available types for any given deployment of Anchore Engine.
+For the latest types that are available, see the ```nextlinux-cli image content <someimage>``` output, which lists available types for any given deployment of Anchore Engine.
 
-* Minimum required values for a package record in anchore_hints.json
+* Minimum required values for a package record in nextlinux_hints.json
 
 ```
 	{
@@ -86,7 +86,7 @@ For the latest types that are available, see the ```anchore-cli image content <s
 
 ### Putting it all together
 
-Using the above examples, a complete anchore_hints.json file, when discovered by Anchore Engine located in ```/anchore_hints.json``` inside any container image, is provided here:
+Using the above examples, a complete nextlinux_hints.json file, when discovered by Anchore Engine located in ```/nextlinux_hints.json``` inside any container image, is provided here:
 
 ```
 {
@@ -106,14 +106,14 @@ Using the above examples, a complete anchore_hints.json file, when discovered by
 ```
 
 With such a hints file in an image based for example on ```alpine:latest```, the resulting image content would report these two package/version records 
-as part of the SBOM for the analyzed image, when viewed using ```anchore-cli image content <image> os``` and ```anchore-cli image content <image> gem``` 
+as part of the SBOM for the analyzed image, when viewed using ```nextlinux-cli image content <image> os``` and ```nextlinux-cli image content <image> gem``` 
 to view the ```musl``` and ```wicked``` package records, respectively.
 
 
 ##### Note about using the hints file feature
 
 The hints file feature is disabled by default, and is meant to be used in very specific circumstances where a trusted entity is entrusted with creating 
-and installing, or removing an anchore_hints.json file from all containers being built.  It is not meant to be enabled when the container image builds 
+and installing, or removing an nextlinux_hints.json file from all containers being built.  It is not meant to be enabled when the container image builds 
 are not explicitly controlled, as the entity that is building container images could override any SBOM entry that Anchore would normally discover, which 
 affects the vulnerability/policy status of an image.  For this reason, the feature is disabled by default and must be explicitly enabled in configuration 
 only if appropriate for your use case .

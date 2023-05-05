@@ -4,14 +4,14 @@ linkTitle: "Authorization Plugins"
 weight: 7
 ---
 
-New in Anchore Engine 0.3.0, an open interface for allowing authorization decisions to be made by external plugins has been implemented. The interface is an HTTP API and has a swagger specification that can be found [here](https://github.com/anchore/anchore-engine/blob/master/anchore_engine/plugins/authorization/swagger/swagger.yaml).
+New in Anchore Engine 0.3.0, an open interface for allowing authorization decisions to be made by external plugins has been implemented. The interface is an HTTP API and has a swagger specification that can be found [here](https://github.com/nextlinux/nextlinux-engine/blob/master/nextlinux_engine/plugins/authorization/swagger/swagger.yaml).
 
 The interface is simple and relies on just a few operations:
 
 1. Principal lifecycle notifications (initialize, delete)
-    1. Principals are basically users. These are merely notifications and may be ignored by an implementation. They are intended to allow an external plugin to synchronize the lifecycle of its data with that of the account store in anchore engine. For example, flushing all authorization rules when a user is deleted, or initializing new defaults when a principal/user is created.
+    1. Principals are basically users. These are merely notifications and may be ignored by an implementation. They are intended to allow an external plugin to synchronize the lifecycle of its data with that of the account store in nextlinux engine. For example, flushing all authorization rules when a user is deleted, or initializing new defaults when a principal/user is created.
 2. Domain lifecycle notifications (initialize, delete)
-    1. Domains are basically accounts. As for principals, these notifications may be ignored by an implementation. They are intended to allow an external plugin to synchronize the lifecycle of its data with that of the account store in anchore engine. For example, flushing all permission mappings when an account is deleted, or initializing defaults on creation of a new account/domain.
+    1. Domains are basically accounts. As for principals, these notifications may be ignored by an implementation. They are intended to allow an external plugin to synchronize the lifecycle of its data with that of the account store in nextlinux engine. For example, flushing all permission mappings when an account is deleted, or initializing defaults on creation of a new account/domain.
 3. Authorization Request
     1. Determine if the requested (domain, action, target) tuples are authorized. See Accounts, User, and Access Control for more information on how domains, actions, and targets.
 

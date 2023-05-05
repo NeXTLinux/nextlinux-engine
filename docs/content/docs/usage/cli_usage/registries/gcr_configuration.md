@@ -11,6 +11,6 @@ Once a JSON key file has been created with permissions to read from the containe
 
 In the following example a file named key.json in the current directory contains the JSON key with readonly access to the my-repo repository within the my-project Google Cloud project.
 
-`anchore-cli registry add us.gcr.io _json_key "$(cat key.json)"`
+`nextlinux-cli registry add us.gcr.io _json_key "$(cat key.json)"`
 
 

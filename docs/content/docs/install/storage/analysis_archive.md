@@ -36,7 +36,7 @@ services:
           #iamauto: True
           url: 'https://S3-end-point.example.com'
           region: False
-          bucket: 'anchorearchive'
+          bucket: 'nextlinuxarchive'
           create_bucket: True
 ```
 

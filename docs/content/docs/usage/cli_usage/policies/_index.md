@@ -31,13 +31,13 @@ To create custom polices, you may:
 
 ### Managing Policies
 
-Policies can be managed directly using the REST API or the `anchore-cli policy` command. 
+Policies can be managed directly using the REST API or the `nextlinux-cli policy` command. 
 
 #### Adding Policies from the CLI
 
-The `anchore-cli` tool allows you to upload policy bundles to the Anchore Engine.
+The `nextlinux-cli` tool allows you to upload policy bundles to the Anchore Engine.
 
-`anchore-cli policy add /path/to/policy/bundle.json`
+`nextlinux-cli policy add /path/to/policy/bundle.json`
 
 **Note:** Adding a policy bundle will **not** automatically set the bundle to be active, you will need to activate the bundle using the *activate* command. 
 
@@ -46,7 +46,7 @@ The `anchore-cli` tool allows you to upload policy bundles to the Anchore Engine
 The Anchore Engine may store multiple policy bundles however at a given time only one bundle may be active. Policy bundles can be listed using the `policy list` command.
 
 ```
-$ anchore-cli policy list
+$ nextlinux-cli policy list
 Policy ID                                   Active        Created                    Updated                    
 
 715a6056-87ab-49fb-abef-f4b4198c67bf        True          2017-09-02T12:33:28        2017-09-02T12:33:28        
@@ -73,13 +73,13 @@ Updated: 2017-09-03T12:33:28
 
 The policy bundle can be downloaded in JSON format by passing the `--detail` parameter.
 
-`anchore-cli policy get 715a6056-87ab-49fb-abef-f4b4198c67bf --detail > policybundle.json`
+`nextlinux-cli policy get 715a6056-87ab-49fb-abef-f4b4198c67bf --detail > policybundle.json`
 
 #### Activating Policies
 
 The `policy activate` command can be used to activate a policy bundle. The policy bundle is referenced using its unique id which can be retrieved using the `policy list` command.
 
-`$ anchore-cli policy activate 2170857d-b660-4b56-a1a7-06550bf02eb2`
+`$ nextlinux-cli policy activate 2170857d-b660-4b56-a1a7-06550bf02eb2`
 
 **Note:** If the Anchore Engine has been configured to automatically synchronize policy bundles from the Anchore Cloud then the active policy may be overridden automatically during the next sync.
 
@@ -87,14 +87,14 @@ The `policy activate` command can be used to activate a policy bundle. The polic
 
 Policies can be deleted from the Anchore Engine using the `policy del` command The policy is referenced using its unique id. A policy marked as *active* cannot be deleted, another policy has to be marked active before deleting the currently active policy.
 
-`$ anchore-cli policy del 715a6056-87ab-49fb-abef-f4b4198c67bf`
+`$ nextlinux-cli policy del 715a6056-87ab-49fb-abef-f4b4198c67bf`
 
 #### Describe Policies
 
 The list of available policy items (Gates and Triggers) can be displayed using the policy describe command.
 
 ```
-$ anchore-cli policy describe
+$ nextlinux-cli policy describe
 
 +-----------------+------------------------------------------------------------+
 | Gate            | Description                                                |
@@ -137,7 +137,7 @@ Without any other parameters the command will output a list of the policy gates.
 Each policy gate may include one or more triggers (policy checks). The optional `--gate` parameter is used to request a list of all triggers supported by a gate.
 
 ```
-$ anchore-cli policy describe --gate=licenses
+$ nextlinux-cli policy describe --gate=licenses
 +-------------------------+----------------------------------------+------------+
 | Trigger                 | Description                            | Parameters |
 +-------------------------+----------------------------------------+------------+
@@ -158,7 +158,7 @@ In this example we can see that the licenses gate has two triggers: blacklist_ex
 The optional `--trigger` parameter may be used in conjunction with the `--gate` parameter to return detailed information about specific gates.
 
 ```
-$ anchore-cli policy describe --gate=licenses --trigger=blacklist_exact_match
+$ nextlinux-cli policy describe --gate=licenses --trigger=blacklist_exact_match
 +-----------+------------------------------------+----------+----------------------------+
 | Parameter | Description                        | Required | Example                    |
 +-----------+------------------------------------+----------+----------------------------+

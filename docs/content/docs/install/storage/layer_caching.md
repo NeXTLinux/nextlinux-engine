@@ -12,14 +12,14 @@ Docker Images are made up of one or more layers, which are described in the mani
 As part of image analysis the Anchore Engine will:
 
 - Download all layers that comprise an image
-- Extract the layers to a temporary file system location 
+- Extract the layers to a temporary file system location
 - Perform analysis on the contents of the image including:
-    - Digest of every file (SHA1, SHA256 and MD5)
-    - File attributes (size, owner, permissions, etc)
-    - Operating System package manifest
-    - Software library package manifest  (NPM, GEM, Java, Python, NuGet)
-    - Scan for secret materials (api keys, private keys, etc
-    
+  - Digest of every file (SHA1, SHA256 and MD5)
+  - File attributes (size, owner, permissions, etc)
+  - Operating System package manifest
+  - Software library package manifest (NPM, GEM, Java, Python, NuGet)
+  - Scan for secret materials (api keys, private keys, etc
+
 Following the analysis the extracted layers and downloaded layer tar files are deleted.
 
 In many cases the images will share a number of common layers, especially if images are built form a consistent set of base images. To speed up the Anchore Engine can be configure to cache image layers to eliminate the need to download the same layer for many different images. The layer cache is displayed in the default Anchore Engine configuration. To enable the cache the following changes should be made:
@@ -44,7 +44,7 @@ analyzer:
     cycle_timer_seconds: 1
     max_threads: 1
     analyzer_driver: 'nodocker'
-    endpoint_hostname: '${ANCHORE_HOST_ID}'
+    endpoint_hostname: '${NEXTLINUX_HOST_ID}'
     listen: '0.0.0.0'
     port: 8084
     layer_cache_enable: True
@@ -55,4 +55,4 @@ In this example the cache is set to 4 gigabytes. The temporary volume should be 
 
 - The minimum size for the cache is 1 gigabyte.
 - The cache users a least recently used (LRU) policy.
-- The cache files will be stored in the anchore_layercache directory of the /tmp_dir volume.
+- The cache files will be stored in the nextlinux_layercache directory of the /tmp_dir volume.

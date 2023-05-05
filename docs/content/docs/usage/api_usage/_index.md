@@ -6,7 +6,7 @@ weight: 3
 
 ## Introduction
 
-The Anchore Engine API is documented using the OpenAPI Specification (Swagger) and the source for the latest development version can be found in GitHub in [swagger.yaml](https://github.com/anchore/anchore-engine/blob/master/anchore_engine/services/apiext/swagger/swagger.yaml) document within the external API service.  There are also a variety of ways in which the API specification can be accessed.
+The Anchore Engine API is documented using the OpenAPI Specification (Swagger) and the source for the latest development version can be found in GitHub in [swagger.yaml](https://github.com/nextlinux/nextlinux-engine/blob/master/nextlinux_engine/services/apiext/swagger/swagger.yaml) document within the external API service.  There are also a variety of ways in which the API specification can be accessed.
 
 ### Online
 
@@ -27,7 +27,7 @@ http://localhost:8228/v1/swagger.json
 1. When using docker-compose: Uncomment the following section at the bottom of the docker-compose.yaml file:
 
     ```
-    #  # Uncomment this section to run a swagger UI service, for inspecting and interacting with the anchore engine API via a browser (http://localhost:8080 by default, change if needed in both sections below)
+    #  # Uncomment this section to run a swagger UI service, for inspecting and interacting with the nextlinux engine API via a browser (http://localhost:8080 by default, change if needed in both sections below)
     #  swagger-ui-nginx:
     #    image: docker.io/nginx:latest
     #    depends_on:
@@ -36,7 +36,7 @@ http://localhost:8228/v1/swagger.json
     #    ports:
     #      - "8080:8080"
     #    volumes:
-    #      - ./anchore-swaggerui-nginx.conf:/etc/nginx/nginx.conf:z
+    #      - ./nextlinux-swaggerui-nginx.conf:/etc/nginx/nginx.conf:z
     #    logging:
     #      driver: "json-file"
     #      options:
@@ -51,10 +51,10 @@ http://localhost:8228/v1/swagger.json
     #        max-size: 100m
     ```
 
-1. Download the nginx configuration into the same directory as the docker-compose.yaml file, with name _anchore-swaggerui-nginx.conf_
+1. Download the nginx configuration into the same directory as the docker-compose.yaml file, with name _nextlinux-swaggerui-nginx.conf_
 
     ```
-    curl -O https://docs.anchore.com/current/docs/quickstart/anchore-swaggerui-nginx.conf
+    curl -O https://docs.nextlinux.com/current/docs/quickstart/nextlinux-swaggerui-nginx.conf
     docker-compose up -d
     ```
 

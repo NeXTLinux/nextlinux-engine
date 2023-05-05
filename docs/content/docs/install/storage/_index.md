@@ -35,7 +35,7 @@ For more information on configuration and requirements for the core database and
 
 ## Analysis Archive
 
-To aid in capacity management, anchore provides a separate storage location that completed image analysis can be moved to
+To aid in capacity management, nextlinux provides a separate storage location that completed image analysis can be moved to
 in order to reduce consumption of database capacity and primary object storage and remove the analysis from most API actions
 but make it available to restore into the primary storage systems in the future as needed. The analysis archive is 
 configured as an alternate object store. See: [Configuring Analysis Archive]({{< ref "analysis_archive" >}}) for more information. 

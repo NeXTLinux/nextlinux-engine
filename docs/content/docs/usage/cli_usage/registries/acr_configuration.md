@@ -19,8 +19,8 @@ To use an Azure Registry, you can configure Anchore to use either the admin cred
       Username: The service principal app id
       Password: The service principal password
 
-To add an azure registry credential, invoke anchore-cli as follows:
+To add an azure registry credential, invoke nextlinux-cli as follows:
 
-`anchore-cli registry add --registry-type <Type> <Registry> <Username> <Password>`
+`nextlinux-cli registry add --registry-type <Type> <Registry> <Username> <Password>`
 
-Once a registry has been added, any image that is added (e.g. `anchore-cli image add <Registry>/some/repo:sometag`) will use the provided credential to download/inspect and analyze the image.
+Once a registry has been added, any image that is added (e.g. `nextlinux-cli image add <Registry>/some/repo:sometag`) will use the provided credential to download/inspect and analyze the image.

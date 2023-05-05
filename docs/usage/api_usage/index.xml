@@ -1,5 +1,23 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Anchore Engine – Accessing the Anchore Engine API</title><link>/docs/usage/api_usage/</link><description>Recent Hugo news from gohugo.io</description><generator>Hugo -- gohugo.io</generator><image><url>img/hugo.png</url><title>GoHugo.io</title><link>/docs/usage/api_usage/</link></image><atom:link href="/docs/usage/api_usage/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Supported Authentication Modes</title><link>/docs/usage/api_usage/authentication/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/usage/api_usage/authentication/</guid><description>
-&lt;h2 id="anchore-engine-authentication-overview">Anchore Engine Authentication Overview&lt;/h2>
+<rss version="2.0"
+    xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Anchore Engine – Accessing the Anchore Engine API</title>
+        <link>/docs/usage/api_usage/</link>
+        <description>Recent Hugo news from gohugo.io</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <image>
+            <url>img/hugo.png</url>
+            <title>GoHugo.io</title>
+            <link>/docs/usage/api_usage/</link>
+        </image>
+        <atom:link href="/docs/usage/api_usage/index.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title>Docs: Supported Authentication Modes</title>
+            <link>/docs/usage/api_usage/authentication/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/usage/api_usage/authentication/</guid>
+            <description>
+&lt;h2 id="nextlinux-engine-authentication-overview">Anchore Engine Authentication Overview&lt;/h2>
 &lt;p>Anchore Engine supports two ways for users to authenticate to the API: HTTP Basic and Bearer Tokens. HTTP Basic is always
 supported but Bearer token auth must be explicitly configured to be used.&lt;/p>
 &lt;p>For production installation, it is recommended to &lt;a href="/docs/install/configuration/user_credential_storage/">configure bearer tokens as well as hashed password storage&lt;/a>
@@ -33,7 +51,7 @@ between services and users. See: &lt;a href="/docs/install/configuration/tls_ssl
 [
 {
 &amp;quot;created_at&amp;quot;: &amp;quot;2019-08-28T07:32:39Z&amp;quot;,
-&amp;quot;email&amp;quot;: &amp;quot;admin@myanchore&amp;quot;,
+&amp;quot;email&amp;quot;: &amp;quot;admin@mynextlinux&amp;quot;,
 &amp;quot;last_updated&amp;quot;: &amp;quot;2019-08-28T07:32:39Z&amp;quot;,
 &amp;quot;name&amp;quot;: &amp;quot;admin&amp;quot;,
 &amp;quot;state&amp;quot;: &amp;quot;enabled&amp;quot;,
@@ -42,13 +60,10 @@ between services and users. See: &lt;a href="/docs/install/configuration/tls_ssl
 ]
 &lt;/code>&lt;/pre>
 &lt;h3 id="bearer-tokensoauth">Bearer Tokens/Oauth&lt;/h3>
-&lt;p>When configured, anchore implements the Oauth2 Password grant flow. Anchore is configured with a default &amp;lsquo;anonymous&amp;rsquo; client
+&lt;p>When configured, nextlinux implements the Oauth2 Password grant flow. Anchore is configured with a default &amp;lsquo;anonymous&amp;rsquo; client
 id that is used to avoid requiring registering specific clients.&lt;/p>
 &lt;p>Required payload, must be www-form-urlencoded:&lt;/p>
-&lt;pre>&lt;code>grant_type=password
-username=&amp;lt;user&amp;gt;
-password=&amp;lt;password&amp;gt;
-client_id=anonymous
+&lt;pre>&lt;code>grant_type=password username=&amp;lt;user&amp;gt; password=&amp;lt;password&amp;gt; client_id=anonymous
 &lt;/code>&lt;/pre>
 &lt;p>The payload is sent using HTTP POST to the &lt;em>/v1/oauth/token&lt;/em> endpoint. The returned token is valid until expiration (typically 1 hour)
 and is used by sending it in the &lt;em>Authorization&lt;/em> header as a bearer token:&lt;/p>
@@ -78,11 +93,14 @@ and is used by sending it in the &lt;em>Authorization&lt;/em> header as a bearer
 root@4a1b1d9105a8 ~]# curl -H &amp;quot;Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhbmNob3JlLWVuZ2luZSIsInN1YiI6IjRhYjQ3NzczOTQ0MjRkM2RiNmY1MTczMzU1ZjE3YTZhIiwiZXhwIjoxNTY3MDI3NTEyLCJpYXQiOjE1NjcwMjM5MTIsImp0aSI6IjMzY2I1NTA1NjU3ZDRkZjBhYzY2MWE5Yjk3NWEyYjJmIn0.nQkkZ17lU_UeWVuVAt2RlLJ-mY935bP6OV3R1fBL_24&amp;quot; http://localhost:8228/v1/account
 {
 &amp;quot;created_at&amp;quot;: &amp;quot;2019-08-28T07:32:39Z&amp;quot;,
-&amp;quot;email&amp;quot;: &amp;quot;admin@myanchore&amp;quot;,
+&amp;quot;email&amp;quot;: &amp;quot;admin@mynextlinux&amp;quot;,
 &amp;quot;last_updated&amp;quot;: &amp;quot;2019-08-28T07:32:39Z&amp;quot;,
 &amp;quot;name&amp;quot;: &amp;quot;admin&amp;quot;,
 &amp;quot;state&amp;quot;: &amp;quot;enabled&amp;quot;,
 &amp;quot;type&amp;quot;: &amp;quot;admin&amp;quot;
 }
 [root@4a1b1d9105a8 ~]#
-&lt;/code>&lt;/pre></description></item></channel></rss>
+&lt;/code>&lt;/pre></description>
+        </item>
+    </channel>
+</rss>

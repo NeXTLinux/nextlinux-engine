@@ -1,4 +1,22 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Anchore Engine – Feeds Overview</title><link>/docs/usage/cli_usage/feeds/</link><description>Recent Hugo news from gohugo.io</description><generator>Hugo -- gohugo.io</generator><image><url>img/hugo.png</url><title>GoHugo.io</title><link>/docs/usage/cli_usage/feeds/</link></image><atom:link href="/docs/usage/cli_usage/feeds/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Feed Configuration</title><link>/docs/usage/cli_usage/feeds/feed_configuration/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/usage/cli_usage/feeds/feed_configuration/</guid><description>
+<rss version="2.0"
+    xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Anchore Engine – Feeds Overview</title>
+        <link>/docs/usage/cli_usage/feeds/</link>
+        <description>Recent Hugo news from gohugo.io</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <image>
+            <url>img/hugo.png</url>
+            <title>GoHugo.io</title>
+            <link>/docs/usage/cli_usage/feeds/</link>
+        </image>
+        <atom:link href="/docs/usage/cli_usage/feeds/index.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title>Docs: Feed Configuration</title>
+            <link>/docs/usage/cli_usage/feeds/feed_configuration/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/usage/cli_usage/feeds/feed_configuration/</guid>
+            <description>
 &lt;h3 id="feed-synchronization-interval">Feed Synchronization Interval&lt;/h3>
 &lt;p>The default configuration for the Anchore Engine will download vulnerability data from Anchore&amp;rsquo;s feed service every 21,600 seconds (6hours).&lt;/p>
 &lt;p>For most users the only configuration option that is typically updated is the feed synchronization interval - the time interval (in seconds) at which the feed sync is run.&lt;/p>
@@ -31,8 +49,8 @@ some other temporary condition. However, if you want to increase the timeout to 
 read_timeout_seconds: 180
 &lt;/code>&lt;/pre>&lt;h3 id="controlling-which-feeds-and-groups-are-synced">Controlling Which Feeds and Groups are Synced&lt;/h3>
 &lt;p>Note: The package and nvd data feeds are large, resulting in the initial sync taking some time time.&lt;/p>
-&lt;p>During initial feed sync, you can always query the progress and status of the feed sync using the anchore-cli.&lt;/p>
-&lt;pre>&lt;code>anchore@93d6977e2061 anchore-engine]$ anchore-cli system feeds list
+&lt;p>During initial feed sync, you can always query the progress and status of the feed sync using the nextlinux-cli.&lt;/p>
+&lt;pre>&lt;code>nextlinux@93d6977e2061 nextlinux-engine]$ nextlinux-cli system feeds list
 Feed Group LastSync RecordCount
 github github:composer 2020-03-27T22:19:57.328440 78
 github github:gem 2020-03-27T22:19:59.069349 333
@@ -104,7 +122,7 @@ a feed to &amp;lsquo;false&amp;rsquo; will not remove any data or show in the AP
 &lt;p>An entire feed can be disabled. This means that all the feed&amp;rsquo;s groups will no longer be updated and no new groups will be synced either on subsequent sync operations.
 This does not, however, remove any existing data nor will it remove the feed or feed group metadata records.&lt;/p>
 &lt;p>Example:&lt;/p>
-&lt;pre>&lt;code>[anchore@93d6977e2061 anchore-engine]$ anchore-cli system feeds config github --disable
+&lt;pre>&lt;code>[nextlinux@93d6977e2061 nextlinux-engine]$ nextlinux-cli system feeds config github --disable
 Feed Group LastSync RecordCount
 github(disabled) github:composer 2020-03-27T22:19:57.328440 78
 github(disabled) github:gem 2020-03-27T22:19:59.069349 333
@@ -114,7 +132,7 @@ github(disabled) github:nuget 2020-03-27T22:20:16.628054 50
 github(disabled) github:python 2020-03-27T22:20:17.754270 250
 &lt;/code>&lt;/pre>&lt;p>The feed can be enabled again using a similar command and on the next sync operation its data will be updated.
 Example:&lt;/p>
-&lt;pre>&lt;code>[anchore@93d6977e2061 anchore-engine]$ anchore-cli system feeds config github --enable
+&lt;pre>&lt;code>[nextlinux@93d6977e2061 nextlinux-engine]$ nextlinux-cli system feeds config github --enable
 Feed Group LastSync RecordCount
 github github:composer 2020-03-27T22:19:57.328440 78
 github github:gem 2020-03-27T22:19:59.069349 333
@@ -122,8 +140,8 @@ github github:java 2020-03-27T22:20:03.393652 432
 github github:npm 2020-03-27T22:20:09.422600 653
 github github:nuget 2020-03-27T22:20:16.628054 50
 github github:python 2020-03-27T22:20:17.754270 250
-[anchore@93d6977e2061 anchore-engine]$ anchore-cli system feeds sync
-WARNING: This operation should not normally need to be performed except when the anchore-engine operator is certain that it is required - the operation will take a long time (hours) to complete, and there may be an impact on anchore-engine performance during the re-sync/flush.
+[nextlinux@93d6977e2061 nextlinux-engine]$ nextlinux-cli system feeds sync
+WARNING: This operation should not normally need to be performed except when the nextlinux-engine operator is certain that it is required - the operation will take a long time (hours) to complete, and there may be an impact on nextlinux-engine performance during the re-sync/flush.
 Really perform a manual feed data sync/flush? (y/N)y
 Feed Group Status Records Updated Sync Duration
 github github:composer success 0 0.59s
@@ -141,8 +159,8 @@ vulnerabilities alpine:3.11 success 0 0.50s
 &lt;h3 id="using-the-cli-to-delete-feed-data">Using the CLI to Delete Feed Data&lt;/h3>
 &lt;h4 id="deleting-and-entire-feed">Deleting and Entire Feed&lt;/h4>
 &lt;p>Deleting feed data&lt;/p>
-&lt;pre>&lt;code>[anchore@93d6977e2061 anchore-engine]$ anchore-cli system feeds delete github
-[anchore@93d6977e2061 anchore-engine]$ anchore-cli system feeds list
+&lt;pre>&lt;code>[nextlinux@93d6977e2061 nextlinux-engine]$ nextlinux-cli system feeds delete github
+[nextlinux@93d6977e2061 nextlinux-engine]$ nextlinux-cli system feeds list
 Feed Group LastSync RecordCount
 nvdv2 nvdv2:cves 2020-03-28T00:03:34.079006 141090
 vulnerabilities alpine:3.10 2020-03-28T00:03:32.065414 1725
@@ -188,8 +206,8 @@ vulnerabilities ubuntu:18.04 2020-03-28T00:03:27.845497 12547
 vulnerabilities ubuntu:18.10 2020-03-28T00:03:28.482261 8397
 vulnerabilities ubuntu:19.04 2020-03-28T00:03:31.400152 8664
 vulnerabilities ubuntu:19.10 2020-03-28T00:03:29.122119 7327
-[anchore@93d6977e2061 anchore-engine]$ anchore-cli system feeds sync
-WARNING: This operation should not normally need to be performed except when the anchore-engine operator is certain that it is required - the operation will take a long time (hours) to complete, and there may be an impact on anchore-engine performance during the re-sync/flush.
+[nextlinux@93d6977e2061 nextlinux-engine]$ nextlinux-cli system feeds sync
+WARNING: This operation should not normally need to be performed except when the nextlinux-engine operator is certain that it is required - the operation will take a long time (hours) to complete, and there may be an impact on nextlinux-engine performance during the re-sync/flush.
 Really perform a manual feed data sync/flush? (y/N)y
 Feed Group Status Records Updated Sync Duration
 nvdv2 nvdv2:cves success 0 0.81s
@@ -237,16 +255,16 @@ vulnerabilities ubuntu:18.10 success 0 0.60s
 vulnerabilities ubuntu:19.04 success 0 0.61s
 vulnerabilities ubuntu:19.10 success 0 0.60s
 &lt;/code>&lt;/pre>&lt;h4 id="deleting-specific-feed-groups">Deleting Specific Feed Groups&lt;/h4>
-&lt;pre>&lt;code>[anchore@93d6977e2061 ~]$ anchore-cli system feeds config --disable vulnerabilities --group centos:5
+&lt;pre>&lt;code>[nextlinux@93d6977e2061 ~]$ nextlinux-cli system feeds config --disable vulnerabilities --group centos:5
 Group LastSync RecordCount
 centos:5(disabled) 2020-03-28T00:22:57.113534 1347
-[anchore@93d6977e2061 ~]$ anchore-cli system feeds delete vulnerabilities --group centos:5
+[nextlinux@93d6977e2061 ~]$ nextlinux-cli system feeds delete vulnerabilities --group centos:5
 Group LastSync RecordCount
 centos:5(disabled) pending 0
 &lt;/code>&lt;/pre>&lt;h4 id="restoring-deleted-data">Restoring Deleted Data&lt;/h4>
 &lt;p>If you want to get data back, simply enable the feed and/or group and run a feed sync manually or wait for the next scheduled sync.&lt;/p>
 &lt;p>For an entire feed, here is an example of removal and re-adding it:&lt;/p>
-&lt;pre>&lt;code>[anchore@93d6977e2061 ~]$ anchore-cli system feeds config github --disable
+&lt;pre>&lt;code>[nextlinux@93d6977e2061 ~]$ nextlinux-cli system feeds config github --disable
 Feed Group LastSync RecordCount
 github(disabled) github:composer 2020-03-28T01:08:58.652868 78
 github(disabled) github:gem 2020-03-28T01:08:59.179493 333
@@ -254,10 +272,10 @@ github(disabled) github:java 2020-03-28T01:08:59.699348 432
 github(disabled) github:npm 2020-03-28T00:34:48.167115 653
 github(disabled) github:nuget 2020-03-28T01:12:01.116613 50
 github(disabled) github:python 2020-03-28T01:08:58.083361 250
-[anchore@93d6977e2061 ~]$ anchore-cli system feeds delete github
-[anchore@93d6977e2061 ~]$ anchore-cli system feeds config github --enable
-[anchore@93d6977e2061 ~]$ anchore-cli system feeds sync
-WARNING: This operation should not normally need to be performed except when the anchore-engine operator is certain that it is required - the operation will take a long time (hours) to complete, and there may be an impact on anchore-engine performance during the re-sync/flush.
+[nextlinux@93d6977e2061 ~]$ nextlinux-cli system feeds delete github
+[nextlinux@93d6977e2061 ~]$ nextlinux-cli system feeds config github --enable
+[nextlinux@93d6977e2061 ~]$ nextlinux-cli system feeds sync
+WARNING: This operation should not normally need to be performed except when the nextlinux-engine operator is certain that it is required - the operation will take a long time (hours) to complete, and there may be an impact on nextlinux-engine performance during the re-sync/flush.
 Really perform a manual feed data sync/flush? (y/N)y
 Feed Group Status Records Updated Sync Duration
 github github:composer success 78 1.64s
@@ -285,23 +303,30 @@ vulnerabilities debian:10 success 0 0.62s
 vulnerabilities debian:11 success 0 0.50s
 ...
 &lt;/code>&lt;/pre>&lt;p>For a single feed group, here is an example of removal and re-adding it:&lt;/p>
-&lt;pre>&lt;code>[anchore@93d6977e2061 ~]$ anchore-cli system feeds config --enable vulnerabilities --group centos:5
+&lt;pre>&lt;code>[nextlinux@93d6977e2061 ~]$ nextlinux-cli system feeds config --enable vulnerabilities --group centos:5
 Group LastSync RecordCount
 centos:5 pending 0
-[anchore@93d6977e2061 ~]$ anchore-cli system feeds sync
-WARNING: This operation should not normally need to be performed except when the anchore-engine operator is certain that it is required - the operation will take a long time (hours) to complete, and there may be an impact on anchore-engine performance during the re-sync/flush.
+[nextlinux@93d6977e2061 ~]$ nextlinux-cli system feeds sync
+WARNING: This operation should not normally need to be performed except when the nextlinux-engine operator is certain that it is required - the operation will take a long time (hours) to complete, and there may be an impact on nextlinux-engine performance during the re-sync/flush.
 Really perform a manual feed data sync/flush? (y/N)y
 Feed Group Status Records Updated Sync Duration
 ...
 vulnerabilities centos:5 success 1347 27.41s
 ...
-&lt;/code>&lt;/pre>&lt;p>With these controls you can better customize the data set that anchore stores in the db. However, note that this should not normally be necessary
-and modifying feed groups &amp;amp; data has implication on the sets of distros and types of artifacts Anchore can match vulnerabilities against.&lt;/p></description></item><item><title>Docs: Feed Synchronization</title><link>/docs/usage/cli_usage/feeds/feed_synchronization/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/usage/cli_usage/feeds/feed_synchronization/</guid><description>
+&lt;/code>&lt;/pre>&lt;p>With these controls you can better customize the data set that nextlinux stores in the db. However, note that this should not normally be necessary
+and modifying feed groups &amp;amp; data has implication on the sets of distros and types of artifacts Anchore can match vulnerabilities against.&lt;/p></description>
+        </item>
+        <item>
+            <title>Docs: Feed Synchronization</title>
+            <link>/docs/usage/cli_usage/feeds/feed_synchronization/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/usage/cli_usage/feeds/feed_synchronization/</guid>
+            <description>
 &lt;p>When the Anchore Engine runs it will begin to synchronize security feed data from the Anchore feed service.&lt;/p>
 &lt;p>CVE data for Linux distributions such as Alpine, CentOS, Debian, Oracle, Red Hat and Ubuntu will be downloaded. The initial sync may take anywhere from 10 to 60 minutes depending on the speed of your network connection.&lt;/p>
 &lt;h3 id="checking-feed-status">Checking Feed Status&lt;/h3>
 &lt;p>Starting with Anchore Engine version 0.2.0 the status of the feed synchronization can be retrieved through the API and Anchore CLI.&lt;/p>
-&lt;pre>&lt;code>anchore-cli system feeds list
+&lt;pre>&lt;code>nextlinux-cli system feeds list
 Feed Group LastSync RecordCount
 vulnerabilities alpine:3.3 2018-04-25T11:51:33.567214Z 457
 vulnerabilities alpine:3.4 2018-04-25T11:51:33.976689Z 594
@@ -335,10 +360,13 @@ vulnerabilities ubuntu:17.10 2018-04-25T11:51:22.047635Z 7169
 &lt;h3 id="manually-initiating-feed-sync">Manually initiating feed sync&lt;/h3>
 &lt;p>After the initial sync has completed the engine will run an incremental sync at a user defined period, by default every 4 hours. At any time a feed sync can be initiated through the API or CLI.&lt;/p>
 &lt;p>A sync operation can be manually initiated by running the system feeds sync command however this should not be required under normal operation.&lt;/p>
-&lt;p>&lt;code>anchore-cli system feeds sync&lt;/code>&lt;/p>
+&lt;p>&lt;code>nextlinux-cli system feeds sync&lt;/code>&lt;/p>
 &lt;h3 id="performing-full-resync">Performing full resync&lt;/h3>
 &lt;p>The Anchore Engine can be instructed to flush the current feed data and perform a full synchronization.&lt;/p>
 &lt;p>Under normal circumstances this operation should not be required since the Anchore Engine performs regular incremental sync.&lt;/p>
 &lt;p>This process may take anywhere from 10 to 60 minutes depending on the speed of your network connection.&lt;/p>
-&lt;p>&lt;code>anchore-cli system feeds sync --flush&lt;/code>&lt;/p>
-&lt;p>The CLI will issue a warning and prompt for confirmation before proceeding with a sync.&lt;/p></description></item></channel></rss>
+&lt;p>&lt;code>nextlinux-cli system feeds sync --flush&lt;/code>&lt;/p>
+&lt;p>The CLI will issue a warning and prompt for confirmation before proceeding with a sync.&lt;/p></description>
+        </item>
+    </channel>
+</rss>

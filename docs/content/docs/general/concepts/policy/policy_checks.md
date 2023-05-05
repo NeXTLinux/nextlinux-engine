@@ -6,9 +6,9 @@ weight: 6
 
 ## Introduction
 
-In this document, we describe the current anchore gates (and related triggers/parameters) that are supported within anchore policy bundles.  If you have a running anchore engine, this information can also be obtained using the CLI:
+In this document, we describe the current nextlinux gates (and related triggers/parameters) that are supported within nextlinux policy bundles.  If you have a running nextlinux engine, this information can also be obtained using the CLI:
 
-`# anchore-cli policy describe (--gate <gatename> ( --trigger <triggername))`
+`# nextlinux-cli policy describe (--gate <gatename> ( --trigger <triggername))`
 
 ### Gate: dockerfile
 
@@ -25,7 +25,7 @@ Checks against the content of a dockerfile if provided, or a guessed dockerfile 
 | exposed_ports | Evaluates the set of ports exposed. Allows configuring whitelist or blacklist behavior. If type=whitelist, then any ports found exposed that are not in the list will cause the trigger to fire. If type=blacklist, then any ports exposed that are in the list will cause the trigger to fire. | ports | List of port numbers. | 80,8080,8088 |
 | exposed_ports | Evaluates the set of ports exposed. Allows configuring whitelist or blacklist behavior. If type=whitelist, then any ports found exposed that are not in the list will cause the trigger to fire. If type=blacklist, then any ports exposed that are in the list will cause the trigger to fire. | type | Whether to use port list as a whitelist or blacklist. | blacklist |
 | exposed_ports | Evaluates the set of ports exposed. Allows configuring whitelist or blacklist behavior. If type=whitelist, then any ports found exposed that are not in the list will cause the trigger to fire. If type=blacklist, then any ports exposed that are in the list will cause the trigger to fire. | actual_dockerfile_only | Only evaluate against a user-provided dockerfile, skip evaluation on inferred/guessed dockerfiles. Default is False. | true |
-| no_dockerfile_provided | Triggers if anchore analysis was performed without supplying the actual image Dockerfile. | | | |
+| no_dockerfile_provided | Triggers if nextlinux analysis was performed without supplying the actual image Dockerfile. | | | |
 
 ### Gate: files
 
@@ -122,7 +122,7 @@ Ruby Gem Checks
 | version_not_found_in_feed | Triggers if an installed GEM version is not listed in the official GEM feed as a valid version. | | | |
 | blacklist | Triggers if the evaluated image has a GEM package installed that matches the specified name and version. | name | Gem name to blacklist. | time_diff |
 | blacklist | Triggers if the evaluated image has a GEM package installed that matches the specified name and version. | version | Optional version to blacklist specifically. | 0.2.9 |
-| feed_data_unavailable | Triggers if anchore does not have access to the GEM data feed. | | | |
+| feed_data_unavailable | Triggers if nextlinux does not have access to the GEM data feed. | | | |
 
 ### Gate: npms
 

@@ -5,9 +5,9 @@ weight: 1
 
 ## Introduction
 
-Information about the latest available policy gates, triggers and parameters can be retrieved from a running anchore-engine, using the anchore-cli command below:
+Information about the latest available policy gates, triggers and parameters can be retrieved from a running nextlinux-engine, using the nextlinux-cli command below:
 
-`# anchore-cli policy describe (--gate <gatename> ( --trigger <triggername))`
+`# nextlinux-cli policy describe (--gate <gatename> ( --trigger <triggername))`
 
 
 ## Gates

@@ -19,7 +19,7 @@
       "pathMappings": [
         {
           "localRoot": "${workspaceFolder}",
-          "remoteRoot": "/code/anchore-engine"
+          "remoteRoot": "/code/nextlinux-engine"
         }
       ]
     },
@@ -33,7 +33,7 @@
       "pathMappings": [
         {
           "localRoot": "${workspaceFolder}",
-          "remoteRoot": "/code/anchore-engine"
+          "remoteRoot": "/code/nextlinux-engine"
         }
       ]
     },
@@ -47,7 +47,7 @@
       "pathMappings": [
         {
           "localRoot": "${workspaceFolder}",
-          "remoteRoot": "/code/anchore-engine"
+          "remoteRoot": "/code/nextlinux-engine"
         }
       ]
     },
@@ -61,7 +61,7 @@
       "pathMappings": [
         {
           "localRoot": "${workspaceFolder}",
-          "remoteRoot": "/code/anchore-engine"
+          "remoteRoot": "/code/nextlinux-engine"
         }
       ]
     },
@@ -75,7 +75,7 @@
       "pathMappings": [
         {
           "localRoot": "${workspaceFolder}",
-          "remoteRoot": "/code/anchore-engine"
+          "remoteRoot": "/code/nextlinux-engine"
         }
       ]
     }

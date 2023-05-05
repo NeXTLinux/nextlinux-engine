@@ -6,13 +6,13 @@ weight: 3
 
 ## Introduction
 
-`curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -p alpine:latest`
+`curl -s https://ci-tools.nextlinux.io/inline_scan-latest | bash -s -- -p alpine:latest`
 
 To make using our inline-scan container as easy as possible, we have provided a simple wrapper script called inline_scan. The only requirements to run the inline_scan script is the ability to execute Docker commands & bash. We host a versioned copy of this script that can be downloaded directly with curl and executed in a bash pipeline.
 
 To run the script on your workstation, use the following command syntax.
 
-`curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- [options] IMAGE_NAME(s)`
+`curl -s https://ci-tools.nextlinux.io/inline_scan-latest | bash -s -- [options] IMAGE_NAME(s)`
 
 ### Inline Scan Options
 
@@ -29,15 +29,15 @@ To run the script on your workstation, use the following command syntax.
 
 ### Usage
 
-Pull multiple images from DockerHub, scan them all and generate individual reports in ./anchore-reports.
+Pull multiple images from DockerHub, scan them all and generate individual reports in ./nextlinux-reports.
 
-`curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -p -r alpine:latest ubuntu:latest centos:latest`
+`curl -s https://ci-tools.nextlinux.io/inline_scan-latest | bash -s -- -p -r alpine:latest ubuntu:latest centos:latest`
 
-Perform a local docker build, then pass the Dockerfile to anchore inline scan. Use a custom policy bundle to ensure Dockerfile compliance, failing the script if anchore policy evaluation does not pass.
+Perform a local docker build, then pass the Dockerfile to nextlinux inline scan. Use a custom policy bundle to ensure Dockerfile compliance, failing the script if nextlinux policy evaluation does not pass.
 
 ```
 docker build -t example-image:latest -f Dockerfile .
-curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -f -d Dockerfile -b .anchore-policy.json example-image:latest
+curl -s https://ci-tools.nextlinux.io/inline_scan-latest | bash -s -- -f -d Dockerfile -b .nextlinux-policy.json example-image:latest
 ```
 
 Save multiple docker image archives to a directory, then mount the entire directory for analysis using a timeout of 500s.
@@ -51,7 +51,7 @@ cd ..
 mkdir images/
 docker save example1:latest -o images/example1+latest.tar
 docker save example2:latest -o images/example2+latest.tar
-curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -v ./images -t 500
+curl -s https://ci-tools.nextlinux.io/inline_scan-latest | bash -s -- -v ./images -t 500
 ```
 
 ### CI Implementations
@@ -71,7 +71,7 @@ jobs:
     docker:
     - image: docker:stable
     environment:
-      IMAGE_NAME: btodhunter/anchore-ci-demo
+      IMAGE_NAME: btodhunter/nextlinux-ci-demo
       IMAGE_TAG: circleci
     steps:
     - checkout
@@ -83,7 +83,7 @@ jobs:
         name: Scan image
         command: |
           apk add curl bash
-          curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -r "${IMAGE_NAME}:ci"
+          curl -s https://ci-tools.nextlinux.io/inline_scan-latest | bash -s -- -r "${IMAGE_NAME}:ci"
     - run:
         name: Push to DockerHub
         command: |
@@ -91,7 +91,7 @@ jobs:
           docker tag "${IMAGE_NAME}:ci" "${IMAGE_NAME}:${IMAGE_TAG}"
           docker push "${IMAGE_NAME}:${IMAGE_TAG}"
     - store_artifacts:
-        path: anchore-reports/
+        path: nextlinux-reports/
 
 workflows:
   scan_image:
@@ -126,13 +126,13 @@ container_build:
   - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token --password-stdin "${CI_REGISTRY}"
   - docker build -t "$IMAGE_NAME" .
   - apk add bash curl
-  - curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -r -t 500 "$IMAGE_NAME"
+  - curl -s https://ci-tools.nextlinux.io/inline_scan-latest | bash -s -- -r -t 500 "$IMAGE_NAME"
   - docker push "$IMAGE_NAME"
 
   artifacts:
     name: ${CI_JOB_NAME}-${CI_COMMIT_REF_NAME}
     paths:
-    - anchore-reports/*
+    - nextlinux-reports/*
 ```
 
 #### CodeShip
@@ -142,11 +142,11 @@ This job requires creating an encrypted environment variable file for loading th
 codeship-services.yml - https://github.com/Btodhunter/ci-demos/blob/master/codeship-services.yml
 
 ```
-anchore:
+nextlinux:
   add_docker: true
   image: docker:stable-git
   environment:
-    IMAGE_NAME: btodhunter/anchore-ci-demo
+    IMAGE_NAME: btodhunter/nextlinux-ci-demo
     IMAGE_TAG: codeship
   encrypted_env_file: env.encrypted
 ```
@@ -155,13 +155,13 @@ codeship-steps.yml - https://github.com/Btodhunter/ci-demos/blob/master/codeship
 
 ```
 - name: build-scan
-  service: anchore
+  service: nextlinux
   command: sh -c 'apk add bash curl &&
     mkdir -p /build &&
     cd /build &&
     git clone https://github.com/Btodhunter/ci-demos.git . &&
     docker build -t "${IMAGE_NAME}:ci" . &&
-    curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -f -b .anchore_policy.json "${IMAGE_NAME}:ci" &&
+    curl -s https://ci-tools.nextlinux.io/inline_scan-latest | bash -s -- -f -b .nextlinux_policy.json "${IMAGE_NAME}:ci" &&
     echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin &&
     docker tag "${IMAGE_NAME}:ci" "${IMAGE_NAME}:${IMAGE_TAG}" &&
     docker push "${IMAGE_NAME}:${IMAGE_TAG}"'
@@ -183,7 +183,7 @@ pipeline{
         }
     }
     environment {
-        IMAGE_NAME = 'btodhunter/anchore-ci-demo'
+        IMAGE_NAME = 'btodhunter/nextlinux-ci-demo'
         IMAGE_TAG = 'jenkins'
     }
     stages {
@@ -195,7 +195,7 @@ pipeline{
         stage('Scan') {
             steps {
                 sh 'apk add bash curl'
-                sh 'curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- -d Dockerfile -b .anchore_policy.json ${IMAGE_NAME}:ci'
+                sh 'curl -s https://ci-tools.nextlinux.io/inline_scan-latest | bash -s -- -d Dockerfile -b .nextlinux_policy.json ${IMAGE_NAME}:ci'
             }
         }
         stage('Push Image') {
@@ -223,11 +223,11 @@ services:
   - docker
 
 env:
-  - IMAGE_NAME="btodhunter/anchore-ci-demo" IMAGE_TAG="travisci"
+  - IMAGE_NAME="btodhunter/nextlinux-ci-demo" IMAGE_TAG="travisci"
 
 script:
   - docker build -t "${IMAGE_NAME}:ci" .
-  - curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- "${IMAGE_NAME}:ci"
+  - curl -s https://ci-tools.nextlinux.io/inline_scan-latest | bash -s -- "${IMAGE_NAME}:ci"
   - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
   - docker tag "${IMAGE_NAME}:ci" "${IMAGE_NAME}:${IMAGE_TAG}"
   - docker push "${IMAGE_NAME}:${IMAGE_TAG}"
@@ -249,7 +249,7 @@ phases:
 
   post_build:
     commands:
-      - curl -s https://ci-tools.anchore.io/inline_scan-latest | bash -s -- ${IMAGE_NAME}:${IMAGE_TAG}
+      - curl -s https://ci-tools.nextlinux.io/inline_scan-latest | bash -s -- ${IMAGE_NAME}:${IMAGE_TAG}
       - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
       - docker push ${IMAGE_NAME}:${IMAGE_TAG}
 ```

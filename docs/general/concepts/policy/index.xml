@@ -1,4 +1,22 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Anchore Engine – Policy</title><link>/docs/general/concepts/policy/</link><description>Recent Hugo news from gohugo.io</description><generator>Hugo -- gohugo.io</generator><image><url>img/hugo.png</url><title>GoHugo.io</title><link>/docs/general/concepts/policy/</link></image><atom:link href="/docs/general/concepts/policy/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Policy Bundles</title><link>/docs/general/concepts/policy/bundles/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/general/concepts/policy/bundles/</guid><description>
+<rss version="2.0"
+    xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Anchore Engine – Policy</title>
+        <link>/docs/general/concepts/policy/</link>
+        <description>Recent Hugo news from gohugo.io</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <image>
+            <url>img/hugo.png</url>
+            <title>GoHugo.io</title>
+            <link>/docs/general/concepts/policy/</link>
+        </image>
+        <atom:link href="/docs/general/concepts/policy/index.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title>Docs: Policy Bundles</title>
+            <link>/docs/general/concepts/policy/bundles/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/general/concepts/policy/bundles/</guid>
+            <description>
 &lt;p>Policy bundles are the unit of policy definition and evaluation in Anchore Engine. A user may have multiple bundles, but for a policy evaluation, the user must specify a bundle to be evaluated or default to the bundle currently marked &amp;lsquo;active&amp;rsquo;. See Working with Policies for more detail on manipulating and configuring policies using the Engine CLI.&lt;/p>
 &lt;h3 id="components-of-a-policy-bundle">Components of a Policy Bundle&lt;/h3>
 &lt;p>A policy bundle is a single JSON document, composed of several parts:&lt;/p>
@@ -214,7 +232,14 @@
 &lt;/ol>
 &lt;p>A &lt;em>pass&lt;/em> status means the image evaluated against the bundle and only &lt;em>go&lt;/em> or &lt;em>warn&lt;/em> actions resulted from the policy evaluation and whitelist evaluations, or the image was whitelisted. A fail status means the image evaluated against the bundle and at least one &lt;em>stop&lt;/em> action resulted from the policy evaluation and whitelist evaluation, or the image was blacklisted.&lt;/p>
 &lt;p>The flow chart for policy bundle evaluation:&lt;/p>
-&lt;p>&lt;img src="AnchoreFlowchart.jpg" alt="alt text">&lt;/p></description></item><item><title>Docs: Policy Mappings</title><link>/docs/general/concepts/policy/policy_mappings/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/general/concepts/policy/policy_mappings/</guid><description>
+&lt;p>&lt;img src="AnchoreFlowchart.jpg" alt="alt text">&lt;/p></description>
+        </item>
+        <item>
+            <title>Docs: Policy Mappings</title>
+            <link>/docs/general/concepts/policy/policy_mappings/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/general/concepts/policy/policy_mappings/</guid>
+            <description>
 &lt;p>Mappings in the policy bundle are a set of rules, evaluated in order, that describe matches on an image, id, digest, or tag and the corresponding sets of policies and whitelists to apply to any image that matches the rule&amp;rsquo;s criteria.&lt;/p>
 &lt;p>A mapping has:&lt;/p>
 &lt;ul>
@@ -293,7 +318,14 @@
 &lt;li>Different policies for different types of checks such that each policy only uses one or two gates (e.g. vulnerabilities, packages, dockerfile)&lt;/li>
 &lt;li>Different policies for web servers, another for database servers, another for logging infrastructure, etc.&lt;/li>
 &lt;li>Different policies for different parts of the stack: os-packages vs. application packages&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Whitelists</title><link>/docs/general/concepts/policy/whitelists/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/general/concepts/policy/whitelists/</guid><description>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Whitelists</title>
+            <link>/docs/general/concepts/policy/whitelists/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/general/concepts/policy/whitelists/</guid>
+            <description>
 &lt;p>Whitelists provide a mechanism within a policy bundle to explicitly override a policy-rule match. A whitelist is a named set of exclusion rules that match trigger outputs.&lt;/p>
 &lt;p>Example whitelist:&lt;/p>
 &lt;div class="highlight">&lt;pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-JSON" data-lang="JSON">&lt;span style="color:#000;font-weight:bold">{&lt;/span>
@@ -345,7 +377,14 @@
 &lt;li>&lt;strong>Whitelist result object&lt;/strong> - This shows that the match was whitelisted by our example whitelist policy and its rule.
 Policy Id&lt;/li>
 &lt;/ul>
-&lt;p>&lt;strong>Note:&lt;/strong> Whitelists are evaluated only as far as necessary. Once a policy rule match has been whitelisted by one whitelist item, it will not be checked again for whitelist matches. But, whitelist items may be evaluated out-of-order for performance optimization, so if multiple whitelist items match the same policy rule match any one of them may be the item that is actually matched against a given trigger_id.&lt;/p></description></item><item><title>Docs: Policies</title><link>/docs/general/concepts/policy/policies/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/general/concepts/policy/policies/</guid><description>
+&lt;p>&lt;strong>Note:&lt;/strong> Whitelists are evaluated only as far as necessary. Once a policy rule match has been whitelisted by one whitelist item, it will not be checked again for whitelist matches. But, whitelist items may be evaluated out-of-order for performance optimization, so if multiple whitelist items match the same policy rule match any one of them may be the item that is actually matched against a given trigger_id.&lt;/p></description>
+        </item>
+        <item>
+            <title>Docs: Policies</title>
+            <link>/docs/general/concepts/policy/policies/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/general/concepts/policy/policies/</guid>
+            <description>
 &lt;h3 id="overview">Overview&lt;/h3>
 &lt;p>A policy is a named set of rules, represented as a JSON object within a Policy Bundle, each of which define a specific check to perform and an resulting action to emit if the check returns a match against then image analysis.&lt;/p>
 &lt;p>A policy:&lt;/p>
@@ -476,10 +515,17 @@ false,
 &lt;li>&lt;strong>warn&lt;/strong> - If there are any triggers that match with this action, and no triggers that match with stop, then the policy evaluation will result in &lt;em>warn&lt;/em>.&lt;/li>
 &lt;li>&lt;strong>go&lt;/strong> - If there are no triggers that match with either stop or warn, then the policy evaluation is result is a &lt;em>go&lt;/em>. &lt;em>go&lt;/em> actions have no impact on the evaluation result, but are useful for recording the results of specific checks on an image in the audit trail of policy evaluations over time&lt;/li>
 &lt;/ul>
-&lt;p>The policy evaluation is one part of the broader policy bundle evaluation which includes things like image whitelists and blacklists and makes a final bundle evaluation status determination based on the combination of several component executions. See policy bundles for more information on that process.&lt;/p></description></item><item><title>Docs: Anchore Policy Checks</title><link>/docs/general/concepts/policy/policy_checks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/general/concepts/policy/policy_checks/</guid><description>
+&lt;p>The policy evaluation is one part of the broader policy bundle evaluation which includes things like image whitelists and blacklists and makes a final bundle evaluation status determination based on the combination of several component executions. See policy bundles for more information on that process.&lt;/p></description>
+        </item>
+        <item>
+            <title>Docs: Anchore Policy Checks</title>
+            <link>/docs/general/concepts/policy/policy_checks/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/general/concepts/policy/policy_checks/</guid>
+            <description>
 &lt;h2 id="introduction">Introduction&lt;/h2>
-&lt;p>In this document, we describe the current anchore gates (and related triggers/parameters) that are supported within anchore policy bundles. If you have a running anchore engine, this information can also be obtained using the CLI:&lt;/p>
-&lt;p>&lt;code># anchore-cli policy describe (--gate &amp;lt;gatename&amp;gt; ( --trigger &amp;lt;triggername))&lt;/code>&lt;/p>
+&lt;p>In this document, we describe the current nextlinux gates (and related triggers/parameters) that are supported within nextlinux policy bundles. If you have a running nextlinux engine, this information can also be obtained using the CLI:&lt;/p>
+&lt;p>&lt;code># nextlinux-cli policy describe (--gate &amp;lt;gatename&amp;gt; ( --trigger &amp;lt;triggername))&lt;/code>&lt;/p>
 &lt;h3 id="gate-dockerfile">Gate: dockerfile&lt;/h3>
 &lt;p>Checks against the content of a dockerfile if provided, or a guessed dockerfile based on docker layer history if the dockerfile is not provided.&lt;/p>
 &lt;table>
@@ -558,7 +604,7 @@ false,
 &lt;/tr>
 &lt;tr>
 &lt;td style="text-align:left">no_dockerfile_provided&lt;/td>
-&lt;td style="text-align:left">Triggers if anchore analysis was performed without supplying the actual image Dockerfile.&lt;/td>
+&lt;td style="text-align:left">Triggers if nextlinux analysis was performed without supplying the actual image Dockerfile.&lt;/td>
 &lt;td style="text-align:left">&lt;/td>
 &lt;td style="text-align:left">&lt;/td>
 &lt;td style="text-align:left">&lt;/td>
@@ -1033,7 +1079,7 @@ false,
 &lt;/tr>
 &lt;tr>
 &lt;td style="text-align:left">feed_data_unavailable&lt;/td>
-&lt;td style="text-align:left">Triggers if anchore does not have access to the GEM data feed.&lt;/td>
+&lt;td style="text-align:left">Triggers if nextlinux does not have access to the GEM data feed.&lt;/td>
 &lt;td style="text-align:left">&lt;/td>
 &lt;td style="text-align:left">&lt;/td>
 &lt;td style="text-align:left">&lt;/td>
@@ -1257,4 +1303,7 @@ false,
 &lt;/tbody>
 &lt;/table>
 &lt;h3 id="next-steps">Next Steps&lt;/h3>
-&lt;p>Now that you have a good grasp on the core concepts and architecture, check out the &lt;a href="/docs/install/requirements/">Requirements&lt;/a> section for running Anchore.&lt;/p></description></item></channel></rss>
+&lt;p>Now that you have a good grasp on the core concepts and architecture, check out the &lt;a href="/docs/install/requirements/">Requirements&lt;/a> section for running Anchore.&lt;/p></description>
+        </item>
+    </channel>
+</rss>

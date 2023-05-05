@@ -15,11 +15,11 @@ SHELL := /usr/bin/env bash
 .NOTPARALLEL: # Run make serially
 
 # Dockerhub image repo
-DEV_IMAGE_REPO = anchore/anchore-engine-dev
+DEV_IMAGE_REPO = nextlinux/nextlinux-engine-dev
 
 # Shared CI scripts
-TEST_HARNESS_REPO = https://github.com/anchore/test-infra.git
-CI_CMD = anchore-ci/ci_harness
+TEST_HARNESS_REPO = https://github.com/nextlinux/test-infra.git
+CI_CMD = nextlinux-ci/ci_harness
 
 # Python environment
 VENV = .venv
@@ -79,7 +79,7 @@ GIT_TAG := $(shell echo $${CIRCLE_TAG:=null})
 
 ci: lint build test ## Run full CI pipeline, locally
 
-build: CLI_REPO ?= git://github.com/anchore/anchore-cli.git
+build: CLI_REPO ?= git://github.com/nextlinux/nextlinux-cli.git
 build: Dockerfile setup-test-infra ## Build dev image
 	@$(CI_CMD) build "$(COMMIT_SHA)" "$(GIT_TAG)" "$(TEST_IMAGE_NAME)" "$(CLI_REPO)"
 
@@ -194,12 +194,12 @@ cluster-up: venv setup-test-infra ## Set up and run kind cluster
 cluster-down: venv setup-test-infra ## Tear down/stop kind cluster
 	@$(ACTIVATE_VENV) && $(CI_CMD) cluster-down "$(CLUSTER_NAME)"
 
-setup-test-infra: /tmp/test-infra ## Fetch anchore/test-infra repo for CI scripts
+setup-test-infra: /tmp/test-infra ## Fetch nextlinux/test-infra repo for CI scripts
 	cd /tmp/test-infra && git pull
-	@$(MAKE) anchore-ci
-anchore-ci: /tmp/test-infra/anchore-ci
-	rm -rf ./anchore-ci; cp -R /tmp/test-infra/anchore-ci .
-/tmp/test-infra/anchore-ci: /tmp/test-infra
+	@$(MAKE) nextlinux-ci
+nextlinux-ci: /tmp/test-infra/nextlinux-ci
+	rm -rf ./nextlinux-ci; cp -R /tmp/test-infra/nextlinux-ci .
+/tmp/test-infra/nextlinux-ci: /tmp/test-infra
 /tmp/test-infra:
 	git clone $(TEST_HARNESS_REPO) /tmp/test-infra
 

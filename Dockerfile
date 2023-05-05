@@ -61,9 +61,9 @@ FROM registry.access.redhat.com/ubi8/ubi:8.2 as anchore-engine-final
 ######## This is stage2 which does setup and install entirely from items from stage1's /build_output ########
 
 ARG CLI_COMMIT
-ARG ANCHORE_COMMIT
-ARG ANCHORE_ENGINE_VERSION="0.8.2"
-ARG ANCHORE_ENGINE_RELEASE="r0"
+ARG NEXTLINUX_COMMIT
+ARG NEXTLINUX_ENGINE_VERSION="0.8.2"
+ARG NEXTLINUX_ENGINE_RELEASE="r0"
 
 # Copy skopeo artifacts from build step
 COPY --from=anchore-engine-builder /build_output /build_output
@@ -76,12 +76,12 @@ COPY --from=anchore-engine-builder /anchore_engine/bin/syft /anchore_engine/bin/
 MAINTAINER dev@anchore.com
 
 LABEL anchore_cli_commit=$CLI_COMMIT \
-      anchore_commit=$ANCHORE_COMMIT \
+      anchore_commit=$NEXTLINUX_COMMIT \
       name="anchore-engine" \
       maintainer="dev@anchore.com" \
       vendor="Anchore Inc." \
-      version=$ANCHORE_ENGINE_VERSION \
-      release=$ANCHORE_ENGINE_RELEASE \
+      version=$NEXTLINUX_ENGINE_VERSION \
+      release=$NEXTLINUX_ENGINE_RELEASE \
       summary="Anchore Engine - container image scanning service for policy-based security, best-practice and compliance enforcement." \
       description="Anchore is an open platform for container security and compliance that allows developers, operations, and security teams to discover, analyze, and certify container images on-premises or in the cloud. Anchore Engine is the on-prem, OSS, API accessible service that allows ops and developers to perform detailed analysis, run queries, produce reports and define policies on container images that can be used in CI/CD pipelines to ensure that only containers that meet your organization’s requirements are deployed into production."
 
@@ -89,54 +89,54 @@ LABEL anchore_cli_commit=$CLI_COMMIT \
 ENV LANG=en_US.UTF-8 LC_ALL=C.UTF-8
 
 # Default values overrideable at runtime of the container
-ENV ANCHORE_CONFIG_DIR=/config \
-    ANCHORE_SERVICE_DIR=/anchore_service \
-    ANCHORE_LOG_LEVEL=INFO \
-    ANCHORE_ENABLE_METRICS=false \
-    ANCHORE_DISABLE_METRICS_AUTH=false \
-    ANCHORE_INTERNAL_SSL_VERIFY=false \
-    ANCHORE_WEBHOOK_DESTINATION_URL=null \
-    ANCHORE_HINTS_ENABLED=false \
-    ANCHORE_FEEDS_ENABLED=true \
-    ANCHORE_FEEDS_SELECTIVE_ENABLED=true \
-    ANCHORE_FEEDS_SSL_VERIFY=true \
-    ANCHORE_ENDPOINT_HOSTNAME=localhost \
-    ANCHORE_EVENTS_NOTIFICATIONS_ENABLED=false \
-    ANCHORE_CATALOG_NOTIFICATION_INTERVAL_SEC=30 \
-    ANCHORE_FEED_SYNC_INTERVAL_SEC=21600 \
-    ANCHORE_EXTERNAL_PORT=null \
-    ANCHORE_EXTERNAL_TLS=false \
-    ANCHORE_AUTHZ_HANDLER=native \
-    ANCHORE_EXTERNAL_AUTHZ_ENDPOINT=null \
-    ANCHORE_ADMIN_PASSWORD=foobar \
-    ANCHORE_ADMIN_EMAIL=admin@myanchore \
-    ANCHORE_HOST_ID="anchore-quickstart" \
-    ANCHORE_DB_PORT=5432 \
-    ANCHORE_DB_NAME=postgres \
-    ANCHORE_DB_USER=postgres \
+ENV NEXTLINUX_CONFIG_DIR=/config \
+    NEXTLINUX_SERVICE_DIR=/anchore_service \
+    NEXTLINUX_LOG_LEVEL=INFO \
+    NEXTLINUX_ENABLE_METRICS=false \
+    NEXTLINUX_DISABLE_METRICS_AUTH=false \
+    NEXTLINUX_INTERNAL_SSL_VERIFY=false \
+    NEXTLINUX_WEBHOOK_DESTINATION_URL=null \
+    NEXTLINUX_HINTS_ENABLED=false \
+    NEXTLINUX_FEEDS_ENABLED=true \
+    NEXTLINUX_FEEDS_SELECTIVE_ENABLED=true \
+    NEXTLINUX_FEEDS_SSL_VERIFY=true \
+    NEXTLINUX_ENDPOINT_HOSTNAME=localhost \
+    NEXTLINUX_EVENTS_NOTIFICATIONS_ENABLED=false \
+    NEXTLINUX_CATALOG_NOTIFICATION_INTERVAL_SEC=30 \
+    NEXTLINUX_FEED_SYNC_INTERVAL_SEC=21600 \
+    NEXTLINUX_EXTERNAL_PORT=null \
+    NEXTLINUX_EXTERNAL_TLS=false \
+    NEXTLINUX_AUTHZ_HANDLER=native \
+    NEXTLINUX_EXTERNAL_AUTHZ_ENDPOINT=null \
+    NEXTLINUX_ADMIN_PASSWORD=foobar \
+    NEXTLINUX_ADMIN_EMAIL=admin@myanchore \
+    NEXTLINUX_HOST_ID="anchore-quickstart" \
+    NEXTLINUX_DB_PORT=5432 \
+    NEXTLINUX_DB_NAME=postgres \
+    NEXTLINUX_DB_USER=postgres \
     SET_HOSTID_TO_HOSTNAME=false \
-    ANCHORE_CLI_USER=admin \
-    ANCHORE_CLI_PASS=foobar \
-    ANCHORE_SERVICE_PORT=8228 \
-    ANCHORE_CLI_URL="http://localhost:8228" \
-    ANCHORE_FEEDS_URL="https://ancho.re/v1/service/feeds" \
-    ANCHORE_FEEDS_CLIENT_URL="https://ancho.re/v1/account/users" \
-    ANCHORE_FEEDS_TOKEN_URL="https://ancho.re/oauth/token" \
-    ANCHORE_GLOBAL_CLIENT_READ_TIMEOUT=0 \
-    ANCHORE_GLOBAL_CLIENT_CONNECT_TIMEOUT=0 \
-    ANCHORE_AUTH_PUBKEY=null \
-    ANCHORE_AUTH_PRIVKEY=null \
-    ANCHORE_AUTH_SECRET=null \
-    ANCHORE_OAUTH_ENABLED=false \
-    ANCHORE_OAUTH_TOKEN_EXPIRATION=3600 \
-    ANCHORE_AUTH_ENABLE_HASHED_PASSWORDS=false \
+    NEXTLINUX_CLI_USER=admin \
+    NEXTLINUX_CLI_PASS=foobar \
+    NEXTLINUX_SERVICE_PORT=8228 \
+    NEXTLINUX_CLI_URL="http://localhost:8228" \
+    NEXTLINUX_FEEDS_URL="https://ancho.re/v1/service/feeds" \
+    NEXTLINUX_FEEDS_CLIENT_URL="https://ancho.re/v1/account/users" \
+    NEXTLINUX_FEEDS_TOKEN_URL="https://ancho.re/oauth/token" \
+    NEXTLINUX_GLOBAL_CLIENT_READ_TIMEOUT=0 \
+    NEXTLINUX_GLOBAL_CLIENT_CONNECT_TIMEOUT=0 \
+    NEXTLINUX_AUTH_PUBKEY=null \
+    NEXTLINUX_AUTH_PRIVKEY=null \
+    NEXTLINUX_AUTH_SECRET=null \
+    NEXTLINUX_OAUTH_ENABLED=false \
+    NEXTLINUX_OAUTH_TOKEN_EXPIRATION=3600 \
+    NEXTLINUX_AUTH_ENABLE_HASHED_PASSWORDS=false \
     AUTHLIB_INSECURE_TRANSPORT=true
 # Insecure transport required in case for things like tls sidecars
 
 # Container run environment settings
 
 #VOLUME /analysis_scratch
-EXPOSE ${ANCHORE_SERVICE_PORT}
+EXPOSE ${NEXTLINUX_SERVICE_PORT}
 
 # Build dependencies
 
@@ -155,13 +155,13 @@ RUN set -ex && \
     useradd --uid 1000 --gid anchore --shell /bin/bash --create-home anchore && \
     mkdir /config && \
     mkdir /licenses && \
-    mkdir -p /workspace_preload /var/log/anchore /var/run/anchore /analysis_scratch /workspace /anchore_service ${ANCHORE_SERVICE_DIR} /home/anchore/clamav/db && \
+    mkdir -p /workspace_preload /var/log/anchore /var/run/anchore /analysis_scratch /workspace /anchore_service ${NEXTLINUX_SERVICE_DIR} /home/anchore/clamav/db && \
     cp /build_output/LICENSE /licenses/ && \
     cp /build_output/configs/default_config.yaml /config/config.yaml && \
     cp /build_output/configs/docker-entrypoint.sh /docker-entrypoint.sh && \
     cp /build_output/configs/clamav/freshclam.conf /home/anchore/clamav/ && \
-    chown -R 1000:0 /workspace_preload /var/log/anchore /var/run/anchore /analysis_scratch /workspace /anchore_service ${ANCHORE_SERVICE_DIR} /home/anchore && \
-    chmod -R g+rwX /workspace_preload /var/log/anchore /var/run/anchore /analysis_scratch /workspace /anchore_service ${ANCHORE_SERVICE_DIR} /home/anchore && \
+    chown -R 1000:0 /workspace_preload /var/log/anchore /var/run/anchore /analysis_scratch /workspace /anchore_service ${NEXTLINUX_SERVICE_DIR} /home/anchore && \
+    chmod -R g+rwX /workspace_preload /var/log/anchore /var/run/anchore /analysis_scratch /workspace /anchore_service ${NEXTLINUX_SERVICE_DIR} /home/anchore && \
     chmod -R ug+rw /home/anchore/clamav && \
     md5sum /config/config.yaml > /config/build_installed && \
     chmod +x /docker-entrypoint.sh

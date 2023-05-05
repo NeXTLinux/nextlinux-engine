@@ -1,4 +1,22 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Anchore Engine – Concepts</title><link>/docs/general/concepts/</link><description>Recent Hugo news from gohugo.io</description><generator>Hugo -- gohugo.io</generator><image><url>img/hugo.png</url><title>GoHugo.io</title><link>/docs/general/concepts/</link></image><atom:link href="/docs/general/concepts/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Accessing the Engine</title><link>/docs/general/concepts/accessing_engine/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/general/concepts/accessing_engine/</guid><description>
+<rss version="2.0"
+    xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Anchore Engine – Concepts</title>
+        <link>/docs/general/concepts/</link>
+        <description>Recent Hugo news from gohugo.io</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <image>
+            <url>img/hugo.png</url>
+            <title>GoHugo.io</title>
+            <link>/docs/general/concepts/</link>
+        </image>
+        <atom:link href="/docs/general/concepts/index.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title>Docs: Accessing the Engine</title>
+            <link>/docs/general/concepts/accessing_engine/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/general/concepts/accessing_engine/</guid>
+            <description>
 &lt;p>The Anchore engine exposes two RESTful web services:&lt;/p>
 &lt;ul>
 &lt;li>API Service : The public interface to the Anchore Engine providing APIs to allow management and inspection of images, policies, subscriptions and registries.&lt;/li>
@@ -13,7 +31,14 @@
 &lt;li>Image vulnerabilities&lt;/li>
 &lt;li>Historic image data&lt;/li>
 &lt;li>Image policy status&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Analyzing Images</title><link>/docs/general/concepts/images/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/general/concepts/images/</guid><description>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Analyzing Images</title>
+            <link>/docs/general/concepts/images/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/general/concepts/images/</guid>
+            <description>
 &lt;p>Once an image is submitted to the Anchore Engine for analysis the Engine will attempt to retrieve metadata about the image from the Docker registry and if successful will download the image and queue the image for analysis.&lt;/p>
 &lt;p>The Anchore Engine can run one or more analyzer services to scale out processing of images. The next available analyzer worker will process the image.&lt;/p>
 &lt;p>&lt;img src="AnalyzingImages.png" alt="alt text">&lt;/p>
@@ -34,7 +59,14 @@
 &lt;p>Once a tag has been added to the Anchore Engine the repository will be monitored for updates to that tag.&lt;/p>
 &lt;p>Any updated images will be downloaded and analyzed.&lt;/p>
 &lt;h3 id="next-steps">Next Steps&lt;/h3>
-&lt;p>Now let&amp;rsquo;s get familiar with the &lt;a href="/docs/general/concepts/images/analysis/">Image Analysis Process&lt;/a>.&lt;/p></description></item><item><title>Docs: Policy</title><link>/docs/general/concepts/policy/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/general/concepts/policy/</guid><description>
+&lt;p>Now let&amp;rsquo;s get familiar with the &lt;a href="/docs/general/concepts/images/analysis/">Image Analysis Process&lt;/a>.&lt;/p></description>
+        </item>
+        <item>
+            <title>Docs: Policy</title>
+            <link>/docs/general/concepts/policy/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/general/concepts/policy/</guid>
+            <description>
 &lt;p>Once an image has been analyzed and its content has been discovered, categorized, and processed, the results can be evaluated against a user-defined set of checks to give a final pass/fail recommendation for an image. Anchore Engine policies are how users describe which checks to perform on what images and how the results should be interpreted.&lt;/p>
 &lt;p>A policy is expressed as a policy bundle, which is made up from a set of rules that are used to perform an evaluation of a container image. The rules can define checks against an image for things such as:&lt;/p>
 &lt;ul>
@@ -51,12 +83,19 @@
 &lt;p>&lt;img src="AnchorePolicyEval.png" alt="alt text">&lt;/p>
 &lt;p>A policy can return one of two results:&lt;/p>
 &lt;p>&lt;strong>PASSED&lt;/strong> indicating that image complies with your policy&lt;/p>
-&lt;p>&lt;img src="https://anchore.com/wp-content/uploads/2017/07/pass.png" alt="alt text">&lt;/p>
+&lt;p>&lt;img src="https://nextlinux.com/wp-content/uploads/2017/07/pass.png" alt="alt text">&lt;/p>
 &lt;p>&lt;strong>FAILED&lt;/strong> indicating that the image is out of compliance with your policy.&lt;/p>
-&lt;p>&lt;img src="https://anchore.com/wp-content/uploads/2017/07/fail.png" alt="alt text">&lt;/p>
+&lt;p>&lt;img src="https://nextlinux.com/wp-content/uploads/2017/07/fail.png" alt="alt text">&lt;/p>
 &lt;p>For more information on the concepts of policies and how policies are defined and evaluated, see: &lt;a href="/docs/general/concepts/policy/bundles/">Policy Bundles and Evaluation&lt;/a>&lt;/p>
 &lt;h3 id="next-steps">Next Steps&lt;/h3>
-&lt;p>Read more on &lt;a href="/docs/general/concepts/policy/policies/">Policies&lt;/a>&lt;/p></description></item><item><title>Docs: Analysis Archive</title><link>/docs/general/concepts/analysis_archive/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/general/concepts/analysis_archive/</guid><description>
+&lt;p>Read more on &lt;a href="/docs/general/concepts/policy/policies/">Policies&lt;/a>&lt;/p></description>
+        </item>
+        <item>
+            <title>Docs: Analysis Archive</title>
+            <link>/docs/general/concepts/analysis_archive/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/general/concepts/analysis_archive/</guid>
+            <description>
 &lt;p>Anchore Engine is a data intensive system. Storage consumption grows with the number of images analyzed, which leaves the
 following options for storage management:&lt;/p>
 &lt;ol>
@@ -87,7 +126,7 @@ optionally with some data in an external object store. Specifically:&lt;/p>
 &lt;/ul>
 &lt;h3 id="archive-set-images">Archive Set Images&lt;/h3>
 &lt;p>The archive set of images are image analyses that reside almost entirely in the object store, which can be configured to
-be a different location than the object store used for the working set, with minimal metadata in the anchore DB necessary
+be a different location than the object store used for the working set, with minimal metadata in the nextlinux DB necessary
 to track and restore the analysis back into the working set in the future. An archived image analysis preserves all the
 annotations, tags, and metadata of the original analysis as well as all existing policy evaluation histories, but
 are not updated with new vulnerabilities during feed syncs and are not available for new policy evaluations or content
@@ -202,7 +241,7 @@ from the selector defined above.
 &lt;/ul>
 &lt;/li>
 &lt;li>max_images_per_account: This setting may only be applied on a single &amp;ldquo;system_global&amp;rdquo; rule, and controls the maximum number of images
-allows in the anchore deployment (that are not archived). If this number is exceeded, anchore will transition (according to the transition field value)
+allows in the nextlinux deployment (that are not archived). If this number is exceeded, nextlinux will transition (according to the transition field value)
 the oldest images exceeding this maximum count.&lt;/li>
 &lt;/ul>
 &lt;h3 id="rule-conflicts-and-application">Rule conflicts and application:&lt;/h3>
@@ -222,14 +261,28 @@ manage the rules that control automatic transitions. For more information see th
 &lt;h3 id="restoring-an-image-analysis">Restoring an Image Analysis&lt;/h3>
 &lt;p>See: &lt;a href="/docs/usage/cli_usage/analysis_archive/#restoring-images">Restoring an Image&lt;/a>&lt;/p>
 &lt;h3 id="managing-archive-rules">Managing Archive Rules&lt;/h3>
-&lt;p>See: &lt;a href="/docs/usage/cli_usage/analysis_archive/#rules">Working with Archive Rules&lt;/a>&lt;/p></description></item><item><title>Docs: Accessing Registries</title><link>/docs/general/concepts/registries/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/general/concepts/registries/</guid><description>
+&lt;p>See: &lt;a href="/docs/usage/cli_usage/analysis_archive/#rules">Working with Archive Rules&lt;/a>&lt;/p></description>
+        </item>
+        <item>
+            <title>Docs: Accessing Registries</title>
+            <link>/docs/general/concepts/registries/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/general/concepts/registries/</guid>
+            <description>
 &lt;p>Using the API or CLI the Anchore Engine can be instructed to download an image from a public or private container registry.&lt;/p>
 &lt;p>The Anchore Engine will attempt to download images from any registry without requiring further configuration. However if
 your registry requires authentication then the registry and corresponding credentials will need to be defined.
 Anchore Engine can analyze images from any Docker V2 compatible registry.&lt;/p>
 &lt;p>&lt;img src="RegistryAccess.png" alt="alt text">&lt;/p>
 &lt;p>Registry credentials can stored in the Anchore Engine for authentication or in the case of an Amazon EC2 deployment IAM roles can be used for authentication.&lt;/p>
-&lt;p>For more information on configuring access to registries please see here: Configuring Access to Registries.&lt;/p></description></item><item><title>Docs: Subscriptions</title><link>/docs/general/concepts/subscriptions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/general/concepts/subscriptions/</guid><description>
+&lt;p>For more information on configuring access to registries please see here: Configuring Access to Registries.&lt;/p></description>
+        </item>
+        <item>
+            <title>Docs: Subscriptions</title>
+            <link>/docs/general/concepts/subscriptions/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/general/concepts/subscriptions/</guid>
+            <description>
 &lt;p>The Anchore Engine can be configured to emit webhooks corresponding to changes in images and tags.&lt;/p>
 &lt;ul>
 &lt;li>
@@ -275,24 +328,38 @@ Some policy checks make use of data from external feeds. For example vulnerabili
 &lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;/ul></description></item><item><title>Docs: Integrations</title><link>/docs/general/concepts/integrations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/general/concepts/integrations/</guid><description>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Integrations</title>
+            <link>/docs/general/concepts/integrations/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/general/concepts/integrations/</guid>
+            <description>
 &lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;p>There are several different ways to integrate with Anchore Engine:&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="/docs/general/concepts/integrations/ci_cd/">CI/CD Integration&lt;/a>&lt;/li>
 &lt;li>&lt;a href="/docs/general/concepts/integrations/kubernetes/">Kubernetes Integration&lt;/a>&lt;/li>
-&lt;/ul></description></item><item><title>Docs: Authorization Plugins</title><link>/docs/general/concepts/authorization_plugins/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/general/concepts/authorization_plugins/</guid><description>
-&lt;p>New in Anchore Engine 0.3.0, an open interface for allowing authorization decisions to be made by external plugins has been implemented. The interface is an HTTP API and has a swagger specification that can be found &lt;a href="https://github.com/anchore/anchore-engine/blob/master/anchore_engine/plugins/authorization/swagger/swagger.yaml">here&lt;/a>.&lt;/p>
+&lt;/ul></description>
+        </item>
+        <item>
+            <title>Docs: Authorization Plugins</title>
+            <link>/docs/general/concepts/authorization_plugins/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/general/concepts/authorization_plugins/</guid>
+            <description>
+&lt;p>New in Anchore Engine 0.3.0, an open interface for allowing authorization decisions to be made by external plugins has been implemented. The interface is an HTTP API and has a swagger specification that can be found &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/nextlinux_engine/plugins/authorization/swagger/swagger.yaml">here&lt;/a>.&lt;/p>
 &lt;p>The interface is simple and relies on just a few operations:&lt;/p>
 &lt;ol>
 &lt;li>Principal lifecycle notifications (initialize, delete)
 &lt;ol>
-&lt;li>Principals are basically users. These are merely notifications and may be ignored by an implementation. They are intended to allow an external plugin to synchronize the lifecycle of its data with that of the account store in anchore engine. For example, flushing all authorization rules when a user is deleted, or initializing new defaults when a principal/user is created.&lt;/li>
+&lt;li>Principals are basically users. These are merely notifications and may be ignored by an implementation. They are intended to allow an external plugin to synchronize the lifecycle of its data with that of the account store in nextlinux engine. For example, flushing all authorization rules when a user is deleted, or initializing new defaults when a principal/user is created.&lt;/li>
 &lt;/ol>
 &lt;/li>
 &lt;li>Domain lifecycle notifications (initialize, delete)
 &lt;ol>
-&lt;li>Domains are basically accounts. As for principals, these notifications may be ignored by an implementation. They are intended to allow an external plugin to synchronize the lifecycle of its data with that of the account store in anchore engine. For example, flushing all permission mappings when an account is deleted, or initializing defaults on creation of a new account/domain.&lt;/li>
+&lt;li>Domains are basically accounts. As for principals, these notifications may be ignored by an implementation. They are intended to allow an external plugin to synchronize the lifecycle of its data with that of the account store in nextlinux engine. For example, flushing all permission mappings when an account is deleted, or initializing defaults on creation of a new account/domain.&lt;/li>
 &lt;/ol>
 &lt;/li>
 &lt;li>Authorization Request
@@ -312,4 +379,7 @@ Some policy checks make use of data from external feeds. For example vulnerabili
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">authorization_handler&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#000">external&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">authorization_handler_config&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
 &lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#204a87;font-weight:bold">endpoint&lt;/span>&lt;span style="color:#000;font-weight:bold">:&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline"> &lt;/span>&lt;span style="color:#4e9a06">&amp;#34;http://localhost:89&amp;#34;&lt;/span>&lt;span style="color:#f8f8f8;text-decoration:underline">
-&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Note:&lt;/strong> This interface is currently not authenticated or authorized, and should be properly secured via network controls, or ideally, only available on the local host and not externally connected. This is intended to follow a side-car pattern where an authorizer is deployed locally with each external Anchore API component.&lt;/p></description></item></channel></rss>
+&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Note:&lt;/strong> This interface is currently not authenticated or authorized, and should be properly secured via network controls, or ideally, only available on the local host and not externally connected. This is intended to follow a side-car pattern where an authorizer is deployed locally with each external Anchore API component.&lt;/p></description>
+        </item>
+    </channel>
+</rss>

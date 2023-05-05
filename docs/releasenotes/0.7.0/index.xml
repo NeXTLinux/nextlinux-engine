@@ -1,6 +1,24 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Anchore Engine – Anchore Engine Release Notes - Version 0.7.0</title><link>/docs/releasenotes/0.7.0/</link><description>Recent Hugo news from gohugo.io</description><generator>Hugo -- gohugo.io</generator><image><url>img/hugo.png</url><title>GoHugo.io</title><link>/docs/releasenotes/0.7.0/</link></image><atom:link href="/docs/releasenotes/0.7.0/index.xml" rel="self" type="application/rss+xml"/><item><title>Docs: Reverting Back to use RHSA Data</title><link>/docs/releasenotes/0.7.0/data_matching_rollback/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/releasenotes/0.7.0/data_matching_rollback/</guid><description>
+<rss version="2.0"
+    xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Anchore Engine – Anchore Engine Release Notes - Version 0.7.0</title>
+        <link>/docs/releasenotes/0.7.0/</link>
+        <description>Recent Hugo news from gohugo.io</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <image>
+            <url>img/hugo.png</url>
+            <title>GoHugo.io</title>
+            <link>/docs/releasenotes/0.7.0/</link>
+        </image>
+        <atom:link href="/docs/releasenotes/0.7.0/index.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title>Docs: Reverting Back to use RHSA Data</title>
+            <link>/docs/releasenotes/0.7.0/data_matching_rollback/</link>
+            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+            <guid>/docs/releasenotes/0.7.0/data_matching_rollback/</guid>
+            <description>
 &lt;p>&lt;em>NOTE: This section is only for very specific situations where you absolutely must revert the matching system to use the RHSA data. This should not be done lightly. The newer CVE-based data is more accurate, specific, and provides a more consistent experience with other distros.&lt;/em>&lt;/p>
-&lt;p>If your processing of anchore output relies on RHSA keys as vulnerability matches, or you have large RHSA-based whitelists that cannot be converted to CVE-based,
+&lt;p>If your processing of nextlinux output relies on RHSA keys as vulnerability matches, or you have large RHSA-based whitelists that cannot be converted to CVE-based,
 then it is possible, though not recommended, to migrate your system back to using the RHSA-based feeds (centos:* groups).&lt;/p>
 &lt;p>Here is the process. It requires the Anchore CLI with access to the API as well as direct access to the internal policy engine API endpoint. That may require a &lt;code>docker exec&lt;/code> or &lt;code>kubectl exec&lt;/code> call
 to achieve and will be deployment/environment specific.&lt;/p>
@@ -23,32 +41,32 @@ curl -H &amp;quot;Content-Type: application/json&amp;quot; -X POST -u admin:foob
 &lt;ol>
 &lt;li>Now, ensure you are back where you have access to the main Anchore API and the Anchore CLI installed. Disable the existing rhel feed groups&lt;/li>
 &lt;/ol>
-&lt;pre>&lt;code>anchore-cli system feeds config vulnerabilities --disable --group rhel:5
-anchore-cli system feeds config vulnerabilities --disable --group rhel:6
-anchore-cli system feeds config vulnerabilities --disable --group rhel:7
-anchore-cli system feeds config vulnerabilities --disable --group rhel:8
-&lt;/code>&lt;/pre>&lt;pre>&lt;code>anchore-cli system feeds delete vulnerabilities --group rhel:8
-anchore-cli system feeds delete vulnerabilities --group rhel:7
-anchore-cli system feeds delete vulnerabilities --group rhel:6
-anchore-cli system feeds delete vulnerabilities --group rhel:5
+&lt;pre>&lt;code>nextlinux-cli system feeds config vulnerabilities --disable --group rhel:5
+nextlinux-cli system feeds config vulnerabilities --disable --group rhel:6
+nextlinux-cli system feeds config vulnerabilities --disable --group rhel:7
+nextlinux-cli system feeds config vulnerabilities --disable --group rhel:8
+&lt;/code>&lt;/pre>&lt;pre>&lt;code>nextlinux-cli system feeds delete vulnerabilities --group rhel:8
+nextlinux-cli system feeds delete vulnerabilities --group rhel:7
+nextlinux-cli system feeds delete vulnerabilities --group rhel:6
+nextlinux-cli system feeds delete vulnerabilities --group rhel:5
 &lt;/code>&lt;/pre>&lt;ol>
 &lt;li>Enable the centos feed groups that have the RHSA vulnerability data&lt;/li>
 &lt;/ol>
-&lt;pre>&lt;code>anchore-cli system feeds config vulnerabilities --enable --group centos:8
-anchore-cli system feeds config vulnerabilities --enable --group centos:7
-anchore-cli system feeds config vulnerabilities --enable --group centos:6
-anchore-cli system feeds config vulnerabilities --enable --group centos:5
-&lt;/code>&lt;/pre>&lt;p>NOTE: if you already have centos data in your feeds (verify with &lt;code>anchore-cli system feeds list&lt;/code>) then you&amp;rsquo;ll need to delete the centos data groups as well
+&lt;pre>&lt;code>nextlinux-cli system feeds config vulnerabilities --enable --group centos:8
+nextlinux-cli system feeds config vulnerabilities --enable --group centos:7
+nextlinux-cli system feeds config vulnerabilities --enable --group centos:6
+nextlinux-cli system feeds config vulnerabilities --enable --group centos:5
+&lt;/code>&lt;/pre>&lt;p>NOTE: if you already have centos data in your feeds (verify with &lt;code>nextlinux-cli system feeds list&lt;/code>) then you&amp;rsquo;ll need to delete the centos data groups as well
 to ensure a clean re-syncin the next steps. This is accomplished with:&lt;/p>
-&lt;pre>&lt;code>anchore-cli system feeds delete vulnerabilities --group centos:5
-anchore-cli system feeds delete vulnerabilities --group centos:6
-anchore-cli system feeds delete vulnerabilities --group centos:7
-anchore-cli system feeds delete vulnerabilities --group centos:8
+&lt;pre>&lt;code>nextlinux-cli system feeds delete vulnerabilities --group centos:5
+nextlinux-cli system feeds delete vulnerabilities --group centos:6
+nextlinux-cli system feeds delete vulnerabilities --group centos:7
+nextlinux-cli system feeds delete vulnerabilities --group centos:8
 &lt;/code>&lt;/pre>&lt;ol>
 &lt;li>Now do a sync to re-match any images using rhel/centos to the RHSA data&lt;/li>
 &lt;/ol>
-&lt;pre>&lt;code>[root@d64b49fe951c ~]# anchore-cli system feeds sync
-WARNING: This operation should not normally need to be performed except when the anchore-engine operator is certain that it is required - the operation will take a long time (hours) to complete, and there may be an impact on anchore-engine performance during the re-sync/flush.
+&lt;pre>&lt;code>[root@d64b49fe951c ~]# nextlinux-cli system feeds sync
+WARNING: This operation should not normally need to be performed except when the nextlinux-engine operator is certain that it is required - the operation will take a long time (hours) to complete, and there may be an impact on nextlinux-engine performance during the re-sync/flush.
 Really perform a manual feed data sync/flush? (y/N)y
 Feed Group Status Records Updated Sync Duration
 github github:composer success 0 0.28s
@@ -97,7 +115,7 @@ vulnerabilities ubuntu:18.04 success 0 0.42s
 vulnerabilities ubuntu:18.10 success 0 0.37s
 vulnerabilities ubuntu:19.04 success 0 0.45s
 vulnerabilities ubuntu:19.10 success 0 0.32s
-[root@d64b49fe951c ~]# anchore-cli image vuln centos os
+[root@d64b49fe951c ~]# nextlinux-cli image vuln centos os
 Vulnerability ID Package Severity Fix CVE Refs Vulnerability URL Type Feed Group Package Path
 RHSA-2020:0271 libarchive-3.3.2-7.el8 High 0:3.3.2-8.el8_1 CVE-2019-18408 https://access.redhat.com/errata/RHSA-2020:0271 rpm centos:8 pkgdb
 RHSA-2020:0273 sqlite-libs-3.26.0-3.el8 High 0:3.26.0-4.el8_1 CVE-2019-13734 https://access.redhat.com/errata/RHSA-2020:0273 rpm centos:8 pkgdb
@@ -107,4 +125,7 @@ RHSA-2020:0575 systemd-pam-239-18.el8_1.1 High 0:239-18.el8_1.4 https://access.r
 RHSA-2020:0575 systemd-udev-239-18.el8_1.1 High 0:239-18.el8_1.4 https://access.redhat.com/errata/RHSA-2020:0575 rpm centos:8 pkgdb
 &lt;/code>&lt;/pre>&lt;/li>
 &lt;/ol>
-&lt;p>Note in the last command output that the OS vulnerabilities are again showing &amp;lsquo;RHSA&amp;rsquo; matches. The restoration to RHSA-based vuln data is complete.&lt;/p></description></item></channel></rss>
+&lt;p>Note in the last command output that the OS vulnerabilities are again showing &amp;lsquo;RHSA&amp;rsquo; matches. The restoration to RHSA-based vuln data is complete.&lt;/p></description>
+        </item>
+    </channel>
+</rss>

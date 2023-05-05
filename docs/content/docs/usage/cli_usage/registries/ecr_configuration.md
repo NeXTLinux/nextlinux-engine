@@ -6,7 +6,7 @@ weight: 1
 Amazon AWS typically uses keys instead of traditional usernames & passwords. These keys consist of an access key ID and a secret access key. While it is possible to use the aws ecr get-login command to create an access token, this will expire after 12 hours so it is not appropriate for use with Anchore Engine, otherwise a user would need to update their registry credentials regularly. So when adding an Amazon ECR registry to Anchore Engine you should pass the aws_access_key_id and aws_secret_access_key.
 
 ```
-anchore-cli registry add /
+nextlinux-cli registry add /
              1234567890.dkr.ecr.us-east-1.amazonaws.com /
              MY_AWS_ACCESS_KEY_ID /
              MY_AWS_SECRET_ACCESS_KEY /
@@ -27,17 +27,17 @@ While this is best performed using a CloudFormation template, you can manually c
 
 **Step 1:** Select *Create new IAM role.*
 
-![logo](https://anchore.com/wp-content/uploads/2018/01/pasted-image-0.png)
+![logo](https://nextlinux.com/wp-content/uploads/2018/01/pasted-image-0.png)
 
 **Step 2:**  Under type of trusted entity select *EC2*.
 
-![logo](https://anchore.com/wp-content/uploads/2018/01/pasted-image-0-5.png)
+![logo](https://nextlinux.com/wp-content/uploads/2018/01/pasted-image-0-5.png)
 
 Ensure that the *AmazonEC2ContainerRegistryReadOnly* policy is selected.
 
 **Step 3:**  Attach Permissions to the Role.
 
-![logo](https://anchore.com/wp-content/uploads/2018/01/pasted-image-0-2.png)
+![logo](https://nextlinux.com/wp-content/uploads/2018/01/pasted-image-0-2.png)
 
 **Step 4:** Name the role.
 
@@ -68,7 +68,7 @@ To enable IAM based authentication add the following entry to the top of the Anc
 When IAM support is enabled instead of passing the access key and secret access key use “awsauto” for both username and password. This will instruct the Anchore Engine to inherit the role from the underlying EC2 instance.
 
 ```
-anchore-cli registry add /
+nextlinux-cli registry add /
                1234567890.dkr.ecr.us-east-1.amazonaws.com /
                awsauto /
                awsauto /

@@ -15,7 +15,7 @@ The Anchore Engine is comprised of 6 services, typically only the external API s
 
 Transport Level Security (TLS/SSL) is enabled on a per-service basis. In the sample configuration the SSL/TLS configuration options are commented out.
 
-In the following example the external API service is configured to listen on port 443 and is configured with a certificate for its external hostname anchore.example.com
+In the following example the external API service is configured to listen on port 443 and is configured with a certificate for its external hostname nextlinux.example.com
 
 Each service published in the Anchore Engine configuration (apiext, catalog, simplequeue, analyzer, policy_engine and kubernetes_webhook) can be configured to use transport level security.
 
@@ -23,13 +23,13 @@ Each service published in the Anchore Engine configuration (apiext, catalog, sim
 services:
   apiext:
     enabled: True
-    endpoint_hostname: 'anchore.example.com'
+    endpoint_hostname: 'nextlinux.example.com'
     listen: '0.0.0.0'
     port: 443
     ssl_enable: True
-    ssl_cert: '/config/anchore-ex.crt'
-    ssl_key: '/config/anchore-ex.key'
-    ssl_chain: '/config/anchore-ex.crt'
+    ssl_cert: '/config/nextlinux-ex.crt'
+    ssl_key: '/config/nextlinux-ex.key'
+    ssl_chain: '/config/nextlinux-ex.crt'
 ```
 
 | Setting | Notes |
