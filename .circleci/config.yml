@@ -12,7 +12,7 @@ parameters:
     default: false
 
 .global_environment_vars: &global_environment_vars
-  PROD_IMAGE_REPO: anchore/anchore-engine
+  PROD_IMAGE_REPO: nextlinux/nextlinux-engine
   LATEST_RELEASE_MAJOR_VERSION: 1.1.0
   TERM: xterm
 
@@ -30,7 +30,7 @@ parameters:
   run:
     name: Forward remote-docker ports for testing
     command: |
-      ssh -MS anchore-api -fN4 -L 8228:localhost:8228 remote-docker
+      ssh -MS nextlinux-api -fN4 -L 8228:localhost:8228 remote-docker
       ssh -MS k8s-api -fN4 -L 32768:localhost:32768 remote-docker
 
 .filter_rc_tags: &filter_rc_tags
@@ -67,7 +67,7 @@ parameters:
 # Start circleci configuration
 version: 2.1
 orbs:
-  grype: anchore/grype@0.2.0
+  grype: nextlinux/grype@0.2.0
   slack: circleci/slack@4.5
 
 commands:
@@ -154,11 +154,11 @@ jobs:
         type: string
     docker:
       - image: circleci/python:<<parameters.py_version>>
-      - image: anchore/test-infra-minio:latest
+      - image: nextlinux/test-infra-minio:latest
         command:
           - server
           - /data
-      - image: anchore/test-infra-swift:latest
+      - image: nextlinux/test-infra-swift:latest
       - image: circleci/postgres:9.6
         environment:
           POSTGRES_PASSWORD: "postgres"
@@ -219,7 +219,7 @@ jobs:
       image: ubuntu-2004:202201-02
     environment:
       <<: *global_environment_vars
-      ANCHORE_TEST_DOCKER_REGISTRY_USER: anchore
+      ANCHORE_TEST_DOCKER_REGISTRY_USER: nextlinux
       ANCHORE_TEST_DOCKER_REGISTRY_PASS: foobar
     steps:
       - checkout
@@ -247,7 +247,7 @@ jobs:
       - <<: *load_docker_image
       - <<: *ssh_forward_port
       - run:
-          name: Run anchore-cli smoke tests
+          name: Run nextlinux-cli smoke tests
           no_output_timeout: 30m
           command: make setup-and-test-cli
 
@@ -278,7 +278,7 @@ jobs:
                   "type": "header",
                   "text": {
                     "type": "plain_text",
-                    "text": "An image has shipped! :anchore::rocket:",
+                    "text": "An image has shipped! :nextlinux::rocket:",
                     "emoji": true
                   }
                 },
@@ -313,7 +313,7 @@ jobs:
                         "type": "plain_text",
                         "text": "View Source"
                       },
-                      "url": "https://github.com/anchore/${CIRCLE_PROJECT_REPONAME}/tree/${CIRCLE_TAG}"
+                      "url": "https://github.com/nextlinux/${CIRCLE_PROJECT_REPONAME}/tree/${CIRCLE_TAG}"
                     }
                   ]
                 },
@@ -363,7 +363,7 @@ jobs:
     parameters:
       image_name:
         type: string
-        default: "docker:anchore-engine:dev"
+        default: "docker:nextlinux-engine:dev"
     docker:
       - image: cimg/python:3.8.4
     steps:
@@ -511,7 +511,7 @@ workflows:
           context: dockerhub
           requires:
             - push_nightly_image
-          image_name: anchore/anchore-engine-dev:nightly
+          image_name: nextlinux/nextlinux-engine-dev:nightly
           filters: *filter_nightly
 
   rc_image_workflow:

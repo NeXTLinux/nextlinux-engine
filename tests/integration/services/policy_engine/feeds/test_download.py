@@ -6,16 +6,16 @@ import os
 import tempfile
 import uuid
 
-from anchore_engine.common.models.schemas import (
+from nextlinux_engine.common.models.schemas import (
     DownloadOperationConfiguration,
     GroupDownloadOperationConfiguration,
     GroupDownloadOperationParams,
 )
-from anchore_engine.services.policy_engine.engine.feeds.client import get_feeds_client
-from anchore_engine.services.policy_engine.engine.feeds.config import SyncConfig
-from anchore_engine.services.policy_engine.engine.feeds.download import FeedDownloader
-from anchore_engine.subsys import logger
-from anchore_engine.utils import timer
+from nextlinux_engine.services.policy_engine.engine.feeds.client import get_feeds_client
+from nextlinux_engine.services.policy_engine.engine.feeds.config import SyncConfig
+from nextlinux_engine.services.policy_engine.engine.feeds.download import FeedDownloader
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.utils import timer
 from tests.utils import init_test_logging
 
 init_test_logging(level="debug")
@@ -46,7 +46,7 @@ def test_feed_downloader():
     dl_conf = DownloadOperationConfiguration(
         groups=groups_to_sync, uuid=uuid.uuid4().hex, source_uri=ANCHOREIO_URI
     )
-    tmpdir = tempfile.mkdtemp(prefix="anchoretest_repo-")
+    tmpdir = tempfile.mkdtemp(prefix="nextlinuxtest_repo-")
     data_repo = None
     try:
         client = get_feeds_client(

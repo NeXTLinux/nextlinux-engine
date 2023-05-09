@@ -1,7 +1,7 @@
 """
 This script is a wrapper to allow the code in
-anchore_engine.clients.localanchore_standalone work without the need for
-a running anchore-engine service(s). More specifically, it sets everything up
+nextlinux_engine.clients.localnextlinux_standalone work without the need for
+a running nextlinux-engine service(s). More specifically, it sets everything up
 needed for the `analyze_image()` function, and it does so *for testing
 purposes*.
 
@@ -10,7 +10,7 @@ altered to use other images as well. There are currently a few lacking pieces
 in the implementation, like re-using a manifest if present or trying to keep
 all downloaded files/layers from skopeo.
 
-This is *not* a substitue for the `anchore-manager analyze` command that produces
+This is *not* a substitue for the `nextlinux-manager analyze` command that produces
 a tarball for analyzing.
 """
 import json
@@ -23,7 +23,7 @@ from uuid import uuid4
 
 import click
 
-from anchore_engine.clients.localanchore_standalone import analyze_image
+from nextlinux_engine.clients.localnextlinux_standalone import analyze_image
 
 current = dirname(abspath(__file__))
 top_level = dirname(dirname(dirname(dirname(current))))
@@ -187,7 +187,7 @@ def create_directories(work_dir):
 @click.option(
     "--repo",
     default="centos",
-    help='Repo name, like "centos" (official ones) or "anchore/enterprise" for accounts',
+    help='Repo name, like "centos" (official ones) or "nextlinux/enterprise" for accounts',
     show_default=True,
 )
 @click.option(

@@ -2,8 +2,8 @@ import datetime
 
 import pytest
 
-from anchore_engine.subsys import logger, simplequeue
-from anchore_engine.subsys.logger import enable_test_logging
+from nextlinux_engine.subsys import logger, simplequeue
+from nextlinux_engine.subsys.logger import enable_test_logging
 
 enable_test_logging()
 
@@ -13,9 +13,9 @@ std_queue = "testq3"
 
 
 @pytest.fixture
-def test_qs(anchore_db):
+def test_qs(nextlinux_db):
     """
-    Expects to initialize the queues in an empty db, so it uses the anchore_db fixture itself to get initialized db
+    Expects to initialize the queues in an empty db, so it uses the nextlinux_db fixture itself to get initialized db
 
     :return:
     """
@@ -31,7 +31,7 @@ def test_std_queue(test_qs):
     """
     Simple queuing test using regular queue behavior
 
-    :param anchore_db:
+    :param nextlinux_db:
     :param test_qs:
     :return:
     """

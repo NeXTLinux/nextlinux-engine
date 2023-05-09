@@ -5,7 +5,7 @@ import json
 
 import pytest
 
-from anchore_engine.services.policy_engine.engine.feeds.mappers import (
+from nextlinux_engine.services.policy_engine.engine.feeds.mappers import (
     GemMetadata,
     GemPackageDataMapper,
     NpmMetadata,

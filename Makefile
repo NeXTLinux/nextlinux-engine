@@ -15,11 +15,11 @@ SHELL := /usr/bin/env bash
 .NOTPARALLEL: # Run make serially
 
 # Dockerhub image repo
-DEV_IMAGE_REPO = anchore/anchore-engine-dev
+DEV_IMAGE_REPO = nextlinux/nextlinux-engine-dev
 
 # Shared CI scripts
-TEST_HARNESS_REPO = https://github.com/anchore/test-infra.git
-CI_CMD = anchore-ci/ci_harness
+TEST_HARNESS_REPO = https://github.com/nextlinux/test-infra.git
+CI_CMD = nextlinux-ci/ci_harness
 
 # Python environment
 VENV = .venv
@@ -30,7 +30,7 @@ PYTHON := $(VENV)/bin/python3
 CI_COMPOSE_FILE = scripts/ci/docker-compose-ci.yaml
 CLUSTER_CONFIG = scripts/ci/config/kind-config.yaml
 CONTAINER_TEST_CONFIG = scripts/ci/container-tests.yaml
-CLUSTER_NAME = anchore-testing
+CLUSTER_NAME = nextlinux-testing
 K8S_VERSION = 1.19.0
 TEST_IMAGE_NAME = $(GIT_REPO):dev
 OS := $(shell uname)
@@ -74,7 +74,7 @@ GIT_TAG := $(shell echo $${CIRCLE_TAG:=null})
 ci: lint build test ## Run full CI pipeline, locally
 
 .PHONY: build
-build: CLI_REPO ?= https://github.com/anchore/anchore-cli.git
+build: CLI_REPO ?= https://github.com/nextlinux/nextlinux-cli.git
 build: Dockerfile setup-test-infra ## Build dev image
 	@$(CI_CMD) build "$(COMMIT_SHA)" "$(GIT_TAG)" "$(TEST_IMAGE_NAME)" "$(CLI_REPO)"
 
@@ -192,8 +192,8 @@ push-rebuild: setup-test-infra ## Rebuild and push prod Anchore Engine docker im
 	@$(CI_CMD) push-prod-image-rebuild "$(COMMIT_SHA)" "$(DEV_IMAGE_REPO)" "$(GIT_TAG)"
 
 .PHONY: ironbank-artifacts
-ironbank-artifacts: anchore-ci ## (Not available outside of CI) Create and upload ironbank buildblob artifacts
-	@$(CI_CMD) create-ironbank-artifacts anchore-engine "$(GIT_TAG)"
+ironbank-artifacts: nextlinux-ci ## (Not available outside of CI) Create and upload ironbank buildblob artifacts
+	@$(CI_CMD) create-ironbank-artifacts nextlinux-engine "$(GIT_TAG)"
 
 # Helper targets
 #########################
@@ -228,12 +228,12 @@ cluster-down: venv setup-test-infra ## Tear down/stop kind cluster
 	@$(ACTIVATE_VENV) && $(CI_CMD) cluster-down "$(CLUSTER_NAME)"
 
 .PHONY: setup-test-infra
-setup-test-infra: /tmp/test-infra ## Fetch anchore/test-infra repo for CI scripts
+setup-test-infra: /tmp/test-infra ## Fetch nextlinux/test-infra repo for CI scripts
 	cd /tmp/test-infra && git pull
-	@$(MAKE) anchore-ci
-anchore-ci: /tmp/test-infra/anchore-ci
-	rm -rf ./anchore-ci; cp -R /tmp/test-infra/anchore-ci .
-/tmp/test-infra/anchore-ci: /tmp/test-infra
+	@$(MAKE) nextlinux-ci
+nextlinux-ci: /tmp/test-infra/nextlinux-ci
+	rm -rf ./nextlinux-ci; cp -R /tmp/test-infra/nextlinux-ci .
+/tmp/test-infra/nextlinux-ci: /tmp/test-infra
 /tmp/test-infra:
 	git clone $(TEST_HARNESS_REPO) /tmp/test-infra
 
@@ -279,14 +279,14 @@ endif
 # Code change targets
 #######################
 
-SYFT_LATEST_VERSION = $(shell curl "https://api.github.com/repos/anchore/syft/releases/latest" 2>/dev/null | jq -r '.tag_name')
+SYFT_LATEST_VERSION = $(shell curl "https://api.github.com/repos/nextlinux/syft/releases/latest" 2>/dev/null | jq -r '.tag_name')
 .PHONY: upgrade-syft
 upgrade-syft: jq-installed ## Upgrade Syft to the latest release
 	if [ -n "$$GITHUB_ENV" ]; then echo "syft_v=${SYFT_LATEST_VERSION}" >> $$GITHUB_ENV; fi
 	# Setting Syft to ${SYFT_LATEST_VERSION}
 	$(SEDI) 's/^(ENV SYFT_VERSION=).+$$/\1${SYFT_LATEST_VERSION}/' Dockerfile
 
-GRYPE_LATEST_VERSION = $(shell curl "https://api.github.com/repos/anchore/grype/releases/latest" 2>/dev/null | jq -r '.tag_name')
+GRYPE_LATEST_VERSION = $(shell curl "https://api.github.com/repos/nextlinux/grype/releases/latest" 2>/dev/null | jq -r '.tag_name')
 .PHONY: upgrade-grype
 upgrade-grype: jq-installed ## Upgrade Grype to the latest release
 	if [ -n "$$GITHUB_ENV" ]; then echo "grype_v=${GRYPE_LATEST_VERSION}" >> $$GITHUB_ENV; fi
@@ -294,5 +294,5 @@ upgrade-grype: jq-installed ## Upgrade Grype to the latest release
 	$(SEDI) 's/^(ENV GRYPE_VERSION=).+$$/\1${GRYPE_LATEST_VERSION}/' Dockerfile
 
 # TODO: Intent is to create a weekly/daily/continuous GitHub Action that runs the following and auto-opens a PR
-.PHONY: upgrade-anchore-tools
-upgrade-anchore-tools: upgrade-syft upgrade-grype ## Upgrade Syft and Grype to the latest release
+.PHONY: upgrade-nextlinux-tools
+upgrade-nextlinux-tools: upgrade-syft upgrade-grype ## Upgrade Syft and Grype to the latest release

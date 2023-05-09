@@ -3,18 +3,18 @@ import json
 
 import pytest
 
-from anchore_engine.db import Image, get_thread_scoped_session
-from anchore_engine.services.policy_engine.engine.policy.bundles import (
+from nextlinux_engine.db import Image, get_thread_scoped_session
+from nextlinux_engine.services.policy_engine.engine.policy.bundles import (
     GateAction,
     build_bundle,
 )
-from anchore_engine.services.policy_engine.engine.policy.exceptions import (
+from nextlinux_engine.services.policy_engine.engine.policy.exceptions import (
     BundleTargetTagMismatchError,
     InitializationError,
     UnsupportedVersionError,
 )
-from anchore_engine.services.policy_engine.engine.policy.gate import ExecutionContext
-from anchore_engine.subsys import logger
+from nextlinux_engine.services.policy_engine.engine.policy.gate import ExecutionContext
+from nextlinux_engine.subsys import logger
 
 logger.enable_test_logging()
 

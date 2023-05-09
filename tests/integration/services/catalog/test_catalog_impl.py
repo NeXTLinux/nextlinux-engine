@@ -2,8 +2,8 @@ from unittest import TestCase
 
 import pytest
 
-from anchore_engine.db import get_thread_scoped_session
-from anchore_engine.services.catalog import catalog_impl
+from nextlinux_engine.db import get_thread_scoped_session
+from nextlinux_engine.services.catalog import catalog_impl
 
 # This looks unused, but it is
 
@@ -19,15 +19,15 @@ class TestImageAddWorkflow:
     expected_full_image_info = {
         "host": "docker.io",
         "port": None,
-        "repo": "anchore/test_images",
+        "repo": "nextlinux/test_images",
         "tag": None,
         "registry": "docker.io",
         "repotag": None,
         "fulltag": None,
         "digest": "sha256:2dceaabe73ee43341b0ab79aaa10f8d0c79b7866d9b4c31e1923a32e9cc4b586",
-        "fulldigest": "docker.io/anchore/test_images@sha256:2dceaabe73ee43341b0ab79aaa10f8d0c79b7866d9b4c31e1923a32e9cc4b586",
+        "fulldigest": "docker.io/nextlinux/test_images@sha256:2dceaabe73ee43341b0ab79aaa10f8d0c79b7866d9b4c31e1923a32e9cc4b586",
         "imageId": "9643331146c7f23baf4598b225f319c63fa9ee67c5d66c93a8ec08f5ff9b2e8f",
-        "pullstring": "docker.io/anchore/test_images@sha256:2dceaabe73ee43341b0ab79aaa10f8d0c79b7866d9b4c31e1923a32e9cc4b586",
+        "pullstring": "docker.io/nextlinux/test_images@sha256:2dceaabe73ee43341b0ab79aaa10f8d0c79b7866d9b4c31e1923a32e9cc4b586",
         "manifest": {
             "schemaVersion": 2,
             "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
@@ -74,8 +74,8 @@ class TestImageAddWorkflow:
         "compressed_size": 116218386,
     }
 
-    def test_resolve_final_image_info(self, anchore_db):
-        input_string = "anchore/test_images@sha256:2dceaabe73ee43341b0ab79aaa10f8d0c79b7866d9b4c31e1923a32e9cc4b586"
+    def test_resolve_final_image_info(self, nextlinux_db):
+        input_string = "nextlinux/test_images@sha256:2dceaabe73ee43341b0ab79aaa10f8d0c79b7866d9b4c31e1923a32e9cc4b586"
         session = get_thread_scoped_session()
         actual_image_info = catalog_impl.resolve_final_image_info(
             "admin", input_string, [], session, {}

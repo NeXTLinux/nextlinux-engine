@@ -3,8 +3,8 @@ import os
 import pytest
 
 import tests.functional.services.policy_engine.utils.api as policy_engine_api
-from anchore_engine.services.policy_engine.engine.feeds.feeds import GrypeDBFeed
-from anchore_engine.services.policy_engine.engine.vulns.providers import GrypeProvider
+from nextlinux_engine.services.policy_engine.engine.feeds.feeds import GrypeDBFeed
+from nextlinux_engine.services.policy_engine.engine.vulns.providers import GrypeProvider
 from tests.functional.services.policy_engine.conftest import (
     is_legacy_provider,
     read_expected_content,
@@ -78,10 +78,10 @@ class TestFeedSync:
     @classmethod
     def _get_vuln_ids(cls, expected_vulns):
         """
-        From a list of expected vulns taken from feeds service, find corresponding vulnerability ids for querying anchore
+        From a list of expected vulns taken from feeds service, find corresponding vulnerability ids for querying nextlinux
         :param expected_vulns: list of records in group from feed
         :type expected_vulns: list
-        :return: list of vulnerabilitiy_ids as they would be stored in anchore
+        :return: list of vulnerabilitiy_ids as they would be stored in nextlinux
         :rtype: list
         """
         vuln_ids = []

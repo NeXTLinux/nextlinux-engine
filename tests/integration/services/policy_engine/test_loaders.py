@@ -3,8 +3,8 @@ import time
 
 import pytest
 
-from anchore_engine.configuration import localconfig
-from anchore_engine.db import (
+from nextlinux_engine.configuration import localconfig
+from nextlinux_engine.db import (
     FeedGroupMetadata,
     FeedMetadata,
     GemMetadata,
@@ -14,11 +14,11 @@ from anchore_engine.db import (
     Vulnerability,
     session_scope,
 )
-from anchore_engine.services.policy_engine.engine.tasks import (
+from nextlinux_engine.services.policy_engine.engine.tasks import (
     FeedsUpdateTask,
     ImageLoadTask,
 )
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
 logger.enable_test_logging()
 
@@ -28,7 +28,7 @@ localconfig.localconfig.update(
 
 
 @pytest.mark.skip("Skipping due to long run time, will fix later")
-def test_feed_task(test_data_env, anchore_db):
+def test_feed_task(test_data_env, nextlinux_db):
 
     logger.info("Running a feed sync with config: {}".format(localconfig.get_config()))
     t = FeedsUpdateTask()

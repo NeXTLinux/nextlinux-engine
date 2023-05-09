@@ -2,7 +2,7 @@ from os import path
 
 import pytest
 
-from anchore_engine.db.entities.policy_engine import (
+from nextlinux_engine.db.entities.policy_engine import (
     CpeV2Vulnerability,
     FeedGroupMetadata,
     FeedMetadata,
@@ -24,7 +24,7 @@ DB_TABLES = [
 
 @pytest.fixture(scope="package", autouse=True)
 def clear_database_state(
-    request, set_env_vars, anchore_db, teardown_and_recreate_tables
+    request, set_env_vars, nextlinux_db, teardown_and_recreate_tables
 ) -> None:
     """
     Writes database seed file content to database. This allows us to ensure consistent vulnerability results (regardless of feed sync status).

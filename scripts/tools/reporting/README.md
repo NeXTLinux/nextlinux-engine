@@ -16,8 +16,8 @@ The goal is to use this to make a concerted dent in improving our unit test cove
 Create a Python Run Configuration for the script in this directory:
 
 Note: use the full path
-Script path: anchore-engine/scripts/tools/reporting/test_coverage_priority.py
-Working Directory: anchore-engine/scripts/tools/reporting
+Script path: nextlinux-engine/scripts/tools/reporting/test_coverage_priority.py
+Working Directory: nextlinux-engine/scripts/tools/reporting
 
 
 
@@ -29,5 +29,5 @@ Engine already installed and development environment set up
 
 ## Improvement Notes
 - Ignore "virtual" functions in an ABC that cannot directly be called.
-- If a function doesn't belong to a class, it looks like it will just give you the directory that the function is in rather than the file (e.g. anchore_engine.clients::unpack)
+- If a function doesn't belong to a class, it looks like it will just give you the directory that the function is in rather than the file (e.g. nextlinux_engine.clients::unpack)
 - Determine if ther'es any additional multithreading/processing we can implement that  would help lower the runtime of the script.

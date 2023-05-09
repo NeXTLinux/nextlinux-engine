@@ -9,18 +9,18 @@ from datetime import datetime, timedelta
 
 import dateutil.parser
 
-from anchore_engine.db import Lease, db_locks, session_scope
-from anchore_engine.subsys import logger
-from anchore_engine.subsys.logger import enable_test_logging
+from nextlinux_engine.db import Lease, db_locks, session_scope
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.subsys.logger import enable_test_logging
 
 enable_test_logging()
 
 
-def test_serial_lock(anchore_db):
+def test_serial_lock(nextlinux_db):
     """
     Simple test of serial lease access ensuring it transfers between holders properly in simple cases (acquire, release, acquire, release)
 
-    :param anchore_db:
+    :param nextlinux_db:
     :return:
     """
     id = uuid.uuid1().hex
@@ -57,11 +57,11 @@ def test_serial_lock(anchore_db):
     assert good_release is None, "Should have no lock/None: {}".format(good_release)
 
 
-def test_expiration(anchore_db):
+def test_expiration(nextlinux_db):
     """
     Test lease expiration by acquiring and holding past expiration. Ensures others can acquire the lock after the ttl.
 
-    :param anchore_db:
+    :param nextlinux_db:
     :return:
     """
 
@@ -85,7 +85,7 @@ def test_expiration(anchore_db):
     ), "No lock should be held"
 
 
-def test_contextmgr(anchore_db):
+def test_contextmgr(nextlinux_db):
     lockid = "testlock"
     lockid2 = "test_lock_2"
     db_locks.init_lease(lockid)
@@ -138,11 +138,11 @@ def run_thread_lock_fn(wait_sleep_seconds):
     return "Complete"
 
 
-def test_threads(anchore_db):
+def test_threads(nextlinux_db):
     """
     Test concurrent lease contention and acquisition
 
-    :param anchore_db:
+    :param nextlinux_db:
     :return:
     """
 
@@ -158,7 +158,7 @@ def test_threads(anchore_db):
         logger.info(("Thread result {}".format(r)))
 
 
-def test_refresh_lease(anchore_db):
+def test_refresh_lease(nextlinux_db):
     # Setup
     client_id = uuid.uuid4().hex
     lease_id = "testlease"

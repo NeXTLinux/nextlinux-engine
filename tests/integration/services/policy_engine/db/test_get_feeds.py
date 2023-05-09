@@ -1,5 +1,5 @@
-from anchore_engine.db import FeedMetadata, session_scope
-from anchore_engine.services.policy_engine.engine.feeds.db import get_feed_detached
+from nextlinux_engine.db import FeedMetadata, session_scope
+from nextlinux_engine.services.policy_engine.engine.feeds.db import get_feed_detached
 
 
 def test_get_feed_detached(test_data_env):

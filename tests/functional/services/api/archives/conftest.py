@@ -60,7 +60,7 @@ def create_and_teardown_archive_rule(request):
         raise RequestFailedError(archive_resp.url, archive_resp.code, archive_resp.body)
 
     def teardown():
-        _logger.info("Removing alpine:edge image from anchore")
+        _logger.info("Removing alpine:edge image from nextlinux")
         remove_image_resp = http_del(
             ["images", "by_id", get_image_id(add_image_resp)], query={"force": True}
         )

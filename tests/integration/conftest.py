@@ -54,6 +54,6 @@ def set_legacy_provider(monkeysession):
         return "legacy"
 
     monkeysession.setattr(
-        "anchore_engine.services.policy_engine.engine.vulns.providers.get_provider_name",
+        "nextlinux_engine.services.policy_engine.engine.vulns.providers.get_provider_name",
         _provider_name,
     )

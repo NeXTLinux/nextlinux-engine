@@ -21,16 +21,16 @@ SECURITY_MANAGER_CONFIG:
   attributes:
     serializer: cbor
     realms:
-      anchore_engine.subsys.auth.realms.UsernamePasswordRealm:
-        account_store: anchore_engine.subsys.auth.stores.basic.DbAccountStore
+      nextlinux_engine.subsys.auth.realms.UsernamePasswordRealm:
+        account_store: nextlinux_engine.subsys.auth.stores.basic.DbAccountStore
         authc_verifiers:
-          - anchore_engine.subsys.auth.stores.verifier.SimplePasswordVerifier
+          - nextlinux_engine.subsys.auth.stores.verifier.SimplePasswordVerifier
           - yosai.core.authc.authc.PasslibVerifier
-      anchore_engine.subsys.auth.realms.JwtRealm:
-        account_store: anchore_engine.subsys.auth.stores.basic.TokenAccountStore
+      nextlinux_engine.subsys.auth.realms.JwtRealm:
+        account_store: nextlinux_engine.subsys.auth.stores.basic.TokenAccountStore
         authc_verifiers:
-          - anchore_engine.subsys.auth.stores.verifier.BearerTokenVerifier
-    cache_handler: anchore_engine.subsys.auth.util.caches.SimpleMemoryCache
+          - nextlinux_engine.subsys.auth.stores.verifier.BearerTokenVerifier
+    cache_handler: nextlinux_engine.subsys.auth.util.caches.SimpleMemoryCache
     session_attributes: null
 
 #REMEMBER_ME_CONFIG:

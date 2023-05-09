@@ -1,6 +1,6 @@
-from anchore_engine.subsys import logger, object_store
-from anchore_engine.subsys.object_store import migration
-from anchore_engine.subsys.object_store.config import (
+from nextlinux_engine.subsys import logger, object_store
+from nextlinux_engine.subsys.object_store import migration
+from nextlinux_engine.subsys.object_store.config import (
     ALT_OBJECT_STORE_CONFIG_KEY,
     DEFAULT_OBJECT_STORE_MANAGER_ID,
 )
@@ -103,7 +103,7 @@ def run_test(src_client_config, dest_client_config):
     flush_data()
 
 
-def test_db_to_db2(anchore_db):
+def test_db_to_db2(nextlinux_db):
     from_config = {"name": "db", "config": {}}
 
     to_config = {"name": "db2", "config": {}}
@@ -111,7 +111,7 @@ def test_db_to_db2(anchore_db):
     run_test(from_config, to_config)
 
 
-def test_db_to_s3(s3_bucket, anchore_db):
+def test_db_to_s3(s3_bucket, nextlinux_db):
     from_config = {"name": "db", "config": {}}
 
     to_config = {

@@ -1,16 +1,16 @@
-from anchore_engine.db.entities.policy_engine import (
+from nextlinux_engine.db.entities.policy_engine import (
     DistroMapping,
     DistroTuple,
     VersionPreservingDistroMapper,
     get_thread_scoped_session,
 )
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 from tests.integration.services.policy_engine.utils import init_distro_mappings
 
 logger.enable_test_logging()
 
 
-def test_simple_map(anchore_db):
+def test_simple_map(nextlinux_db):
     init_distro_mappings()
     found = DistroMapping()
     found.from_distro = "centos"
@@ -32,7 +32,7 @@ def test_simple_map(anchore_db):
     assert mapper.mapping == [DistroTuple(distro="fedora", version="27", flavor="RHEL")]
 
 
-def test_distro_from(anchore_db):
+def test_distro_from(nextlinux_db):
     init_distro_mappings()
     session = get_thread_scoped_session()
     try:

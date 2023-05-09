@@ -6,13 +6,13 @@ from typing import Callable, ContextManager, Dict, List, Optional
 import jsonschema
 import pytest
 
-from anchore_engine.db.entities.common import (
+from nextlinux_engine.db.entities.common import (
     do_disconnect,
     end_session,
     get_engine,
     initialize,
 )
-from anchore_engine.db.entities.upgrade import do_create_tables
+from nextlinux_engine.db.entities.upgrade import do_create_tables
 
 CURRENT_DIR = path.dirname(path.abspath(__file__))
 EXPECTED_CONTENT_FOLDER_NAME = "expected_output"
@@ -24,7 +24,7 @@ def read_expected_content(module_path, filename):
     Loads expected vulnerability response json for a given image_digest
     :param filename: name of file from which to load response
     :type filename: str
-    :return: expected vulnerability response jsonanchore_engine/services/policy_engine/engine/feeds/feeds.py
+    :return: expected vulnerability response jsonnextlinux_engine/services/policy_engine/engine/feeds/feeds.py
     :rtype: Dict
     """
     module_filename_with_extension = path.basename(module_path)
@@ -147,12 +147,12 @@ def set_env_vars(monkeysession) -> None:
     if not os.getenv("ANCHORE_TEST_DB_URL"):
         monkeysession.setenv(
             "ANCHORE_TEST_DB_URL",
-            "postgresql://postgres:mysecretpassword@anchore-db:5432/postgres",
+            "postgresql://postgres:mysecretpassword@nextlinux-db:5432/postgres",
         )
 
 
 @pytest.fixture(scope="package")
-def anchore_db() -> ContextManager[bool]:
+def nextlinux_db() -> ContextManager[bool]:
     """
     Sets up a db connection to an existing db, and fails if not found/present
     Different from the fixture in test/fixtures.py in that it does not drop existing data upon making a connection

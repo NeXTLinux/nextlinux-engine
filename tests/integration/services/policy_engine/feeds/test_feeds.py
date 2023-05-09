@@ -3,23 +3,23 @@ import time
 
 import pytest
 
-from anchore_engine.common.models.schemas import (
+from nextlinux_engine.common.models.schemas import (
     BatchImageVulnerabilitiesQueueMessage,
     ImageVulnerabilitiesQueueMessage,
 )
-from anchore_engine.db import GemMetadata, NpmMetadata, Vulnerability, session_scope
-from anchore_engine.services.policy_engine.engine.feeds.download import (
+from nextlinux_engine.db import GemMetadata, NpmMetadata, Vulnerability, session_scope
+from nextlinux_engine.services.policy_engine.engine.feeds.download import (
     LocalFeedDataRepo,
 )
-from anchore_engine.services.policy_engine.engine.feeds.feeds import (
+from nextlinux_engine.services.policy_engine.engine.feeds.feeds import (
     GrypeDBFeed,
     feed_instance_by_name,
 )
-from anchore_engine.services.policy_engine.engine.feeds.sync import DataFeeds
-from anchore_engine.services.policy_engine.engine.feeds.sync_utils import (
+from nextlinux_engine.services.policy_engine.engine.feeds.sync import DataFeeds
+from nextlinux_engine.services.policy_engine.engine.feeds.sync_utils import (
     MetadataSyncUtils,
 )
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
 logger.enable_test_logging()
 

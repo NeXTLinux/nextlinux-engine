@@ -3,7 +3,7 @@
 set -euvo pipefail
 
 # Optional - only used for print_colorized
-source anchore-ci/utils
+source nextlinux-ci/utils
 
 default_tox_envs="py36"
 tox_env="${TOX_ENV:-$default_tox_envs}"

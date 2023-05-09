@@ -1,4 +1,4 @@
-from anchore_engine.db import (
+from nextlinux_engine.db import (
     FeedGroupMetadata,
     FeedMetadata,
     FixedArtifact,
@@ -6,7 +6,7 @@ from anchore_engine.db import (
     VulnerableArtifact,
     session_scope,
 )
-from anchore_engine.db.entities.upgrade import remove_incorrect_github_vuln_data
+from nextlinux_engine.db.entities.upgrade import remove_incorrect_github_vuln_data
 
 
 def add_records(records):
@@ -17,7 +17,7 @@ def add_records(records):
         session.flush()
 
 
-def test_remove_incorrect_github_vuln_data(anchore_db):
+def test_remove_incorrect_github_vuln_data(nextlinux_db):
     """
     Tests upgrade task that removes extraneous github:os and github:unknown vuln records
     Test does not include ImagePackageVulnerability because of the overhead of setting up mock data

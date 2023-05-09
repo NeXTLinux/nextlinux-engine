@@ -1,11 +1,11 @@
 import pytest
 
-from anchore_engine.db import get_thread_scoped_session
-from anchore_engine.services.policy_engine.engine.policy.gates.retrieved_files import (
+from nextlinux_engine.db import get_thread_scoped_session
+from nextlinux_engine.services.policy_engine.engine.policy.gates.retrieved_files import (
     FileContentRegexMatchTrigger,
     RetrievedFileChecksGate,
 )
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 from tests.integration.services.policy_engine.engine.policy.gates import GateUnitTest
 
 logger.enable_test_logging()

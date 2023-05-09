@@ -1,17 +1,17 @@
 import pytest
 
-from anchore_engine.db import (
+from nextlinux_engine.db import (
     Image,
     ImagePackageManifestEntry,
     get_thread_scoped_session,
 )
-from anchore_engine.services.policy_engine.engine.policy.gates.packages import (
+from nextlinux_engine.services.policy_engine.engine.policy.gates.packages import (
     BlackListTrigger,
     PackagesCheckGate,
     RequiredPackageTrigger,
     VerifyTrigger,
 )
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 from tests.integration.services.policy_engine.engine.policy.gates import GateUnitTest
 
 logger.enable_test_logging()

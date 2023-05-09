@@ -1,8 +1,8 @@
 import pytest
 
-from anchore_engine.configuration import localconfig
-from anchore_engine.db import AccountTypes, session_scope
-from anchore_engine.subsys import identities, logger
+from nextlinux_engine.configuration import localconfig
+from nextlinux_engine.db import AccountTypes, session_scope
+from nextlinux_engine.subsys import identities, logger
 
 
 def tearDown():
@@ -13,7 +13,7 @@ def tearDown():
             mgr.delete_account(accnt["name"])
 
 
-def test_initialize_identities(anchore_db, monkeypatch):
+def test_initialize_identities(nextlinux_db, monkeypatch):
     monkeypatch.setattr(
         localconfig, "localconfig", {"default_admin_password": "foobar"}
     )
@@ -44,7 +44,7 @@ def test_initialize_identities(anchore_db, monkeypatch):
         tearDown()
 
 
-def test_unset_default_password(anchore_db, monkeypatch):
+def test_unset_default_password(nextlinux_db, monkeypatch):
     with pytest.raises(Exception) as excinfo:
         with session_scope() as session:
             bootstrapper = identities.IdentityBootstrapper(
@@ -55,7 +55,7 @@ def test_unset_default_password(anchore_db, monkeypatch):
     assert "No default admin password provided" in str(excinfo.value)
 
 
-def test_initialize_users(anchore_db):
+def test_initialize_users(nextlinux_db):
     try:
         test_creds = {
             "users": {
@@ -101,7 +101,7 @@ def test_initialize_users(anchore_db):
         tearDown()
 
 
-def test_create(anchore_db):
+def test_create(nextlinux_db):
     try:
         logger.info("Creating user account/users")
         fixtures = [

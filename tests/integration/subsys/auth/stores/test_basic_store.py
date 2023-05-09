@@ -4,10 +4,10 @@ import unittest
 from passlib.context import CryptContext
 from yosai.core import DefaultPermission, UsernamePasswordToken
 
-from anchore_engine.db import session_scope
-from anchore_engine.subsys import identities
-from anchore_engine.subsys.auth.stores import basic as basic_accountstore
-from anchore_engine.subsys.identities import AccountTypes, UserAccessCredentialTypes
+from nextlinux_engine.db import session_scope
+from nextlinux_engine.subsys import identities
+from nextlinux_engine.subsys.auth.stores import basic as basic_accountstore
+from nextlinux_engine.subsys.identities import AccountTypes, UserAccessCredentialTypes
 
 
 class TestBasicStore(unittest.TestCase):
@@ -24,7 +24,7 @@ class TestBasicStore(unittest.TestCase):
         :param db_connect_str:
         :return:
         """
-        from anchore_engine.configuration import localconfig
+        from nextlinux_engine.configuration import localconfig
 
         localconfig.load_defaults()
         localconfig.localconfig["credentials"] = {
@@ -42,15 +42,15 @@ class TestBasicStore(unittest.TestCase):
 
         """
         conf = cls.setup_engine_config(connect_str)
-        from anchore_engine.db import (
+        from nextlinux_engine.db import (
             AccessCredential,
             Account,
             AccountUser,
             Anchore,
             initialize,
         )
-        from anchore_engine.db.entities.common import do_create
-        from anchore_engine.version import db_version, version
+        from nextlinux_engine.db.entities.common import do_create
+        from nextlinux_engine.version import db_version, version
 
         initialize(
             versions={"service_version": version, "db_version": db_version},

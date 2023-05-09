@@ -2,8 +2,8 @@ from datetime import datetime
 
 import pytest
 
-from anchore_engine.db import GrypeDBFeedMetadata, session_scope
-from anchore_engine.db.db_grype_db_feed_metadata import (
+from nextlinux_engine.db import GrypeDBFeedMetadata, session_scope
+from nextlinux_engine.db.db_grype_db_feed_metadata import (
     NoActiveGrypeDB,
     get_most_recent_active_grypedb,
 )
@@ -26,7 +26,7 @@ meta_objs = [
 ]
 
 
-def test_get_most_recent_active_grypedb(anchore_db):
+def test_get_most_recent_active_grypedb(nextlinux_db):
     with session_scope() as session:
         session.add(meta_objs[0])
         session.commit()
@@ -36,13 +36,13 @@ def test_get_most_recent_active_grypedb(anchore_db):
         assert grype_db.archive_checksum == "first_meta"
 
 
-def test_get_most_recent_active_grypedb_no_active_Db(anchore_db):
+def test_get_most_recent_active_grypedb_no_active_Db(nextlinux_db):
     with session_scope() as session:
         with pytest.raises(NoActiveGrypeDB):
             get_most_recent_active_grypedb(session)
 
 
-def test_get_most_recent_active_grypedb_multiple_active(anchore_db):
+def test_get_most_recent_active_grypedb_multiple_active(nextlinux_db):
     with session_scope() as session:
         for meta in meta_objs:
             session.add(meta)

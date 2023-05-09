@@ -1,17 +1,17 @@
-# This is a docker-compose file for development purposes. It refereneces unstable developer builds from the HEAD of master branch in https://github.com/anchore/anchore-engine
-# For a compose file intended for use with a released version, see https://engine.anchore.io/docs/quickstart/
+# This is a docker-compose file for development purposes. It refereneces unstable developer builds from the HEAD of master branch in https://github.com/nextlinux/nextlinux-engine
+# For a compose file intended for use with a released version, see https://engine.nextlinux.io/docs/quickstart/
 #
 ---
 version: '2.1'
 volumes:
-  anchore-db-volume:
-    # Set this to 'true' to use an external volume. In which case, it must be created manually with "docker volume create anchore-db-volume"
+  nextlinux-db-volume:
+    # Set this to 'true' to use an external volume. In which case, it must be created manually with "docker volume create nextlinux-db-volume"
     external: false
 
 services:
   # The primary API endpoint service
   api:
-    image: anchore/anchore-engine-dev:latest
+    image: nextlinux/nextlinux-engine-dev:latest
     depends_on:
     - db
     - catalog
@@ -26,11 +26,11 @@ services:
     - ANCHORE_ADMIN_PASSWORD=foobar
     - ANCHORE_DB_HOST=db
     - ANCHORE_DB_PASSWORD=mysecretpassword
-    command: ["anchore-manager", "service", "start", "apiext"]
+    command: ["nextlinux-manager", "service", "start", "apiext"]
 
   # Catalog is the primary persistence and state manager of the system
   catalog:
-    image: anchore/anchore-engine-dev:latest
+    image: nextlinux/nextlinux-engine-dev:latest
     depends_on:
     - db
     logging:
@@ -44,9 +44,9 @@ services:
     - ANCHORE_ADMIN_PASSWORD=foobar
     - ANCHORE_DB_HOST=db
     - ANCHORE_DB_PASSWORD=mysecretpassword
-    command: ["anchore-manager", "service", "start", "catalog"]
+    command: ["nextlinux-manager", "service", "start", "catalog"]
   queue:
-    image: anchore/anchore-engine-dev:latest
+    image: nextlinux/nextlinux-engine-dev:latest
     depends_on:
     - db
     - catalog
@@ -61,9 +61,9 @@ services:
     - ANCHORE_ADMIN_PASSWORD=foobar
     - ANCHORE_DB_HOST=db
     - ANCHORE_DB_PASSWORD=mysecretpassword
-    command: ["anchore-manager", "service", "start", "simplequeue"]
+    command: ["nextlinux-manager", "service", "start", "simplequeue"]
   policy-engine:
-    image: anchore/anchore-engine-dev:latest
+    image: nextlinux/nextlinux-engine-dev:latest
     depends_on:
     - db
     - catalog
@@ -78,9 +78,9 @@ services:
     - ANCHORE_ADMIN_PASSWORD=foobar
     - ANCHORE_DB_HOST=db
     - ANCHORE_DB_PASSWORD=mysecretpassword
-    command: ["anchore-manager", "service", "start", "policy_engine"]
+    command: ["nextlinux-manager", "service", "start", "policy_engine"]
   analyzer:
-    image: anchore/anchore-engine-dev:latest
+    image: nextlinux/nextlinux-engine-dev:latest
     depends_on:
     - db
     - catalog
@@ -97,11 +97,11 @@ services:
     - ANCHORE_DB_PASSWORD=mysecretpassword
     volumes:
     - /analysis_scratch
-    command: ["anchore-manager", "service", "start", "analyzer"]
+    command: ["nextlinux-manager", "service", "start", "analyzer"]
   db:
     image: "postgres:9"
     volumes:
-    - anchore-db-volume:/var/lib/postgresql/data
+    - nextlinux-db-volume:/var/lib/postgresql/data
     environment:
     - POSTGRES_PASSWORD=mysecretpassword
     expose:

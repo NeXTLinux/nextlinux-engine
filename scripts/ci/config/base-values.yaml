@@ -1,8 +1,8 @@
-anchoreGlobal:
+nextlinuxGlobal:
   defaultAdminPassword: foobar
 
 postgresql:
-  # image: anchore/engine-db-preload
+  # image: nextlinux/engine-db-preload
   # imageTag: latest
   # postgresUser: postgres
   # postgrsPassword: foobar123
@@ -18,7 +18,7 @@ postgresql:
      cpu: 100m
      memory: 100M
 
-anchoreAnalyzer:
+nextlinuxAnalyzer:
   resources:
    limits:
      cpu: 1
@@ -27,7 +27,7 @@ anchoreAnalyzer:
      cpu: 100m
      memory: 100M
 
-anchoreApi:
+nextlinuxApi:
   service:
     type: NodePort
   resources:
@@ -38,7 +38,7 @@ anchoreApi:
      cpu: 100m
      memory: 100M
 
-anchoreCatalog:
+nextlinuxCatalog:
   resources:
    limits:
      cpu: 1
@@ -47,7 +47,7 @@ anchoreCatalog:
      cpu: 100m
      memory: 100M
 
-anchorePolicyEngine:
+nextlinuxPolicyEngine:
   resources:
    limits:
      cpu: 1
@@ -56,7 +56,7 @@ anchorePolicyEngine:
      cpu: 100m
      memory: 100M
 
-anchoreSimpleQueue:
+nextlinuxSimpleQueue:
   resources:
    limits:
      cpu: 500m

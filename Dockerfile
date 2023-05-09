@@ -4,7 +4,7 @@ ARG BASE_TAG=8.5
 
 #### Start first stage
 #### Anchore wheels, binary dependencies, etc. are staged to /build_output for second stage
-FROM ${BASE_REGISTRY}/${BASE_IMAGE}:${BASE_TAG} as anchore-engine-builder
+FROM ${BASE_REGISTRY}/${BASE_IMAGE}:${BASE_TAG} as nextlinux-engine-builder
 
 ARG CLI_COMMIT
 
@@ -54,23 +54,23 @@ RUN set -ex && \
         dpkg
 
 RUN set -ex && \
-    echo "downloading anchore-cli" && \
-    pip3 wheel --wheel-dir=/build_output/cli_wheels/ git+https://github.com/anchore/anchore-cli.git@"${CLI_COMMIT}"\#egg=anchorecli
+    echo "downloading nextlinux-cli" && \
+    pip3 wheel --wheel-dir=/build_output/cli_wheels/ git+https://github.com/nextlinux/nextlinux-cli.git@"${CLI_COMMIT}"\#egg=nextlinuxcli
 
 RUN set -exo pipefail && \
     echo "downloading Syft" && \
-    curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /build_output/deps "${SYFT_VERSION}"
+    curl -sSfL https://raw.githubusercontent.com/nextlinux/syft/main/install.sh | sh -s -- -b /build_output/deps "${SYFT_VERSION}"
 
 RUN set -exo pipefail && \
     echo "downloading Grype" && \
-    curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /build_output/deps "${GRYPE_VERSION}"
+    curl -sSfL https://raw.githubusercontent.com/nextlinux/grype/main/install.sh | sh -s -- -b /build_output/deps "${GRYPE_VERSION}"
 
 COPY . /buildsource
 WORKDIR /buildsource
 
-# stage anchore-engine wheels and default application configs into /build_output
+# stage nextlinux-engine wheels and default application configs into /build_output
 RUN set -ex && \
-    echo "creating anchore-engine wheels" && \
+    echo "creating nextlinux-engine wheels" && \
     pip3 wheel --wheel-dir=/build_output/wheels . && \
     cp ./LICENSE /build_output/ && \
     cp ./conf/default_config.yaml /build_output/configs/default_config.yaml && \
@@ -78,12 +78,12 @@ RUN set -ex && \
 
 # create p1 buildblob & checksum
 RUN set -ex && \
-    tar -z -c -v -C /build_output -f /anchore-buildblob.tgz . && \
-    sha256sum /anchore-buildblob.tgz > /buildblob.tgz.sha256sum
+    tar -z -c -v -C /build_output -f /nextlinux-buildblob.tgz . && \
+    sha256sum /nextlinux-buildblob.tgz > /buildblob.tgz.sha256sum
 
 #### Start second stage
 #### Setup and install using first stage artifacts in /build_output
-FROM ${BASE_REGISTRY}/${BASE_IMAGE}:${BASE_TAG} as anchore-engine-final
+FROM ${BASE_REGISTRY}/${BASE_IMAGE}:${BASE_TAG} as nextlinux-engine-final
 
 ARG CLI_COMMIT
 ARG ANCHORE_COMMIT
@@ -91,10 +91,10 @@ ARG ANCHORE_ENGINE_VERSION="1.1.0"
 ARG ANCHORE_ENGINE_RELEASE="r0"
 
 # Container metadata section
-LABEL anchore_cli_commit="${CLI_COMMIT}" \
-      anchore_commit="${ANCHORE_COMMIT}" \
-      name="anchore-engine" \
-      maintainer="dev@anchore.com" \
+LABEL nextlinux_cli_commit="${CLI_COMMIT}" \
+      nextlinux_commit="${ANCHORE_COMMIT}" \
+      name="nextlinux-engine" \
+      maintainer="dev@nextlinux.com" \
       vendor="Anchore Inc." \
       version="${ANCHORE_ENGINE_VERSION}" \
       release="${ANCHORE_ENGINE_RELEASE}" \
@@ -105,11 +105,11 @@ LABEL anchore_cli_commit="${CLI_COMMIT}" \
 ENV AUTHLIB_INSECURE_TRANSPORT=true
 ENV LANG=en_US.UTF-8 
 ENV LC_ALL=C.UTF-8
-ENV PATH="${PATH}:/anchore-cli/bin"
+ENV PATH="${PATH}:/nextlinux-cli/bin"
 ENV SET_HOSTID_TO_HOSTNAME=false
 
 # Default values overrideable at runtime of the container
-ENV ANCHORE_ADMIN_EMAIL=admin@myanchore \
+ENV ANCHORE_ADMIN_EMAIL=admin@mynextlinux \
     ANCHORE_ADMIN_PASSWORD=null \
     ANCHORE_AUTH_ENABLE_HASHED_PASSWORDS=false \
     ANCHORE_AUTH_PRIVKEY=null \
@@ -141,15 +141,15 @@ ENV ANCHORE_ADMIN_EMAIL=admin@myanchore \
     ANCHORE_GLOBAL_CLIENT_CONNECT_TIMEOUT=0 \
     ANCHORE_GLOBAL_CLIENT_READ_TIMEOUT=0 \
     ANCHORE_GLOBAL_SERVER_REQUEST_TIMEOUT_SEC=180 \
-    ANCHORE_GRYPE_DB_URL="https://toolbox-data.anchore.io/grype/databases/listing.json" \
+    ANCHORE_GRYPE_DB_URL="https://toolbox-data.nextlinux.io/grype/databases/listing.json" \
     ANCHORE_HINTS_ENABLED=false \
-    ANCHORE_HOST_ID="anchore-quickstart" \
+    ANCHORE_HOST_ID="nextlinux-quickstart" \
     ANCHORE_INTERNAL_SSL_VERIFY=false \
     ANCHORE_LOG_LEVEL=INFO \
     ANCHORE_MAX_COMPRESSED_IMAGE_SIZE_MB=-1 \
     ANCHORE_OAUTH_ENABLED=false \
     ANCHORE_OAUTH_TOKEN_EXPIRATION=3600 \
-    ANCHORE_SERVICE_DIR=/anchore_service \
+    ANCHORE_SERVICE_DIR=/nextlinux_service \
     ANCHORE_SERVICE_PORT=8228 \
     ANCHORE_VULNERABILITIES_PROVIDER=null \
     ANCHORE_WEBHOOK_DESTINATION_URL=null
@@ -158,36 +158,36 @@ ENV ANCHORE_ADMIN_EMAIL=admin@myanchore \
 
 # Setup container user/group and required application directories
 RUN set -ex && \
-    groupadd --gid 1000 anchore && \
-    useradd --uid 1000 --gid anchore --shell /bin/bash --create-home anchore && \
+    groupadd --gid 1000 nextlinux && \
+    useradd --uid 1000 --gid nextlinux --shell /bin/bash --create-home nextlinux && \
     mkdir -p \
         /analysis_scratch \
         "${ANCHORE_SERVICE_DIR}"/bundles \
         /config \
-        /home/anchore/clamav/db \
+        /home/nextlinux/clamav/db \
         /licenses \
-        /var/log/anchore \
-        /var/run/anchore \
+        /var/log/nextlinux \
+        /var/run/nextlinux \
         /workspace \
         /workspace_preload && \
     chown -R 1000:0 \
         /analysis_scratch \
         "${ANCHORE_SERVICE_DIR}" \
         /config \
-        /home/anchore \
+        /home/nextlinux \
         /licenses \
-        /var/log/anchore \
-        /var/run/anchore \
+        /var/log/nextlinux \
+        /var/run/nextlinux \
         /workspace \
         /workspace_preload && \
     chmod -R g+rwX \
         /analysis_scratch \
         "${ANCHORE_SERVICE_DIR}" \
         /config \
-        /home/anchore \
+        /home/nextlinux \
         /licenses \
-        /var/log/anchore \
-        /var/run/anchore \
+        /var/log/nextlinux \
+        /var/run/nextlinux \
         /workspace \
         /workspace_preload
 
@@ -206,16 +206,16 @@ RUN set -ex && \
     yum clean all
 
 # Copy the installed artifacts from the first stage
-COPY --from=anchore-engine-builder /build_output /build_output
+COPY --from=nextlinux-engine-builder /build_output /build_output
 
-# Install anchore-cli into a virtual environment
+# Install nextlinux-cli into a virtual environment
 RUN set -ex && \
     echo "updating pip" && \
     pip3 install --upgrade --no-index --find-links=/build_output/wheels/ pip && \
-    echo "installing anchore-cli into virtual environment" && \
-    python3 -m venv /anchore-cli && \
-    source /anchore-cli/bin/activate && \
-    pip3 install --no-index --find-links=/build_output/cli_wheels/ anchorecli && \
+    echo "installing nextlinux-cli into virtual environment" && \
+    python3 -m venv /nextlinux-cli && \
+    source /nextlinux-cli/bin/activate && \
+    pip3 install --no-index --find-links=/build_output/cli_wheels/ nextlinuxcli && \
     deactivate
 
 # Install required OS deps & application config files
@@ -225,18 +225,18 @@ RUN set -exo pipefail && \
     yum install -y /build_output/deps/*.rpm && \
     yum clean all
 
-# Install anchore-engine & cleanup filesystem
+# Install nextlinux-engine & cleanup filesystem
 RUN set -ex && \
-    echo "installing anchore-engine and required dependencies" && \
-    pip3 install --no-index --find-links=/build_output/wheels/ anchore-engine && \
+    echo "installing nextlinux-engine and required dependencies" && \
+    pip3 install --no-index --find-links=/build_output/wheels/ nextlinux-engine && \
     echo "copying default application config files" && \
     cp /build_output/LICENSE /licenses/ && \
     cp /build_output/configs/default_config.yaml /config/config.yaml && \
     md5sum /config/config.yaml > /config/build_installed && \
     cp /build_output/configs/docker-entrypoint.sh /docker-entrypoint.sh && \
     chmod +x /docker-entrypoint.sh && \
-    cp -R $(pip3 show anchore-engine | grep Location: | cut -c 11-)/anchore_engine/conf/clamav/freshclam.conf /home/anchore/clamav/ && \
-    chmod -R ug+rw /home/anchore/clamav && \
+    cp -R $(pip3 show nextlinux-engine | grep Location: | cut -c 11-)/nextlinux_engine/conf/clamav/freshclam.conf /home/nextlinux/clamav/ && \
+    chmod -R ug+rw /home/nextlinux/clamav && \
     echo "cleaning up unneccesary files used for testing/cache/build" && \
     rm -rf \
         /build_output \
@@ -254,7 +254,7 @@ USER 1000
 
 EXPOSE "${ANCHORE_SERVICE_PORT}"
 
-WORKDIR /anchore-engine
+WORKDIR /nextlinux-engine
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["anchore-manager", "service", "start", "--all"]
+CMD ["nextlinux-manager", "service", "start", "--all"]

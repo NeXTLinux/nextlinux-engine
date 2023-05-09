@@ -5,7 +5,7 @@ CI_COMPOSE_FILE=$1
 WORKSPACE_DIR=/tmp/job-workspace
 
 # Optional - only used for print_colorized
-source anchore-ci/utils
+source nextlinux-ci/utils
 
 print_colorized INFO "Running Anchore Engine functional tests."; echo
 
@@ -17,9 +17,9 @@ tox_env="${TOX_ENV:-$default_tox_envs}"
 for e in $(echo "${tox_env}"); do
     docker-compose -f ${CI_COMPOSE_FILE} exec job-runner bash -c "\
         set -x && \
-        /anchore-cli/bin/anchore-cli --u admin --p foobar --url http://engine-api:8228/v1 system wait --feedsready '' && \
-        /anchore-cli/bin/anchore-cli --u admin --p foobar --url http://engine-api:8228/v1 system status && \
-        /home/anchore/.local/bin/tox -e '${e}' -vv tests/functional --result-json .tox/test-reports.log ;\
+        /nextlinux-cli/bin/nextlinux-cli --u admin --p foobar --url http://engine-api:8228/v1 system wait --feedsready '' && \
+        /nextlinux-cli/bin/nextlinux-cli --u admin --p foobar --url http://engine-api:8228/v1 system status && \
+        /home/nextlinux/.local/bin/tox -e '${e}' -vv tests/functional --result-json .tox/test-reports.log ;\
         "
 done
 

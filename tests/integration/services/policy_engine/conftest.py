@@ -4,16 +4,16 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from anchore_engine.db import end_session
-from anchore_engine.services.policy_engine import init_feed_registry
-from anchore_engine.services.policy_engine.engine.feeds.config import (
+from nextlinux_engine.db import end_session
+from nextlinux_engine.services.policy_engine import init_feed_registry
+from nextlinux_engine.services.policy_engine.engine.feeds.config import (
     compute_selected_configs_to_sync,
 )
-from anchore_engine.services.policy_engine.engine.feeds.feeds import FeedSyncResult
-from anchore_engine.services.policy_engine.engine.feeds.sync import DataFeeds
-from anchore_engine.services.policy_engine.engine.tasks import ImageLoadTask
-from anchore_engine.services.policy_engine.engine.vulns.providers import LegacyProvider
-from anchore_engine.subsys import logger
+from nextlinux_engine.services.policy_engine.engine.feeds.feeds import FeedSyncResult
+from nextlinux_engine.services.policy_engine.engine.feeds.sync import DataFeeds
+from nextlinux_engine.services.policy_engine.engine.tasks import ImageLoadTask
+from nextlinux_engine.services.policy_engine.engine.vulns.providers import LegacyProvider
+from nextlinux_engine.subsys import logger
 from tests.integration.services.policy_engine.utils import LocalTestDataEnvironment
 
 
@@ -29,10 +29,10 @@ def _init_te(init_feeds=True):
 
 
 @pytest.fixture
-def test_data_env(anchore_db):
+def test_data_env(nextlinux_db):
     """
     Fixture for a test data env
-    :param anchore_db:
+    :param nextlinux_db:
     :return:
     """
     try:
@@ -44,12 +44,12 @@ def test_data_env(anchore_db):
 
 
 @pytest.fixture
-def cls_test_data_env(anchore_db, request):
+def cls_test_data_env(nextlinux_db, request):
     request.cls.test_env = _init_te(True)
 
 
 @pytest.fixture(scope="class")
-def cls_test_data_env2(cls_anchore_db, request):
+def cls_test_data_env2(cls_nextlinux_db, request):
     request.cls.test_env = _init_te(True)
 
 

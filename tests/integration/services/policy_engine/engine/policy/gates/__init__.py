@@ -1,7 +1,7 @@
 import unittest
 
-from anchore_engine.db import get_thread_scoped_session
-from anchore_engine.services.policy_engine.engine.policy.gate import ExecutionContext
+from nextlinux_engine.db import get_thread_scoped_session
+from nextlinux_engine.services.policy_engine.engine.policy.gate import ExecutionContext
 
 
 class GateUnitTest(unittest.TestCase):

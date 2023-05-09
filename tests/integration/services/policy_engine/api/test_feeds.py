@@ -1,6 +1,6 @@
 import pytest
 
-from anchore_engine.db import (
+from nextlinux_engine.db import (
     FeedGroupMetadata,
     FeedMetadata,
     FixedArtifact,
@@ -89,11 +89,11 @@ mock_packages = [
 
 
 @pytest.fixture()
-def mock_feed_metadata(anchore_db):
+def mock_feed_metadata(nextlinux_db):
     """
     Fixture for delivering mock feed and feed group metadata for metadata ops
 
-    :param anchore_db:
+    :param nextlinux_db:
     :return:
     """
     feed_names = []

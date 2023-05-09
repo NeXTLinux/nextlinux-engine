@@ -172,7 +172,7 @@ def create_functional_test_account_with_teardown(request):
     disable_and_delete_functional_test_account()
     _logger.info("Creating functional_test account")
     create_resp = http_post(
-        ["accounts"], {"name": FT_ACCOUNT, "email": "admin@anchore.com"}
+        ["accounts"], {"name": FT_ACCOUNT, "email": "admin@nextlinux.com"}
     )
     if create_resp.code != 200:
         raise RequestFailedError(create_resp.url, create_resp.code, create_resp.body)

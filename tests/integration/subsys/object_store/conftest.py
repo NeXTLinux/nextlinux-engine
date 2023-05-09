@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
 test_s3_key = os.getenv("ANCHORE_TEST_S3_ACCESS_KEY")
 test_s3_secret_key = os.getenv("ANCHORE_TEST_S3_SECRET_KEY")

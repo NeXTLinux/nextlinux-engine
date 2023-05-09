@@ -3,16 +3,16 @@ This is an integration-level test for checking CVE updates at fine granularity.
 """
 import sqlalchemy.exc
 
-from anchore_engine.db import (
+from nextlinux_engine.db import (
     FixedArtifact,
     Image,
     ImagePackage,
     Vulnerability,
     VulnerableArtifact,
 )
-from anchore_engine.db import get_thread_scoped_session as get_session
-from anchore_engine.services.policy_engine.engine.feeds import feeds
-from anchore_engine.subsys import logger
+from nextlinux_engine.db import get_thread_scoped_session as get_session
+from nextlinux_engine.services.policy_engine.engine.feeds import feeds
+from nextlinux_engine.subsys import logger
 
 logger.enable_test_logging(level="DEBUG")
 
@@ -32,7 +32,7 @@ def test_cve_updates(test_data_env):
     test_image.like_distro = "centos"
     test_image.state = "analyzed"
     test_image.digest = "digest1"
-    test_image.anchore_type = "undefined"
+    test_image.nextlinux_type = "undefined"
     test_image.dockerfile_mode = "Guessed"
     test_image.docker_history_json = ["line1", "line2"]
     test_image.docker_data_json = {"Config": {}, "ContainerConfig": {}}
@@ -153,7 +153,7 @@ def test_github_advisory_fixed_in(test_data_env):
     test_image.like_distro = "centos"
     test_image.state = "analyzed"
     test_image.digest = "digest1"
-    test_image.anchore_type = "undefined"
+    test_image.nextlinux_type = "undefined"
     test_image.dockerfile_mode = "Guessed"
     test_image.docker_history_json = ["line1", "line2"]
     test_image.docker_data_json = {"Config": {}, "ContainerConfig": {}}

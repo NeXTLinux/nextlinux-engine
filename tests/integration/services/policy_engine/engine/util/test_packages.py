@@ -1,11 +1,11 @@
 """
-Unit tests for anchore_engine.services.policy_engine.engine.util.packages
+Unit tests for nextlinux_engine.services.policy_engine.engine.util.packages
 
 """
 
 import json
 
-from anchore_engine.db import DistroNamespace
+from nextlinux_engine.db import DistroNamespace
 
 DISTRO_VERSIONS = """alpine,3.0.0
 alpine,3.1.0
@@ -143,7 +143,7 @@ unmapped_distros = [
 distros = [x.strip().split(",") for x in DISTRO_VERSIONS.splitlines()]
 
 
-def test_relation_mapping(anchore_db):
+def test_relation_mapping(nextlinux_db):
     for d in valid_distros:
         ns = DistroNamespace(name=d[0], version=d[1])
         assert ns is not None
@@ -155,7 +155,7 @@ def test_relation_mapping(anchore_db):
         assert ns is not None
 
 
-def test_cve_mapping(anchore_db):
+def test_cve_mapping(nextlinux_db):
     for d in distros:
         ns = DistroNamespace(name=d[0], version=d[1])
         r = {"flavor": ns.flavor, "namespace_names": ns.like_namespace_names}
