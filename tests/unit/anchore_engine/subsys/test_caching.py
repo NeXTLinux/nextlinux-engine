@@ -6,7 +6,7 @@ from typing import Optional
 
 import pytest
 
-from anchore_engine.subsys.caching import (
+from nextlinux_engine.subsys.caching import (
     TTLCache,
     local_named_cache,
     thread_local_cache,

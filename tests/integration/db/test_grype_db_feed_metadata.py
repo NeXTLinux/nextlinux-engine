@@ -2,10 +2,10 @@ from datetime import datetime
 
 import pytest
 
-from anchore_engine.db import GrypeDBFeedMetadata, session_scope
-from anchore_engine.db.db_grype_db_feed_metadata import (
+from nextlinux_engine.db import GrypeDBFeedMetadata, session_scope
+from nextlinux_engine.db.db_govulners_db_feed_metadata import (
     NoActiveGrypeDB,
-    get_most_recent_active_grypedb,
+    get_most_recent_active_govulnersdb,
 )
 
 meta_objs = [
@@ -26,28 +26,28 @@ meta_objs = [
 ]
 
 
-def test_get_most_recent_active_grypedb(anchore_db):
+def test_get_most_recent_active_govulnersdb(nextlinux_db):
     with session_scope() as session:
         session.add(meta_objs[0])
         session.commit()
 
-        grype_db = get_most_recent_active_grypedb(session)
-        assert isinstance(grype_db, GrypeDBFeedMetadata) is True
-        assert grype_db.archive_checksum == "first_meta"
+        govulners_db = get_most_recent_active_govulnersdb(session)
+        assert isinstance(govulners_db, GrypeDBFeedMetadata) is True
+        assert govulners_db.archive_checksum == "first_meta"
 
 
-def test_get_most_recent_active_grypedb_no_active_Db(anchore_db):
+def test_get_most_recent_active_govulnersdb_no_active_Db(nextlinux_db):
     with session_scope() as session:
         with pytest.raises(NoActiveGrypeDB):
-            get_most_recent_active_grypedb(session)
+            get_most_recent_active_govulnersdb(session)
 
 
-def test_get_most_recent_active_grypedb_multiple_active(anchore_db):
+def test_get_most_recent_active_govulnersdb_multiple_active(nextlinux_db):
     with session_scope() as session:
         for meta in meta_objs:
             session.add(meta)
         session.commit()
 
-        grype_db = get_most_recent_active_grypedb(session)
-        assert isinstance(grype_db, GrypeDBFeedMetadata) is True
-        assert grype_db.archive_checksum == "second_meta"
+        govulners_db = get_most_recent_active_govulnersdb(session)
+        assert isinstance(govulners_db, GrypeDBFeedMetadata) is True
+        assert govulners_db.archive_checksum == "second_meta"

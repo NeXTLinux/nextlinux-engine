@@ -1,10 +1,10 @@
-from anchore_engine.subsys import logger
-from anchore_engine.subsys.auth.realms import CaseSensitivePermission
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.subsys.auth.realms import CaseSensitivePermission
 
 logger.enable_test_logging()
 
 
-def test_anchore_permissions():
+def test_nextlinux_permissions():
     """
     Test permission comparisons with mixed-case, wild-cards, etc
 

@@ -1,6 +1,6 @@
 {
-  "comment": "Default policy bundle based on default policy in Anchore CLI",
-  "name": "AnchoreUserDefault",
+  "comment": "Default policy bundle based on default policy in Nextlinux CLI",
+  "name": "NextlinuxUserDefault",
   "created_at": 1493412994,
   "id": "bad_policy_id",
   "whitelists": [
@@ -16,7 +16,7 @@
   "last_modified": 1493412994,
   "policies": [
     {
-      "comment": "Default policy from Anchore CLI",
+      "comment": "Default policy from Nextlinux CLI",
       "rules": [
       ],
       "version": "1_0",

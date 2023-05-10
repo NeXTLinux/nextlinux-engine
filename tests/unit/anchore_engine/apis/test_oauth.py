@@ -2,7 +2,7 @@ import time
 
 import pytest
 
-from anchore_engine.apis.oauth import (
+from nextlinux_engine.apis.oauth import (
     ANONYMOUS_CLIENT_ID,
     OAuth2Client,
     merge_client_metadata,

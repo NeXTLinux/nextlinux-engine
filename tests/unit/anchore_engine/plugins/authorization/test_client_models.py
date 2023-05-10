@@ -1,6 +1,6 @@
 import pytest
 
-from anchore_engine.plugins.authorization.client import (
+from nextlinux_engine.plugins.authorization.client import (
     Action,
     AuthorizationDecision,
     AuthorizationRequest,

@@ -1,9 +1,9 @@
 import pytest
 
-from anchore_engine.db import Image, get_thread_scoped_session
-from anchore_engine.services.policy_engine import _init_distro_mappings
-from anchore_engine.services.policy_engine.engine.tasks import ImageLoadTask
-from anchore_engine.subsys import logger
+from nextlinux_engine.db import Image, get_thread_scoped_session
+from nextlinux_engine.services.policy_engine import _init_distro_mappings
+from nextlinux_engine.services.policy_engine.engine.tasks import ImageLoadTask
+from nextlinux_engine.subsys import logger
 from tests.integration.services.policy_engine.conftest import run_legacy_sync
 
 

@@ -3,12 +3,12 @@ Gate Unit tests
 """
 import pytest
 
-from anchore_engine.db import Image
-from anchore_engine.services.policy_engine.engine.policy.gates.image_metadata import (
+from nextlinux_engine.db import Image
+from nextlinux_engine.services.policy_engine.engine.policy.gates.image_metadata import (
     ImageMetadataAttributeCheckTrigger,
     ImageMetadataGate,
 )
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 from tests.integration.services.policy_engine.engine.policy.gates import GateUnitTest
 
 logger.enable_test_logging()

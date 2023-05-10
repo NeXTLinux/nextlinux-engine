@@ -1,7 +1,7 @@
 class TestOversizedImageReturns400:
     # Expectation for this test is that the image with tag is greater than the value defined in config
     def test_oversized_image_post(self, make_image_analysis_request):
-        resp = make_image_analysis_request("anchore/test_images:oversized_image")
+        resp = make_image_analysis_request("nextlinux/test_images:oversized_image")
 
         details = resp.body["detail"]
         msg = resp.body["message"]

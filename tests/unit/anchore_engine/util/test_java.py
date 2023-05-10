@@ -1,4 +1,4 @@
-import anchore_engine.util.java as java_util
+import nextlinux_engine.util.java as java_util
 
 
 def test_parse_properties():
@@ -23,7 +23,7 @@ def test_parse_manifest():
     # bytes). long lines are wrapped to the next line beginning with a space.
     manifest = """
 Manifest-Version: 1.0
-Built-By: anchore
+Built-By: nextlinux
 Long-Attribute: 12345678901234567890123456789012345678901234567890123
  45678901234567890123456789012345678901234567890123456789012345678901
  23456789012345678901234567890123456789012345678901234567890123456789
@@ -36,6 +36,6 @@ Another-Attribute: 12345678901234567890123456789012345678901234567890
 
     assert "Manifest-Version" in attrs
     assert attrs["Manifest-Version"] == "1.0"
-    assert attrs["Built-By"] == "anchore"
+    assert attrs["Built-By"] == "nextlinux"
     assert attrs["Long-Attribute"] == ("1234567890" * 19)
     assert attrs["Another-Attribute"] == ("1234567890" * 5) + " with space"

@@ -1,7 +1,7 @@
 import pytest
 
-from anchore_engine.common.models.policy_engine import NVDReference
-from anchore_engine.services.policy_engine.engine.vulns.mappers import (
+from nextlinux_engine.common.models.policy_engine import NVDReference
+from nextlinux_engine.services.policy_engine.engine.vulns.mappers import (
     ENGINE_DISTRO_MAPPERS,
     ENGINE_PACKAGE_MAPPERS,
     GRYPE_PACKAGE_MAPPERS,
@@ -28,9 +28,9 @@ from anchore_engine.services.policy_engine.engine.vulns.mappers import (
 )
 def test_engine_distro_mappers(test_distro, expected_os, expected_like_os):
     mapper = ENGINE_DISTRO_MAPPERS.get(test_distro)
-    assert mapper.grype_os == expected_os
-    assert mapper.grype_like_os == expected_like_os
-    assert mapper.to_grype_distro("0") == {
+    assert mapper.govulners_os == expected_os
+    assert mapper.govulners_like_os == expected_like_os
+    assert mapper.to_govulners_distro("0") == {
         "name": expected_os,
         "version": "0",
         "idLike": expected_like_os,
@@ -48,7 +48,7 @@ def test_engine_distro_mappers(test_distro, expected_os, expected_like_os):
 )
 def test_engine_package_mappers(test_type, expected_type):
     mapper = ENGINE_PACKAGE_MAPPERS.get(test_type)
-    assert mapper.grype_type == expected_type
+    assert mapper.govulners_type == expected_type
 
 
 @pytest.mark.parametrize(
@@ -61,7 +61,7 @@ def test_engine_package_mappers(test_type, expected_type):
         pytest.param("msrc-kb", "kb", id="msrc-kb"),
     ],
 )
-def test_grype_package_mappers(test_type, expected_type):
+def test_govulners_package_mappers(test_type, expected_type):
     mapper = GRYPE_PACKAGE_MAPPERS.get(test_type)
     assert mapper.engine_type == expected_type
 
@@ -145,9 +145,9 @@ class TestJavaMapper:
             ),
         ],
     )
-    def test_image_content_to_grype_metadata(self, input_metadata, expected_output):
+    def test_image_content_to_govulners_metadata(self, input_metadata, expected_output):
         # Function under test
-        result = JavaMapper._image_content_to_grype_metadata(input_metadata)
+        result = JavaMapper._image_content_to_govulners_metadata(input_metadata)
 
         # Validate result
         assert result == expected_output
@@ -641,7 +641,7 @@ class TestImageContentAPIToGrypeSbom:
         ],
     )
     def test_mappers(self, mapper, test_input, expected):
-        actual = mapper.image_content_to_grype_sbom(test_input)
+        actual = mapper.image_content_to_govulners_sbom(test_input)
 
         # sort the list attributes before comparing
         actual = {

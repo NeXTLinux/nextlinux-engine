@@ -10,10 +10,10 @@
                     "familytree": [
                         "02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9"
                     ],
-                    "anchore_all_tags": [
+                    "nextlinux_all_tags": [
                         "alpine:latest"
                     ],
-                    "anchore_current_tags": [
+                    "nextlinux_current_tags": [
                         "alpine:latest"
                     ],
                     "docker_history": [
@@ -2182,32 +2182,32 @@
                         "output": "",
                         "outputdir": ""
                     },
-                    "/usr/lib/python2.7/site-packages/anchore/anchore-modules/analyzers/13_retrieve_files.py": {
+                    "/usr/lib/python2.7/site-packages/nextlinux/nextlinux-modules/analyzers/13_retrieve_files.py": {
                         "status": "SUCCESS",
                         "returncode": 0,
                         "timestamp": 1495152612.742757,
                         "atype": "base",
-                        "command": "/usr/lib/python2.7/site-packages/anchore/anchore-modules/analyzers/13_retrieve_files.py 02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9 /root/.anchore/data /root/.anchore/anchoretmp/8991711.anchoretmp/tmpRy_0Et /root/.anchore/anchoretmp/8991711.anchoretmp",
+                        "command": "/usr/lib/python2.7/site-packages/nextlinux/nextlinux-modules/analyzers/13_retrieve_files.py 02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9 /root/.nextlinux/data /root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp/tmpRy_0Et /root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp",
                         "csum": "ab16dc32d75570c9649895b3b18c6f18",
                         "output": "No configuration found in analyzer_config.yaml for analyzer 'retrieve_files, skipping\n",
-                        "outputdir": "/root/.anchore/anchoretmp/8991711.anchoretmp/tmpRy_0Et"
+                        "outputdir": "/root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp/tmpRy_0Et"
                     },
-                    "/usr/lib/python2.7/site-packages/anchore/anchore-modules/analyzers/40_file_suids.py": {
+                    "/usr/lib/python2.7/site-packages/nextlinux/nextlinux-modules/analyzers/40_file_suids.py": {
                         "status": "SUCCESS",
                         "returncode": 0,
                         "timestamp": 1495152613.112146,
                         "atype": "base",
-                        "command": "/usr/lib/python2.7/site-packages/anchore/anchore-modules/analyzers/40_file_suids.py 02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9 /root/.anchore/data /root/.anchore/anchoretmp/8991711.anchoretmp/tmp_HVhhj /root/.anchore/anchoretmp/8991711.anchoretmp",
+                        "command": "/usr/lib/python2.7/site-packages/nextlinux/nextlinux-modules/analyzers/40_file_suids.py 02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9 /root/.nextlinux/data /root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp/tmp_HVhhj /root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp",
                         "csum": "42160170e41e3855199b6e060894a73d",
                         "output": "",
-                        "outputdir": "/root/.anchore/anchoretmp/8991711.anchoretmp/tmp_HVhhj"
+                        "outputdir": "/root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp/tmp_HVhhj"
                     },
-                    "/usr/lib/python2.7/site-packages/anchore/anchore-modules/analyzers/01_analyzer_meta.py": {
+                    "/usr/lib/python2.7/site-packages/nextlinux/nextlinux-modules/analyzers/01_analyzer_meta.py": {
                         "status": "SUCCESS",
                         "returncode": 0,
                         "timestamp": 1495152613.901722,
                         "atype": "base",
-                        "command": "/usr/lib/python2.7/site-packages/anchore/anchore-modules/analyzers/01_analyzer_meta.py 02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9 /root/.anchore/data /root/.anchore/anchoretmp/8991711.anchoretmp/tmpcnQydS /root/.anchore/anchoretmp/8991711.anchoretmp",
+                        "command": "/usr/lib/python2.7/site-packages/nextlinux/nextlinux-modules/analyzers/01_analyzer_meta.py 02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9 /root/.nextlinux/data /root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp/tmpcnQydS /root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp",
                         "analyzer_outputs": [
                             {
                                 "module_name": "analyzer_meta",
@@ -2224,24 +2224,24 @@
                         ],
                         "csum": "cfcaaf597b6dd6cf7c30c9c64b431e42",
                         "output": "",
-                        "outputdir": "/root/.anchore/anchoretmp/8991711.anchoretmp/tmpcnQydS"
+                        "outputdir": "/root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp/tmpcnQydS"
                     },
-                    "/usr/lib/python2.7/site-packages/anchore/anchore-modules/analyzers/12_gem_package_list.py": {
+                    "/usr/lib/python2.7/site-packages/nextlinux/nextlinux-modules/analyzers/12_gem_package_list.py": {
                         "status": "SUCCESS",
                         "returncode": 0,
                         "timestamp": 1495152612.380777,
                         "atype": "base",
-                        "command": "/usr/lib/python2.7/site-packages/anchore/anchore-modules/analyzers/12_gem_package_list.py 02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9 /root/.anchore/data /root/.anchore/anchoretmp/8991711.anchoretmp/tmpysIULn /root/.anchore/anchoretmp/8991711.anchoretmp",
+                        "command": "/usr/lib/python2.7/site-packages/nextlinux/nextlinux-modules/analyzers/12_gem_package_list.py 02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9 /root/.nextlinux/data /root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp/tmpysIULn /root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp",
                         "csum": "33467918efba94e26a598b0261ff6e5e",
                         "output": "",
-                        "outputdir": "/root/.anchore/anchoretmp/8991711.anchoretmp/tmpysIULn"
+                        "outputdir": "/root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp/tmpysIULn"
                     },
-                    "/usr/lib/python2.7/site-packages/anchore/anchore-modules/analyzers/02_layers.py": {
+                    "/usr/lib/python2.7/site-packages/nextlinux/nextlinux-modules/analyzers/02_layers.py": {
                         "status": "SUCCESS",
                         "returncode": 0,
                         "timestamp": 1495152612.897663,
                         "atype": "base",
-                        "command": "/usr/lib/python2.7/site-packages/anchore/anchore-modules/analyzers/02_layers.py 02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9 /root/.anchore/data /root/.anchore/anchoretmp/8991711.anchoretmp/tmp_TabNB /root/.anchore/anchoretmp/8991711.anchoretmp",
+                        "command": "/usr/lib/python2.7/site-packages/nextlinux/nextlinux-modules/analyzers/02_layers.py 02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9 /root/.nextlinux/data /root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp/tmp_TabNB /root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp",
                         "analyzer_outputs": [
                             {
                                 "module_name": "layer_info",
@@ -2252,24 +2252,24 @@
                         ],
                         "csum": "f94cc59e7f86b354af8515fcdf762ecf",
                         "output": "",
-                        "outputdir": "/root/.anchore/anchoretmp/8991711.anchoretmp/tmp_TabNB"
+                        "outputdir": "/root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp/tmp_TabNB"
                     },
-                    "/usr/lib/python2.7/site-packages/anchore/anchore-modules/analyzers/13_content_search.py": {
+                    "/usr/lib/python2.7/site-packages/nextlinux/nextlinux-modules/analyzers/13_content_search.py": {
                         "status": "SUCCESS",
                         "returncode": 0,
                         "timestamp": 1495152614.228624,
                         "atype": "base",
-                        "command": "/usr/lib/python2.7/site-packages/anchore/anchore-modules/analyzers/13_content_search.py 02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9 /root/.anchore/data /root/.anchore/anchoretmp/8991711.anchoretmp/tmpIrRoQb /root/.anchore/anchoretmp/8991711.anchoretmp",
+                        "command": "/usr/lib/python2.7/site-packages/nextlinux/nextlinux-modules/analyzers/13_content_search.py 02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9 /root/.nextlinux/data /root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp/tmpIrRoQb /root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp",
                         "csum": "504dfbdde06fba400d9d4fa9b98c24d9",
                         "output": "No regexp configuration found in analyzer_config.yaml for analyzer 'content_search, skipping\n",
-                        "outputdir": "/root/.anchore/anchoretmp/8991711.anchoretmp/tmpIrRoQb"
+                        "outputdir": "/root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp/tmpIrRoQb"
                     },
-                    "/usr/lib/python2.7/site-packages/anchore/anchore-modules/analyzers/30_file_checksums.py": {
+                    "/usr/lib/python2.7/site-packages/nextlinux/nextlinux-modules/analyzers/30_file_checksums.py": {
                         "status": "SUCCESS",
                         "returncode": 0,
                         "timestamp": 1495152612.590985,
                         "atype": "base",
-                        "command": "/usr/lib/python2.7/site-packages/anchore/anchore-modules/analyzers/30_file_checksums.py 02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9 /root/.anchore/data /root/.anchore/anchoretmp/8991711.anchoretmp/tmpx0usKY /root/.anchore/anchoretmp/8991711.anchoretmp",
+                        "command": "/usr/lib/python2.7/site-packages/nextlinux/nextlinux-modules/analyzers/30_file_checksums.py 02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9 /root/.nextlinux/data /root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp/tmpx0usKY /root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp",
                         "analyzer_outputs": [
                             {
                                 "module_name": "file_checksums",
@@ -2286,14 +2286,14 @@
                         ],
                         "csum": "67130858b028f8226c5a2a2d05ad323f",
                         "output": "",
-                        "outputdir": "/root/.anchore/anchoretmp/8991711.anchoretmp/tmpx0usKY"
+                        "outputdir": "/root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp/tmpx0usKY"
                     },
-                    "/usr/lib/python2.7/site-packages/anchore/anchore-modules/analyzers/11_package_detail_list.py": {
+                    "/usr/lib/python2.7/site-packages/nextlinux/nextlinux-modules/analyzers/11_package_detail_list.py": {
                         "status": "SUCCESS",
                         "returncode": 0,
                         "timestamp": 1495152614.059575,
                         "atype": "base",
-                        "command": "/usr/lib/python2.7/site-packages/anchore/anchore-modules/analyzers/11_package_detail_list.py 02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9 /root/.anchore/data /root/.anchore/anchoretmp/8991711.anchoretmp/tmpFBL0Rm /root/.anchore/anchoretmp/8991711.anchoretmp",
+                        "command": "/usr/lib/python2.7/site-packages/nextlinux/nextlinux-modules/analyzers/11_package_detail_list.py 02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9 /root/.nextlinux/data /root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp/tmpFBL0Rm /root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp",
                         "analyzer_outputs": [
                             {
                                 "module_name": "package_list",
@@ -2304,24 +2304,24 @@
                         ],
                         "csum": "21d66ee41d8abd7b5f3eda08879f0a07",
                         "output": "",
-                        "outputdir": "/root/.anchore/anchoretmp/8991711.anchoretmp/tmpFBL0Rm"
+                        "outputdir": "/root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp/tmpFBL0Rm"
                     },
-                    "/usr/lib/python2.7/site-packages/anchore/anchore-modules/analyzers/12_npm_package_list.py": {
+                    "/usr/lib/python2.7/site-packages/nextlinux/nextlinux-modules/analyzers/12_npm_package_list.py": {
                         "status": "SUCCESS",
                         "returncode": 0,
                         "timestamp": 1495152613.343989,
                         "atype": "base",
-                        "command": "/usr/lib/python2.7/site-packages/anchore/anchore-modules/analyzers/12_npm_package_list.py 02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9 /root/.anchore/data /root/.anchore/anchoretmp/8991711.anchoretmp/tmpi_UXFp /root/.anchore/anchoretmp/8991711.anchoretmp",
+                        "command": "/usr/lib/python2.7/site-packages/nextlinux/nextlinux-modules/analyzers/12_npm_package_list.py 02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9 /root/.nextlinux/data /root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp/tmpi_UXFp /root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp",
                         "csum": "072238480605bc1e40d0ba65f1d5549f",
                         "output": "",
-                        "outputdir": "/root/.anchore/anchoretmp/8991711.anchoretmp/tmpi_UXFp"
+                        "outputdir": "/root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp/tmpi_UXFp"
                     },
-                    "/usr/lib/python2.7/site-packages/anchore/anchore-modules/analyzers/20_file_list.py": {
+                    "/usr/lib/python2.7/site-packages/nextlinux/nextlinux-modules/analyzers/20_file_list.py": {
                         "status": "SUCCESS",
                         "returncode": 0,
                         "timestamp": 1495152613.748586,
                         "atype": "base",
-                        "command": "/usr/lib/python2.7/site-packages/anchore/anchore-modules/analyzers/20_file_list.py 02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9 /root/.anchore/data /root/.anchore/anchoretmp/8991711.anchoretmp/tmpVOl4Hx /root/.anchore/anchoretmp/8991711.anchoretmp",
+                        "command": "/usr/lib/python2.7/site-packages/nextlinux/nextlinux-modules/analyzers/20_file_list.py 02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9 /root/.nextlinux/data /root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp/tmpVOl4Hx /root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp",
                         "analyzer_outputs": [
                             {
                                 "module_name": "file_list",
@@ -2338,14 +2338,14 @@
                         ],
                         "csum": "5ed8a9f3729420c4597018beb55a78a7",
                         "output": "",
-                        "outputdir": "/root/.anchore/anchoretmp/8991711.anchoretmp/tmpVOl4Hx"
+                        "outputdir": "/root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp/tmpVOl4Hx"
                     },
-                    "/usr/lib/python2.7/site-packages/anchore/anchore-modules/analyzers/10_package_list.py": {
+                    "/usr/lib/python2.7/site-packages/nextlinux/nextlinux-modules/analyzers/10_package_list.py": {
                         "status": "SUCCESS",
                         "returncode": 0,
                         "timestamp": 1495152613.50759,
                         "atype": "base",
-                        "command": "/usr/lib/python2.7/site-packages/anchore/anchore-modules/analyzers/10_package_list.py 02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9 /root/.anchore/data /root/.anchore/anchoretmp/8991711.anchoretmp/tmpSOht0i /root/.anchore/anchoretmp/8991711.anchoretmp",
+                        "command": "/usr/lib/python2.7/site-packages/nextlinux/nextlinux-modules/analyzers/10_package_list.py 02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9 /root/.nextlinux/data /root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp/tmpSOht0i /root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp",
                         "analyzer_outputs": [
                             {
                                 "module_name": "package_list",
@@ -2368,7 +2368,7 @@
                         ],
                         "csum": "2b8f4602b8172096ff47c42452ff0df6",
                         "output": "analyzer starting up: imageId=02674b9cb179d57c68b526733adf38b458bd31ba0abff0c2bf5ceca5bad72cd9 meta={'DISTROVERS': u'3.5.2', 'LIKEDISTRO': u'alpine', 'DISTRO': u'alpine'} distrodict={'fullversion': u'3.5.2', 'version': u'3.5', 'likeversion': u'3.5', 'likedistro': u'alpine', 'flavor': 'ALPINE', 'distro': u'alpine'}\n",
-                        "outputdir": "/root/.anchore/anchoretmp/8991711.anchoretmp/tmpSOht0i"
+                        "outputdir": "/root/.nextlinux/nextlinuxtmp/8991711.nextlinuxtmp/tmpSOht0i"
                     }
                 }
             },

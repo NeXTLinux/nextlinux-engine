@@ -1,4 +1,4 @@
-Contributing to Anchore
+Contributing to Nextlinux
 =======================
 
 Signing your contribution
@@ -6,7 +6,7 @@ Signing your contribution
 
 We've chosen to use the Developer's Certificate of Origin (DCO) method
 that is employed by the Linux Kernel Project, which provides a simple
-way to contribute to the Anchore project.
+way to contribute to the Nextlinux project.
 
 The process is to certify the below DCO 1.1 text
 ::

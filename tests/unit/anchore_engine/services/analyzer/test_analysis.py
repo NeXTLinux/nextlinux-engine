@@ -1,6 +1,6 @@
 import pytest
 
-from anchore_engine.services.analyzer.analysis import is_analysis_message
+from nextlinux_engine.services.analyzer.analysis import is_analysis_message
 
 message_matrix = [
     (

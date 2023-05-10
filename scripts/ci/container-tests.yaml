@@ -6,9 +6,9 @@ commandTests:
   - name: "freshclam"
     command: "freshclam"
     args: ["-h"]
-  - name: "anchore-cli"
-    command: "/anchore-cli/bin/anchore-cli"
+  - name: "nextlinux-cli"
+    command: "/nextlinux-cli/bin/nextlinux-cli"
     args: ["-h"]
-  - name: "anchore-manager"
-    command: "/usr/local/bin/anchore-manager"
+  - name: "nextlinux-manager"
+    command: "/usr/local/bin/nextlinux-manager"
     args: ["--help"]

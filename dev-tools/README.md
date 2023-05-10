@@ -1,4 +1,4 @@
-# Development Setup for Anchore Engine
+# Development Setup for Nextlinux Engine
 
 *Note: These directions are for PyCharm only (tested in Pycharm 2021.1.3)*
 

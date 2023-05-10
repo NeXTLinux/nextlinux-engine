@@ -3,10 +3,10 @@ from typing import List, Tuple
 
 import pytest
 
-import anchore_engine.db.entities.common
-import anchore_engine.services.policy_engine.engine.vulns.cpe_matchers
-import anchore_engine.services.policy_engine.engine.vulns.db
-from anchore_engine.db.entities.policy_engine import (
+import nextlinux_engine.db.entities.common
+import nextlinux_engine.services.policy_engine.engine.vulns.cpe_matchers
+import nextlinux_engine.services.policy_engine.engine.vulns.db
+from nextlinux_engine.db.entities.policy_engine import (
     CpeV2Vulnerability,
     DistroNamespace,
     DistroTuple,
@@ -14,12 +14,12 @@ from anchore_engine.db.entities.policy_engine import (
     ImagePackage,
     Vulnerability,
 )
-from anchore_engine.services.policy_engine.engine.vulns.cpe_matchers import (
+from nextlinux_engine.services.policy_engine.engine.vulns.cpe_matchers import (
     cpes_for_image_packages,
     cve_ids_for_vuln_record,
     filter_secdb_entries,
 )
-from anchore_engine.services.policy_engine.engine.vulns.cpes import (
+from nextlinux_engine.services.policy_engine.engine.vulns.cpes import (
     dedup_cpe_vulnerabilities,
 )
 
@@ -170,7 +170,7 @@ def monkeypatched_records_for_namespace(monkeysession, request):
         return request.param
 
     monkeysession.setattr(
-        anchore_engine.services.policy_engine.engine.vulns.db.CpeDBQueryManager,
+        nextlinux_engine.services.policy_engine.engine.vulns.db.CpeDBQueryManager,
         "matched_records_for_namespace",
         mock_matched_records_for_namespace,
     )
@@ -187,12 +187,12 @@ def monkeypatched_distro_mappings(monkeysession):
         return [DistroTuple(name, version, flavor)]
 
     monkeysession.setattr(
-        anchore_engine.db.entities.policy_engine.DistroMapping,
+        nextlinux_engine.db.entities.policy_engine.DistroMapping,
         "distros_mapped_to",
         mock_distros_mapped_to,
     )
     monkeysession.setattr(
-        anchore_engine.db.entities.policy_engine.DistroMapping,
+        nextlinux_engine.db.entities.policy_engine.DistroMapping,
         "distros_for",
         mock_distros_for,
     )

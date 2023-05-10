@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-from anchore_engine.services.policy_engine.engine.feeds.storage import (
+from nextlinux_engine.services.policy_engine.engine.feeds.storage import (
     ChecksumMismatchError,
     GrypeDBFile,
     GrypeDBStorage,
@@ -29,8 +29,8 @@ class TestStorage:
         """
         Tests that the temp directory is created by context manager and then is deleted once exited
         """
-        with GrypeDBStorage() as grypedb_file:
-            directory_path = grypedb_file.root_directory
+        with GrypeDBStorage() as govulnersdb_file:
+            directory_path = govulnersdb_file.root_directory
             assert os.path.exists(directory_path) is True
 
         assert os.path.exists(directory_path) is False
@@ -39,10 +39,10 @@ class TestStorage:
         """
         Tests that file created exists in context but is deleted once exited
         """
-        with GrypeDBStorage() as grypedb_file:
-            with grypedb_file.create_file(test_data_checksum) as f:
+        with GrypeDBStorage() as govulnersdb_file:
+            with govulnersdb_file.create_file(test_data_checksum) as f:
                 f.write(test_data)
-            file_path = grypedb_file._file_path
+            file_path = govulnersdb_file._file_path
             assert os.path.exists(file_path) is True
 
         assert os.path.exists(file_path) is False
@@ -52,14 +52,14 @@ class TestStorage:
         Integrity is also verified on file creation so tests that error is thrown when it does not match
         """
         with pytest.raises(ChecksumMismatchError):
-            with GrypeDBStorage() as grypedb_file:
-                with grypedb_file.create_file(test_data_checksum) as f:
+            with GrypeDBStorage() as govulnersdb_file:
+                with govulnersdb_file.create_file(test_data_checksum) as f:
                     f.write(malformed_data)
 
     def test_file_data(self):
-        with GrypeDBStorage() as grypedb_file:
-            with grypedb_file.create_file(test_data_checksum) as f:
+        with GrypeDBStorage() as govulnersdb_file:
+            with govulnersdb_file.create_file(test_data_checksum) as f:
                 f.write(test_data)
 
-            with open(grypedb_file._file_path, "rb") as f:
+            with open(govulnersdb_file._file_path, "rb") as f:
                 assert test_data == f.read()

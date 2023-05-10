@@ -6,13 +6,13 @@ from typing import Callable, ContextManager, Dict, List, Optional
 import jsonschema
 import pytest
 
-from anchore_engine.db.entities.common import (
+from nextlinux_engine.db.entities.common import (
     do_disconnect,
     end_session,
     get_engine,
     initialize,
 )
-from anchore_engine.db.entities.upgrade import do_create_tables
+from nextlinux_engine.db.entities.upgrade import do_create_tables
 
 CURRENT_DIR = path.dirname(path.abspath(__file__))
 EXPECTED_CONTENT_FOLDER_NAME = "expected_output"
@@ -24,7 +24,7 @@ def read_expected_content(module_path, filename):
     Loads expected vulnerability response json for a given image_digest
     :param filename: name of file from which to load response
     :type filename: str
-    :return: expected vulnerability response jsonanchore_engine/services/policy_engine/engine/feeds/feeds.py
+    :return: expected vulnerability response jsonnextlinux_engine/services/policy_engine/engine/feeds/feeds.py
     :rtype: Dict
     """
     module_filename_with_extension = path.basename(module_path)
@@ -144,15 +144,15 @@ def set_env_vars(monkeysession) -> None:
     """
     Setup environment variables for database connection.
     """
-    if not os.getenv("ANCHORE_TEST_DB_URL"):
+    if not os.getenv("NEXTLINUX_TEST_DB_URL"):
         monkeysession.setenv(
-            "ANCHORE_TEST_DB_URL",
-            "postgresql://postgres:mysecretpassword@anchore-db:5432/postgres",
+            "NEXTLINUX_TEST_DB_URL",
+            "postgresql://postgres:mysecretpassword@nextlinux-db:5432/postgres",
         )
 
 
 @pytest.fixture(scope="package")
-def anchore_db() -> ContextManager[bool]:
+def nextlinux_db() -> ContextManager[bool]:
     """
     Sets up a db connection to an existing db, and fails if not found/present
     Different from the fixture in test/fixtures.py in that it does not drop existing data upon making a connection
@@ -160,7 +160,7 @@ def anchore_db() -> ContextManager[bool]:
     :rtype: ContextManager[bool]
     """
 
-    conn_str = os.getenv("ANCHORE_TEST_DB_URL")
+    conn_str = os.getenv("NEXTLINUX_TEST_DB_URL")
     assert conn_str
     config = {"credentials": {"database": {"db_connect": conn_str}}}
     try:
@@ -188,7 +188,7 @@ def is_legacy_provider():
     """
     Returns bool based on if the running context has an env var set to indicate that its testing against legacy vuln provider
     """
-    return os.getenv("TEST_VULNERABILITIES_PROVIDER", "grype") == "legacy"
+    return os.getenv("TEST_VULNERABILITIES_PROVIDER", "govulners") == "legacy"
 
 
 @pytest.fixture()

@@ -15,11 +15,11 @@ init_test_logging()
 prefix = os.getcwd()
 
 service_swaggers = [
-    "anchore_engine/services/apiext/swagger/swagger.yaml",
-    "anchore_engine/services/catalog/swagger/swagger.yaml",
-    "anchore_engine/services/simplequeue/swagger/swagger.yaml",
-    "anchore_engine/services/analyzer/swagger/swagger.yaml",
-    "anchore_engine/services/policy_engine/swagger/swagger.yaml",
+    "nextlinux_engine/services/apiext/swagger/swagger.yaml",
+    "nextlinux_engine/services/catalog/swagger/swagger.yaml",
+    "nextlinux_engine/services/simplequeue/swagger/swagger.yaml",
+    "nextlinux_engine/services/analyzer/swagger/swagger.yaml",
+    "nextlinux_engine/services/policy_engine/swagger/swagger.yaml",
 ]
 
 

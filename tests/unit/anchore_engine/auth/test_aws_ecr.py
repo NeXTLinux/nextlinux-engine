@@ -1,4 +1,4 @@
-from anchore_engine.auth.aws_ecr import parse_registry_url, parse_role
+from nextlinux_engine.auth.aws_ecr import parse_registry_url, parse_role
 
 
 def test_parse_registry_url_parses_url():

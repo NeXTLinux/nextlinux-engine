@@ -2,9 +2,9 @@ from unittest.mock import Mock
 
 import pytest
 
-from anchore_engine.db.entities.policy_engine import Image, ImagePackage, NpmMetadata
-from anchore_engine.services.policy_engine.engine.policy.gate import ExecutionContext
-from anchore_engine.services.policy_engine.engine.policy.gates import npms
+from nextlinux_engine.db.entities.policy_engine import Image, ImagePackage, NpmMetadata
+from nextlinux_engine.services.policy_engine.engine.policy.gate import ExecutionContext
+from nextlinux_engine.services.policy_engine.engine.policy.gates import npms
 
 image_id = "1"
 user = "admin"

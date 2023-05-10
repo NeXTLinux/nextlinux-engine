@@ -1,11 +1,11 @@
 import unittest
 
-from anchore_engine.util.rpm import compare_versions
+from nextlinux_engine.util.rpm import compare_versions
 
 
 class TestRpmVersionHandling(unittest.TestCase):
     """
-    Tests for version comparisons of rpm package versions maintained in anchore engine.
+    Tests for version comparisons of rpm package versions maintained in nextlinux engine.
     Note that this does not exactly confirm the official rpm spec
 
     """

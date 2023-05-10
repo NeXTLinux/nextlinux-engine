@@ -1,20 +1,20 @@
 import pytest
 
-from anchore_engine.db import Image, get_thread_scoped_session
-from anchore_engine.services.policy_engine.engine.policy.gates.vulnerabilities import (
+from nextlinux_engine.db import Image, get_thread_scoped_session
+from nextlinux_engine.services.policy_engine.engine.policy.gates.vulnerabilities import (
     FeedOutOfDateTrigger,
     UnsupportedDistroTrigger,
     VulnerabilitiesGate,
     VulnerabilityMatchTrigger,
 )
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 from tests.integration.services.policy_engine.engine.policy.gates import GateUnitTest
 
 logger.enable_test_logging()
 
 
 @pytest.mark.usefixtures("cls_fully_loaded_test_env")
-class AnchoreSecGateTest(GateUnitTest):
+class NextlinuxSecGateTest(GateUnitTest):
     """
     Test against the debian 8 based "node" image in the test env.
     It contains the package:

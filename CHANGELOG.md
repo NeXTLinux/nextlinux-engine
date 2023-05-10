@@ -10,7 +10,7 @@ Engine v1.1.0 fixes some bugs that arose from 1.0.1
 ### Changes
 + Added - Vulnerability scanning support for Rocky Linux in both legacy and Grype scanners
 + Fixed - Images with Go content and hints enabled failing analysis
-+ Fixed - Missing NVD CVSS scores in query vulnerabilities API with "grype" vulnerabilities provider
++ Fixed - Missing NVD CVSS scores in query vulnerabilities API with "govulners" vulnerabilities provider
 
 
 ## 1.0.1
@@ -23,7 +23,7 @@ Engine v1.0.1 fixes some bugs that arose from 1.0.0
 ### Changes
 + Fixed - policy-engine feeds failing for GitHub group due to a constraint violation
 + Fixed - Upgrade to Syft v0.26.0 fixed issue in analysis caused by unexpected python package format 
-+ Fixed - Content hints now correctly use '*' for vendor field instead of '-' in generated cpes. Fixes [#1279](https://github.com/anchore/anchore-engine/issues/1279).
++ Fixed - Content hints now correctly use '*' for vendor field instead of '-' in generated cpes. Fixes [#1279](https://github.com/nextlinux/nextlinux-engine/issues/1279).
 + Fixed - Syft invocation during image analysis uses analyzer unpack directory configured in engine as opposed to OS default temp directory
 
 
@@ -34,11 +34,11 @@ API version - 0.1.19
 DB Schema version - 0.0.15
 
 Engine 1.0.0 makes the Grype-based vulnerabilities provider, introduced in v0.10.0, the default for new deployments. This release
-also improves the scanning results and API consistency when using the "grype" provider. The "legacy" provider is deprecated 
+also improves the scanning results and API consistency when using the "govulners" provider. The "legacy" provider is deprecated 
 and will be removed in a future release. Current deployments and upgrades will not automatically convert to the new provider, so 
 please update your configurations and templates to use the new Grype provider.
 
-See the [documentation](https://engine.anchore.io/docs/releasenotes/) for more information on the transition process and upgrade options.
+See the [documentation](https://engine.nextlinux.io/docs/releasenotes/) for more information on the transition process and upgrade options.
 
 ### Deprecations
 
@@ -58,7 +58,7 @@ The "legacy" vulnerability provider mode is deprecated. It will be removed in a 
 + Improved - Update Click dependency version to 8.0.1 and SQLAlchemy dependency version to 1.4.23.  Fixes #908, #1204 
 + Improved - When using the Grype provider, the ability to enable, disable, and delete groups within the "vulnerabilities" feed is not supported and returns a clear error message.
 + Improved - Make the Syft invocation only log the full output of the command at spew level instead of debug to ensure logs are not flooded with large Syft SBoMs.
-+ Improved - Rename "grypedb" feed to be called "vulnerabilities" for clarity and consistency. Fixes #1192
++ Improved - Rename "govulnersdb" feed to be called "vulnerabilities" for clarity and consistency. Fixes #1192
 + Improved - Removes default config fallback for vulnerability provider, users must now explicitly specify this configuration value
 
 
@@ -81,7 +81,7 @@ DB Schema version - 0.0.15
 ### Changes
 + Added - 'will_not_fix' field added to vulnerability report API response and vulnerability information query. Fixes #1160
 + Fixed - /tmp directory not cleaned up after an image analysis
-+ Fixed - Updates syft version to 0.19.1
++ Fixed - Updates gosbom version to 0.19.1
 + Fixed - Update certifi path in the docker entrypoint script to ensure cert updates are set properly. Fixes #1171 
 + Fixed - Incorrect handling of hints file input. Fixes #1165
 + Fixed - Ensures all tags attempted for image pull if multiple tags on image being analyzed. Fixes #1139
@@ -101,14 +101,14 @@ This release contains a database schema update. There are no data migrations, on
 
 ### Configurable Vulnerability Providers
 
-0.10.0 is a significant release for Engine as it now has both [Syft](https://github.com/anchore/syft) and [Grype](https://github.com/anchore/grype) 
+0.10.0 is a significant release for Engine as it now has both [Syft](https://github.com/nextlinux/gosbom) and [Grype](https://github.com/nextlinux/govulners) 
 integrations in place to move to a unified vulnerability scanning core across local tools as well as stateful Engine services. 
-This release adds [Grype](https://github.com/anchore/grype) integration as a new vulnerability scanning option in the policy 
+This release adds [Grype](https://github.com/nextlinux/govulners) integration as a new vulnerability scanning option in the policy 
 engine. There is now a configuration option for specifying a vulnerability scanning provider in the policy engine service 
 configuration. The legacy provider (non-Grype) is the default to ensure smooth upgrades and allow operators to choose when to make the switch.
 The new Grype provider syncs vulnerability data from the same upstream sources as Engine, but uses the Grype DB update mechanism 
 to achieve much faster feed updates, and no longer uses the https://ancho.re endpoint for retrieving data. See 
-[Release Notes](https://engine.anchore.io/docs/releasenotes/0100) for more information and links on Grype mode.
+[Release Notes](https://engine.nextlinux.io/docs/releasenotes/0100) for more information and links on Grype mode.
 
 Note:
 - Grype mode is a beta release and not recommended for production use, but we encourage feedback and use in dev environments.
@@ -161,22 +161,22 @@ The vulnerability provider is now configurable in the `policy_engine` service co
 
 ## 0.9.3
 
-+ Fixed - Fixes issue where java artifacts are not being matched against records from GHSA feed - synthesize pom properties contents in syft mapper.  Fixes #950
-+ Fixed - Updates syft to 0.14.0 to fix missing java elements from image SBOM, for embedded java artifacts combined with malformed pom.properties metadata (see https://github.com/anchore/syft Issue #349)
++ Fixed - Fixes issue where java artifacts are not being matched against records from GHSA feed - synthesize pom properties contents in gosbom mapper.  Fixes #950
++ Fixed - Updates gosbom to 0.14.0 to fix missing java elements from image SBOM, for embedded java artifacts combined with malformed pom.properties metadata (see https://github.com/nextlinux/gosbom Issue #349)
 
 ## 0.9.2
 
 + Fixed - Fixes empty string value for "metadata" field which should be empty array in response for GET /images/{digest}/metadata/dockerfile when no actual dockerfile is presented. Fixes #937
 + Fixed - Fixes oauth2_clients table upgrade to include all needed keys in client_metadata field. Fixes #931
-+ Fixed - Updates syft to 0.13.1 and adds filtering of packages by new 'relationship' field to remove duplicate packages that are application packages provided by distro packages managers (e.g. RPMs that install python eggs, will only use the RPM version). Fixes #460
-+ Fixed - Updates syft to 0.12.7 to fix analysis failure due to malformed python egg files. Fixes #910
++ Fixed - Updates gosbom to 0.13.1 and adds filtering of packages by new 'relationship' field to remove duplicate packages that are application packages provided by distro packages managers (e.g. RPMs that install python eggs, will only use the RPM version). Fixes #460
++ Fixed - Updates gosbom to 0.12.7 to fix analysis failure due to malformed python egg files. Fixes #910
 + Fixed - Updates cryptography version from 3.3.1 to 3.3.2. Fixes #909
 + Fixed - Updates jsonschema version to avoid legacy validator import issues.
 
 
 ## 0.9.1
 
-NOTE: To ensure that Anchore Engine cannot be accidentally deployed with a weak default password for the admin user, this release includes
+NOTE: To ensure that Nextlinux Engine cannot be accidentally deployed with a weak default password for the admin user, this release includes
 a change that requires the default_admin_password configuration value to be set at system bootstrap. After bootstrap it is no longer needed. This
 may break previous deployment configurations that relied on the code using a default value if none specified by the configuration. We have updated
 our quick-start docker-compose.yaml file in the Engine docs and helm chart to accomodate this change. It will *not* impact upgrading deployments
@@ -199,7 +199,7 @@ since the database bootstrap is already completed.
 
 ## 0.9.0
 
-0.9.0 is a big step towards full integration of Syft and Grype into Anchore Engine as planned for 1.0. In this release, Syft is used for all package identification, and
+0.9.0 is a big step towards full integration of Syft and Grype into Nextlinux Engine as planned for 1.0. In this release, Syft is used for all package identification, and
 a new API is also added to support uploads of Syft results into the system but with less analysis depth than an in-deployment analysis. This release 
 also involves an API update to 0.1.16 and a db schema update to 0.0.14, and resolves a long-standing issue with db varchar field lengths in the
 policy engine.
@@ -208,10 +208,10 @@ policy engine.
 + Added - Support for analysis archive rules to trigger based on total number of images in each account. Fixes #700
 + Added - Exclusion filters for analysis archive rules. Fixes #699
 + Added - Ability to exclude paths from vulnerability.packages rules using path regex. Fixes #229
-+ Added - Integrates new Syft tool (https://github.com/anchore/syft) as package bill of materials analyzer. Fixes #679, #685, #682
++ Added - Integrates new Syft tool (https://github.com/nextlinux/gosbom) as package bill of materials analyzer. Fixes #679, #685, #682
 + Added - Ability to set an expiration for individual whitelist rules. Fixes #178, 
 + Added - Ability to test webhook delivery via API call and provide schemas for webhook payloads. Fixes #489, #490
-+ Added - Success and error counters in prometheus metrics exported by analyzers ("anchore_analysis_success" and "anchore_analysis_error")  
++ Added - Success and error counters in prometheus metrics exported by analyzers ("nextlinux_analysis_success" and "nextlinux_analysis_error")  
 + Added - Ability to bootstrap system and accounts with more than one policy bundle. Fixes #720
 + Improved - Better swagger spec for oauth token route
 + Fix - Update Authlib to 0.15.2 from 0.12.1 to update cryptography dependency to 3.3.1 to resolve GHSA-hggm-jpg3-v476. Fixes #733
@@ -276,7 +276,7 @@ policy engine.
 + Additional minor bug fixes and enhancements
 
 ## 0.7.1 (2020-04-28)
-+ Added - anchore-manager command now has --no-auto-upgrade option to support more deployment and upgrade control
++ Added - nextlinux-manager command now has --no-auto-upgrade option to support more deployment and upgrade control
 + Improved - Bumped twisted and requests dependencies
 + Improved - Removes the docker-compose.yaml, prometheus.yaml, and nginx swagger ui configs from within the image, moving those to documentation for easier update/iteration without builds. Fixes #435
 + Fix - Ensure only supported os overrides are used in skopeo download commands. Fixes #430 (CVE-2020-11075 / GHSA-w4rm-w22x-h7m5)
@@ -345,12 +345,12 @@ policy engine.
 
 ## 0.5.0 (2019-09-05)
 
-+ Added - Support for local image analysis tool and process, including local analyzer operation in anchore_manager and new image analysis archive import API operation
++ Added - Support for local image analysis tool and process, including local analyzer operation in nextlinux_manager and new image analysis archive import API operation
 + Added - Switch NVD feed driver to consume normalized vulnerability data from latest NVD JSON 1.0 Schema
 + Added - New parameter to vulnerabilities gate to only trigger if a fix has been available for over a specified number of days
 + Added - New parameters in vulnerabilities gate to allow for triggers based on CVSSv3 scoring information. Implements #164.
 + Added - Structured CVSS scoring information throughout external API responses, where vulnerability information is returned (vulnerability scans, vulnerability queries). Implements #163, #160, #223.
-+ Added - Optional support using hashed passwords on anchore user credential storage, and adds support token-based user authentication
++ Added - Optional support using hashed passwords on nextlinux user credential storage, and adds support token-based user authentication
 + Improved - More complete CPE version strings now available from latest NVD data feed, improving scope of non-os package vulnerability matches
 + Improved - Spelling, grammar and broken link updates to top level README. Contributions by Neil Levine <levine@yoyo.org> and MichaelSimons <msimons@microsoft.com>
 + Improved - Updated validation and improved error detail for user and account management API operations
@@ -367,7 +367,7 @@ policy engine.
 
 + Added - Store a set of digests in a subscription record, allowing engine to run vuln_update/policy_eval checks over specified digests as well as latest. Contribution by Mattia Pagnozzi <mattia.pagnozzi@gmail.com>
 + Added - New debug_exception logger function to dump stack only at debug or higher log level, otherwise just print error.
-+ Added - Adds global internal client timeouts configurable in the config.yaml file. Fixes #210 add annotations key to AnchoreImage response definition type in.
++ Added - Adds global internal client timeouts configurable in the config.yaml file. Fixes #210 add annotations key to NextlinuxImage response definition type in.
 + Fix - GET /images?history=true not returning full history list. Fixes #215
 + Fix - Allow distro discovery routine to handle case where system os metadata files are broken softlinks inside the container image. Fixes #213
 + Fix - Update to analyzer code, to keep a consistent map of files regardless of any file name slash and dot prefixes that may be present in the layer tars.  Fixes #209
@@ -377,24 +377,24 @@ policy engine.
 + Fix - On image add, ensure that subscriptions are (re)activated based on API input. Fixes #195
 + Fix - Use of body in GET /images to filter by tag and/or digest rather than only using query param
 + Fix - Don't require type and key on PUT /subscriptions, reconciling code behavior with swagger spec. Contribution by by Mattia Pagnozzi <mattia.pagnozzi@gmail.com>
-+ Fix - Add missing 'annotations' key to AnchoreImage response definition type in swagger spec.
++ Fix - Add missing 'annotations' key to NextlinuxImage response definition type in swagger spec.
 + Fix - Add correct DB filter on userId to prevent images deleted from one user account from resulting in deletions of images in other accounts, when Image Digests align across accounts.  Fixes #224.
 + Improved - Update Dockerfile using multi-stage model
 
 ## 0.4.0 (2019-05-09)
 
 + Added - Image Analysis Archive Subsystem. See #165.
-+ Added - All anchore-engine services now run (by default) as non-root, including the analyzer (with new analyzer implementation)
++ Added - All nextlinux-engine services now run (by default) as non-root, including the analyzer (with new analyzer implementation)
 + Added - optional policy parameter for vulnerabilities older than N days. Implements #156. Contribution by i845783 <dan.wilson01@sap.com>
-+ Added - new facility to carry anchore error codes through to API error response envelope.  Addresses #150 and will extend in future for richer error information in API responses.
-+ Added - /system/error_codes route to describe possible anchore error codes.
-+ Added - Re-platformed anchore engine and CLI container image on Red Hat Universal Base Image (UBI)
++ Added - new facility to carry nextlinux error codes through to API error response envelope.  Addresses #150 and will extend in future for richer error information in API responses.
++ Added - /system/error_codes route to describe possible nextlinux error codes.
++ Added - Re-platformed nextlinux engine and CLI container image on Red Hat Universal Base Image (UBI)
 + Fix - improved handling of case where default_bundle_file key is unset internally for initializers that reference that configuration key. Fixes #113.
 + Fix - skip dpkg results that are not in the explicit installed (ii) state.  Fixes #169.
 + Fix - bug in passwd_file gate's context setup that was parsing entries incorrectly.
 + Fix - bytes decode issue in the object store manager interface that is masked in py3.6 but exposed in py3.5
 + Fix - update to handle redirect for quay.io when trailing slash is omitted, during initial registry ping in validation routine.  Fixes #175.
-+ Improved - cleanup feed sync error path where another sync is in progress. use the new anchore error code mechanism
++ Improved - cleanup feed sync error path where another sync is in progress. use the new nextlinux error code mechanism
 + Improved - support for psycopg2 SQL Alchemy Driver
 + Improved - new docker-compose quickstart method
 + Improved - combined analyzer module functionality
@@ -407,9 +407,9 @@ policy engine.
 ## 0.3.4 (2019-04-04)
 
 + Added - support for specifying registry credentials for specific repositories or sets of repos using wildcards. Implements #142.
-+ Added - new configuration option enable_access_logging to control whether twisted access log lines are included in anchore service logs. Implements #155.
++ Added - new configuration option enable_access_logging to control whether twisted access log lines are included in nextlinux service logs. Implements #155.
 + Added - implement orphaned service record autocleanup in the catalog services handler. Implements #145.
-+ Fix - make system service events owned by the system admin account. Existing system events can be flushed via the api with context-set for anchore-system, and all future events will be in the admin account. Fixes #152.
++ Fix - make system service events owned by the system admin account. Existing system events can be flushed via the api with context-set for nextlinux-system, and all future events will be in the admin account. Fixes #152.
 + Fix - added timeout support for client calls to catalog from policy engine disabled by default but configurable. Adds configurable service thread pool sizes and bumps default count from 20 to 50 threads max size. Fixes #154.
 + Fix - remove duplicates from the query/vulnerabilities records for NVD, ensuring that each namespace only has a unique and latest record for a given vulnerability ID. Fixes #166.
 + Fix - updates to policy validation and eval error handling and adds size unit support for image size check. Fixes #124.
@@ -420,7 +420,7 @@ policy engine.
 ## 0.3.3 (2019-02-22)
 
 + Added - new ssl_verify option in feeds section of default/example config yamls and related environment settings in Dockerfile, to handle cases where default feed endpoint (ancho.re) is behind proxy with site-specific cert. Fixes #141
-+ Added - the parentDigest to AnchoreImageTagSummary definition in apiext swagger.yaml.  Fixes #140
++ Added - the parentDigest to NextlinuxImageTagSummary definition in apiext swagger.yaml.  Fixes #140
 + Added - imageDigest and more elements (package name, version, type, feed, feed group) to the vuln_update webhook payload. Fixes #130
 + Added - regex support for mapping rules using value prefix 'regexp:'. Fixes #128
 + Fix - only emit events into the event log for orphaned or down services when they transition, mitigating condition where simplequeue service can getting highly loaded when many orphaned service records are in place. Fixes #147
@@ -428,7 +428,7 @@ policy engine.
 + Fix - make updates to RFC3339 format validation and parsing for the add image by digest request input to correctly handle strings that contain millis. Fixes #136. Fixes #135.
 + Fix - update to routine that generates a digest from a manifest, removing intermediate parse that computed the wrong digest in cases where manifest contained un-indented json.  Fixes #131
 + Fix - improve feed sync error handling. Fixes #125
-+ Improved - update default config to allow external setting of ANCHORE_EXTERNAL_TLS and ANCHORE_LOG_LEVEL.  Contribution by Jeremy T. Bouse <Jeremy.Bouse@UnderGrid.net> (PR #137 and #139)
++ Improved - update default config to allow external setting of NEXTLINUX_EXTERNAL_TLS and NEXTLINUX_LOG_LEVEL.  Contribution by Jeremy T. Bouse <Jeremy.Bouse@UnderGrid.net> (PR #137 and #139)
 + Improved - several updates to circleCI/build configs, unit tests
 + Minor bug fixes
 
@@ -452,29 +452,29 @@ policy engine.
 
 + Added - added vulnerabilty scan support for Amazon Linux 2 images (ALAS-* vulnerability matches)
 + Added -  policy engine policy evaluation optimization and cache for results to avoid re-evaluation when inputs have not changed. Uses combination of bundle content digest, feed sync update timestamps, and image load times to detect when a policy evaluation cannot have changed and uses a cached result instead of an evaluation to reduce CPU and DB usage.
-+ Added - CLI operation 'system wait' to be used for scripting processes that need to block on an anchore-engine deployment coming up and being fully ready for use
++ Added - CLI operation 'system wait' to be used for scripting processes that need to block on an nextlinux-engine deployment coming up and being fully ready for use
 + Improved - removed feed endpoint and credentials check from policy engine bootstrap, and initialize group metadata for enabled feed types before syncing feed data
 + Fix - adjust build of embedded skopeo command that was causing segmentation fault when registry hostnames included the domain suffix '.local'
 + Minor bug fixes
 	
 ## 0.3.0 (2018-11-15)
 
-NOTE: For users upgrading from 0.2.X to 0.3.X, please note that the upgrade process may take some time for deployments anchore-engine that have a large number of images stored (many thousands).  Please review the upgrade guide (https://anchore.freshdesk.com/support/solutions/articles/36000052927-upgrading-anchore-engine) to safely plan for an upgrade, and plan for a longer service maintainence window than usual for this upgrade if your engine has a large number of images analyzed.
+NOTE: For users upgrading from 0.2.X to 0.3.X, please note that the upgrade process may take some time for deployments nextlinux-engine that have a large number of images stored (many thousands).  Please review the upgrade guide (https://nextlinux.freshdesk.com/support/solutions/articles/36000052927-upgrading-nextlinux-engine) to safely plan for an upgrade, and plan for a longer service maintainence window than usual for this upgrade if your engine has a large number of images analyzed.
 
-+ Major Version Update - anchore-engine and anchore-cli ported to Python3!
++ Major Version Update - nextlinux-engine and nextlinux-cli ported to Python3!
 + New Feature - Multi-user API and Structure
   + Adds user management and detection API routes: /accounts/*, /account, /user
   + New option in config.yaml for the "apiext" service: "authorization_handler" key, with default value "native". Allows extension point for other models in the future.
   + Accounts have one of three types: service (internal), admin, and user. Only admin account users can create other accounts/users.
   + During upgrade, existing users are migrated to accounts of the same name with user records with the same credentials.
-  + Adds 'x-anchore-account' header support to allow admin users to make requests in the namespace of other accounts, for example to view events or image status, without requiring api route changes.
+  + Adds 'x-nextlinux-account' header support to allow admin users to make requests in the namespace of other accounts, for example to view events or image status, without requiring api route changes.
   + The existing config.yaml user sections are respected during first system initialization but ignored afterwards, so user management is purely via the APIs.
 + New Feature - Security-first Queries and Reports
   + Query for a list of images affected by input Vulnerability ID
   + Query for a list of images with an input package installed
   + Query for record information about a specific Vulnerability by ID
   + All queries include filter parameters to further refine results
-  + API routes /v1/queries/ and corresponding CLI operation (anchore-cli query ...) included
+  + API routes /v1/queries/ and corresponding CLI operation (nextlinux-cli query ...) included
 + New - Build and Testing infrastructure
   + Single canonical ./Dockerfile for container builds
   + CircleCI automation and test config
@@ -485,11 +485,11 @@ NOTE: For users upgrading from 0.2.X to 0.3.X, please note that the upgrade proc
 + Added - optional skopeo_global_timeout setting (seconds) for config.yaml which will be passed through to skopeo calls as the command-timeout option
 + Added - ability to ask for interactive (DB side effect free) policy evaluation via interactive=<true|false> query parameter to /v1/image/<image>/check route
 + Improved - java artifact manifest file parsing support and implementation (contributions by Matt Sicker <boards@gmail.com>)
-+ Improved - add bootstrap process retries to improve behavior of simultaneous startup of distributed anchore-engine services
++ Improved - add bootstrap process retries to improve behavior of simultaneous startup of distributed nextlinux-engine services
 + Improved - normalize all package database record handling for OS and Non-OS (NPM, GEM, Java, Python, etc) packages
 + Improved - better error passthrough from internal services (catalog/policy engine) back through external API to user (400, 404 instead of 500)
 + Improved - more consistent logging during bootstrap, throughout
-+ Changed - move from CentOS to Ubuntu base image for anchore-engine containers
++ Changed - move from CentOS to Ubuntu base image for nextlinux-engine containers
 + Removed - deprecated 'prune' routes and operations
 + Fix - handle case where manifests have incomplete history information, causing analysis failures (contribution by jianqli <jianqli@ebay.com>)
 + Fix - handle case that caused image analysis failure when package managers output non-integer values for package size metadata
@@ -500,11 +500,11 @@ NOTE: For users upgrading from 0.2.X to 0.3.X, please note that the upgrade proc
 ## 0.2.4 (2018-08-06)
 
 + New ability to disable feed syncs and skip feed client bootstrap checks in the policy engine (see latest scripts/docker-compose/config.yaml example for 'sync_enabled: <True|False>')
-+ Add capability to force re-analyze an image if provided a digest and tag that matches an existing image in anchore-engine
++ Add capability to force re-analyze an image if provided a digest and tag that matches an existing image in nextlinux-engine
 + Add pom.properties metadata to Java analyzer (contributed by Matt Sicker <boards@gmail.com>)
 + Improved registry verify check when adding new registry credentials, including a validation timeout for firewalled/blocked registry endpoints
-+ Improved anchore API swagger document with a refresh to more accurately specify request and response objects and route category/tags, for better swagger codegen client support
-+ Fix update to service terminate handling in anchore_manager to avoid possible condition where service could terminate a different anchore service than intended on restart. Fixes #74
++ Improved nextlinux API swagger document with a refresh to more accurately specify request and response objects and route category/tags, for better swagger codegen client support
++ Fix update to service terminate handling in nextlinux_manager to avoid possible condition where service could terminate a different nextlinux service than intended on restart. Fixes #74
 + Minor bug fixes and improvements
 
 ## 0.2.3 (2018-06-29)
@@ -513,8 +513,8 @@ NOTE: For users upgrading from 0.2.X to 0.3.X, please note that the upgrade proc
   + Details on reasons for image analysis failures
   + Information about internal processes like vulnerability feed sync start and end events
   + Troubleshooting information on image and repository watcher failures
-  + Troubleshooting information about distributed anchore-engine services orphaned due to network connectivity or other issues
-  + Details about policy sync failures from anchore.io if the automatic policy sync is turned on in the config
+  + Troubleshooting information about distributed nextlinux-engine services orphaned due to network connectivity or other issues
+  + Details about policy sync failures from nextlinux.io if the automatic policy sync is turned on in the config
   + Troubleshooting information that presents details when other asynchronous engine operations experience failures
 + Improved java artifact analysis - Add support for scanning Jenkins plugins. This adds the file extension ".hpi" and ".jpi" to the list of recognized Java library filenames. (contributed by Matt Sicker <boards@gmail.com>)
 + Improved 'metadata' content implementation for handling the addition of dockerfile contents after an image has already been added
@@ -527,7 +527,7 @@ NOTE: For users upgrading from 0.2.X to 0.3.X, please note that the upgrade proc
 ## 0.2.2 (2018-06-08)
 
 + New feature: support for multiple policies in mapping rules of policy bundles
-+ New feature: add image 'metadata' content, accessible using 'anchore-cli image metadata <image>' to review dockerfile, docker hisory, and manifest content
++ New feature: add image 'metadata' content, accessible using 'nextlinux-cli image metadata <image>' to review dockerfile, docker hisory, and manifest content
 + New feature: support for non-os package vulnerability scanning and access to new data feed (NVD)
 + Improved DB bootstrap process significantly, including DB compatability checks
 + Improved GET routes to remove the need for a body (equiv. key=values can now also be supplied as querystring parameters)
@@ -535,7 +535,7 @@ NOTE: For users upgrading from 0.2.X to 0.3.X, please note that the upgrade proc
 + Add registry validation when adding a registry credential (can be optionally skipped)
 + Add options for 'external URL' broadcast for each service, in LB cases where the TLS/port state of the actual service differs from how the services intercommunicate. Fixes #49
 + Add better tolerance of archive document migration (contributed by Armstrong Li <jianqli@ebay.com>)
-+ Remove dependency on external 'anchore' installation, bringing all analyzer/sync code from deprecated original anchore project into engine natively
++ Remove dependency on external 'nextlinux' installation, bringing all analyzer/sync code from deprecated original nextlinux project into engine natively
 + Fix tar hardlink error largely noticed on RHEL/Centos based images, causing some images to fail analysis
 + Fix to return RFC3339 ISO datetime strings (contributed by Patrik Cyvoct <patrik@ptrk.io>)
 + Fix that adds force kwarg parameter to by_id function defs.  Fixes #55.
@@ -544,21 +544,21 @@ NOTE: For users upgrading from 0.2.X to 0.3.X, please note that the upgrade proc
 
 ## 0.2.1 (2018-04-29)
 
-+ Security fix for github issue #36: anchore-engine allows authenticated user to issue malformed input on image/repo adds, allowing command execution on the engine host.  Many thanks to Cameron Lonsdale (https://github.com/CameronLonsdale) for discovering and reporting the issue.
++ Security fix for github issue #36: nextlinux-engine allows authenticated user to issue malformed input on image/repo adds, allowing command execution on the engine host.  Many thanks to Cameron Lonsdale (https://github.com/CameronLonsdale) for discovering and reporting the issue.
 + Fix issue where manifest v1 schema based images could not be fetched by imageId
 + Fix issue where NPM feed data fails to sync due to DB column size limitations
 
 ## 0.2.0 (2018-04-26)
 
 + Many new features and deployment options!
-+ New feature: anchore-engine services now supply prometheus metrics on the /metrics route for each service
-+ New feature: deployments of anchore-engine now support running multiple core service instances (catalog, policy_engine, simplequeue, api), in addition to multiple workers (analyzer)
-+ New feature: archive document driver subsystem for storing the large image analysis documents of anchore-engine in a variety of different external locations (db, localfs, S3, Swift)
++ New feature: nextlinux-engine services now supply prometheus metrics on the /metrics route for each service
++ New feature: deployments of nextlinux-engine now support running multiple core service instances (catalog, policy_engine, simplequeue, api), in addition to multiple workers (analyzer)
++ New feature: archive document driver subsystem for storing the large image analysis documents of nextlinux-engine in a variety of different external locations (db, localfs, S3, Swift)
 + New feature: ability to migrate archive documents between external sources when changing archive document drivers
 + New feature: inclusion checks to filter vulnerabilities for debian images by whether there is a vendor advisory
-+ New documentation available at: https://anchore.freshdesk.com/support/solutions/articles/36000052880-anchore-engine-0-2-0-
++ New documentation available at: https://nextlinux.freshdesk.com/support/solutions/articles/36000052880-nextlinux-engine-0-2-0-
 + Improved service registration process - services now push registration on startup/during operation instead of being polled centrally
-+ Improved service startup / upgrade / management processes by introducing the anchore-manager utility
++ Improved service startup / upgrade / management processes by introducing the nextlinux-manager utility
 + Improved example docker-compose and config YAMLs to better illustrate configuration options and provide quick start
 + Improved error information from API/CLI calls, in particular when adding an image fails due to registry access or archive document store failures
 + Add new management API route for manually triggering a feed sync
@@ -592,7 +592,7 @@ NOTE: For users upgrading from 0.2.X to 0.3.X, please note that the upgrade proc
 
 ## 0.1.8 (2018-02-16)
 
-+ Added ability to add a repository for anchore-engine to automatically scan (adds all tags found at add time, and adds new tags on-going)
++ Added ability to add a repository for nextlinux-engine to automatically scan (adds all tags found at add time, and adds new tags on-going)
 + Added first custom route to /summaries API (/summaries/imagetags), which is a fast path to fetch a complete image listing summary
 + Added API and call to describe policy language to get full set of gates and triggers.
 + Added /v1/system/policy_spec route to apiext service that returns a list of gate json objects.
@@ -606,7 +606,7 @@ NOTE: For users upgrading from 0.2.X to 0.3.X, please note that the upgrade proc
 
 + Added ability to specify policy bundles on evaluation calls (both in k8s image policy webhook service and via direct CLI/API call)
 + Many improvements to system performance with many loaded and active images
-+ Fixed that requires policies and mappings as required fields for policy bundle add via the anchore-engine API. Fixes #22
++ Fixed that requires policies and mappings as required fields for policy bundle add via the nextlinux-engine API. Fixes #22
 
 ## 0.1.6 (2018-01-08)
 
@@ -627,7 +627,7 @@ NOTE: For users upgrading from 0.2.X to 0.3.X, please note that the upgrade proc
 
 + Added --force option to image delete
 + Fixed issue where imageId may not be set for image_detail if multiple tags referencing the same image are added before the image is analyzed
-+ Many UX improvements around logging, stdout/stderr handling in the bootstrap (anchore-engine), and service pre-flight checks
++ Many UX improvements around logging, stdout/stderr handling in the bootstrap (nextlinux-engine), and service pre-flight checks
 
 ## 0.1.3 (2017-11-03)
 
@@ -639,7 +639,7 @@ NOTE: For users upgrading from 0.2.X to 0.3.X, please note that the upgrade proc
 ## 0.1.2 (2017-10-12)
 
 + Added policy_engine service and many new gates and triggers, with better policy bundle validation
-+ Added 'awsauto' username/password pair for ECR registries when anchore-engine has access to ECR registry via IAM
++ Added 'awsauto' username/password pair for ECR registries when nextlinux-engine has access to ECR registry via IAM
 + Improved catalog monitors logic to reduce registry access on failure conditions and at steady state
 
 ## 0.1.0 (2017-09-29)

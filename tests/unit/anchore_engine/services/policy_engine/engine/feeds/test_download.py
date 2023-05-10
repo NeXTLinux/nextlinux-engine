@@ -11,12 +11,12 @@ from typing import Callable
 
 import pytest
 
-from anchore_engine.common.models.schemas import (
+from nextlinux_engine.common.models.schemas import (
     DownloadOperationResult,
     GroupDownloadResult,
     LocalFeedDataRepoMetadata,
 )
-from anchore_engine.services.policy_engine.engine.feeds.download import (
+from nextlinux_engine.services.policy_engine.engine.feeds.download import (
     FeedDataFileJsonIterator,
     FeedDownloader,
     FileData,
@@ -24,13 +24,13 @@ from anchore_engine.services.policy_engine.engine.feeds.download import (
     FileListJsonIterator,
     LocalFeedDataRepo,
 )
-from anchore_engine.subsys import logger
-from anchore_engine.utils import ensure_bytes, timer
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.utils import ensure_bytes, timer
 from tests.utils import init_test_logging
 
 init_test_logging(level="debug")
 
-ANCHOREIO_URI = "https://ancho.re/v1/service/feeds"
+NEXTLINUXIO_URI = "https://ancho.re/v1/service/feeds"
 
 SIMPLE_DATA = {
     "next_token": "sometokenvalue",
@@ -113,7 +113,7 @@ def feed_json_file_array():
 
 @pytest.fixture
 def get_tmpdir(request) -> str:
-    tmpdir = tempfile.mkdtemp(prefix="anchoretest_repo-")
+    tmpdir = tempfile.mkdtemp(prefix="nextlinuxtest_repo-")
 
     def remove_tmpdir() -> None:
         try:

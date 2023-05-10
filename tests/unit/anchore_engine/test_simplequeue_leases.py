@@ -3,9 +3,9 @@ Tests for the internal simplequeue client lease convenience functions.
 """
 import pytest
 
-from anchore_engine.clients.services.simplequeue import run_target_with_lease
-from anchore_engine.subsys import logger
-from anchore_engine.subsys.identities import HttpBasicCredential, IdentityManager
+from nextlinux_engine.clients.services.simplequeue import run_target_with_lease
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.subsys.identities import HttpBasicCredential, IdentityManager
 
 logger.enable_test_logging()
 
@@ -113,7 +113,7 @@ def test_run_target_with_lease_ok():
 
     # Pre-load the cache to ensure no db hit needed
     IdentityManager._credential_cache.cache_it(
-        "anchore-system", HttpBasicCredential("anchore-system", "somepass")
+        "nextlinux-system", HttpBasicCredential("nextlinux-system", "somepass")
     )
     run_target_with_lease("user", "test_lease", pass_target, client_id="test1")
 

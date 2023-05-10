@@ -7,14 +7,14 @@ import time
 
 import pytest
 
-from anchore_engine.db import Image
-from anchore_engine.db import get_thread_scoped_session as get_session
-from anchore_engine.services.policy_engine.engine.policy.bundles import (
+from nextlinux_engine.db import Image
+from nextlinux_engine.db import get_thread_scoped_session as get_session
+from nextlinux_engine.services.policy_engine.engine.policy.bundles import (
     ExecutableWhitelist,
     build_bundle,
 )
-from anchore_engine.services.policy_engine.engine.policy.gate import ExecutionContext
-from anchore_engine.subsys import logger
+from nextlinux_engine.services.policy_engine.engine.policy.gate import ExecutionContext
+from nextlinux_engine.subsys import logger
 
 logger.enable_test_logging()
 

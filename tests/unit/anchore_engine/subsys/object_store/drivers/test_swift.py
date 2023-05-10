@@ -1,6 +1,6 @@
 import pytest
 
-from anchore_engine.subsys.object_store import SwiftObjectStorageDriver
+from nextlinux_engine.subsys.object_store import SwiftObjectStorageDriver
 
 
 class TestSwiftObjectStorageDriver:

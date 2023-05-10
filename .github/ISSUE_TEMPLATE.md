@@ -1,4 +1,4 @@
-<!-- Thanks for trying Anchore Engine and filing an issue! To help ensure that we can quickly and efficiently process issues and get fixes please answer a few questions-->
+<!-- Thanks for trying Nextlinux Engine and filing an issue! To help ensure that we can quickly and efficiently process issues and get fixes please answer a few questions-->
 
 **Is this a request for help?**:
 
@@ -18,10 +18,10 @@ questions go unanswered for too long, we may close the issue. If we're wrong, PL
 -->
 
 <!-- To get version info:
-anchore-cli --version
-docker exec <engine_container> pip show anchore-engine
+nextlinux-cli --version
+docker exec <engine_container> pip show nextlinux-engine
 -->
-**Version of Anchore Engine and Anchore CLI if applicable**:
+**Version of Nextlinux Engine and Nextlinux CLI if applicable**:
 
 
 **What happened**:
@@ -30,11 +30,11 @@ docker exec <engine_container> pip show anchore-engine
 **What did you expect to happen**:
 
 <!--
-Log output can be from the container stdout or /var/log/anchore/anchore-*.
-The /var/log/anchore/anchore-* logs are service specific and can help identify which components is having the issue, so please check
+Log output can be from the container stdout or /var/log/nextlinux/nextlinux-*.
+The /var/log/nextlinux/nextlinux-* logs are service specific and can help identify which components is having the issue, so please check
 there as well as the stdout from the container.
 -->
-**Any relevant log output from /var/log/anchore**:
+**Any relevant log output from /var/log/nextlinux**:
 
 
 **What docker images are you using**:

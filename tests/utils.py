@@ -1,7 +1,7 @@
 """
 Utilities for setting up and running tests of all types
 """
-from anchore_engine.subsys.logger import enable_test_logging
+from nextlinux_engine.subsys.logger import enable_test_logging
 
 
 def init_test_logging(level="debug", output_file=None):

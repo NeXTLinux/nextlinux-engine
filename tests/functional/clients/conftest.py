@@ -27,7 +27,7 @@ pre_baked_images = {
     },
     "lean": {
         "registry": "docker.io",
-        "repo": "anchore/test_images",
+        "repo": "nextlinux/test_images",
         "tag": "lean",
         "digest": "sha256:8d0e40d8e013bb0cda3d279b5021c473885c079e94010fd2208235d56982486f",
         "image_source": "registry",
@@ -35,7 +35,7 @@ pre_baked_images = {
     },
     "py38": {
         "registry": "docker.io",
-        "repo": "anchore/test_images",
+        "repo": "nextlinux/test_images",
         "tag": "py38",
         "digest": "sha256:65e79fb7397ed96bd84656a664ac9978057930d90b2d5fde5e92a58adbee657c",
         "image_source": "registry",
@@ -43,7 +43,7 @@ pre_baked_images = {
     },
     "npm": {
         "registry": "docker.io",
-        "repo": "anchore/test_images",
+        "repo": "nextlinux/test_images",
         "tag": "npm",
         "digest": "sha256:905a2bf5f3adf8ba8f1d4391cfb4a3e6bd671e0b2ec2f488071679a5f578c7d7",
         "image_source": "registry",
@@ -51,7 +51,7 @@ pre_baked_images = {
     },
     "java": {
         "registry": "docker.io",
-        "repo": "anchore/test_images",
+        "repo": "nextlinux/test_images",
         "tag": "java",
         "digest": "sha256:9f453a37ea62976dd0f6b8ca4da2010cc01c3988f2e8c290044576d936bae710",
         "image_source": "registry",
@@ -59,7 +59,7 @@ pre_baked_images = {
     },
     "go": {
         "registry": "docker.io",
-        "repo": "anchore/test_images",
+        "repo": "nextlinux/test_images",
         "tag": "engine-analyzer-golang-a8b30f2",
         "digest": "sha256:d7efe8ef45def7a7aa6571de3cc5857281b1d7dc5477e7e0cbff6ccb2d5f5f8c",
         "image_source": "registry",
@@ -67,7 +67,7 @@ pre_baked_images = {
     },
     "stretch-slim": {
         "registry": "docker.io",
-        "repo": "anchore/test_images",
+        "repo": "nextlinux/test_images",
         "tag": "debian-stretch-slim",
         "digest": "sha256:cd74be1a65a7c7f07aa9952f622097a6452012fea741fbdade0e763edaa55ba0",
         "image_source": "registry",
@@ -75,7 +75,7 @@ pre_baked_images = {
     },
     "rpm": {
         "registry": "docker.io",
-        "repo": "anchore/test_images",
+        "repo": "nextlinux/test_images",
         "tag": "centos8",
         "digest": "sha256:96d136c9cbaf22d73010e3e79e748e7772143fd9a584f8898d2f122cc5da1206",
         "image_source": "registry",
@@ -89,19 +89,19 @@ pre_baked_images = {
         "image_source": "registry",
         "schema_version": "v2",
     },
-    # skopeo inspect --override-os linux  docker://anchore/test_images@sha256:bf25131f6f6ba5ca531b2075424bfb25c36cc01f8e83cc3c759c404870a64e38 --raw
+    # skopeo inspect --override-os linux  docker://nextlinux/test_images@sha256:bf25131f6f6ba5ca531b2075424bfb25c36cc01f8e83cc3c759c404870a64e38 --raw
     "bin": {
         "registry": "docker.io",
-        "repo": "anchore/test_images",
+        "repo": "nextlinux/test_images",
         "tag": "bin",
         "digest": "sha256:bf25131f6f6ba5ca531b2075424bfb25c36cc01f8e83cc3c759c404870a64e38",
         "image_source": "registry",
         "schema_version": "v2",
     },
-    # skopeo inspect --override-os linux  docker://anchore/test_images@sha256:bfbc9520743a4601da82c24958e194d55e45b8cab7c5b466f6ac81c90308749f --raw
+    # skopeo inspect --override-os linux  docker://nextlinux/test_images@sha256:bfbc9520743a4601da82c24958e194d55e45b8cab7c5b466f6ac81c90308749f --raw
     "ownership-overlap": {
         "registry": "docker.io",
-        "repo": "anchore/test_images",
+        "repo": "nextlinux/test_images",
         "tag": "ownership-overlap",
         "digest": "sha256:bfbc9520743a4601da82c24958e194d55e45b8cab7c5b466f6ac81c90308749f",
         "image_source": "registry",
@@ -109,7 +109,7 @@ pre_baked_images = {
     },
     "suids": {
         "registry": "docker.io",
-        "repo": "anchore/test_images",
+        "repo": "nextlinux/test_images",
         "tag": "suids",
         "digest": "sha256:1d0df8e380b947e9f76a1082cc550c3634dbbcfeb78e4c4874eeb149f377326d",
         "image_source": "registry",
@@ -117,7 +117,7 @@ pre_baked_images = {
     },
     "secrets": {
         "registry": "docker.io",
-        "repo": "anchore/test_images",
+        "repo": "nextlinux/test_images",
         "tag": "secrets",
         "digest": "sha256:0be667e0698fb204d2a6eaf42be8bf15db7edaf256c07e40caecbbcdbf6aad52",
         "image_source": "registry",
@@ -167,10 +167,10 @@ def hints_image(monkeypatch, tmpdir):
 
     def func(contents, image):
         work_dir = tmpdir.strpath
-        path = os.path.join(work_dir, "anchore_hints.json")
+        path = os.path.join(work_dir, "nextlinux_hints.json")
         with open(path, "w") as _f:
             json.dump(contents, _f)
-        monkeypatch.setenv("ANCHORE_TEST_HINTSFILE", path)
+        monkeypatch.setenv("NEXTLINUX_TEST_HINTSFILE", path)
         image_kwargs = pre_baked_images[image]
         standalone.main(
             work_dir=work_dir,

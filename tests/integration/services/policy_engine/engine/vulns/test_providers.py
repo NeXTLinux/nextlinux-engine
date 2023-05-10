@@ -1,8 +1,8 @@
 import pytest
 
-from anchore_engine.db import FeedMetadata, session_scope
-from anchore_engine.services.policy_engine.engine.feeds.feeds import GrypeDBFeed
-from anchore_engine.services.policy_engine.engine.vulns import providers
+from nextlinux_engine.db import FeedMetadata, session_scope
+from nextlinux_engine.services.policy_engine.engine.feeds.feeds import GrypeDBFeed
+from nextlinux_engine.services.policy_engine.engine.vulns import providers
 
 
 class TestLegacyProvider:

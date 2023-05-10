@@ -2,8 +2,8 @@ import zlib
 
 import pytest
 
-from anchore_engine.db.entities import policy_engine
-from anchore_engine.db.entities.policy_engine import FilesystemAnalysis
+from nextlinux_engine.db.entities import policy_engine
+from nextlinux_engine.db.entities.policy_engine import FilesystemAnalysis
 
 
 class TestNvdv2MetadataGetScore:

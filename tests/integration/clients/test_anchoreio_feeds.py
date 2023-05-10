@@ -1,8 +1,8 @@
 import datetime
 
-from anchore_engine.services.policy_engine.engine.feeds.client import get_feeds_client
-from anchore_engine.services.policy_engine.engine.feeds.config import SyncConfig
-from anchore_engine.subsys import logger
+from nextlinux_engine.services.policy_engine.engine.feeds.client import get_feeds_client
+from nextlinux_engine.services.policy_engine.engine.feeds.config import SyncConfig
+from nextlinux_engine.subsys import logger
 from tests.utils import init_test_logging
 
 feed_url = "https://ancho.re/v1/service/feeds"

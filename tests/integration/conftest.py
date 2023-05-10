@@ -12,21 +12,21 @@ test_data_env = os.path.join(top_dir, "data/test_data_env")
 @pytest.fixture(autouse=True)
 def set_env_vars(monkeysession):
     env_vars = (
-        ("ANCHORE_TEST_S3_ACCESS_KEY", "9EB92C7W61YPFQ6QLDOU"),
-        ("ANCHORE_TEST_S3_SECRET_KEY", "TuHo2UbBx+amD3YiCeidy+R3q82MPTPiyd+dlW+s"),
-        ("ANCHORE_TEST_S3_URL", "http://localhost:9000"),
-        ("ANCHORE_TEST_S3_BUCKET", "testarchivebucket"),
-        ("ANCHORE_TEST_SWIFT_AUTH_URL", "http://localhost:8080/auth/v1.0"),
-        ("ANCHORE_TEST_SWIFT_KEY", "testing"),
-        ("ANCHORE_TEST_SWIFT_USER", "test:tester"),
-        ("ANCHORE_TEST_SWIFT_CONTAINER", "testarchive"),
+        ("NEXTLINUX_TEST_S3_ACCESS_KEY", "9EB92C7W61YPFQ6QLDOU"),
+        ("NEXTLINUX_TEST_S3_SECRET_KEY", "TuHo2UbBx+amD3YiCeidy+R3q82MPTPiyd+dlW+s"),
+        ("NEXTLINUX_TEST_S3_URL", "http://localhost:9000"),
+        ("NEXTLINUX_TEST_S3_BUCKET", "testarchivebucket"),
+        ("NEXTLINUX_TEST_SWIFT_AUTH_URL", "http://localhost:8080/auth/v1.0"),
+        ("NEXTLINUX_TEST_SWIFT_KEY", "testing"),
+        ("NEXTLINUX_TEST_SWIFT_USER", "test:tester"),
+        ("NEXTLINUX_TEST_SWIFT_CONTAINER", "testarchive"),
         (
-            "ANCHORE_TEST_DB_URL",
+            "NEXTLINUX_TEST_DB_URL",
             "postgresql://postgres:postgres@localhost:5432/postgres",
         ),
-        ("ANCHORE_TEST_DB_USER", "postgres"),
-        ("ANCHORE_TEST_DB_PASS", "postgres"),
-        ("ANCHORE_TEST_DATA_ENV_DIR", test_data_env),
+        ("NEXTLINUX_TEST_DB_USER", "postgres"),
+        ("NEXTLINUX_TEST_DB_PASS", "postgres"),
+        ("NEXTLINUX_TEST_DATA_ENV_DIR", test_data_env),
     )
     for environ, value in env_vars:
         monkeysession.setenv(environ, value)
@@ -54,6 +54,6 @@ def set_legacy_provider(monkeysession):
         return "legacy"
 
     monkeysession.setattr(
-        "anchore_engine.services.policy_engine.engine.vulns.providers.get_provider_name",
+        "nextlinux_engine.services.policy_engine.engine.vulns.providers.get_provider_name",
         _provider_name,
     )

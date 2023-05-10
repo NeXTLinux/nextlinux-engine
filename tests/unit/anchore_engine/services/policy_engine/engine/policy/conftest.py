@@ -3,9 +3,9 @@ from unittest.mock import Mock
 
 import pytest
 
-from anchore_engine.db.db_grype_db_feed_metadata import NoActiveGrypeDB
-from anchore_engine.db.entities.policy_engine import DistroMapping
-from anchore_engine.services.policy_engine import init_feed_registry
+from nextlinux_engine.db.db_govulners_db_feed_metadata import NoActiveGrypeDB
+from nextlinux_engine.db.entities.policy_engine import DistroMapping
+from nextlinux_engine.services.policy_engine import init_feed_registry
 
 DISTRO_MAPPINGS = [
     DistroMapping(from_distro="alpine", to_distro="alpine", flavor="ALPINE"),
@@ -24,11 +24,11 @@ MAPPINGS_MAP = {mapping.from_distro: mapping for mapping in DISTRO_MAPPINGS}
 
 @pytest.fixture
 def mock_distromapping_query(monkeypatch):
-    # mocks DB query in anchore_engine.db.entities.policy_engine.DistroMapping.distros_for
+    # mocks DB query in nextlinux_engine.db.entities.policy_engine.DistroMapping.distros_for
     mock_db = Mock()
     mock_db.query().get = lambda x: MAPPINGS_MAP.get(x, None)
     monkeypatch.setattr(
-        "anchore_engine.db.entities.policy_engine.get_thread_scoped_session",
+        "nextlinux_engine.db.entities.policy_engine.get_thread_scoped_session",
         lambda: mock_db,
     )
 
@@ -36,59 +36,59 @@ def mock_distromapping_query(monkeypatch):
 @pytest.fixture
 def mock_gate_util_provider_feed_data(monkeypatch, mock_distromapping_query):
     """
-    Mocks for anchore_engine.services.policy_engine.engine.policy.gate_util_provider.GateUtilProvider.oldest_namespace_feed_sync
+    Mocks for nextlinux_engine.services.policy_engine.engine.policy.gate_util_provider.GateUtilProvider.oldest_namespace_feed_sync
     """
     # required for FeedOutOfDateTrigger.evaluate
-    # setup for anchore_engine.services.policy_engine.engine.feeds.feeds.FeedRegistry.registered_vulnerability_feed_names
+    # setup for nextlinux_engine.services.policy_engine.engine.feeds.feeds.FeedRegistry.registered_vulnerability_feed_names
     init_feed_registry()
 
     @contextmanager
     def mock_session_scope():
         """
-        Mock context manager for anchore_engine.db.session_scope.
+        Mock context manager for nextlinux_engine.db.session_scope.
         """
         yield None
 
-    def raise_no_active_grypedb(session):
+    def raise_no_active_govulnersdb(session):
         raise NoActiveGrypeDB
 
     def _setup_mocks(
-        feed_group_metadata=None, grype_db_feed_metadata=None, feed_metadata=None
+        feed_group_metadata=None, govulners_db_feed_metadata=None, feed_metadata=None
     ):
         # required for FeedOutOfDateTrigger.evaluate
-        # mocks anchore_engine.services.policy_engine.engine.feeds.db.get_feed_group_detached
+        # mocks nextlinux_engine.services.policy_engine.engine.feeds.db.get_feed_group_detached
         monkeypatch.setattr(
-            "anchore_engine.services.policy_engine.engine.policy.gate_util_provider.session_scope",
+            "nextlinux_engine.services.policy_engine.engine.policy.gate_util_provider.session_scope",
             mock_session_scope,
         )
 
         # required for UnsupportedDistroTrigger.evaluate
         monkeypatch.setattr(
-            "anchore_engine.services.policy_engine.engine.feeds.feeds.get_session",
+            "nextlinux_engine.services.policy_engine.engine.feeds.feeds.get_session",
             lambda: None,
         )
 
         # if feed metadata provided patch get_feed json for have_vulnerabilities_for legacy (UnsupportedDistroTrigger)
         if feed_metadata:
             monkeypatch.setattr(
-                "anchore_engine.services.policy_engine.engine.feeds.feeds.get_feed_json",
+                "nextlinux_engine.services.policy_engine.engine.feeds.feeds.get_feed_json",
                 lambda db_session, feed_name: feed_metadata.to_json(),
             )
 
-        if grype_db_feed_metadata:
+        if govulners_db_feed_metadata:
             monkeypatch.setattr(
-                "anchore_engine.services.policy_engine.engine.policy.gate_util_provider.get_most_recent_active_grypedb",
-                lambda x: grype_db_feed_metadata,
+                "nextlinux_engine.services.policy_engine.engine.policy.gate_util_provider.get_most_recent_active_govulnersdb",
+                lambda x: govulners_db_feed_metadata,
             )
         else:
             monkeypatch.setattr(
-                "anchore_engine.services.policy_engine.engine.policy.gate_util_provider.get_most_recent_active_grypedb",
-                raise_no_active_grypedb,
+                "nextlinux_engine.services.policy_engine.engine.policy.gate_util_provider.get_most_recent_active_govulnersdb",
+                raise_no_active_govulnersdb,
             )
-        # mocks anchore_engine.db.db_grype_db_feed_metadata.get_most_recent_active_grypedb
+        # mocks nextlinux_engine.db.db_govulners_db_feed_metadata.get_most_recent_active_govulnersdb
         # if feed_group_metadata:
         monkeypatch.setattr(
-            "anchore_engine.services.policy_engine.engine.policy.gate_util_provider.get_feed_group_detached",
+            "nextlinux_engine.services.policy_engine.engine.policy.gate_util_provider.get_feed_group_detached",
             lambda x, y: feed_group_metadata,
         )
 

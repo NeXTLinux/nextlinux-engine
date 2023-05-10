@@ -2,8 +2,8 @@ import datetime
 
 import pytest
 
-from anchore_engine.db.entities.policy_engine import Image
-from anchore_engine.services.policy_engine.engine.vulns.scanners import LegacyScanner
+from nextlinux_engine.db.entities.policy_engine import Image
+from nextlinux_engine.services.policy_engine.engine.vulns.scanners import LegacyScanner
 
 
 @pytest.fixture

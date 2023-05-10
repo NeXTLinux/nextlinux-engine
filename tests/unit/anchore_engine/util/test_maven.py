@@ -1,6 +1,6 @@
 import unittest
 
-from anchore_engine.util.maven import MavenVersion
+from nextlinux_engine.util.maven import MavenVersion
 
 
 class TestMavenVersionHandling(unittest.TestCase):

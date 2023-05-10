@@ -1,6 +1,6 @@
 import unittest
 
-from anchore_engine.util.deb import compare_versions, strict_compare_versions
+from nextlinux_engine.util.deb import compare_versions, strict_compare_versions
 
 
 class TestDpkgVersionHandling(unittest.TestCase):
@@ -39,7 +39,7 @@ class TestDpkgVersionHandling(unittest.TestCase):
             print("Tested: {}".format(i))
 
     def test_version_comparision(self):
-        print("Testing anchore engine specific version comparison")
+        print("Testing nextlinux engine specific version comparison")
         test_epoch = [
             ("1:0", "0:10", "gt", True),
             ("1:0", "1", "ge", False),

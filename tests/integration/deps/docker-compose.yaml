@@ -10,7 +10,7 @@ services:
       - "5432:5432"
 
   swift:
-    image: anchore/test-infra-swift:latest
+    image: nextlinux/test-infra-swift:latest
 #    build:
 #      context: ./swift_build/docker-swift-onlyone
 #      dockerfile: Dockerfile
@@ -18,7 +18,7 @@ services:
     ports:
       - "8080:8080"
   minio:
-    image: anchore/test-infra-minio:latest
+    image: nextlinux/test-infra-minio:latest
 #    build:
 #      context: ./minio_build
 #      dockerfile: Dockerfile

@@ -42,7 +42,7 @@ class TestEventsAPIGetReturns200:
     def test_list_events_with_source_servicename(self, api_conf):
         resp = http_get(
             ["events"],
-            {"source_hostid": "anchore-quickstart", "page": 1, "limit": 1},
+            {"source_hostid": "nextlinux-quickstart", "page": 1, "limit": 1},
             config=api_conf,
         )
         assert resp == APIResponse(200)

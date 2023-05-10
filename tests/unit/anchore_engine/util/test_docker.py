@@ -4,7 +4,7 @@ Tests for docker utils
 """
 import pytest
 
-from anchore_engine.util.docker import (
+from nextlinux_engine.util.docker import (
     DockerV1ManifestMetadata,
     DockerV2ManifestMetadata,
 )

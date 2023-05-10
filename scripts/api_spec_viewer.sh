@@ -10,4 +10,4 @@ then
 	port=8080
 fi
 
-connexion run --port ${port} anchore_engine/services/${service_name}/swagger/swagger.yaml --mock all
+connexion run --port ${port} nextlinux_engine/services/${service_name}/swagger/swagger.yaml --mock all

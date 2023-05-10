@@ -1,10 +1,10 @@
 import unittest
 
-from anchore_engine.services.policy_engine.engine.policy import gate, params
-from anchore_engine.services.policy_engine.engine.policy.exceptions import (
+from nextlinux_engine.services.policy_engine.engine.policy import gate, params
+from nextlinux_engine.services.policy_engine.engine.policy.exceptions import (
     ValidationError,
 )
-from anchore_engine.services.policy_engine.engine.policy.params import (
+from nextlinux_engine.services.policy_engine.engine.policy.params import (
     BooleanStringValidator,
     CommaDelimitedNumberListValidator,
     CommaDelimitedStringListValidator,

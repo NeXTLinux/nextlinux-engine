@@ -1,4 +1,4 @@
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
 logger.enable_test_logging()
 

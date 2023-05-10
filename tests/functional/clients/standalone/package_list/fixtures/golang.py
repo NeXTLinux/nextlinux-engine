@@ -1,11 +1,11 @@
 # Generated from result['image']['imagedata']['analysis_report']['package_list']['pkgs.go']
 
 pkgs = {
-    "/usr/local/bin/grype:cloud.google.com/go/storage@v1.10.0": {
+    "/usr/local/bin/govulners:cloud.google.com/go/storage@v1.10.0": {
         "cpes": ["cpe:2.3:a:go:storage:v1.10.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -16,11 +16,11 @@ pkgs = {
         "type": "go",
         "version": "v1.10.0",
     },
-    "/usr/local/bin/grype:cloud.google.com/go@v0.97.0": {
+    "/usr/local/bin/govulners:cloud.google.com/go@v0.97.0": {
         "cpes": [],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -31,14 +31,14 @@ pkgs = {
         "type": "go",
         "version": "v0.97.0",
     },
-    "/usr/local/bin/grype:github.com/CycloneDX/cyclonedx-go@v0.4.0": {
+    "/usr/local/bin/govulners:github.com/CycloneDX/cyclonedx-go@v0.4.0": {
         "cpes": [
             "cpe:2.3:a:CycloneDX:cyclonedx-go:v0.4.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:CycloneDX:cyclonedx_go:v0.4.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -49,11 +49,11 @@ pkgs = {
         "type": "go",
         "version": "v0.4.0",
     },
-    "/usr/local/bin/grype:github.com/acobaugh/osrelease@v0.1.0": {
+    "/usr/local/bin/govulners:github.com/acobaugh/osrelease@v0.1.0": {
         "cpes": ["cpe:2.3:a:acobaugh:osrelease:v0.1.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -64,11 +64,11 @@ pkgs = {
         "type": "go",
         "version": "v0.1.0",
     },
-    "/usr/local/bin/grype:github.com/adrg/xdg@v0.2.1": {
+    "/usr/local/bin/govulners:github.com/adrg/xdg@v0.2.1": {
         "cpes": ["cpe:2.3:a:adrg:xdg:v0.2.1:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -79,11 +79,11 @@ pkgs = {
         "type": "go",
         "version": "v0.2.1",
     },
-    "/usr/local/bin/grype:github.com/alicebob/sqlittle@v1.4.0": {
+    "/usr/local/bin/govulners:github.com/alicebob/sqlittle@v1.4.0": {
         "cpes": ["cpe:2.3:a:alicebob:sqlittle:v1.4.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -94,97 +94,97 @@ pkgs = {
         "type": "go",
         "version": "v1.4.0",
     },
-    "/usr/local/bin/grype:github.com/anchore/go-rpmdb@v0.0.0-20210914181456-a9c52348da63": {
+    "/usr/local/bin/govulners:github.com/nextlinux/go-rpmdb@v0.0.0-20210914181456-a9c52348da63": {
         "cpes": [
-            "cpe:2.3:a:anchore:go-rpmdb:v0.0.0-20210914181456-a9c52348da63:*:*:*:*:*:*:*",
-            "cpe:2.3:a:anchore:go_rpmdb:v0.0.0-20210914181456-a9c52348da63:*:*:*:*:*:*:*",
+            "cpe:2.3:a:nextlinux:go-rpmdb:v0.0.0-20210914181456-a9c52348da63:*:*:*:*:*:*:*",
+            "cpe:2.3:a:nextlinux:go_rpmdb:v0.0.0-20210914181456-a9c52348da63:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
             "h1Digest": "h1:C9W/LAydEz/qdUhx1MdjO9l8NEcFKYknkxDVyo9LAoM=",
         },
-        "name": "github.com/anchore/go-rpmdb",
+        "name": "github.com/nextlinux/go-rpmdb",
         "origin": "N/A",
         "type": "go",
         "version": "v0.0.0-20210914181456-a9c52348da63",
     },
-    "/usr/local/bin/grype:github.com/anchore/go-version@v1.2.2-0.20210903204242-51efa5b487c4": {
+    "/usr/local/bin/govulners:github.com/nextlinux/go-version@v1.2.2-0.20210903204242-51efa5b487c4": {
         "cpes": [
-            "cpe:2.3:a:anchore:go-version:v1.2.2-0.20210903204242-51efa5b487c4:*:*:*:*:*:*:*",
-            "cpe:2.3:a:anchore:go_version:v1.2.2-0.20210903204242-51efa5b487c4:*:*:*:*:*:*:*",
+            "cpe:2.3:a:nextlinux:go-version:v1.2.2-0.20210903204242-51efa5b487c4:*:*:*:*:*:*:*",
+            "cpe:2.3:a:nextlinux:go_version:v1.2.2-0.20210903204242-51efa5b487c4:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
             "h1Digest": "h1:rmZG77uXgE+o2gozGEBoUMpX27lsku+xrMwlmBZJtbg=",
         },
-        "name": "github.com/anchore/go-version",
+        "name": "github.com/nextlinux/go-version",
         "origin": "N/A",
         "type": "go",
         "version": "v1.2.2-0.20210903204242-51efa5b487c4",
     },
-    "/usr/local/bin/grype:github.com/anchore/packageurl-go@v0.0.0-20210922164639-b3fa992ebd29": {
+    "/usr/local/bin/govulners:github.com/nextlinux/packageurl-go@v0.0.0-20210922164639-b3fa992ebd29": {
         "cpes": [
-            "cpe:2.3:a:anchore:packageurl-go:v0.0.0-20210922164639-b3fa992ebd29:*:*:*:*:*:*:*",
-            "cpe:2.3:a:anchore:packageurl_go:v0.0.0-20210922164639-b3fa992ebd29:*:*:*:*:*:*:*",
+            "cpe:2.3:a:nextlinux:packageurl-go:v0.0.0-20210922164639-b3fa992ebd29:*:*:*:*:*:*:*",
+            "cpe:2.3:a:nextlinux:packageurl_go:v0.0.0-20210922164639-b3fa992ebd29:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
             "h1Digest": "h1:K9LfnxwhqvihqU0+MF325FNy7fsKV9EGaUxdfR4gnWk=",
         },
-        "name": "github.com/anchore/packageurl-go",
+        "name": "github.com/nextlinux/packageurl-go",
         "origin": "N/A",
         "type": "go",
         "version": "v0.0.0-20210922164639-b3fa992ebd29",
     },
-    "/usr/local/bin/grype:github.com/anchore/stereoscope@v0.0.0-20220110181730-c91cf94a3718": {
+    "/usr/local/bin/govulners:github.com/nextlinux/stereoscope@v0.0.0-20220110181730-c91cf94a3718": {
         "cpes": [
-            "cpe:2.3:a:anchore:stereoscope:v0.0.0-20220110181730-c91cf94a3718:*:*:*:*:*:*:*"
+            "cpe:2.3:a:nextlinux:stereoscope:v0.0.0-20220110181730-c91cf94a3718:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
             "h1Digest": "h1:46+DtmTaPlOCuY5KY3H6zazuz3+E/DSwc+ZpfPhyj50=",
         },
-        "name": "github.com/anchore/stereoscope",
+        "name": "github.com/nextlinux/stereoscope",
         "origin": "N/A",
         "type": "go",
         "version": "v0.0.0-20220110181730-c91cf94a3718",
     },
-    "/usr/local/bin/grype:github.com/anchore/syft@v0.36.0": {
-        "cpes": ["cpe:2.3:a:anchore:syft:v0.36.0:*:*:*:*:*:*:*"],
+    "/usr/local/bin/govulners:github.com/nextlinux/gosbom@v0.36.0": {
+        "cpes": ["cpe:2.3:a:nextlinux:gosbom:v0.36.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
             "h1Digest": "h1:+uwTfkbnkgRnK4HOgQfxw59axlCKBqajG8vmRV17N+8=",
         },
-        "name": "github.com/anchore/syft",
+        "name": "github.com/nextlinux/gosbom",
         "origin": "N/A",
         "type": "go",
         "version": "v0.36.0",
     },
-    "/usr/local/bin/grype:github.com/andybalholm/brotli@v1.0.4": {
+    "/usr/local/bin/govulners:github.com/andybalholm/brotli@v1.0.4": {
         "cpes": ["cpe:2.3:a:andybalholm:brotli:v1.0.4:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -195,14 +195,14 @@ pkgs = {
         "type": "go",
         "version": "v1.0.4",
     },
-    "/usr/local/bin/grype:github.com/aws/aws-sdk-go@v1.31.6": {
+    "/usr/local/bin/govulners:github.com/aws/aws-sdk-go@v1.31.6": {
         "cpes": [
             "cpe:2.3:a:aws:aws-sdk-go:v1.31.6:*:*:*:*:*:*:*",
             "cpe:2.3:a:aws:aws_sdk_go:v1.31.6:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -213,14 +213,14 @@ pkgs = {
         "type": "go",
         "version": "v1.31.6",
     },
-    "/usr/local/bin/grype:github.com/bgentry/go-netrc@v0.0.0-20140422174119-9fd32a8b3d3d": {
+    "/usr/local/bin/govulners:github.com/bgentry/go-netrc@v0.0.0-20140422174119-9fd32a8b3d3d": {
         "cpes": [
             "cpe:2.3:a:bgentry:go-netrc:v0.0.0-20140422174119-9fd32a8b3d3d:*:*:*:*:*:*:*",
             "cpe:2.3:a:bgentry:go_netrc:v0.0.0-20140422174119-9fd32a8b3d3d:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -231,11 +231,11 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20140422174119-9fd32a8b3d3d",
     },
-    "/usr/local/bin/grype:github.com/bmatcuk/doublestar/v2@v2.0.4": {
+    "/usr/local/bin/govulners:github.com/bmatcuk/doublestar/v2@v2.0.4": {
         "cpes": ["cpe:2.3:a:bmatcuk:doublestar:v2.0.4:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -246,11 +246,11 @@ pkgs = {
         "type": "go",
         "version": "v2.0.4",
     },
-    "/usr/local/bin/grype:github.com/bmatcuk/doublestar/v4@v4.0.2": {
+    "/usr/local/bin/govulners:github.com/bmatcuk/doublestar/v4@v4.0.2": {
         "cpes": ["cpe:2.3:a:bmatcuk:doublestar:v4.0.2:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -261,11 +261,11 @@ pkgs = {
         "type": "go",
         "version": "v4.0.2",
     },
-    "/usr/local/bin/grype:github.com/containerd/containerd@v1.5.9": {
+    "/usr/local/bin/govulners:github.com/containerd/containerd@v1.5.9": {
         "cpes": ["cpe:2.3:a:containerd:containerd:v1.5.9:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -276,14 +276,14 @@ pkgs = {
         "type": "go",
         "version": "v1.5.9",
     },
-    "/usr/local/bin/grype:github.com/containerd/stargz-snapshotter/estargz@v0.10.0": {
+    "/usr/local/bin/govulners:github.com/containerd/stargz-snapshotter/estargz@v0.10.0": {
         "cpes": [
             "cpe:2.3:a:containerd:stargz-snapshotter:v0.10.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:containerd:stargz_snapshotter:v0.10.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -294,11 +294,11 @@ pkgs = {
         "type": "go",
         "version": "v0.10.0",
     },
-    "/usr/local/bin/grype:github.com/docker/cli@v20.10.10+incompatible": {
+    "/usr/local/bin/govulners:github.com/docker/cli@v20.10.10+incompatible": {
         "cpes": ["cpe:2.3:a:docker:cli:v20.10.10\\+incompatible:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -309,11 +309,11 @@ pkgs = {
         "type": "go",
         "version": "v20.10.10+incompatible",
     },
-    "/usr/local/bin/grype:github.com/docker/distribution@v2.7.1+incompatible": {
+    "/usr/local/bin/govulners:github.com/docker/distribution@v2.7.1+incompatible": {
         "cpes": ["cpe:2.3:a:docker:distribution:v2.7.1\\+incompatible:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -324,14 +324,14 @@ pkgs = {
         "type": "go",
         "version": "v2.7.1+incompatible",
     },
-    "/usr/local/bin/grype:github.com/docker/docker-credential-helpers@v0.6.4": {
+    "/usr/local/bin/govulners:github.com/docker/docker-credential-helpers@v0.6.4": {
         "cpes": [
             "cpe:2.3:a:docker:docker-credential-helpers:v0.6.4:*:*:*:*:*:*:*",
             "cpe:2.3:a:docker:docker_credential_helpers:v0.6.4:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -342,11 +342,11 @@ pkgs = {
         "type": "go",
         "version": "v0.6.4",
     },
-    "/usr/local/bin/grype:github.com/docker/docker@v20.10.11+incompatible": {
+    "/usr/local/bin/govulners:github.com/docker/docker@v20.10.11+incompatible": {
         "cpes": ["cpe:2.3:a:docker:docker:v20.10.11\\+incompatible:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -357,14 +357,14 @@ pkgs = {
         "type": "go",
         "version": "v20.10.11+incompatible",
     },
-    "/usr/local/bin/grype:github.com/docker/go-connections@v0.4.0": {
+    "/usr/local/bin/govulners:github.com/docker/go-connections@v0.4.0": {
         "cpes": [
             "cpe:2.3:a:docker:go-connections:v0.4.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:docker:go_connections:v0.4.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -375,14 +375,14 @@ pkgs = {
         "type": "go",
         "version": "v0.4.0",
     },
-    "/usr/local/bin/grype:github.com/docker/go-units@v0.4.0": {
+    "/usr/local/bin/govulners:github.com/docker/go-units@v0.4.0": {
         "cpes": [
             "cpe:2.3:a:docker:go-units:v0.4.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:docker:go_units:v0.4.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -393,13 +393,13 @@ pkgs = {
         "type": "go",
         "version": "v0.4.0",
     },
-    "/usr/local/bin/grype:github.com/dsnet/compress@v0.0.2-0.20210315054119-f66993602bf5": {
+    "/usr/local/bin/govulners:github.com/dsnet/compress@v0.0.2-0.20210315054119-f66993602bf5": {
         "cpes": [
             "cpe:2.3:a:dsnet:compress:v0.0.2-0.20210315054119-f66993602bf5:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -410,14 +410,14 @@ pkgs = {
         "type": "go",
         "version": "v0.0.2-0.20210315054119-f66993602bf5",
     },
-    "/usr/local/bin/grype:github.com/dustin/go-humanize@v1.0.0": {
+    "/usr/local/bin/govulners:github.com/dustin/go-humanize@v1.0.0": {
         "cpes": [
             "cpe:2.3:a:dustin:go-humanize:v1.0.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:dustin:go_humanize:v1.0.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -428,11 +428,11 @@ pkgs = {
         "type": "go",
         "version": "v1.0.0",
     },
-    "/usr/local/bin/grype:github.com/facebookincubator/nvdtools@v0.1.4": {
+    "/usr/local/bin/govulners:github.com/facebookincubator/nvdtools@v0.1.4": {
         "cpes": ["cpe:2.3:a:facebookincubator:nvdtools:v0.1.4:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -443,11 +443,11 @@ pkgs = {
         "type": "go",
         "version": "v0.1.4",
     },
-    "/usr/local/bin/grype:github.com/fsnotify/fsnotify@v1.4.9": {
+    "/usr/local/bin/govulners:github.com/fsnotify/fsnotify@v1.4.9": {
         "cpes": ["cpe:2.3:a:fsnotify:fsnotify:v1.4.9:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -458,7 +458,7 @@ pkgs = {
         "type": "go",
         "version": "v1.4.9",
     },
-    "/usr/local/bin/grype:github.com/gabriel-vasile/mimetype@v1.3.0": {
+    "/usr/local/bin/govulners:github.com/gabriel-vasile/mimetype@v1.3.0": {
         "cpes": [
             "cpe:2.3:a:gabriel-vasile:mimetype:v1.3.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:gabriel_vasile:mimetype:v1.3.0:*:*:*:*:*:*:*",
@@ -466,7 +466,7 @@ pkgs = {
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -477,7 +477,7 @@ pkgs = {
         "type": "go",
         "version": "v1.3.0",
     },
-    "/usr/local/bin/grype:github.com/go-restruct/restruct@v1.2.0-alpha": {
+    "/usr/local/bin/govulners:github.com/go-restruct/restruct@v1.2.0-alpha": {
         "cpes": [
             "cpe:2.3:a:go-restruct:restruct:v1.2.0-alpha:*:*:*:*:*:*:*",
             "cpe:2.3:a:go_restruct:restruct:v1.2.0-alpha:*:*:*:*:*:*:*",
@@ -485,7 +485,7 @@ pkgs = {
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -496,11 +496,11 @@ pkgs = {
         "type": "go",
         "version": "v1.2.0-alpha",
     },
-    "/usr/local/bin/grype:github.com/gogo/protobuf@v1.3.2": {
+    "/usr/local/bin/govulners:github.com/gogo/protobuf@v1.3.2": {
         "cpes": ["cpe:2.3:a:gogo:protobuf:v1.3.2:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -511,13 +511,13 @@ pkgs = {
         "type": "go",
         "version": "v1.3.2",
     },
-    "/usr/local/bin/grype:github.com/golang/groupcache@v0.0.0-20200121045136-8c9f03a8e57e": {
+    "/usr/local/bin/govulners:github.com/golang/groupcache@v0.0.0-20200121045136-8c9f03a8e57e": {
         "cpes": [
             "cpe:2.3:a:golang:groupcache:v0.0.0-20200121045136-8c9f03a8e57e:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -528,11 +528,11 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20200121045136-8c9f03a8e57e",
     },
-    "/usr/local/bin/grype:github.com/golang/protobuf@v1.5.2": {
+    "/usr/local/bin/govulners:github.com/golang/protobuf@v1.5.2": {
         "cpes": ["cpe:2.3:a:golang:protobuf:v1.5.2:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -543,11 +543,11 @@ pkgs = {
         "type": "go",
         "version": "v1.5.2",
     },
-    "/usr/local/bin/grype:github.com/golang/snappy@v0.0.3": {
+    "/usr/local/bin/govulners:github.com/golang/snappy@v0.0.3": {
         "cpes": ["cpe:2.3:a:golang:snappy:v0.0.3:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -558,14 +558,14 @@ pkgs = {
         "type": "go",
         "version": "v0.0.3",
     },
-    "/usr/local/bin/grype:github.com/google/go-cmp@v0.5.6": {
+    "/usr/local/bin/govulners:github.com/google/go-cmp@v0.5.6": {
         "cpes": [
             "cpe:2.3:a:google:go-cmp:v0.5.6:*:*:*:*:*:*:*",
             "cpe:2.3:a:google:go_cmp:v0.5.6:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -576,14 +576,14 @@ pkgs = {
         "type": "go",
         "version": "v0.5.6",
     },
-    "/usr/local/bin/grype:github.com/google/go-containerregistry@v0.7.0": {
+    "/usr/local/bin/govulners:github.com/google/go-containerregistry@v0.7.0": {
         "cpes": [
             "cpe:2.3:a:google:go-containerregistry:v0.7.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:google:go_containerregistry:v0.7.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -594,11 +594,11 @@ pkgs = {
         "type": "go",
         "version": "v0.7.0",
     },
-    "/usr/local/bin/grype:github.com/google/uuid@v1.2.0": {
+    "/usr/local/bin/govulners:github.com/google/uuid@v1.2.0": {
         "cpes": ["cpe:2.3:a:google:uuid:v1.2.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -609,14 +609,14 @@ pkgs = {
         "type": "go",
         "version": "v1.2.0",
     },
-    "/usr/local/bin/grype:github.com/googleapis/gax-go/v2@v2.1.0": {
+    "/usr/local/bin/govulners:github.com/googleapis/gax-go/v2@v2.1.0": {
         "cpes": [
             "cpe:2.3:a:googleapis:gax-go:v2.1.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:googleapis:gax_go:v2.1.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -627,11 +627,11 @@ pkgs = {
         "type": "go",
         "version": "v2.1.0",
     },
-    "/usr/local/bin/grype:github.com/gookit/color@v1.4.2": {
+    "/usr/local/bin/govulners:github.com/gookit/color@v1.4.2": {
         "cpes": ["cpe:2.3:a:gookit:color:v1.4.2:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -642,11 +642,11 @@ pkgs = {
         "type": "go",
         "version": "v1.4.2",
     },
-    "/usr/local/bin/grype:github.com/hashicorp/errwrap@v1.0.0": {
+    "/usr/local/bin/govulners:github.com/hashicorp/errwrap@v1.0.0": {
         "cpes": ["cpe:2.3:a:hashicorp:errwrap:v1.0.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -657,14 +657,14 @@ pkgs = {
         "type": "go",
         "version": "v1.0.0",
     },
-    "/usr/local/bin/grype:github.com/hashicorp/go-cleanhttp@v0.5.2": {
+    "/usr/local/bin/govulners:github.com/hashicorp/go-cleanhttp@v0.5.2": {
         "cpes": [
             "cpe:2.3:a:hashicorp:go-cleanhttp:v0.5.2:*:*:*:*:*:*:*",
             "cpe:2.3:a:hashicorp:go_cleanhttp:v0.5.2:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -675,14 +675,14 @@ pkgs = {
         "type": "go",
         "version": "v0.5.2",
     },
-    "/usr/local/bin/grype:github.com/hashicorp/go-getter@v1.5.9": {
+    "/usr/local/bin/govulners:github.com/hashicorp/go-getter@v1.5.9": {
         "cpes": [
             "cpe:2.3:a:hashicorp:go-getter:v1.5.9:*:*:*:*:*:*:*",
             "cpe:2.3:a:hashicorp:go_getter:v1.5.9:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -693,14 +693,14 @@ pkgs = {
         "type": "go",
         "version": "v1.5.9",
     },
-    "/usr/local/bin/grype:github.com/hashicorp/go-multierror@v1.1.0": {
+    "/usr/local/bin/govulners:github.com/hashicorp/go-multierror@v1.1.0": {
         "cpes": [
             "cpe:2.3:a:hashicorp:go-multierror:v1.1.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:hashicorp:go_multierror:v1.1.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -711,14 +711,14 @@ pkgs = {
         "type": "go",
         "version": "v1.1.0",
     },
-    "/usr/local/bin/grype:github.com/hashicorp/go-safetemp@v1.0.0": {
+    "/usr/local/bin/govulners:github.com/hashicorp/go-safetemp@v1.0.0": {
         "cpes": [
             "cpe:2.3:a:hashicorp:go-safetemp:v1.0.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:hashicorp:go_safetemp:v1.0.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -729,14 +729,14 @@ pkgs = {
         "type": "go",
         "version": "v1.0.0",
     },
-    "/usr/local/bin/grype:github.com/hashicorp/go-version@v1.2.0": {
+    "/usr/local/bin/govulners:github.com/hashicorp/go-version@v1.2.0": {
         "cpes": [
             "cpe:2.3:a:hashicorp:go-version:v1.2.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:hashicorp:go_version:v1.2.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -747,11 +747,11 @@ pkgs = {
         "type": "go",
         "version": "v1.2.0",
     },
-    "/usr/local/bin/grype:github.com/hashicorp/hcl@v1.0.0": {
+    "/usr/local/bin/govulners:github.com/hashicorp/hcl@v1.0.0": {
         "cpes": ["cpe:2.3:a:hashicorp:hcl:v1.0.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -762,11 +762,11 @@ pkgs = {
         "type": "go",
         "version": "v1.0.0",
     },
-    "/usr/local/bin/grype:github.com/jinzhu/copier@v0.3.2": {
+    "/usr/local/bin/govulners:github.com/jinzhu/copier@v0.3.2": {
         "cpes": ["cpe:2.3:a:jinzhu:copier:v0.3.2:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -777,14 +777,14 @@ pkgs = {
         "type": "go",
         "version": "v0.3.2",
     },
-    "/usr/local/bin/grype:github.com/jmespath/go-jmespath@v0.3.0": {
+    "/usr/local/bin/govulners:github.com/jmespath/go-jmespath@v0.3.0": {
         "cpes": [
             "cpe:2.3:a:jmespath:go-jmespath:v0.3.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:jmespath:go_jmespath:v0.3.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -795,11 +795,11 @@ pkgs = {
         "type": "go",
         "version": "v0.3.0",
     },
-    "/usr/local/bin/grype:github.com/klauspost/compress@v1.13.6": {
+    "/usr/local/bin/govulners:github.com/klauspost/compress@v1.13.6": {
         "cpes": ["cpe:2.3:a:klauspost:compress:v1.13.6:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -810,11 +810,11 @@ pkgs = {
         "type": "go",
         "version": "v1.13.6",
     },
-    "/usr/local/bin/grype:github.com/klauspost/pgzip@v1.2.5": {
+    "/usr/local/bin/govulners:github.com/klauspost/pgzip@v1.2.5": {
         "cpes": ["cpe:2.3:a:klauspost:pgzip:v1.2.5:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -825,14 +825,14 @@ pkgs = {
         "type": "go",
         "version": "v1.2.5",
     },
-    "/usr/local/bin/grype:github.com/knqyf263/go-apk-version@v0.0.0-20200609155635-041fdbb8563f": {
+    "/usr/local/bin/govulners:github.com/knqyf263/go-apk-version@v0.0.0-20200609155635-041fdbb8563f": {
         "cpes": [
             "cpe:2.3:a:knqyf263:go-apk-version:v0.0.0-20200609155635-041fdbb8563f:*:*:*:*:*:*:*",
             "cpe:2.3:a:knqyf263:go_apk_version:v0.0.0-20200609155635-041fdbb8563f:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -843,14 +843,14 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20200609155635-041fdbb8563f",
     },
-    "/usr/local/bin/grype:github.com/knqyf263/go-deb-version@v0.0.0-20190517075300-09fca494f03d": {
+    "/usr/local/bin/govulners:github.com/knqyf263/go-deb-version@v0.0.0-20190517075300-09fca494f03d": {
         "cpes": [
             "cpe:2.3:a:knqyf263:go-deb-version:v0.0.0-20190517075300-09fca494f03d:*:*:*:*:*:*:*",
             "cpe:2.3:a:knqyf263:go_deb_version:v0.0.0-20190517075300-09fca494f03d:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -861,11 +861,11 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20190517075300-09fca494f03d",
     },
-    "/usr/local/bin/grype:github.com/magiconair/properties@v1.8.5": {
+    "/usr/local/bin/govulners:github.com/magiconair/properties@v1.8.5": {
         "cpes": ["cpe:2.3:a:magiconair:properties:v1.8.5:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -876,14 +876,14 @@ pkgs = {
         "type": "go",
         "version": "v1.8.5",
     },
-    "/usr/local/bin/grype:github.com/mattn/go-colorable@v0.1.6": {
+    "/usr/local/bin/govulners:github.com/mattn/go-colorable@v0.1.6": {
         "cpes": [
             "cpe:2.3:a:mattn:go-colorable:v0.1.6:*:*:*:*:*:*:*",
             "cpe:2.3:a:mattn:go_colorable:v0.1.6:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -894,14 +894,14 @@ pkgs = {
         "type": "go",
         "version": "v0.1.6",
     },
-    "/usr/local/bin/grype:github.com/mattn/go-isatty@v0.0.12": {
+    "/usr/local/bin/govulners:github.com/mattn/go-isatty@v0.0.12": {
         "cpes": [
             "cpe:2.3:a:mattn:go-isatty:v0.0.12:*:*:*:*:*:*:*",
             "cpe:2.3:a:mattn:go_isatty:v0.0.12:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -912,14 +912,14 @@ pkgs = {
         "type": "go",
         "version": "v0.0.12",
     },
-    "/usr/local/bin/grype:github.com/mattn/go-runewidth@v0.0.7": {
+    "/usr/local/bin/govulners:github.com/mattn/go-runewidth@v0.0.7": {
         "cpes": [
             "cpe:2.3:a:mattn:go-runewidth:v0.0.7:*:*:*:*:*:*:*",
             "cpe:2.3:a:mattn:go_runewidth:v0.0.7:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -930,13 +930,13 @@ pkgs = {
         "type": "go",
         "version": "v0.0.7",
     },
-    "/usr/local/bin/grype:github.com/mgutz/ansi@v0.0.0-20200706080929-d51e80ef957d": {
+    "/usr/local/bin/govulners:github.com/mgutz/ansi@v0.0.0-20200706080929-d51e80ef957d": {
         "cpes": [
             "cpe:2.3:a:mgutz:ansi:v0.0.0-20200706080929-d51e80ef957d:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -947,11 +947,11 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20200706080929-d51e80ef957d",
     },
-    "/usr/local/bin/grype:github.com/mholt/archiver/v3@v3.5.1": {
+    "/usr/local/bin/govulners:github.com/mholt/archiver/v3@v3.5.1": {
         "cpes": ["cpe:2.3:a:mholt:archiver:v3.5.1:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -962,14 +962,14 @@ pkgs = {
         "type": "go",
         "version": "v3.5.1",
     },
-    "/usr/local/bin/grype:github.com/mitchellh/go-homedir@v1.1.0": {
+    "/usr/local/bin/govulners:github.com/mitchellh/go-homedir@v1.1.0": {
         "cpes": [
             "cpe:2.3:a:mitchellh:go-homedir:v1.1.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:mitchellh:go_homedir:v1.1.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -980,14 +980,14 @@ pkgs = {
         "type": "go",
         "version": "v1.1.0",
     },
-    "/usr/local/bin/grype:github.com/mitchellh/go-testing-interface@v1.0.0": {
+    "/usr/local/bin/govulners:github.com/mitchellh/go-testing-interface@v1.0.0": {
         "cpes": [
             "cpe:2.3:a:mitchellh:go-testing-interface:v1.0.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:mitchellh:go_testing_interface:v1.0.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -998,11 +998,11 @@ pkgs = {
         "type": "go",
         "version": "v1.0.0",
     },
-    "/usr/local/bin/grype:github.com/mitchellh/hashstructure/v2@v2.0.2": {
+    "/usr/local/bin/govulners:github.com/mitchellh/hashstructure/v2@v2.0.2": {
         "cpes": ["cpe:2.3:a:mitchellh:hashstructure:v2.0.2:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1013,11 +1013,11 @@ pkgs = {
         "type": "go",
         "version": "v2.0.2",
     },
-    "/usr/local/bin/grype:github.com/mitchellh/mapstructure@v1.4.1": {
+    "/usr/local/bin/govulners:github.com/mitchellh/mapstructure@v1.4.1": {
         "cpes": ["cpe:2.3:a:mitchellh:mapstructure:v1.4.1:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1028,11 +1028,11 @@ pkgs = {
         "type": "go",
         "version": "v1.4.1",
     },
-    "/usr/local/bin/grype:github.com/nwaples/rardecode@v1.1.0": {
+    "/usr/local/bin/govulners:github.com/nwaples/rardecode@v1.1.0": {
         "cpes": ["cpe:2.3:a:nwaples:rardecode:v1.1.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1043,11 +1043,11 @@ pkgs = {
         "type": "go",
         "version": "v1.1.0",
     },
-    "/usr/local/bin/grype:github.com/olekukonko/tablewriter@v0.0.4": {
+    "/usr/local/bin/govulners:github.com/olekukonko/tablewriter@v0.0.4": {
         "cpes": ["cpe:2.3:a:olekukonko:tablewriter:v0.0.4:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1058,14 +1058,14 @@ pkgs = {
         "type": "go",
         "version": "v0.0.4",
     },
-    "/usr/local/bin/grype:github.com/opencontainers/go-digest@v1.0.0": {
+    "/usr/local/bin/govulners:github.com/opencontainers/go-digest@v1.0.0": {
         "cpes": [
             "cpe:2.3:a:opencontainers:go-digest:v1.0.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:opencontainers:go_digest:v1.0.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1076,14 +1076,14 @@ pkgs = {
         "type": "go",
         "version": "v1.0.0",
     },
-    "/usr/local/bin/grype:github.com/opencontainers/image-spec@v1.0.2": {
+    "/usr/local/bin/govulners:github.com/opencontainers/image-spec@v1.0.2": {
         "cpes": [
             "cpe:2.3:a:opencontainers:image-spec:v1.0.2:*:*:*:*:*:*:*",
             "cpe:2.3:a:opencontainers:image_spec:v1.0.2:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1094,14 +1094,14 @@ pkgs = {
         "type": "go",
         "version": "v1.0.2",
     },
-    "/usr/local/bin/grype:github.com/pelletier/go-toml@v1.9.3": {
+    "/usr/local/bin/govulners:github.com/pelletier/go-toml@v1.9.3": {
         "cpes": [
             "cpe:2.3:a:pelletier:go-toml:v1.9.3:*:*:*:*:*:*:*",
             "cpe:2.3:a:pelletier:go_toml:v1.9.3:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1112,11 +1112,11 @@ pkgs = {
         "type": "go",
         "version": "v1.9.3",
     },
-    "/usr/local/bin/grype:github.com/pierrec/lz4/v4@v4.1.2": {
+    "/usr/local/bin/govulners:github.com/pierrec/lz4/v4@v4.1.2": {
         "cpes": ["cpe:2.3:a:pierrec:lz4:v4.1.2:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1127,11 +1127,11 @@ pkgs = {
         "type": "go",
         "version": "v4.1.2",
     },
-    "/usr/local/bin/grype:github.com/pkg/errors@v0.9.1": {
+    "/usr/local/bin/govulners:github.com/pkg/errors@v0.9.1": {
         "cpes": ["cpe:2.3:a:pkg:errors:v0.9.1:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1142,11 +1142,11 @@ pkgs = {
         "type": "go",
         "version": "v0.9.1",
     },
-    "/usr/local/bin/grype:github.com/pkg/profile@v1.6.0": {
+    "/usr/local/bin/govulners:github.com/pkg/profile@v1.6.0": {
         "cpes": ["cpe:2.3:a:pkg:profile:v1.6.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1157,14 +1157,14 @@ pkgs = {
         "type": "go",
         "version": "v1.6.0",
     },
-    "/usr/local/bin/grype:github.com/scylladb/go-set@v1.0.2": {
+    "/usr/local/bin/govulners:github.com/scylladb/go-set@v1.0.2": {
         "cpes": [
             "cpe:2.3:a:scylladb:go-set:v1.0.2:*:*:*:*:*:*:*",
             "cpe:2.3:a:scylladb:go_set:v1.0.2:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1175,11 +1175,11 @@ pkgs = {
         "type": "go",
         "version": "v1.0.2",
     },
-    "/usr/local/bin/grype:github.com/sirupsen/logrus@v1.8.1": {
+    "/usr/local/bin/govulners:github.com/sirupsen/logrus@v1.8.1": {
         "cpes": ["cpe:2.3:a:sirupsen:logrus:v1.8.1:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1190,14 +1190,14 @@ pkgs = {
         "type": "go",
         "version": "v1.8.1",
     },
-    "/usr/local/bin/grype:github.com/spdx/tools-golang@v0.1.0": {
+    "/usr/local/bin/govulners:github.com/spdx/tools-golang@v0.1.0": {
         "cpes": [
             "cpe:2.3:a:spdx:tools-golang:v0.1.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:spdx:tools_golang:v0.1.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1208,11 +1208,11 @@ pkgs = {
         "type": "go",
         "version": "v0.1.0",
     },
-    "/usr/local/bin/grype:github.com/spf13/afero@v1.6.0": {
+    "/usr/local/bin/govulners:github.com/spf13/afero@v1.6.0": {
         "cpes": ["cpe:2.3:a:spf13:afero:v1.6.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1223,11 +1223,11 @@ pkgs = {
         "type": "go",
         "version": "v1.6.0",
     },
-    "/usr/local/bin/grype:github.com/spf13/cast@v1.3.1": {
+    "/usr/local/bin/govulners:github.com/spf13/cast@v1.3.1": {
         "cpes": ["cpe:2.3:a:spf13:cast:v1.3.1:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1238,11 +1238,11 @@ pkgs = {
         "type": "go",
         "version": "v1.3.1",
     },
-    "/usr/local/bin/grype:github.com/spf13/cobra@v1.2.1": {
+    "/usr/local/bin/govulners:github.com/spf13/cobra@v1.2.1": {
         "cpes": ["cpe:2.3:a:spf13:cobra:v1.2.1:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1253,11 +1253,11 @@ pkgs = {
         "type": "go",
         "version": "v1.2.1",
     },
-    "/usr/local/bin/grype:github.com/spf13/jwalterweatherman@v1.1.0": {
+    "/usr/local/bin/govulners:github.com/spf13/jwalterweatherman@v1.1.0": {
         "cpes": ["cpe:2.3:a:spf13:jwalterweatherman:v1.1.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1268,11 +1268,11 @@ pkgs = {
         "type": "go",
         "version": "v1.1.0",
     },
-    "/usr/local/bin/grype:github.com/spf13/pflag@v1.0.5": {
+    "/usr/local/bin/govulners:github.com/spf13/pflag@v1.0.5": {
         "cpes": ["cpe:2.3:a:spf13:pflag:v1.0.5:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1283,11 +1283,11 @@ pkgs = {
         "type": "go",
         "version": "v1.0.5",
     },
-    "/usr/local/bin/grype:github.com/spf13/viper@v1.8.1": {
+    "/usr/local/bin/govulners:github.com/spf13/viper@v1.8.1": {
         "cpes": ["cpe:2.3:a:spf13:viper:v1.8.1:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1298,11 +1298,11 @@ pkgs = {
         "type": "go",
         "version": "v1.8.1",
     },
-    "/usr/local/bin/grype:github.com/subosito/gotenv@v1.2.0": {
+    "/usr/local/bin/govulners:github.com/subosito/gotenv@v1.2.0": {
         "cpes": ["cpe:2.3:a:subosito:gotenv:v1.2.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1313,11 +1313,11 @@ pkgs = {
         "type": "go",
         "version": "v1.2.0",
     },
-    "/usr/local/bin/grype:github.com/ulikunitz/xz@v0.5.9": {
+    "/usr/local/bin/govulners:github.com/ulikunitz/xz@v0.5.9": {
         "cpes": ["cpe:2.3:a:ulikunitz:xz:v0.5.9:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1328,14 +1328,14 @@ pkgs = {
         "type": "go",
         "version": "v0.5.9",
     },
-    "/usr/local/bin/grype:github.com/vbatts/tar-split@v0.11.2": {
+    "/usr/local/bin/govulners:github.com/vbatts/tar-split@v0.11.2": {
         "cpes": [
             "cpe:2.3:a:vbatts:tar-split:v0.11.2:*:*:*:*:*:*:*",
             "cpe:2.3:a:vbatts:tar_split:v0.11.2:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1346,11 +1346,11 @@ pkgs = {
         "type": "go",
         "version": "v0.11.2",
     },
-    "/usr/local/bin/grype:github.com/vifraa/gopom@v0.1.0": {
+    "/usr/local/bin/govulners:github.com/vifraa/gopom@v0.1.0": {
         "cpes": ["cpe:2.3:a:vifraa:gopom:v0.1.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1361,14 +1361,14 @@ pkgs = {
         "type": "go",
         "version": "v0.1.0",
     },
-    "/usr/local/bin/grype:github.com/wagoodman/go-partybus@v0.0.0-20210627031916-db1f5573bbc5": {
+    "/usr/local/bin/govulners:github.com/wagoodman/go-partybus@v0.0.0-20210627031916-db1f5573bbc5": {
         "cpes": [
             "cpe:2.3:a:wagoodman:go-partybus:v0.0.0-20210627031916-db1f5573bbc5:*:*:*:*:*:*:*",
             "cpe:2.3:a:wagoodman:go_partybus:v0.0.0-20210627031916-db1f5573bbc5:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1379,14 +1379,14 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20210627031916-db1f5573bbc5",
     },
-    "/usr/local/bin/grype:github.com/wagoodman/go-progress@v0.0.0-20200807221327-51d465df1451": {
+    "/usr/local/bin/govulners:github.com/wagoodman/go-progress@v0.0.0-20200807221327-51d465df1451": {
         "cpes": [
             "cpe:2.3:a:wagoodman:go-progress:v0.0.0-20200807221327-51d465df1451:*:*:*:*:*:*:*",
             "cpe:2.3:a:wagoodman:go_progress:v0.0.0-20200807221327-51d465df1451:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1397,13 +1397,13 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20200807221327-51d465df1451",
     },
-    "/usr/local/bin/grype:github.com/wagoodman/jotframe@v0.0.0-20211129225309-56b0d0a4aebb": {
+    "/usr/local/bin/govulners:github.com/wagoodman/jotframe@v0.0.0-20211129225309-56b0d0a4aebb": {
         "cpes": [
             "cpe:2.3:a:wagoodman:jotframe:v0.0.0-20211129225309-56b0d0a4aebb:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1414,7 +1414,7 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20211129225309-56b0d0a4aebb",
     },
-    "/usr/local/bin/grype:github.com/x-cray/logrus-prefixed-formatter@v0.5.2": {
+    "/usr/local/bin/govulners:github.com/x-cray/logrus-prefixed-formatter@v0.5.2": {
         "cpes": [
             "cpe:2.3:a:x-cray:logrus-prefixed-formatter:v0.5.2:*:*:*:*:*:*:*",
             "cpe:2.3:a:x-cray:logrus_prefixed_formatter:v0.5.2:*:*:*:*:*:*:*",
@@ -1425,7 +1425,7 @@ pkgs = {
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1436,11 +1436,11 @@ pkgs = {
         "type": "go",
         "version": "v0.5.2",
     },
-    "/usr/local/bin/grype:github.com/xi2/xz@v0.0.0-20171230120015-48954b6210f8": {
+    "/usr/local/bin/govulners:github.com/xi2/xz@v0.0.0-20171230120015-48954b6210f8": {
         "cpes": ["cpe:2.3:a:xi2:xz:v0.0.0-20171230120015-48954b6210f8:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1451,13 +1451,13 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20171230120015-48954b6210f8",
     },
-    "/usr/local/bin/grype:github.com/xo/terminfo@v0.0.0-20210125001918-ca9a967f8778": {
+    "/usr/local/bin/govulners:github.com/xo/terminfo@v0.0.0-20210125001918-ca9a967f8778": {
         "cpes": [
             "cpe:2.3:a:xo:terminfo:v0.0.0-20210125001918-ca9a967f8778:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1468,11 +1468,11 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20210125001918-ca9a967f8778",
     },
-    "/usr/local/bin/grype:go.opencensus.io@v0.23.0": {
+    "/usr/local/bin/govulners:go.opencensus.io@v0.23.0": {
         "cpes": [],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1483,13 +1483,13 @@ pkgs = {
         "type": "go",
         "version": "v0.23.0",
     },
-    "/usr/local/bin/grype:golang.org/x/crypto@v0.0.0-20210322153248-0c34fe9e7dc2": {
+    "/usr/local/bin/govulners:golang.org/x/crypto@v0.0.0-20210322153248-0c34fe9e7dc2": {
         "cpes": [
             "cpe:2.3:a:golang:x\\/crypto:v0.0.0-20210322153248-0c34fe9e7dc2:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1500,13 +1500,13 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20210322153248-0c34fe9e7dc2",
     },
-    "/usr/local/bin/grype:golang.org/x/exp@v0.0.0-20200224162631-6cc2880d07d6": {
+    "/usr/local/bin/govulners:golang.org/x/exp@v0.0.0-20200224162631-6cc2880d07d6": {
         "cpes": [
             "cpe:2.3:a:golang:x\\/exp:v0.0.0-20200224162631-6cc2880d07d6:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1517,11 +1517,11 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20200224162631-6cc2880d07d6",
     },
-    "/usr/local/bin/grype:golang.org/x/mod@v0.4.2": {
+    "/usr/local/bin/govulners:golang.org/x/mod@v0.4.2": {
         "cpes": ["cpe:2.3:a:golang:x\\/mod:v0.4.2:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1532,13 +1532,13 @@ pkgs = {
         "type": "go",
         "version": "v0.4.2",
     },
-    "/usr/local/bin/grype:golang.org/x/net@v0.0.0-20211112202133-69e39bad7dc2": {
+    "/usr/local/bin/govulners:golang.org/x/net@v0.0.0-20211112202133-69e39bad7dc2": {
         "cpes": [
             "cpe:2.3:a:golang:x\\/net:v0.0.0-20211112202133-69e39bad7dc2:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1549,13 +1549,13 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20211112202133-69e39bad7dc2",
     },
-    "/usr/local/bin/grype:golang.org/x/oauth2@v0.0.0-20211104180415-d3ed0bb246c8": {
+    "/usr/local/bin/govulners:golang.org/x/oauth2@v0.0.0-20211104180415-d3ed0bb246c8": {
         "cpes": [
             "cpe:2.3:a:golang:x\\/oauth2:v0.0.0-20211104180415-d3ed0bb246c8:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1566,13 +1566,13 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20211104180415-d3ed0bb246c8",
     },
-    "/usr/local/bin/grype:golang.org/x/sync@v0.0.0-20210220032951-036812b2e83c": {
+    "/usr/local/bin/govulners:golang.org/x/sync@v0.0.0-20210220032951-036812b2e83c": {
         "cpes": [
             "cpe:2.3:a:golang:x\\/sync:v0.0.0-20210220032951-036812b2e83c:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1583,13 +1583,13 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20210220032951-036812b2e83c",
     },
-    "/usr/local/bin/grype:golang.org/x/sys@v0.0.0-20211110154304-99a53858aa08": {
+    "/usr/local/bin/govulners:golang.org/x/sys@v0.0.0-20211110154304-99a53858aa08": {
         "cpes": [
             "cpe:2.3:a:golang:x\\/sys:v0.0.0-20211110154304-99a53858aa08:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1600,13 +1600,13 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20211110154304-99a53858aa08",
     },
-    "/usr/local/bin/grype:golang.org/x/term@v0.0.0-20210927222741-03fcf44c2211": {
+    "/usr/local/bin/govulners:golang.org/x/term@v0.0.0-20210927222741-03fcf44c2211": {
         "cpes": [
             "cpe:2.3:a:golang:x\\/term:v0.0.0-20210927222741-03fcf44c2211:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1617,11 +1617,11 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20210927222741-03fcf44c2211",
     },
-    "/usr/local/bin/grype:golang.org/x/text@v0.3.6": {
+    "/usr/local/bin/govulners:golang.org/x/text@v0.3.6": {
         "cpes": ["cpe:2.3:a:golang:x\\/text:v0.3.6:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1632,13 +1632,13 @@ pkgs = {
         "type": "go",
         "version": "v0.3.6",
     },
-    "/usr/local/bin/grype:golang.org/x/xerrors@v0.0.0-20200804184101-5ec99f83aff1": {
+    "/usr/local/bin/govulners:golang.org/x/xerrors@v0.0.0-20200804184101-5ec99f83aff1": {
         "cpes": [
             "cpe:2.3:a:golang:x\\/xerrors:v0.0.0-20200804184101-5ec99f83aff1:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1649,11 +1649,11 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20200804184101-5ec99f83aff1",
     },
-    "/usr/local/bin/grype:google.golang.org/api@v0.57.0": {
+    "/usr/local/bin/govulners:google.golang.org/api@v0.57.0": {
         "cpes": ["cpe:2.3:a:google:api:v0.57.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1664,13 +1664,13 @@ pkgs = {
         "type": "go",
         "version": "v0.57.0",
     },
-    "/usr/local/bin/grype:google.golang.org/genproto@v0.0.0-20211111162719-482062a4217b": {
+    "/usr/local/bin/govulners:google.golang.org/genproto@v0.0.0-20211111162719-482062a4217b": {
         "cpes": [
             "cpe:2.3:a:google:genproto:v0.0.0-20211111162719-482062a4217b:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1681,11 +1681,11 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20211111162719-482062a4217b",
     },
-    "/usr/local/bin/grype:google.golang.org/grpc@v1.42.0": {
+    "/usr/local/bin/govulners:google.golang.org/grpc@v1.42.0": {
         "cpes": ["cpe:2.3:a:google:grpc:v1.42.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1696,11 +1696,11 @@ pkgs = {
         "type": "go",
         "version": "v1.42.0",
     },
-    "/usr/local/bin/grype:google.golang.org/protobuf@v1.27.1": {
+    "/usr/local/bin/govulners:google.golang.org/protobuf@v1.27.1": {
         "cpes": ["cpe:2.3:a:google:protobuf:v1.27.1:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1711,11 +1711,11 @@ pkgs = {
         "type": "go",
         "version": "v1.27.1",
     },
-    "/usr/local/bin/grype:gopkg.in/ini.v1@v1.62.0": {
+    "/usr/local/bin/govulners:gopkg.in/ini.v1@v1.62.0": {
         "cpes": [],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1726,11 +1726,11 @@ pkgs = {
         "type": "go",
         "version": "v1.62.0",
     },
-    "/usr/local/bin/grype:gopkg.in/yaml.v2@v2.4.0": {
+    "/usr/local/bin/govulners:gopkg.in/yaml.v2@v2.4.0": {
         "cpes": [],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/grype",
+        "location": "/usr/local/bin/govulners",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1741,14 +1741,14 @@ pkgs = {
         "type": "go",
         "version": "v2.4.0",
     },
-    "/usr/local/bin/syft:github.com/CycloneDX/cyclonedx-go@v0.4.0": {
+    "/usr/local/bin/gosbom:github.com/CycloneDX/cyclonedx-go@v0.4.0": {
         "cpes": [
             "cpe:2.3:a:CycloneDX:cyclonedx-go:v0.4.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:CycloneDX:cyclonedx_go:v0.4.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1759,11 +1759,11 @@ pkgs = {
         "type": "go",
         "version": "v0.4.0",
     },
-    "/usr/local/bin/syft:github.com/acobaugh/osrelease@v0.1.0": {
+    "/usr/local/bin/gosbom:github.com/acobaugh/osrelease@v0.1.0": {
         "cpes": ["cpe:2.3:a:acobaugh:osrelease:v0.1.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1774,11 +1774,11 @@ pkgs = {
         "type": "go",
         "version": "v0.1.0",
     },
-    "/usr/local/bin/syft:github.com/adrg/xdg@v0.2.1": {
+    "/usr/local/bin/gosbom:github.com/adrg/xdg@v0.2.1": {
         "cpes": ["cpe:2.3:a:adrg:xdg:v0.2.1:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1789,100 +1789,100 @@ pkgs = {
         "type": "go",
         "version": "v0.2.1",
     },
-    "/usr/local/bin/syft:github.com/anchore/client-go@v0.0.0-20210222170800-9c70f9b80bcf": {
+    "/usr/local/bin/gosbom:github.com/nextlinux/client-go@v0.0.0-20210222170800-9c70f9b80bcf": {
         "cpes": [
-            "cpe:2.3:a:anchore:client-go:v0.0.0-20210222170800-9c70f9b80bcf:*:*:*:*:*:*:*",
-            "cpe:2.3:a:anchore:client_go:v0.0.0-20210222170800-9c70f9b80bcf:*:*:*:*:*:*:*",
+            "cpe:2.3:a:nextlinux:client-go:v0.0.0-20210222170800-9c70f9b80bcf:*:*:*:*:*:*:*",
+            "cpe:2.3:a:nextlinux:client_go:v0.0.0-20210222170800-9c70f9b80bcf:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
             "h1Digest": "h1:DYssiUV1pBmKqzKsm4mqXx8artqC0Q8HgZsVI3lMsAg=",
         },
-        "name": "github.com/anchore/client-go",
+        "name": "github.com/nextlinux/client-go",
         "origin": "N/A",
         "type": "go",
         "version": "v0.0.0-20210222170800-9c70f9b80bcf",
     },
-    "/usr/local/bin/syft:github.com/anchore/go-rpmdb@v0.0.0-20210914181456-a9c52348da63": {
+    "/usr/local/bin/gosbom:github.com/nextlinux/go-rpmdb@v0.0.0-20210914181456-a9c52348da63": {
         "cpes": [
-            "cpe:2.3:a:anchore:go-rpmdb:v0.0.0-20210914181456-a9c52348da63:*:*:*:*:*:*:*",
-            "cpe:2.3:a:anchore:go_rpmdb:v0.0.0-20210914181456-a9c52348da63:*:*:*:*:*:*:*",
+            "cpe:2.3:a:nextlinux:go-rpmdb:v0.0.0-20210914181456-a9c52348da63:*:*:*:*:*:*:*",
+            "cpe:2.3:a:nextlinux:go_rpmdb:v0.0.0-20210914181456-a9c52348da63:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
             "h1Digest": "h1:C9W/LAydEz/qdUhx1MdjO9l8NEcFKYknkxDVyo9LAoM=",
         },
-        "name": "github.com/anchore/go-rpmdb",
+        "name": "github.com/nextlinux/go-rpmdb",
         "origin": "N/A",
         "type": "go",
         "version": "v0.0.0-20210914181456-a9c52348da63",
     },
-    "/usr/local/bin/syft:github.com/anchore/go-version@v1.2.2-0.20200701162849-18adb9c92b9b": {
+    "/usr/local/bin/gosbom:github.com/nextlinux/go-version@v1.2.2-0.20200701162849-18adb9c92b9b": {
         "cpes": [
-            "cpe:2.3:a:anchore:go-version:v1.2.2-0.20200701162849-18adb9c92b9b:*:*:*:*:*:*:*",
-            "cpe:2.3:a:anchore:go_version:v1.2.2-0.20200701162849-18adb9c92b9b:*:*:*:*:*:*:*",
+            "cpe:2.3:a:nextlinux:go-version:v1.2.2-0.20200701162849-18adb9c92b9b:*:*:*:*:*:*:*",
+            "cpe:2.3:a:nextlinux:go_version:v1.2.2-0.20200701162849-18adb9c92b9b:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
             "h1Digest": "h1:e1bmaoJfZVsCYMrIZBpFxwV26CbsuoEh5muXD5I1Ods=",
         },
-        "name": "github.com/anchore/go-version",
+        "name": "github.com/nextlinux/go-version",
         "origin": "N/A",
         "type": "go",
         "version": "v1.2.2-0.20200701162849-18adb9c92b9b",
     },
-    "/usr/local/bin/syft:github.com/anchore/packageurl-go@v0.0.0-20210922164639-b3fa992ebd29": {
+    "/usr/local/bin/gosbom:github.com/nextlinux/packageurl-go@v0.0.0-20210922164639-b3fa992ebd29": {
         "cpes": [
-            "cpe:2.3:a:anchore:packageurl-go:v0.0.0-20210922164639-b3fa992ebd29:*:*:*:*:*:*:*",
-            "cpe:2.3:a:anchore:packageurl_go:v0.0.0-20210922164639-b3fa992ebd29:*:*:*:*:*:*:*",
+            "cpe:2.3:a:nextlinux:packageurl-go:v0.0.0-20210922164639-b3fa992ebd29:*:*:*:*:*:*:*",
+            "cpe:2.3:a:nextlinux:packageurl_go:v0.0.0-20210922164639-b3fa992ebd29:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
             "h1Digest": "h1:K9LfnxwhqvihqU0+MF325FNy7fsKV9EGaUxdfR4gnWk=",
         },
-        "name": "github.com/anchore/packageurl-go",
+        "name": "github.com/nextlinux/packageurl-go",
         "origin": "N/A",
         "type": "go",
         "version": "v0.0.0-20210922164639-b3fa992ebd29",
     },
-    "/usr/local/bin/syft:github.com/anchore/stereoscope@v0.0.0-20220110181730-c91cf94a3718": {
+    "/usr/local/bin/gosbom:github.com/nextlinux/stereoscope@v0.0.0-20220110181730-c91cf94a3718": {
         "cpes": [
-            "cpe:2.3:a:anchore:stereoscope:v0.0.0-20220110181730-c91cf94a3718:*:*:*:*:*:*:*"
+            "cpe:2.3:a:nextlinux:stereoscope:v0.0.0-20220110181730-c91cf94a3718:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
             "h1Digest": "h1:46+DtmTaPlOCuY5KY3H6zazuz3+E/DSwc+ZpfPhyj50=",
         },
-        "name": "github.com/anchore/stereoscope",
+        "name": "github.com/nextlinux/stereoscope",
         "origin": "N/A",
         "type": "go",
         "version": "v0.0.0-20220110181730-c91cf94a3718",
     },
-    "/usr/local/bin/syft:github.com/andybalholm/brotli@v1.0.4": {
+    "/usr/local/bin/gosbom:github.com/andybalholm/brotli@v1.0.4": {
         "cpes": ["cpe:2.3:a:andybalholm:brotli:v1.0.4:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1893,11 +1893,11 @@ pkgs = {
         "type": "go",
         "version": "v1.0.4",
     },
-    "/usr/local/bin/syft:github.com/antihax/optional@v1.0.0": {
+    "/usr/local/bin/gosbom:github.com/antihax/optional@v1.0.0": {
         "cpes": ["cpe:2.3:a:antihax:optional:v1.0.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1908,11 +1908,11 @@ pkgs = {
         "type": "go",
         "version": "v1.0.0",
     },
-    "/usr/local/bin/syft:github.com/bmatcuk/doublestar/v4@v4.0.2": {
+    "/usr/local/bin/gosbom:github.com/bmatcuk/doublestar/v4@v4.0.2": {
         "cpes": ["cpe:2.3:a:bmatcuk:doublestar:v4.0.2:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1923,11 +1923,11 @@ pkgs = {
         "type": "go",
         "version": "v4.0.2",
     },
-    "/usr/local/bin/syft:github.com/containerd/containerd@v1.5.9": {
+    "/usr/local/bin/gosbom:github.com/containerd/containerd@v1.5.9": {
         "cpes": ["cpe:2.3:a:containerd:containerd:v1.5.9:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1938,14 +1938,14 @@ pkgs = {
         "type": "go",
         "version": "v1.5.9",
     },
-    "/usr/local/bin/syft:github.com/containerd/stargz-snapshotter/estargz@v0.10.0": {
+    "/usr/local/bin/gosbom:github.com/containerd/stargz-snapshotter/estargz@v0.10.0": {
         "cpes": [
             "cpe:2.3:a:containerd:stargz-snapshotter:v0.10.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:containerd:stargz_snapshotter:v0.10.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1956,11 +1956,11 @@ pkgs = {
         "type": "go",
         "version": "v0.10.0",
     },
-    "/usr/local/bin/syft:github.com/docker/cli@v20.10.10+incompatible": {
+    "/usr/local/bin/gosbom:github.com/docker/cli@v20.10.10+incompatible": {
         "cpes": ["cpe:2.3:a:docker:cli:v20.10.10\\+incompatible:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1971,11 +1971,11 @@ pkgs = {
         "type": "go",
         "version": "v20.10.10+incompatible",
     },
-    "/usr/local/bin/syft:github.com/docker/distribution@v2.7.1+incompatible": {
+    "/usr/local/bin/gosbom:github.com/docker/distribution@v2.7.1+incompatible": {
         "cpes": ["cpe:2.3:a:docker:distribution:v2.7.1\\+incompatible:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -1986,14 +1986,14 @@ pkgs = {
         "type": "go",
         "version": "v2.7.1+incompatible",
     },
-    "/usr/local/bin/syft:github.com/docker/docker-credential-helpers@v0.6.4": {
+    "/usr/local/bin/gosbom:github.com/docker/docker-credential-helpers@v0.6.4": {
         "cpes": [
             "cpe:2.3:a:docker:docker-credential-helpers:v0.6.4:*:*:*:*:*:*:*",
             "cpe:2.3:a:docker:docker_credential_helpers:v0.6.4:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2004,11 +2004,11 @@ pkgs = {
         "type": "go",
         "version": "v0.6.4",
     },
-    "/usr/local/bin/syft:github.com/docker/docker@v20.10.11+incompatible": {
+    "/usr/local/bin/gosbom:github.com/docker/docker@v20.10.11+incompatible": {
         "cpes": ["cpe:2.3:a:docker:docker:v20.10.11\\+incompatible:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2019,14 +2019,14 @@ pkgs = {
         "type": "go",
         "version": "v20.10.11+incompatible",
     },
-    "/usr/local/bin/syft:github.com/docker/go-connections@v0.4.0": {
+    "/usr/local/bin/gosbom:github.com/docker/go-connections@v0.4.0": {
         "cpes": [
             "cpe:2.3:a:docker:go-connections:v0.4.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:docker:go_connections:v0.4.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2037,14 +2037,14 @@ pkgs = {
         "type": "go",
         "version": "v0.4.0",
     },
-    "/usr/local/bin/syft:github.com/docker/go-units@v0.4.0": {
+    "/usr/local/bin/gosbom:github.com/docker/go-units@v0.4.0": {
         "cpes": [
             "cpe:2.3:a:docker:go-units:v0.4.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:docker:go_units:v0.4.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2055,13 +2055,13 @@ pkgs = {
         "type": "go",
         "version": "v0.4.0",
     },
-    "/usr/local/bin/syft:github.com/dsnet/compress@v0.0.2-0.20210315054119-f66993602bf5": {
+    "/usr/local/bin/gosbom:github.com/dsnet/compress@v0.0.2-0.20210315054119-f66993602bf5": {
         "cpes": [
             "cpe:2.3:a:dsnet:compress:v0.0.2-0.20210315054119-f66993602bf5:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2072,14 +2072,14 @@ pkgs = {
         "type": "go",
         "version": "v0.0.2-0.20210315054119-f66993602bf5",
     },
-    "/usr/local/bin/syft:github.com/dustin/go-humanize@v1.0.0": {
+    "/usr/local/bin/gosbom:github.com/dustin/go-humanize@v1.0.0": {
         "cpes": [
             "cpe:2.3:a:dustin:go-humanize:v1.0.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:dustin:go_humanize:v1.0.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2090,11 +2090,11 @@ pkgs = {
         "type": "go",
         "version": "v1.0.0",
     },
-    "/usr/local/bin/syft:github.com/facebookincubator/nvdtools@v0.1.4": {
+    "/usr/local/bin/gosbom:github.com/facebookincubator/nvdtools@v0.1.4": {
         "cpes": ["cpe:2.3:a:facebookincubator:nvdtools:v0.1.4:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2105,11 +2105,11 @@ pkgs = {
         "type": "go",
         "version": "v0.1.4",
     },
-    "/usr/local/bin/syft:github.com/fsnotify/fsnotify@v1.4.9": {
+    "/usr/local/bin/gosbom:github.com/fsnotify/fsnotify@v1.4.9": {
         "cpes": ["cpe:2.3:a:fsnotify:fsnotify:v1.4.9:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2120,7 +2120,7 @@ pkgs = {
         "type": "go",
         "version": "v1.4.9",
     },
-    "/usr/local/bin/syft:github.com/gabriel-vasile/mimetype@v1.3.0": {
+    "/usr/local/bin/gosbom:github.com/gabriel-vasile/mimetype@v1.3.0": {
         "cpes": [
             "cpe:2.3:a:gabriel-vasile:mimetype:v1.3.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:gabriel_vasile:mimetype:v1.3.0:*:*:*:*:*:*:*",
@@ -2128,7 +2128,7 @@ pkgs = {
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2139,7 +2139,7 @@ pkgs = {
         "type": "go",
         "version": "v1.3.0",
     },
-    "/usr/local/bin/syft:github.com/go-restruct/restruct@v1.2.0-alpha": {
+    "/usr/local/bin/gosbom:github.com/go-restruct/restruct@v1.2.0-alpha": {
         "cpes": [
             "cpe:2.3:a:go-restruct:restruct:v1.2.0-alpha:*:*:*:*:*:*:*",
             "cpe:2.3:a:go_restruct:restruct:v1.2.0-alpha:*:*:*:*:*:*:*",
@@ -2147,7 +2147,7 @@ pkgs = {
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2158,11 +2158,11 @@ pkgs = {
         "type": "go",
         "version": "v1.2.0-alpha",
     },
-    "/usr/local/bin/syft:github.com/gogo/protobuf@v1.3.2": {
+    "/usr/local/bin/gosbom:github.com/gogo/protobuf@v1.3.2": {
         "cpes": ["cpe:2.3:a:gogo:protobuf:v1.3.2:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2173,11 +2173,11 @@ pkgs = {
         "type": "go",
         "version": "v1.3.2",
     },
-    "/usr/local/bin/syft:github.com/golang/protobuf@v1.5.2": {
+    "/usr/local/bin/gosbom:github.com/golang/protobuf@v1.5.2": {
         "cpes": ["cpe:2.3:a:golang:protobuf:v1.5.2:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2188,11 +2188,11 @@ pkgs = {
         "type": "go",
         "version": "v1.5.2",
     },
-    "/usr/local/bin/syft:github.com/golang/snappy@v0.0.3": {
+    "/usr/local/bin/gosbom:github.com/golang/snappy@v0.0.3": {
         "cpes": ["cpe:2.3:a:golang:snappy:v0.0.3:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2203,14 +2203,14 @@ pkgs = {
         "type": "go",
         "version": "v0.0.3",
     },
-    "/usr/local/bin/syft:github.com/google/go-cmp@v0.5.6": {
+    "/usr/local/bin/gosbom:github.com/google/go-cmp@v0.5.6": {
         "cpes": [
             "cpe:2.3:a:google:go-cmp:v0.5.6:*:*:*:*:*:*:*",
             "cpe:2.3:a:google:go_cmp:v0.5.6:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2221,14 +2221,14 @@ pkgs = {
         "type": "go",
         "version": "v0.5.6",
     },
-    "/usr/local/bin/syft:github.com/google/go-containerregistry@v0.7.0": {
+    "/usr/local/bin/gosbom:github.com/google/go-containerregistry@v0.7.0": {
         "cpes": [
             "cpe:2.3:a:google:go-containerregistry:v0.7.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:google:go_containerregistry:v0.7.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2239,11 +2239,11 @@ pkgs = {
         "type": "go",
         "version": "v0.7.0",
     },
-    "/usr/local/bin/syft:github.com/google/uuid@v1.2.0": {
+    "/usr/local/bin/gosbom:github.com/google/uuid@v1.2.0": {
         "cpes": ["cpe:2.3:a:google:uuid:v1.2.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2254,11 +2254,11 @@ pkgs = {
         "type": "go",
         "version": "v1.2.0",
     },
-    "/usr/local/bin/syft:github.com/gookit/color@v1.2.7": {
+    "/usr/local/bin/gosbom:github.com/gookit/color@v1.2.7": {
         "cpes": ["cpe:2.3:a:gookit:color:v1.2.7:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2269,11 +2269,11 @@ pkgs = {
         "type": "go",
         "version": "v1.2.7",
     },
-    "/usr/local/bin/syft:github.com/hashicorp/errwrap@v1.0.0": {
+    "/usr/local/bin/gosbom:github.com/hashicorp/errwrap@v1.0.0": {
         "cpes": ["cpe:2.3:a:hashicorp:errwrap:v1.0.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2284,14 +2284,14 @@ pkgs = {
         "type": "go",
         "version": "v1.0.0",
     },
-    "/usr/local/bin/syft:github.com/hashicorp/go-multierror@v1.1.0": {
+    "/usr/local/bin/gosbom:github.com/hashicorp/go-multierror@v1.1.0": {
         "cpes": [
             "cpe:2.3:a:hashicorp:go-multierror:v1.1.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:hashicorp:go_multierror:v1.1.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2302,11 +2302,11 @@ pkgs = {
         "type": "go",
         "version": "v1.1.0",
     },
-    "/usr/local/bin/syft:github.com/hashicorp/hcl@v1.0.0": {
+    "/usr/local/bin/gosbom:github.com/hashicorp/hcl@v1.0.0": {
         "cpes": ["cpe:2.3:a:hashicorp:hcl:v1.0.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2317,11 +2317,11 @@ pkgs = {
         "type": "go",
         "version": "v1.0.0",
     },
-    "/usr/local/bin/syft:github.com/jinzhu/copier@v0.3.2": {
+    "/usr/local/bin/gosbom:github.com/jinzhu/copier@v0.3.2": {
         "cpes": ["cpe:2.3:a:jinzhu:copier:v0.3.2:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2332,11 +2332,11 @@ pkgs = {
         "type": "go",
         "version": "v0.3.2",
     },
-    "/usr/local/bin/syft:github.com/klauspost/compress@v1.13.6": {
+    "/usr/local/bin/gosbom:github.com/klauspost/compress@v1.13.6": {
         "cpes": ["cpe:2.3:a:klauspost:compress:v1.13.6:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2347,11 +2347,11 @@ pkgs = {
         "type": "go",
         "version": "v1.13.6",
     },
-    "/usr/local/bin/syft:github.com/klauspost/pgzip@v1.2.5": {
+    "/usr/local/bin/gosbom:github.com/klauspost/pgzip@v1.2.5": {
         "cpes": ["cpe:2.3:a:klauspost:pgzip:v1.2.5:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2362,11 +2362,11 @@ pkgs = {
         "type": "go",
         "version": "v1.2.5",
     },
-    "/usr/local/bin/syft:github.com/magiconair/properties@v1.8.5": {
+    "/usr/local/bin/gosbom:github.com/magiconair/properties@v1.8.5": {
         "cpes": ["cpe:2.3:a:magiconair:properties:v1.8.5:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2377,14 +2377,14 @@ pkgs = {
         "type": "go",
         "version": "v1.8.5",
     },
-    "/usr/local/bin/syft:github.com/mattn/go-colorable@v0.0.9": {
+    "/usr/local/bin/gosbom:github.com/mattn/go-colorable@v0.0.9": {
         "cpes": [
             "cpe:2.3:a:mattn:go-colorable:v0.0.9:*:*:*:*:*:*:*",
             "cpe:2.3:a:mattn:go_colorable:v0.0.9:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2395,14 +2395,14 @@ pkgs = {
         "type": "go",
         "version": "v0.0.9",
     },
-    "/usr/local/bin/syft:github.com/mattn/go-isatty@v0.0.6": {
+    "/usr/local/bin/gosbom:github.com/mattn/go-isatty@v0.0.6": {
         "cpes": [
             "cpe:2.3:a:mattn:go-isatty:v0.0.6:*:*:*:*:*:*:*",
             "cpe:2.3:a:mattn:go_isatty:v0.0.6:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2413,14 +2413,14 @@ pkgs = {
         "type": "go",
         "version": "v0.0.6",
     },
-    "/usr/local/bin/syft:github.com/mattn/go-runewidth@v0.0.7": {
+    "/usr/local/bin/gosbom:github.com/mattn/go-runewidth@v0.0.7": {
         "cpes": [
             "cpe:2.3:a:mattn:go-runewidth:v0.0.7:*:*:*:*:*:*:*",
             "cpe:2.3:a:mattn:go_runewidth:v0.0.7:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2431,13 +2431,13 @@ pkgs = {
         "type": "go",
         "version": "v0.0.7",
     },
-    "/usr/local/bin/syft:github.com/mgutz/ansi@v0.0.0-20200706080929-d51e80ef957d": {
+    "/usr/local/bin/gosbom:github.com/mgutz/ansi@v0.0.0-20200706080929-d51e80ef957d": {
         "cpes": [
             "cpe:2.3:a:mgutz:ansi:v0.0.0-20200706080929-d51e80ef957d:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2448,11 +2448,11 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20200706080929-d51e80ef957d",
     },
-    "/usr/local/bin/syft:github.com/mholt/archiver/v3@v3.5.1": {
+    "/usr/local/bin/gosbom:github.com/mholt/archiver/v3@v3.5.1": {
         "cpes": ["cpe:2.3:a:mholt:archiver:v3.5.1:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2463,14 +2463,14 @@ pkgs = {
         "type": "go",
         "version": "v3.5.1",
     },
-    "/usr/local/bin/syft:github.com/mitchellh/go-homedir@v1.1.0": {
+    "/usr/local/bin/gosbom:github.com/mitchellh/go-homedir@v1.1.0": {
         "cpes": [
             "cpe:2.3:a:mitchellh:go-homedir:v1.1.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:mitchellh:go_homedir:v1.1.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2481,11 +2481,11 @@ pkgs = {
         "type": "go",
         "version": "v1.1.0",
     },
-    "/usr/local/bin/syft:github.com/mitchellh/hashstructure/v2@v2.0.2": {
+    "/usr/local/bin/gosbom:github.com/mitchellh/hashstructure/v2@v2.0.2": {
         "cpes": ["cpe:2.3:a:mitchellh:hashstructure:v2.0.2:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2496,11 +2496,11 @@ pkgs = {
         "type": "go",
         "version": "v2.0.2",
     },
-    "/usr/local/bin/syft:github.com/mitchellh/mapstructure@v1.4.1": {
+    "/usr/local/bin/gosbom:github.com/mitchellh/mapstructure@v1.4.1": {
         "cpes": ["cpe:2.3:a:mitchellh:mapstructure:v1.4.1:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2511,11 +2511,11 @@ pkgs = {
         "type": "go",
         "version": "v1.4.1",
     },
-    "/usr/local/bin/syft:github.com/nwaples/rardecode@v1.1.0": {
+    "/usr/local/bin/gosbom:github.com/nwaples/rardecode@v1.1.0": {
         "cpes": ["cpe:2.3:a:nwaples:rardecode:v1.1.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2526,11 +2526,11 @@ pkgs = {
         "type": "go",
         "version": "v1.1.0",
     },
-    "/usr/local/bin/syft:github.com/olekukonko/tablewriter@v0.0.4": {
+    "/usr/local/bin/gosbom:github.com/olekukonko/tablewriter@v0.0.4": {
         "cpes": ["cpe:2.3:a:olekukonko:tablewriter:v0.0.4:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2541,14 +2541,14 @@ pkgs = {
         "type": "go",
         "version": "v0.0.4",
     },
-    "/usr/local/bin/syft:github.com/opencontainers/go-digest@v1.0.0": {
+    "/usr/local/bin/gosbom:github.com/opencontainers/go-digest@v1.0.0": {
         "cpes": [
             "cpe:2.3:a:opencontainers:go-digest:v1.0.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:opencontainers:go_digest:v1.0.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2559,14 +2559,14 @@ pkgs = {
         "type": "go",
         "version": "v1.0.0",
     },
-    "/usr/local/bin/syft:github.com/opencontainers/image-spec@v1.0.2": {
+    "/usr/local/bin/gosbom:github.com/opencontainers/image-spec@v1.0.2": {
         "cpes": [
             "cpe:2.3:a:opencontainers:image-spec:v1.0.2:*:*:*:*:*:*:*",
             "cpe:2.3:a:opencontainers:image_spec:v1.0.2:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2577,14 +2577,14 @@ pkgs = {
         "type": "go",
         "version": "v1.0.2",
     },
-    "/usr/local/bin/syft:github.com/pelletier/go-toml@v1.9.3": {
+    "/usr/local/bin/gosbom:github.com/pelletier/go-toml@v1.9.3": {
         "cpes": [
             "cpe:2.3:a:pelletier:go-toml:v1.9.3:*:*:*:*:*:*:*",
             "cpe:2.3:a:pelletier:go_toml:v1.9.3:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2595,11 +2595,11 @@ pkgs = {
         "type": "go",
         "version": "v1.9.3",
     },
-    "/usr/local/bin/syft:github.com/pierrec/lz4/v4@v4.1.2": {
+    "/usr/local/bin/gosbom:github.com/pierrec/lz4/v4@v4.1.2": {
         "cpes": ["cpe:2.3:a:pierrec:lz4:v4.1.2:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2610,11 +2610,11 @@ pkgs = {
         "type": "go",
         "version": "v4.1.2",
     },
-    "/usr/local/bin/syft:github.com/pkg/errors@v0.9.1": {
+    "/usr/local/bin/gosbom:github.com/pkg/errors@v0.9.1": {
         "cpes": ["cpe:2.3:a:pkg:errors:v0.9.1:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2625,11 +2625,11 @@ pkgs = {
         "type": "go",
         "version": "v0.9.1",
     },
-    "/usr/local/bin/syft:github.com/pkg/profile@v1.5.0": {
+    "/usr/local/bin/gosbom:github.com/pkg/profile@v1.5.0": {
         "cpes": ["cpe:2.3:a:pkg:profile:v1.5.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2640,14 +2640,14 @@ pkgs = {
         "type": "go",
         "version": "v1.5.0",
     },
-    "/usr/local/bin/syft:github.com/scylladb/go-set@v1.0.2": {
+    "/usr/local/bin/gosbom:github.com/scylladb/go-set@v1.0.2": {
         "cpes": [
             "cpe:2.3:a:scylladb:go-set:v1.0.2:*:*:*:*:*:*:*",
             "cpe:2.3:a:scylladb:go_set:v1.0.2:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2658,11 +2658,11 @@ pkgs = {
         "type": "go",
         "version": "v1.0.2",
     },
-    "/usr/local/bin/syft:github.com/sirupsen/logrus@v1.8.1": {
+    "/usr/local/bin/gosbom:github.com/sirupsen/logrus@v1.8.1": {
         "cpes": ["cpe:2.3:a:sirupsen:logrus:v1.8.1:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2673,14 +2673,14 @@ pkgs = {
         "type": "go",
         "version": "v1.8.1",
     },
-    "/usr/local/bin/syft:github.com/spdx/tools-golang@v0.1.0": {
+    "/usr/local/bin/gosbom:github.com/spdx/tools-golang@v0.1.0": {
         "cpes": [
             "cpe:2.3:a:spdx:tools-golang:v0.1.0:*:*:*:*:*:*:*",
             "cpe:2.3:a:spdx:tools_golang:v0.1.0:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2691,11 +2691,11 @@ pkgs = {
         "type": "go",
         "version": "v0.1.0",
     },
-    "/usr/local/bin/syft:github.com/spf13/afero@v1.6.0": {
+    "/usr/local/bin/gosbom:github.com/spf13/afero@v1.6.0": {
         "cpes": ["cpe:2.3:a:spf13:afero:v1.6.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2706,11 +2706,11 @@ pkgs = {
         "type": "go",
         "version": "v1.6.0",
     },
-    "/usr/local/bin/syft:github.com/spf13/cast@v1.3.1": {
+    "/usr/local/bin/gosbom:github.com/spf13/cast@v1.3.1": {
         "cpes": ["cpe:2.3:a:spf13:cast:v1.3.1:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2721,11 +2721,11 @@ pkgs = {
         "type": "go",
         "version": "v1.3.1",
     },
-    "/usr/local/bin/syft:github.com/spf13/cobra@v1.2.1": {
+    "/usr/local/bin/gosbom:github.com/spf13/cobra@v1.2.1": {
         "cpes": ["cpe:2.3:a:spf13:cobra:v1.2.1:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2736,11 +2736,11 @@ pkgs = {
         "type": "go",
         "version": "v1.2.1",
     },
-    "/usr/local/bin/syft:github.com/spf13/jwalterweatherman@v1.1.0": {
+    "/usr/local/bin/gosbom:github.com/spf13/jwalterweatherman@v1.1.0": {
         "cpes": ["cpe:2.3:a:spf13:jwalterweatherman:v1.1.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2751,11 +2751,11 @@ pkgs = {
         "type": "go",
         "version": "v1.1.0",
     },
-    "/usr/local/bin/syft:github.com/spf13/pflag@v1.0.5": {
+    "/usr/local/bin/gosbom:github.com/spf13/pflag@v1.0.5": {
         "cpes": ["cpe:2.3:a:spf13:pflag:v1.0.5:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2766,11 +2766,11 @@ pkgs = {
         "type": "go",
         "version": "v1.0.5",
     },
-    "/usr/local/bin/syft:github.com/spf13/viper@v1.8.1": {
+    "/usr/local/bin/gosbom:github.com/spf13/viper@v1.8.1": {
         "cpes": ["cpe:2.3:a:spf13:viper:v1.8.1:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2781,11 +2781,11 @@ pkgs = {
         "type": "go",
         "version": "v1.8.1",
     },
-    "/usr/local/bin/syft:github.com/subosito/gotenv@v1.2.0": {
+    "/usr/local/bin/gosbom:github.com/subosito/gotenv@v1.2.0": {
         "cpes": ["cpe:2.3:a:subosito:gotenv:v1.2.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2796,11 +2796,11 @@ pkgs = {
         "type": "go",
         "version": "v1.2.0",
     },
-    "/usr/local/bin/syft:github.com/ulikunitz/xz@v0.5.9": {
+    "/usr/local/bin/gosbom:github.com/ulikunitz/xz@v0.5.9": {
         "cpes": ["cpe:2.3:a:ulikunitz:xz:v0.5.9:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2811,14 +2811,14 @@ pkgs = {
         "type": "go",
         "version": "v0.5.9",
     },
-    "/usr/local/bin/syft:github.com/vbatts/tar-split@v0.11.2": {
+    "/usr/local/bin/gosbom:github.com/vbatts/tar-split@v0.11.2": {
         "cpes": [
             "cpe:2.3:a:vbatts:tar-split:v0.11.2:*:*:*:*:*:*:*",
             "cpe:2.3:a:vbatts:tar_split:v0.11.2:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2829,11 +2829,11 @@ pkgs = {
         "type": "go",
         "version": "v0.11.2",
     },
-    "/usr/local/bin/syft:github.com/vifraa/gopom@v0.1.0": {
+    "/usr/local/bin/gosbom:github.com/vifraa/gopom@v0.1.0": {
         "cpes": ["cpe:2.3:a:vifraa:gopom:v0.1.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2844,14 +2844,14 @@ pkgs = {
         "type": "go",
         "version": "v0.1.0",
     },
-    "/usr/local/bin/syft:github.com/wagoodman/go-partybus@v0.0.0-20210627031916-db1f5573bbc5": {
+    "/usr/local/bin/gosbom:github.com/wagoodman/go-partybus@v0.0.0-20210627031916-db1f5573bbc5": {
         "cpes": [
             "cpe:2.3:a:wagoodman:go-partybus:v0.0.0-20210627031916-db1f5573bbc5:*:*:*:*:*:*:*",
             "cpe:2.3:a:wagoodman:go_partybus:v0.0.0-20210627031916-db1f5573bbc5:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2862,14 +2862,14 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20210627031916-db1f5573bbc5",
     },
-    "/usr/local/bin/syft:github.com/wagoodman/go-progress@v0.0.0-20200731105512-1020f39e6240": {
+    "/usr/local/bin/gosbom:github.com/wagoodman/go-progress@v0.0.0-20200731105512-1020f39e6240": {
         "cpes": [
             "cpe:2.3:a:wagoodman:go-progress:v0.0.0-20200731105512-1020f39e6240:*:*:*:*:*:*:*",
             "cpe:2.3:a:wagoodman:go_progress:v0.0.0-20200731105512-1020f39e6240:*:*:*:*:*:*:*",
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2880,13 +2880,13 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20200731105512-1020f39e6240",
     },
-    "/usr/local/bin/syft:github.com/wagoodman/jotframe@v0.0.0-20211129225309-56b0d0a4aebb": {
+    "/usr/local/bin/gosbom:github.com/wagoodman/jotframe@v0.0.0-20211129225309-56b0d0a4aebb": {
         "cpes": [
             "cpe:2.3:a:wagoodman:jotframe:v0.0.0-20211129225309-56b0d0a4aebb:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2897,7 +2897,7 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20211129225309-56b0d0a4aebb",
     },
-    "/usr/local/bin/syft:github.com/x-cray/logrus-prefixed-formatter@v0.5.2": {
+    "/usr/local/bin/gosbom:github.com/x-cray/logrus-prefixed-formatter@v0.5.2": {
         "cpes": [
             "cpe:2.3:a:x-cray:logrus-prefixed-formatter:v0.5.2:*:*:*:*:*:*:*",
             "cpe:2.3:a:x-cray:logrus_prefixed_formatter:v0.5.2:*:*:*:*:*:*:*",
@@ -2908,7 +2908,7 @@ pkgs = {
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2919,11 +2919,11 @@ pkgs = {
         "type": "go",
         "version": "v0.5.2",
     },
-    "/usr/local/bin/syft:github.com/xi2/xz@v0.0.0-20171230120015-48954b6210f8": {
+    "/usr/local/bin/gosbom:github.com/xi2/xz@v0.0.0-20171230120015-48954b6210f8": {
         "cpes": ["cpe:2.3:a:xi2:xz:v0.0.0-20171230120015-48954b6210f8:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2934,13 +2934,13 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20171230120015-48954b6210f8",
     },
-    "/usr/local/bin/syft:golang.org/x/crypto@v0.0.0-20210322153248-0c34fe9e7dc2": {
+    "/usr/local/bin/gosbom:golang.org/x/crypto@v0.0.0-20210322153248-0c34fe9e7dc2": {
         "cpes": [
             "cpe:2.3:a:golang:x\\/crypto:v0.0.0-20210322153248-0c34fe9e7dc2:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2951,11 +2951,11 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20210322153248-0c34fe9e7dc2",
     },
-    "/usr/local/bin/syft:golang.org/x/mod@v0.4.2": {
+    "/usr/local/bin/gosbom:golang.org/x/mod@v0.4.2": {
         "cpes": ["cpe:2.3:a:golang:x\\/mod:v0.4.2:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2966,13 +2966,13 @@ pkgs = {
         "type": "go",
         "version": "v0.4.2",
     },
-    "/usr/local/bin/syft:golang.org/x/net@v0.0.0-20211112202133-69e39bad7dc2": {
+    "/usr/local/bin/gosbom:golang.org/x/net@v0.0.0-20211112202133-69e39bad7dc2": {
         "cpes": [
             "cpe:2.3:a:golang:x\\/net:v0.0.0-20211112202133-69e39bad7dc2:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -2983,13 +2983,13 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20211112202133-69e39bad7dc2",
     },
-    "/usr/local/bin/syft:golang.org/x/oauth2@v0.0.0-20211104180415-d3ed0bb246c8": {
+    "/usr/local/bin/gosbom:golang.org/x/oauth2@v0.0.0-20211104180415-d3ed0bb246c8": {
         "cpes": [
             "cpe:2.3:a:golang:x\\/oauth2:v0.0.0-20211104180415-d3ed0bb246c8:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -3000,13 +3000,13 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20211104180415-d3ed0bb246c8",
     },
-    "/usr/local/bin/syft:golang.org/x/sync@v0.0.0-20210220032951-036812b2e83c": {
+    "/usr/local/bin/gosbom:golang.org/x/sync@v0.0.0-20210220032951-036812b2e83c": {
         "cpes": [
             "cpe:2.3:a:golang:x\\/sync:v0.0.0-20210220032951-036812b2e83c:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -3017,13 +3017,13 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20210220032951-036812b2e83c",
     },
-    "/usr/local/bin/syft:golang.org/x/sys@v0.0.0-20211110154304-99a53858aa08": {
+    "/usr/local/bin/gosbom:golang.org/x/sys@v0.0.0-20211110154304-99a53858aa08": {
         "cpes": [
             "cpe:2.3:a:golang:x\\/sys:v0.0.0-20211110154304-99a53858aa08:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -3034,13 +3034,13 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20211110154304-99a53858aa08",
     },
-    "/usr/local/bin/syft:golang.org/x/term@v0.0.0-20210615171337-6886f2dfbf5b": {
+    "/usr/local/bin/gosbom:golang.org/x/term@v0.0.0-20210615171337-6886f2dfbf5b": {
         "cpes": [
             "cpe:2.3:a:golang:x\\/term:v0.0.0-20210615171337-6886f2dfbf5b:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -3051,11 +3051,11 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20210615171337-6886f2dfbf5b",
     },
-    "/usr/local/bin/syft:golang.org/x/text@v0.3.6": {
+    "/usr/local/bin/gosbom:golang.org/x/text@v0.3.6": {
         "cpes": ["cpe:2.3:a:golang:x\\/text:v0.3.6:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -3066,13 +3066,13 @@ pkgs = {
         "type": "go",
         "version": "v0.3.6",
     },
-    "/usr/local/bin/syft:golang.org/x/xerrors@v0.0.0-20200804184101-5ec99f83aff1": {
+    "/usr/local/bin/gosbom:golang.org/x/xerrors@v0.0.0-20200804184101-5ec99f83aff1": {
         "cpes": [
             "cpe:2.3:a:golang:x\\/xerrors:v0.0.0-20200804184101-5ec99f83aff1:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -3083,13 +3083,13 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20200804184101-5ec99f83aff1",
     },
-    "/usr/local/bin/syft:google.golang.org/genproto@v0.0.0-20211111162719-482062a4217b": {
+    "/usr/local/bin/gosbom:google.golang.org/genproto@v0.0.0-20211111162719-482062a4217b": {
         "cpes": [
             "cpe:2.3:a:google:genproto:v0.0.0-20211111162719-482062a4217b:*:*:*:*:*:*:*"
         ],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -3100,11 +3100,11 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20211111162719-482062a4217b",
     },
-    "/usr/local/bin/syft:google.golang.org/grpc@v1.42.0": {
+    "/usr/local/bin/gosbom:google.golang.org/grpc@v1.42.0": {
         "cpes": ["cpe:2.3:a:google:grpc:v1.42.0:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -3115,11 +3115,11 @@ pkgs = {
         "type": "go",
         "version": "v1.42.0",
     },
-    "/usr/local/bin/syft:google.golang.org/protobuf@v1.27.1": {
+    "/usr/local/bin/gosbom:google.golang.org/protobuf@v1.27.1": {
         "cpes": ["cpe:2.3:a:google:protobuf:v1.27.1:*:*:*:*:*:*:*"],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -3130,11 +3130,11 @@ pkgs = {
         "type": "go",
         "version": "v1.27.1",
     },
-    "/usr/local/bin/syft:gopkg.in/ini.v1@v1.62.0": {
+    "/usr/local/bin/gosbom:gopkg.in/ini.v1@v1.62.0": {
         "cpes": [],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",
@@ -3145,11 +3145,11 @@ pkgs = {
         "type": "go",
         "version": "v1.62.0",
     },
-    "/usr/local/bin/syft:gopkg.in/yaml.v2@v2.4.0": {
+    "/usr/local/bin/gosbom:gopkg.in/yaml.v2@v2.4.0": {
         "cpes": [],
         "files": [],
         "license": "N/A",
-        "location": "/usr/local/bin/syft",
+        "location": "/usr/local/bin/gosbom",
         "metadata": {
             "architecture": "x86_64",
             "goCompiledVersion": "go1.16.13",

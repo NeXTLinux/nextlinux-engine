@@ -6,10 +6,10 @@ import requests
 
 CONTENT_TYPE_HEADER = {"Content-Type": "application/json"}
 DEFAULT_API_CONF = {
-    "ANCHORE_API_USER": "admin",
-    "ANCHORE_API_PASS": "foobar",
-    "ANCHORE_BASE_URL": "http://localhost:8228/v1",
-    "ANCHORE_API_ACCOUNT": "admin",
+    "NEXTLINUX_API_USER": "admin",
+    "NEXTLINUX_API_PASS": "foobar",
+    "NEXTLINUX_BASE_URL": "http://localhost:8228/v1",
+    "NEXTLINUX_API_ACCOUNT": "admin",
 }
 
 
@@ -76,13 +76,13 @@ class InsufficientRequestDetailsError(Exception):
 def build_url(path_parts, config):
     if path_parts:
         path_parts = os.path.join(*path_parts)
-        return os.path.join(config["ANCHORE_BASE_URL"], path_parts)
-    return config["ANCHORE_BASE_URL"]
+        return os.path.join(config["NEXTLINUX_BASE_URL"], path_parts)
+    return config["NEXTLINUX_BASE_URL"]
 
 
 def get_headers(config, content_type_override=None):
     headers = content_type_override or CONTENT_TYPE_HEADER
-    headers["x-anchore-account"] = config["ANCHORE_API_ACCOUNT"]
+    headers["x-nextlinux-account"] = config["NEXTLINUX_API_ACCOUNT"]
     return headers
 
 
@@ -96,7 +96,7 @@ def http_post(path_parts, payload, query=None, config: callable = get_api_conf):
     resp = requests.post(
         build_url(path_parts, api_conf),
         data=json.dumps(payload),
-        auth=(api_conf["ANCHORE_API_USER"], api_conf["ANCHORE_API_PASS"]),
+        auth=(api_conf["NEXTLINUX_API_USER"], api_conf["NEXTLINUX_API_PASS"]),
         headers=get_headers(api_conf),
         params=query,
     )
@@ -134,7 +134,7 @@ def http_post_bytes(
     resp = requests.post(
         build_url(path_parts, api_conf),
         data=payload,
-        auth=(api_conf["ANCHORE_API_USER"], api_conf["ANCHORE_API_PASS"]),
+        auth=(api_conf["NEXTLINUX_API_USER"], api_conf["NEXTLINUX_API_PASS"]),
         headers=get_headers(api_conf),
         params=query,
     )
@@ -156,7 +156,7 @@ def http_get(
 
     resp = requests.get(
         build_url(path_parts, api_conf),
-        auth=(api_conf["ANCHORE_API_USER"], api_conf["ANCHORE_API_PASS"]),
+        auth=(api_conf["NEXTLINUX_API_USER"], api_conf["NEXTLINUX_API_PASS"]),
         headers=get_headers(api_conf, extra_headers),
         params=query,
     )
@@ -173,7 +173,7 @@ def http_del(path_parts, query=None, config: callable = get_api_conf):
 
     resp = requests.delete(
         build_url(path_parts, api_conf),
-        auth=(api_conf["ANCHORE_API_USER"], api_conf["ANCHORE_API_PASS"]),
+        auth=(api_conf["NEXTLINUX_API_USER"], api_conf["NEXTLINUX_API_PASS"]),
         headers=get_headers(api_conf),
         params=query,
     )
@@ -191,7 +191,7 @@ def http_put(path_parts, payload, query=None, config: callable = get_api_conf):
     resp = requests.put(
         build_url(path_parts, api_conf),
         data=json.dumps(payload),
-        auth=(api_conf["ANCHORE_API_USER"], api_conf["ANCHORE_API_PASS"]),
+        auth=(api_conf["NEXTLINUX_API_USER"], api_conf["NEXTLINUX_API_PASS"]),
         headers=get_headers(api_conf),
         params=query,
     )
@@ -211,7 +211,7 @@ def http_post_url_encoded(
     resp = requests.post(
         build_url(path_parts, api_conf),
         data=payload,
-        auth=(api_conf["ANCHORE_API_USER"], api_conf["ANCHORE_API_PASS"]),
+        auth=(api_conf["NEXTLINUX_API_USER"], api_conf["NEXTLINUX_API_PASS"]),
         headers=get_headers(
             api_conf, {"Content-Type": "application/x-www-form-urlencoded"}
         ),

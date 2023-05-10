@@ -1,6 +1,6 @@
 import datetime
 
-from anchore_engine.common.models.policy_engine import (
+from nextlinux_engine.common.models.policy_engine import (
     CpeVulnerability,
     CvssCombined,
     CvssScore,
@@ -14,7 +14,7 @@ from anchore_engine.common.models.policy_engine import (
     LegacyTableReport,
     LegacyVulnerabilityReport,
 )
-from anchore_engine.util.time import datetime_to_rfc3339
+from nextlinux_engine.util.time import datetime_to_rfc3339
 
 
 def test_feeds():

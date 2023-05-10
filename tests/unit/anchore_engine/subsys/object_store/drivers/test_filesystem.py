@@ -6,12 +6,12 @@ import shutil
 
 import pytest
 
-from anchore_engine.subsys.object_store import FilesystemObjectStorageDriver
+from nextlinux_engine.subsys.object_store import FilesystemObjectStorageDriver
 
 
 class TestFilesystemObjectStorageDriver:
 
-    __archive_data_dir__ = "/tmp/anchore-engine-unit-test-filesystem"
+    __archive_data_dir__ = "/tmp/nextlinux-engine-unit-test-filesystem"
 
     @pytest.fixture(autouse=True)
     def cleanup_archive_data_dir(self):
@@ -42,14 +42,14 @@ class TestFilesystemObjectStorageDriver:
         "param",
         [
             pytest.param(
-                {"uri": "/usr/local/bin/grype", "expected": "/usr/local/bin/grype"},
+                {"uri": "/usr/local/bin/govulners", "expected": "/usr/local/bin/govulners"},
                 id="unix-path",
             ),
             pytest.param(
                 {"uri": "C:\\Documents\\UnitTest", "expected": "\\Documents\\UnitTest"},
                 id="windows-path",
             ),
-            pytest.param({"uri": "https://www.anchore.com", "expected": ""}, id="url"),
+            pytest.param({"uri": "https://www.nextlinux.com", "expected": ""}, id="url"),
         ],
     )
     def test_parse_uri(self, param):

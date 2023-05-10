@@ -14,8 +14,8 @@ import inspect
 import pkgutil
 import importlib
 
-ROOTDIR = "../../../anchore_engine"
-UNIT_TEST_DIR = "../../../tests/unit/anchore_engine"
+ROOTDIR = "../../../nextlinux_engine"
+UNIT_TEST_DIR = "../../../tests/unit/nextlinux_engine"
 TEMPDIR = "/tmp/engine-test-coverage"
 
 # Skip constructors, not necessarily good criteria for test coverage reporting
@@ -86,7 +86,7 @@ def get_modules(pkg, dir):
 
 
 def resolve_all_engine_packages():
-    toplevel_modules = get_modules("anchore_engine", ROOTDIR)
+    toplevel_modules = get_modules("nextlinux_engine", ROOTDIR)
 
     modules = list()
     methods = list()
@@ -113,7 +113,7 @@ def resolve_all_engine_packages():
     for resolver_thread in resolver_threads:
         resolver_thread.join()
 
-    with open("{}/{}.txt".format(TEMPDIR, "anchore_engine_rootpkg"), "w") as f:
+    with open("{}/{}.txt".format(TEMPDIR, "nextlinux_engine_rootpkg"), "w") as f:
         for method in methods:
             for function in method["functions"]:
                 method_fullname = "{}.{}::{}\n".format(
@@ -211,7 +211,7 @@ class ModuleFunctionUsageResolver(threading.Thread):
     ## the keywords generated here may cause duplicate usages to be reported across what are actually different classes/pkgs/methods
     @staticmethod
     def get_method_keywords(method):
-        # full_method format: anchore_engine.package::Class.method
+        # full_method format: nextlinux_engine.package::Class.method
         method_parts = method.strip().split("::")
         pkg = method_parts[0].replace(".", "\.")
         class_and_method = method_parts[1]
@@ -312,7 +312,7 @@ class ModuleFunctionTestedResolver(threading.Thread):
     ## the keywords generated here may cause duplicate usages to be reported across what are actually different classes/pkgs/methods
     @staticmethod
     def get_method_keywords(method):
-        # full_method format: anchore_engine.package::Class.method
+        # full_method format: nextlinux_engine.package::Class.method
         method_parts = method.strip().split("::")
         pkg = method_parts[0].replace(".", "\.")
         class_and_method = method_parts[1]
@@ -380,7 +380,7 @@ class ModuleFunctionTestedResolver(threading.Thread):
         return False
 
 
-# This method will determine all methods in the application, under the anchore_engine directory
+# This method will determine all methods in the application, under the nextlinux_engine directory
 # and list them in files per root-level package in /tmp/engine-test-coverage
 print("generating list of all application methods")
 resolve_all_engine_packages()
@@ -402,7 +402,7 @@ for thread in usage_threads:
 
 print("now searching for methods in the unit test directory")
 
-# Next step is to find references of each of the methods in the ./tests/unit/anchore_engine directory
+# Next step is to find references of each of the methods in the ./tests/unit/nextlinux_engine directory
 # This will tell us which methods to remove from the master list
 tested_threads = []
 for root, dirs, files in os.walk("{}/usage".format(TEMPDIR)):
@@ -446,7 +446,7 @@ for tested_method in tested_methods:
 
 
 # The resulting list, sorted by # of usages, should be methods that have no reference in the tests directory
-# This should be able to tell us how to prioritize the test coverage improvement effort in anchore-engine
+# This should be able to tell us how to prioritize the test coverage improvement effort in nextlinux-engine
 print("sorting usage data one last time")
 sorted_usage_data = dict(
     sorted(usage_data.items(), key=operator.itemgetter(1), reverse=True)

@@ -1,9 +1,9 @@
 import pytest
 
-from anchore_engine.auth.oauth import token_manager
-from anchore_engine.subsys import logger
-from anchore_engine.subsys.auth.stores.verifier import BearerTokenVerifier, JwtToken
-from anchore_engine.utils import ensure_str
+from nextlinux_engine.auth.oauth import token_manager
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.subsys.auth.stores.verifier import BearerTokenVerifier, JwtToken
+from nextlinux_engine.utils import ensure_str
 
 logger.enable_test_logging()
 

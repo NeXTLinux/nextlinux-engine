@@ -1,6 +1,6 @@
 import pytest
 
-from anchore_engine.subsys.object_store import S3ObjectStorageDriver
+from nextlinux_engine.subsys.object_store import S3ObjectStorageDriver
 
 
 class TestS3ObjectStorageDriver:

@@ -2,8 +2,8 @@ import base64
 
 import pytest
 
-from anchore_engine.subsys.object_store import DbDriver
-from anchore_engine.subsys.object_store.drivers import LegacyDbDriver
+from nextlinux_engine.subsys.object_store import DbDriver
+from nextlinux_engine.subsys.object_store.drivers import LegacyDbDriver
 
 
 class TestLegacyDbDriver:

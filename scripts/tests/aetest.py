@@ -16,10 +16,10 @@ except:
 try:
     aecontainer = str(sys.argv[2])
 except:
-    aecontainer = "qadc_anchore-engine_1"
+    aecontainer = "qadc_nextlinux-engine_1"
 
-# precmd = "docker exec " + str(aecontainer) + " anchore-cli --json --u admin --p foobar --url http://localhost:8228/v1 "
-precmd = "anchore-cli --json --u admin --p foobar --url http://localhost:8228/v1 "
+# precmd = "docker exec " + str(aecontainer) + " nextlinux-cli --json --u admin --p foobar --url http://localhost:8228/v1 "
+precmd = "nextlinux-cli --json --u admin --p foobar --url http://localhost:8228/v1 "
 
 reg = user = pw = None
 try:

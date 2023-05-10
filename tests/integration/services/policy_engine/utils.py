@@ -6,16 +6,16 @@ import datetime
 import json
 import os
 
-from anchore_engine.common.models.schemas import FeedAPIGroupRecord, FeedAPIRecord
-from anchore_engine.db.entities.policy_engine import FeedMetadata
-from anchore_engine.services.policy_engine.engine.feeds import (
+from nextlinux_engine.common.models.schemas import FeedAPIGroupRecord, FeedAPIRecord
+from nextlinux_engine.db.entities.policy_engine import FeedMetadata
+from nextlinux_engine.services.policy_engine.engine.feeds import (
     FeedGroupList,
     FeedList,
     GroupData,
     IFeedSource,
 )
-from anchore_engine.subsys import logger
-from anchore_engine.utils import ensure_bytes
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.utils import ensure_bytes
 
 
 class LocalFileExport(object):
@@ -30,7 +30,7 @@ def init_distro_mappings():
     :return:
     """
 
-    from anchore_engine.db import DistroMapping, session_scope
+    from nextlinux_engine.db import DistroMapping, session_scope
 
     initial_mappings = [
         DistroMapping(from_distro="alpine", to_distro="alpine", flavor="ALPINE"),
@@ -64,7 +64,7 @@ class LocalTestDataEnvironment(object):
     Includes image exports, feeds data, and temp dir for sqlite db.
 
     The environment is a filesystem location with data in specific paths. Expected to be organized like:
-    {data_dir}/images - directory containing image analysis json files as output by the anchore tool export functionality
+    {data_dir}/images - directory containing image analysis json files as output by the nextlinux tool export functionality
     {data_dir}/feeds - directory containing a local copy of the feeds data in a hierarchical structure
     {data_dir}/feeds/<feed>/<group>/ - a group data directory containing ISO-8601 timestamp format-named json files that are feed data.
     e.g. {data_dir}/feeds/vulnerabilities/centos:6/2017-05-03T17:37:08.959123.json

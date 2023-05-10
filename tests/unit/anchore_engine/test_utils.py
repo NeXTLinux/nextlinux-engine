@@ -1,7 +1,7 @@
 import pytest
 
-from anchore_engine.util.docker import parse_dockerimage_string
-from anchore_engine.utils import (
+from nextlinux_engine.util.docker import parse_dockerimage_string
+from nextlinux_engine.utils import (
     SANITIZE_CMD_ERROR_MESSAGE,
     CommandException,
     run_check,
@@ -225,7 +225,7 @@ class Capture:
 class TestRunCheck:
     def test_file_not_found(self, monkeypatch):
         monkeypatch.setattr(
-            "anchore_engine.utils.subprocess.Popen",
+            "nextlinux_engine.utils.subprocess.Popen",
             lambda a, **kw: _raise(FileNotFoundError),
         )
         with pytest.raises(CommandException) as error:
@@ -237,7 +237,7 @@ class TestRunCheck:
 
     def test_capture_string_std(self, monkeypatch):
         monkeypatch.setattr(
-            "anchore_engine.utils.subprocess.Popen",
+            "nextlinux_engine.utils.subprocess.Popen",
             FakePopen(0, "stdout\nline", "stderr\nline"),
         )
         stdout, stderr = run_check(["ls"])
@@ -246,7 +246,7 @@ class TestRunCheck:
 
     def test_capture_bytes_std(self, monkeypatch):
         monkeypatch.setattr(
-            "anchore_engine.utils.subprocess.Popen",
+            "nextlinux_engine.utils.subprocess.Popen",
             FakePopen(0, b"stdout\nline", b"stderr\nline"),
         )
         stdout, stderr = run_check(["ls"])
@@ -255,12 +255,12 @@ class TestRunCheck:
 
     def test_log_stdout(self, monkeypatch):
         monkeypatch.setattr(
-            "anchore_engine.utils.subprocess.Popen",
+            "nextlinux_engine.utils.subprocess.Popen",
             FakePopen(0, "stdout\nline", b"stderr\nline"),
         )
 
         debug_log = Capture()
-        monkeypatch.setattr("anchore_engine.utils.logger.debug", debug_log)
+        monkeypatch.setattr("nextlinux_engine.utils.logger.debug", debug_log)
         stdout, stderr = run_check(["ls"])
         assert debug_log.calls[0]["args"] == ("running cmd: %s", "ls")
         assert debug_log.calls[1]["args"] == ("stdout: %s", "stdout")
@@ -272,24 +272,24 @@ class TestRunCheck:
     def test_log_stderr_does_not_log(self, monkeypatch):
         # a 0 exit status doesn't log stderr
         monkeypatch.setattr(
-            "anchore_engine.utils.subprocess.Popen",
+            "nextlinux_engine.utils.subprocess.Popen",
             FakePopen(0, "stdout\nline", "stderr\nline"),
         )
 
         error_log = Capture()
-        monkeypatch.setattr("anchore_engine.utils.logger.error", error_log)
+        monkeypatch.setattr("nextlinux_engine.utils.logger.error", error_log)
         stdout, stderr = run_check(["ls"])
         assert error_log.calls == []
 
     def test_raises_on_non_zero(self, monkeypatch):
         # a 0 exit status doesn't log stderr
         monkeypatch.setattr(
-            "anchore_engine.utils.subprocess.Popen",
+            "nextlinux_engine.utils.subprocess.Popen",
             FakePopen(100, "gathering info", "error! bad input"),
         )
 
         error_log = Capture()
-        monkeypatch.setattr("anchore_engine.utils.logger.error", error_log)
+        monkeypatch.setattr("nextlinux_engine.utils.logger.error", error_log)
         with pytest.raises(CommandException) as error:
             stdout, stderr = run_check(["ls"])
 
@@ -298,16 +298,16 @@ class TestRunCheck:
     def test_non_zero_doesnt_log_error(self, monkeypatch):
         # at debug levels the stderr output is already logged
         # set the log level to 4 (DEBUG)
-        monkeypatch.setattr("anchore_engine.utils.logger.log_level", 4)
+        monkeypatch.setattr("nextlinux_engine.utils.logger.log_level", 4)
         monkeypatch.setattr(
-            "anchore_engine.utils.subprocess.Popen",
+            "nextlinux_engine.utils.subprocess.Popen",
             FakePopen(100, "gathering info", "error! bad input"),
         )
 
         error_log = Capture()
         debug_log = Capture()
-        monkeypatch.setattr("anchore_engine.utils.logger.error", error_log)
-        monkeypatch.setattr("anchore_engine.utils.logger.debug", debug_log)
+        monkeypatch.setattr("nextlinux_engine.utils.logger.error", error_log)
+        monkeypatch.setattr("nextlinux_engine.utils.logger.debug", debug_log)
         with pytest.raises(CommandException):
             stdout, stderr = run_check(["ls"])
 
@@ -316,16 +316,16 @@ class TestRunCheck:
 
     def test_non_zero_logs_error(self, monkeypatch):
         # set the log level to 2 (WARNING)
-        monkeypatch.setattr("anchore_engine.utils.logger.log_level", 2)
+        monkeypatch.setattr("nextlinux_engine.utils.logger.log_level", 2)
         monkeypatch.setattr(
-            "anchore_engine.utils.subprocess.Popen",
+            "nextlinux_engine.utils.subprocess.Popen",
             FakePopen(100, "gathering info", "error! bad input"),
         )
 
         error_log = Capture()
         debug_log = Capture()
-        monkeypatch.setattr("anchore_engine.utils.logger.error", error_log)
-        monkeypatch.setattr("anchore_engine.utils.logger.debug", debug_log)
+        monkeypatch.setattr("nextlinux_engine.utils.logger.error", error_log)
+        monkeypatch.setattr("nextlinux_engine.utils.logger.debug", debug_log)
         with pytest.raises(CommandException):
             stdout, stderr = run_check(["ls"])
 

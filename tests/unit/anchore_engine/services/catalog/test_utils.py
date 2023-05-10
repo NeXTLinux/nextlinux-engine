@@ -1,10 +1,10 @@
 import pytest
 
-from anchore_engine.common.models.policy_engine import (
+from nextlinux_engine.common.models.policy_engine import (
     ImageVulnerabilitiesReport,
     VulnerabilityMatch,
 )
-from anchore_engine.services.catalog.utils import (
+from nextlinux_engine.services.catalog.utils import (
     VulnerabilitySummary,
     diff_identity_summary_maps,
     get_normalized_map_from_report,

@@ -7,14 +7,14 @@ import json
 import pytest
 import yaml
 
-from anchore_engine.apis.exceptions import BadRequest
-from anchore_engine.common.models.policy_engine import CVSS, NVDReference, Vulnerability
-from anchore_engine.services.apiext.api.controllers import utils as api_utils
-from anchore_engine.subsys import logger
+from nextlinux_engine.apis.exceptions import BadRequest
+from nextlinux_engine.common.models.policy_engine import CVSS, NVDReference, Vulnerability
+from nextlinux_engine.services.apiext.api.controllers import utils as api_utils
+from nextlinux_engine.subsys import logger
 
 logger.enable_test_logging("INFO")
 
-spec_path = "anchore_engine/services/apiext/swagger/swagger.yaml"
+spec_path = "nextlinux_engine/services/apiext/swagger/swagger.yaml"
 b64_dockerfile = str(
     base64.encodebytes(b'FROM stratch\nRUN echo "hello" > file\n'), "utf-8"
 )

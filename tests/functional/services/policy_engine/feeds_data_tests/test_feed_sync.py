@@ -3,8 +3,8 @@ import os
 import pytest
 
 import tests.functional.services.policy_engine.utils.api as policy_engine_api
-from anchore_engine.services.policy_engine.engine.feeds.feeds import GrypeDBFeed
-from anchore_engine.services.policy_engine.engine.vulns.providers import GrypeProvider
+from nextlinux_engine.services.policy_engine.engine.feeds.feeds import GrypeDBFeed
+from nextlinux_engine.services.policy_engine.engine.vulns.providers import GrypeProvider
 from tests.functional.services.policy_engine.conftest import (
     is_legacy_provider,
     read_expected_content,
@@ -30,7 +30,7 @@ def build_feed_sync_test_matrix():
         2. second index is the group object from the individual feed's index file
         3. Third index is expected count of vulns for that group
 
-    Handles grype vs legacy for expected content
+    Handles govulners vs legacy for expected content
     """
     params = []
 
@@ -50,7 +50,7 @@ def build_feed_sync_test_matrix():
         provider.init_display_mapper()
         feed = provider.display_mapper.get_display_name(GrypeDBFeed.__feed_name__)
         expected_groups = read_expected_content(
-            __file__, "expected_grype_feed_and_group_counts"
+            __file__, "expected_govulners_feed_and_group_counts"
         )
 
         for group, count in expected_groups.items():
@@ -78,10 +78,10 @@ class TestFeedSync:
     @classmethod
     def _get_vuln_ids(cls, expected_vulns):
         """
-        From a list of expected vulns taken from feeds service, find corresponding vulnerability ids for querying anchore
+        From a list of expected vulns taken from feeds service, find corresponding vulnerability ids for querying nextlinux
         :param expected_vulns: list of records in group from feed
         :type expected_vulns: list
-        :return: list of vulnerabilitiy_ids as they would be stored in anchore
+        :return: list of vulnerabilitiy_ids as they would be stored in nextlinux
         :rtype: list
         """
         vuln_ids = []
@@ -249,11 +249,11 @@ class TestFeedSync:
                 )
 
     ############# Grype specific tests #################
-    @pytest.mark.skipif(is_legacy_provider(), reason="skipping grype specific test")
+    @pytest.mark.skipif(is_legacy_provider(), reason="skipping govulners specific test")
     def test_updated_record_count_on_resync(self, initial_feed_sync_resp):
         """
         Tests that the updated record count on resync when data not flushed is 0
-        This is a grype specific sync becuase this does not appear to be the behavior for legacy prvoider
+        This is a govulners specific sync becuase this does not appear to be the behavior for legacy prvoider
         """
         resync_resp = policy_engine_api.feeds.feeds_sync()
         for feed in resync_resp.body:
@@ -264,21 +264,21 @@ class TestFeedSync:
     @pytest.mark.skipif(
         not is_legacy_provider(), reason="skipping legacy specific test"
     )
-    def test_no_grypedb_feed_if_legacy(self, initial_feed_sync_resp):
+    def test_no_govulnersdb_feed_if_legacy(self, initial_feed_sync_resp):
         """
-        If is legacy test, verify that grypedb feed is not returned when getting list feeds
+        If is legacy test, verify that govulnersdb feed is not returned when getting list feeds
         """
         assert initial_feed_sync_resp == http_utils.APIResponse(200)
-        grypedb_feed = self._find_by_attr(
+        govulnersdb_feed = self._find_by_attr(
             "feed", initial_feed_sync_resp.body, GrypeDBFeed.__feed_name__
         )
-        assert grypedb_feed is None
+        assert govulnersdb_feed is None
 
         feeds_get_resp = policy_engine_api.feeds.get_feeds(True)
-        grypedb_feed = self._find_by_attr(
+        govulnersdb_feed = self._find_by_attr(
             "name", feeds_get_resp.body, GrypeDBFeed.__feed_name__
         )
-        assert grypedb_feed is None
+        assert govulnersdb_feed is None
 
     @pytest.mark.skipif(
         not is_legacy_provider(), reason="skipping legacy specific test"
@@ -298,8 +298,8 @@ class TestFeedSync:
     ):
         """
         Verifies that the vulnerabilites are present by querying the vulnerabilities endpoint
-        Currently skips if not using grype provider
-        This could be done for grype, but it uses a full db and need to check a much larger number of vulns
+        Currently skips if not using govulners provider
+        This could be done for govulners, but it uses a full db and need to check a much larger number of vulns
         """
         # get expected cves and query to verify the count in the get feeds response
         expected_vulns = expected_content(

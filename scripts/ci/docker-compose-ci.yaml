@@ -2,11 +2,11 @@
 ---
 version: "2.1"
 volumes:
-  anchore-db-volume:
-    # Set this to 'true' to use an external volume. In which case, it must be created manually with "docker volume create anchore-db-volume"
+  nextlinux-db-volume:
+    # Set this to 'true' to use an external volume. In which case, it must be created manually with "docker volume create nextlinux-db-volume"
     external: false
 
-  anchore-scratch: {}
+  nextlinux-scratch: {}
 
 services:
   job-runner:
@@ -18,17 +18,17 @@ services:
         - GID_DOCKER=${GID_DOCKER}
         - TEST_IMAGE_NAME=${TEST_IMAGE_NAME}
     environment:
-      ANCHORE_TEST_DOCKER_REGISTRY_USER: ${ANCHORE_TEST_DOCKER_REGISTRY_USER:-anchore}
-      ANCHORE_TEST_DOCKER_REGISTRY_PASS: ${ANCHORE_TEST_DOCKER_REGISTRY_PASS:-foobar}
-      ANCHORE_TEST_DOCKER_REGISTRY_HOST: localhost:5000 # note: for volumes, this must be relative to where the docker daemon is running, not where the registry service is accessible by (dns)
-      ANCHORE_BASE_URL: http://engine-api:8228/v1
-      ANCHORE_CATALOG_URL: http://engine-catalog:8228/v1
-      ANCHORE_POLICY_ENGINE_URL: http://engine-policy-engine:8228/v1
-      ANCHORE_CLI_URL: http://engine-api:8228/v1
-      ANCHORE_CLI_USER: admin
-      ANCHORE_CLI_PASS: foobar
-      ANCHORE_TEST_DB_URL: postgresql://postgres:mysecretpassword@anchore-db:5432/postgres
-      TEST_VULNERABILITIES_PROVIDER: ${ANCHORE_VULNERABILITIES_PROVIDER:-grype}
+      NEXTLINUX_TEST_DOCKER_REGISTRY_USER: ${NEXTLINUX_TEST_DOCKER_REGISTRY_USER:-nextlinux}
+      NEXTLINUX_TEST_DOCKER_REGISTRY_PASS: ${NEXTLINUX_TEST_DOCKER_REGISTRY_PASS:-foobar}
+      NEXTLINUX_TEST_DOCKER_REGISTRY_HOST: localhost:5000 # note: for volumes, this must be relative to where the docker daemon is running, not where the registry service is accessible by (dns)
+      NEXTLINUX_BASE_URL: http://engine-api:8228/v1
+      NEXTLINUX_CATALOG_URL: http://engine-catalog:8228/v1
+      NEXTLINUX_POLICY_ENGINE_URL: http://engine-policy-engine:8228/v1
+      NEXTLINUX_CLI_URL: http://engine-api:8228/v1
+      NEXTLINUX_CLI_USER: admin
+      NEXTLINUX_CLI_PASS: foobar
+      NEXTLINUX_TEST_DB_URL: postgresql://postgres:mysecretpassword@nextlinux-db:5432/postgres
+      TEST_VULNERABILITIES_PROVIDER: ${NEXTLINUX_VULNERABILITIES_PROVIDER:-govulners}
     working_dir: /job-workspace
     volumes:
       - ../../:/job-workspace
@@ -41,26 +41,26 @@ services:
   engine-api:
     image: ${TEST_IMAGE_NAME}
     depends_on:
-      - anchore-db
+      - nextlinux-db
       - engine-catalog
     logging:
       driver: "json-file"
       options:
         max-size: 100m
     environment:
-      - ANCHORE_ENDPOINT_HOSTNAME=engine-api
-      - ANCHORE_ADMIN_PASSWORD=foobar
-      - ANCHORE_DB_HOST=anchore-db
-      - ANCHORE_DB_PASSWORD=mysecretpassword
-      - ANCHORE_OAUTH_ENABLED=true
-      - ANCHORE_AUTH_SECRET=supersharedsecret
-    command: ["anchore-manager", "service", "start", "apiext"]
+      - NEXTLINUX_ENDPOINT_HOSTNAME=engine-api
+      - NEXTLINUX_ADMIN_PASSWORD=foobar
+      - NEXTLINUX_DB_HOST=nextlinux-db
+      - NEXTLINUX_DB_PASSWORD=mysecretpassword
+      - NEXTLINUX_OAUTH_ENABLED=true
+      - NEXTLINUX_AUTH_SECRET=supersharedsecret
+    command: ["nextlinux-manager", "service", "start", "apiext"]
 
   # Catalog is the primary persistence and state manager of the system
   engine-catalog:
     image: ${TEST_IMAGE_NAME}
     depends_on:
-      - anchore-db
+      - nextlinux-db
     logging:
       driver: "json-file"
       options:
@@ -70,18 +70,18 @@ services:
     expose:
       - 8228
     environment:
-      - ANCHORE_ENDPOINT_HOSTNAME=engine-catalog
-      - ANCHORE_ADMIN_PASSWORD=foobar
-      - ANCHORE_DB_HOST=anchore-db
-      - ANCHORE_DB_PASSWORD=mysecretpassword
-      - ANCHORE_OAUTH_ENABLED=true
-      - ANCHORE_AUTH_SECRET=supersharedsecret
-      - ANCHORE_MAX_COMPRESSED_IMAGE_SIZE_MB=700
-    command: ["anchore-manager", "service", "start", "catalog"]
+      - NEXTLINUX_ENDPOINT_HOSTNAME=engine-catalog
+      - NEXTLINUX_ADMIN_PASSWORD=foobar
+      - NEXTLINUX_DB_HOST=nextlinux-db
+      - NEXTLINUX_DB_PASSWORD=mysecretpassword
+      - NEXTLINUX_OAUTH_ENABLED=true
+      - NEXTLINUX_AUTH_SECRET=supersharedsecret
+      - NEXTLINUX_MAX_COMPRESSED_IMAGE_SIZE_MB=700
+    command: ["nextlinux-manager", "service", "start", "catalog"]
   engine-simpleq:
     image: ${TEST_IMAGE_NAME}
     depends_on:
-      - anchore-db
+      - nextlinux-db
       - engine-catalog
     expose:
       - 8228
@@ -90,17 +90,17 @@ services:
       options:
         max-size: 100m
     environment:
-      - ANCHORE_ENDPOINT_HOSTNAME=engine-simpleq
-      - ANCHORE_ADMIN_PASSWORD=foobar
-      - ANCHORE_DB_HOST=anchore-db
-      - ANCHORE_DB_PASSWORD=mysecretpassword
-      - ANCHORE_OAUTH_ENABLED=true
-      - ANCHORE_AUTH_SECRET=supersharedsecret
-    command: ["anchore-manager", "service", "start", "simplequeue"]
+      - NEXTLINUX_ENDPOINT_HOSTNAME=engine-simpleq
+      - NEXTLINUX_ADMIN_PASSWORD=foobar
+      - NEXTLINUX_DB_HOST=nextlinux-db
+      - NEXTLINUX_DB_PASSWORD=mysecretpassword
+      - NEXTLINUX_OAUTH_ENABLED=true
+      - NEXTLINUX_AUTH_SECRET=supersharedsecret
+    command: ["nextlinux-manager", "service", "start", "simplequeue"]
   engine-policy-engine:
     image: ${TEST_IMAGE_NAME}
     depends_on:
-      - anchore-db
+      - nextlinux-db
       - engine-catalog
     ports:
       - "8331:8228"
@@ -111,23 +111,23 @@ services:
       options:
         max-size: 100m
     environment:
-      - ANCHORE_ENDPOINT_HOSTNAME=engine-policy-engine
-      - ANCHORE_ADMIN_PASSWORD=foobar
-      - ANCHORE_DB_HOST=anchore-db
-      - ANCHORE_DB_PASSWORD=mysecretpassword
-      - ANCHORE_OAUTH_ENABLED=true
-      - ANCHORE_AUTH_SECRET=supersharedsecret
-      - ANCHORE_FEEDS_URL="http://mock-feeds-nginx:8080/v1/service/feeds"
-      - ANCHORE_GRYPE_DB_URL=http://mock-feeds-nginx:8080/v1/service/databases/grypedb
-      - ANCHORE_FEEDS_ENABLED=true
-      - ANCHORE_FEEDS_CLIENT_URL=null
-      - ANCHORE_FEEDS_TOKEN_URL=null
-      - ANCHORE_VULNERABILITIES_PROVIDER=${ANCHORE_VULNERABILITIES_PROVIDER:-grype}
-    command: ["anchore-manager", "service", "start", "policy_engine"]
+      - NEXTLINUX_ENDPOINT_HOSTNAME=engine-policy-engine
+      - NEXTLINUX_ADMIN_PASSWORD=foobar
+      - NEXTLINUX_DB_HOST=nextlinux-db
+      - NEXTLINUX_DB_PASSWORD=mysecretpassword
+      - NEXTLINUX_OAUTH_ENABLED=true
+      - NEXTLINUX_AUTH_SECRET=supersharedsecret
+      - NEXTLINUX_FEEDS_URL="http://mock-feeds-nginx:8080/v1/service/feeds"
+      - NEXTLINUX_GRYPE_DB_URL=http://mock-feeds-nginx:8080/v1/service/databases/govulnersdb
+      - NEXTLINUX_FEEDS_ENABLED=true
+      - NEXTLINUX_FEEDS_CLIENT_URL=null
+      - NEXTLINUX_FEEDS_TOKEN_URL=null
+      - NEXTLINUX_VULNERABILITIES_PROVIDER=${NEXTLINUX_VULNERABILITIES_PROVIDER:-govulners}
+    command: ["nextlinux-manager", "service", "start", "policy_engine"]
   engine-analyzer:
     image: ${TEST_IMAGE_NAME}
     depends_on:
-      - anchore-db
+      - nextlinux-db
       - engine-catalog
     expose:
       - 8228
@@ -136,19 +136,19 @@ services:
       options:
         max-size: 100m
     environment:
-      - ANCHORE_ENDPOINT_HOSTNAME=engine-analyzer
-      - ANCHORE_ADMIN_PASSWORD=foobar
-      - ANCHORE_DB_HOST=anchore-db
-      - ANCHORE_DB_PASSWORD=mysecretpassword
-      - ANCHORE_OAUTH_ENABLED=true
-      - ANCHORE_AUTH_SECRET=supersharedsecret
+      - NEXTLINUX_ENDPOINT_HOSTNAME=engine-analyzer
+      - NEXTLINUX_ADMIN_PASSWORD=foobar
+      - NEXTLINUX_DB_HOST=nextlinux-db
+      - NEXTLINUX_DB_PASSWORD=mysecretpassword
+      - NEXTLINUX_OAUTH_ENABLED=true
+      - NEXTLINUX_AUTH_SECRET=supersharedsecret
     volumes:
-      - anchore-scratch:/analysis_scratch
-    command: ["anchore-manager", "service", "start", "analyzer"]
-  anchore-db:
+      - nextlinux-scratch:/analysis_scratch
+    command: ["nextlinux-manager", "service", "start", "analyzer"]
+  nextlinux-db:
     image: "postgres:9"
     volumes:
-      - anchore-db-volume:/var/lib/postgresql/data
+      - nextlinux-db-volume:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=mysecretpassword
     expose:

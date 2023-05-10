@@ -1,5 +1,5 @@
 ############################################################
-# Makefile for the Anchore Engine, a service that analyzes
+# Makefile for the Nextlinux Engine, a service that analyzes
 # Docker images and applies user-defined policies for automated
 # container image validation and certification. The rules, directives, and variables in this
 # Makefile enable testing, Docker image generation, and pushing Docker
@@ -15,11 +15,11 @@ SHELL := /usr/bin/env bash
 .NOTPARALLEL: # Run make serially
 
 # Dockerhub image repo
-DEV_IMAGE_REPO = anchore/anchore-engine-dev
+DEV_IMAGE_REPO = nextlinux/nextlinux-engine-dev
 
 # Shared CI scripts
-TEST_HARNESS_REPO = https://github.com/anchore/test-infra.git
-CI_CMD = anchore-ci/ci_harness
+TEST_HARNESS_REPO = https://github.com/nextlinux/test-infra.git
+CI_CMD = nextlinux-ci/ci_harness
 
 # Python environment
 VENV = .venv
@@ -30,7 +30,7 @@ PYTHON := $(VENV)/bin/python3
 CI_COMPOSE_FILE = scripts/ci/docker-compose-ci.yaml
 CLUSTER_CONFIG = scripts/ci/config/kind-config.yaml
 CONTAINER_TEST_CONFIG = scripts/ci/container-tests.yaml
-CLUSTER_NAME = anchore-testing
+CLUSTER_NAME = nextlinux-testing
 K8S_VERSION = 1.19.0
 TEST_IMAGE_NAME = $(GIT_REPO):dev
 OS := $(shell uname)
@@ -74,7 +74,7 @@ GIT_TAG := $(shell echo $${CIRCLE_TAG:=null})
 ci: lint build test ## Run full CI pipeline, locally
 
 .PHONY: build
-build: CLI_REPO ?= https://github.com/anchore/anchore-cli.git
+build: CLI_REPO ?= https://github.com/nextlinux/nextlinux-cli.git
 build: Dockerfile setup-test-infra ## Build dev image
 	@$(CI_CMD) build "$(COMMIT_SHA)" "$(GIT_TAG)" "$(TEST_IMAGE_NAME)" "$(CLI_REPO)"
 
@@ -104,7 +104,7 @@ clean-all: ## Clean everything (without prompts)
 ######################
 
 .PHONY: test
-test: test-unit test-integration setup-and-test-functional-grype setup-and-test-cli ## Run unit, integration, functional, and end-to-end tests
+test: test-unit test-integration setup-and-test-functional-govulners setup-and-test-cli ## Run unit, integration, functional, and end-to-end tests
 
 .PHONY: test-unit
 test-unit: export TOX_ENV = py38 ## Run unit tests (tox)
@@ -131,17 +131,17 @@ test-functional: venv setup-test-infra ## Run functional tests, assuming compose
 		$(ACTIVATE_VENV) && $(CI_CMD) $(CI_CMD) test-functional "${CI_COMPOSE_FILE}"  ; \
 	fi
 
-PHONY: setup-and-test-functional-grype
-setup-and-test-functional-grype: venv setup-test-infra ## Stand up/start docker-compose, run functional tests, tear down/stop docker-compose
+PHONY: setup-and-test-functional-govulners
+setup-and-test-functional-govulners: venv setup-test-infra ## Stand up/start docker-compose, run functional tests, tear down/stop docker-compose
 	@$(ACTIVATE_VENV) && $(CI_CMD) prep-local-docker-registry-credentials
-	@$(MAKE) compose-up ANCHORE_VULNERABILITIES_PROVIDER="grype"
+	@$(MAKE) compose-up NEXTLINUX_VULNERABILITIES_PROVIDER="govulners"
 	@$(MAKE) test-functional
 	@$(MAKE) compose-down
 
 .PHONY: setup-and-test-functional-legacy
 setup-and-test-functional-legacy: venv setup-test-infra ## Stand up/start docker-compose, run functional tests, tear down/stop docker-compose
 	@$(ACTIVATE_VENV) && $(CI_CMD) prep-local-docker-registry-credentials
-	@$(MAKE) compose-up ANCHORE_VULNERABILITIES_PROVIDER="legacy"
+	@$(MAKE) compose-up NEXTLINUX_VULNERABILITIES_PROVIDER="legacy"
 	@$(MAKE) test-functional
 	@$(MAKE) compose-down
 
@@ -168,32 +168,32 @@ test-container: setup-test-infra venv ## CI ONLY Run container-structure-tests o
 #######################
 
 .PHONY: push-nightly
-push-nightly: setup-test-infra ## Push nightly Anchore Engine Docker image to Docker Hub
+push-nightly: setup-test-infra ## Push nightly Nextlinux Engine Docker image to Docker Hub
 	@$(CI_CMD) push-nightly-image "$(COMMIT_SHA)" "$(DEV_IMAGE_REPO)" "$(GIT_BRANCH)" "$(TEST_IMAGE_NAME)"
 
 .PHONY: push-dev
-push-dev: setup-test-infra ## Push dev Anchore Engine Docker image to Docker Hub
+push-dev: setup-test-infra ## Push dev Nextlinux Engine Docker image to Docker Hub
 	@$(CI_CMD) push-dev-image "$(COMMIT_SHA)" "$(DEV_IMAGE_REPO)" "$(GIT_BRANCH)" "$(TEST_IMAGE_NAME)"
 
 .PHONY: push-rc
-push-rc: setup-test-infra ## Push RC Anchore Engine Docker image to Docker Hub (not available outside of CI)
+push-rc: setup-test-infra ## Push RC Nextlinux Engine Docker image to Docker Hub (not available outside of CI)
 	@$(CI_CMD) push-rc-image "$(DEV_IMAGE_REPO)" "$(GIT_TAG)" "$(TEST_IMAGE_NAME)"
 
 .PHONY: push-prod
-push-prod: setup-test-infra ## Push release Anchore Engine Docker image to Docker Hub (not available outside of CI
+push-prod: setup-test-infra ## Push release Nextlinux Engine Docker image to Docker Hub (not available outside of CI
 	@$(CI_CMD) push-prod-image-release "$(DEV_IMAGE_REPO)" "$(GIT_BRANCH)" "$(GIT_TAG)"
 
 .PHONY: push-redhat
-push-redhat: setup-test-infra ## (Not available outside of CI) Push prod Anchore Engine docker image to RedHat Connect
+push-redhat: setup-test-infra ## (Not available outside of CI) Push prod Nextlinux Engine docker image to RedHat Connect
 	@$(CI_CMD) push-redhat-image "$(GIT_TAG)"
 
 .PHONY: push-rebuild
-push-rebuild: setup-test-infra ## Rebuild and push prod Anchore Engine docker image to Docker Hub (not available outside of CI)
+push-rebuild: setup-test-infra ## Rebuild and push prod Nextlinux Engine docker image to Docker Hub (not available outside of CI)
 	@$(CI_CMD) push-prod-image-rebuild "$(COMMIT_SHA)" "$(DEV_IMAGE_REPO)" "$(GIT_TAG)"
 
 .PHONY: ironbank-artifacts
-ironbank-artifacts: anchore-ci ## (Not available outside of CI) Create and upload ironbank buildblob artifacts
-	@$(CI_CMD) create-ironbank-artifacts anchore-engine "$(GIT_TAG)"
+ironbank-artifacts: nextlinux-ci ## (Not available outside of CI) Create and upload ironbank buildblob artifacts
+	@$(CI_CMD) create-ironbank-artifacts nextlinux-engine "$(GIT_TAG)"
 
 # Helper targets
 #########################
@@ -201,7 +201,7 @@ ironbank-artifacts: anchore-ci ## (Not available outside of CI) Create and uploa
 .PHONY: compose-up
 compose-up: venv setup-test-infra ## Stand up/start docker-compose with dev image
 	@export TEST_IMAGE_NAME="$(TEST_IMAGE_NAME)";\
-	export ANCHORE_VULNERABILITIES_PROVIDER := "legacy" ;\
+	export NEXTLINUX_VULNERABILITIES_PROVIDER := "legacy" ;\
 	if [ "$(OS)" = "Darwin" ]; then \
 		export GID_DOCKER=0;\
 		export GID_CI=$(shell id -g);\
@@ -228,12 +228,12 @@ cluster-down: venv setup-test-infra ## Tear down/stop kind cluster
 	@$(ACTIVATE_VENV) && $(CI_CMD) cluster-down "$(CLUSTER_NAME)"
 
 .PHONY: setup-test-infra
-setup-test-infra: /tmp/test-infra ## Fetch anchore/test-infra repo for CI scripts
+setup-test-infra: /tmp/test-infra ## Fetch nextlinux/test-infra repo for CI scripts
 	cd /tmp/test-infra && git pull
-	@$(MAKE) anchore-ci
-anchore-ci: /tmp/test-infra/anchore-ci
-	rm -rf ./anchore-ci; cp -R /tmp/test-infra/anchore-ci .
-/tmp/test-infra/anchore-ci: /tmp/test-infra
+	@$(MAKE) nextlinux-ci
+nextlinux-ci: /tmp/test-infra/nextlinux-ci
+	rm -rf ./nextlinux-ci; cp -R /tmp/test-infra/nextlinux-ci .
+/tmp/test-infra/nextlinux-ci: /tmp/test-infra
 /tmp/test-infra:
 	git clone $(TEST_HARNESS_REPO) /tmp/test-infra
 
@@ -279,20 +279,20 @@ endif
 # Code change targets
 #######################
 
-SYFT_LATEST_VERSION = $(shell curl "https://api.github.com/repos/anchore/syft/releases/latest" 2>/dev/null | jq -r '.tag_name')
-.PHONY: upgrade-syft
-upgrade-syft: jq-installed ## Upgrade Syft to the latest release
-	if [ -n "$$GITHUB_ENV" ]; then echo "syft_v=${SYFT_LATEST_VERSION}" >> $$GITHUB_ENV; fi
+SYFT_LATEST_VERSION = $(shell curl "https://api.github.com/repos/nextlinux/gosbom/releases/latest" 2>/dev/null | jq -r '.tag_name')
+.PHONY: upgrade-gosbom
+upgrade-gosbom: jq-installed ## Upgrade Syft to the latest release
+	if [ -n "$$GITHUB_ENV" ]; then echo "gosbom_v=${SYFT_LATEST_VERSION}" >> $$GITHUB_ENV; fi
 	# Setting Syft to ${SYFT_LATEST_VERSION}
 	$(SEDI) 's/^(ENV SYFT_VERSION=).+$$/\1${SYFT_LATEST_VERSION}/' Dockerfile
 
-GRYPE_LATEST_VERSION = $(shell curl "https://api.github.com/repos/anchore/grype/releases/latest" 2>/dev/null | jq -r '.tag_name')
-.PHONY: upgrade-grype
-upgrade-grype: jq-installed ## Upgrade Grype to the latest release
-	if [ -n "$$GITHUB_ENV" ]; then echo "grype_v=${GRYPE_LATEST_VERSION}" >> $$GITHUB_ENV; fi
+GRYPE_LATEST_VERSION = $(shell curl "https://api.github.com/repos/nextlinux/govulners/releases/latest" 2>/dev/null | jq -r '.tag_name')
+.PHONY: upgrade-govulners
+upgrade-govulners: jq-installed ## Upgrade Grype to the latest release
+	if [ -n "$$GITHUB_ENV" ]; then echo "govulners_v=${GRYPE_LATEST_VERSION}" >> $$GITHUB_ENV; fi
 	# Setting Grype to ${GRYPE_LATEST_VERSION}
 	$(SEDI) 's/^(ENV GRYPE_VERSION=).+$$/\1${GRYPE_LATEST_VERSION}/' Dockerfile
 
 # TODO: Intent is to create a weekly/daily/continuous GitHub Action that runs the following and auto-opens a PR
-.PHONY: upgrade-anchore-tools
-upgrade-anchore-tools: upgrade-syft upgrade-grype ## Upgrade Syft and Grype to the latest release
+.PHONY: upgrade-nextlinux-tools
+upgrade-nextlinux-tools: upgrade-gosbom upgrade-govulners ## Upgrade Syft and Grype to the latest release

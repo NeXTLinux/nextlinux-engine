@@ -4,9 +4,9 @@ from datetime import datetime
 
 import pytest
 
-from anchore_engine.services.catalog import catalog_impl
-from anchore_engine.services.catalog.catalog_impl import is_new_tag
-from anchore_engine.util.time import datetime_to_rfc3339
+from nextlinux_engine.services.catalog import catalog_impl
+from nextlinux_engine.services.catalog.catalog_impl import is_new_tag
+from nextlinux_engine.util.time import datetime_to_rfc3339
 
 
 @pytest.mark.parametrize(
@@ -233,7 +233,7 @@ class TestImageAddWorkflow:
                         "digest": "sha256:714511030a442b48f37791a817ce6e124d9ea4b0158f93ce914520549bd6bc30",
                     },
                     "image_info": {
-                        "repo": "anchore/kai",
+                        "repo": "nextlinux/kai",
                         "registry": "docker.io",
                         "tag": None,
                     },
@@ -245,9 +245,9 @@ class TestImageAddWorkflow:
             ),
             pytest.param(
                 {
-                    "params": {"tag": "anchore/kai:latest"},
+                    "params": {"tag": "nextlinux/kai:latest"},
                     "image_info": {
-                        "repo": "anchore/kai",
+                        "repo": "nextlinux/kai",
                         "registry": "docker.io",
                         "tag": None,
                     },
@@ -260,42 +260,42 @@ class TestImageAddWorkflow:
             pytest.param(
                 {
                     "params": {
-                        "tag": "anchore/kai:latest",
+                        "tag": "nextlinux/kai:latest",
                         "digest": "sha256:714511030a442b48f37791a817ce6e124d9ea4b0158f93ce914520549bd6bc30",
                     },
                     "image_info": {
-                        "repo": "anchore/kai",
+                        "repo": "nextlinux/kai",
                         "registry": "docker.io",
                         "tag": "latest",
                     },
                     "input_string": "test",
                     "expected_overrides": {
-                        "fulltag": "anchore/kai:latest",
+                        "fulltag": "nextlinux/kai:latest",
                         "tag": "latest",
                     },
-                    "expected_input_string": "docker.io/anchore/kai@sha256:714511030a442b48f37791a817ce6e124d9ea4b0158f93ce914520549bd6bc30",
+                    "expected_input_string": "docker.io/nextlinux/kai@sha256:714511030a442b48f37791a817ce6e124d9ea4b0158f93ce914520549bd6bc30",
                 },
                 id="success-no-created-at",
             ),
             pytest.param(
                 {
                     "params": {
-                        "tag": "anchore/kai:latest",
+                        "tag": "nextlinux/kai:latest",
                         "digest": "sha256:714511030a442b48f37791a817ce6e124d9ea4b0158f93ce914520549bd6bc30",
                         "created_at": now_str,
                     },
                     "image_info": {
-                        "repo": "anchore/kai",
+                        "repo": "nextlinux/kai",
                         "registry": "docker.io",
                         "tag": "latest",
                     },
                     "input_string": "test",
                     "expected_overrides": {
-                        "fulltag": "anchore/kai:latest",
+                        "fulltag": "nextlinux/kai:latest",
                         "tag": "latest",
                         "created_at_override": now_str,
                     },
-                    "expected_input_string": "docker.io/anchore/kai@sha256:714511030a442b48f37791a817ce6e124d9ea4b0158f93ce914520549bd6bc30",
+                    "expected_input_string": "docker.io/nextlinux/kai@sha256:714511030a442b48f37791a817ce6e124d9ea4b0158f93ce914520549bd6bc30",
                 },
                 id="success-with-created-at",
             ),
@@ -357,18 +357,18 @@ class TestImageAddWorkflow:
             pytest.param(
                 {
                     "image_key": catalog_impl.ImageKey(
-                        tag="docker.io/anchore/test_images:centos8", digest=""
+                        tag="docker.io/nextlinux/test_images:centos8", digest=""
                     ),
-                    "expected": "docker.io/anchore/test_images:centos8",
+                    "expected": "docker.io/nextlinux/test_images:centos8",
                 },
                 id="no-digest",
             ),
             pytest.param(
                 {
                     "image_key": catalog_impl.ImageKey(
-                        tag="docker.io/anchore/test_images:centos8", digest="unknown"
+                        tag="docker.io/nextlinux/test_images:centos8", digest="unknown"
                     ),
-                    "expected": "docker.io/anchore/test_images:centos8",
+                    "expected": "docker.io/nextlinux/test_images:centos8",
                 },
                 id="digest-unknown",
             ),
@@ -382,10 +382,10 @@ class TestImageAddWorkflow:
             pytest.param(
                 {
                     "image_key": catalog_impl.ImageKey(
-                        tag="docker.io/anchore/test_images:centos8",
+                        tag="docker.io/nextlinux/test_images:centos8",
                         digest="sha256:1234abcd",
                     ),
-                    "expected": "docker.io/anchore/test_images@sha256:1234abcd",
+                    "expected": "docker.io/nextlinux/test_images@sha256:1234abcd",
                 },
                 id="valid-digest-valid-tag",
             ),

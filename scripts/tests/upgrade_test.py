@@ -1,9 +1,9 @@
 import sys
 
-from anchore_engine import db
-from anchore_engine.configuration import localconfig
-from anchore_engine.db.entities import upgrade
-from anchore_engine.subsys import logger
+from nextlinux_engine import db
+from nextlinux_engine.configuration import localconfig
+from nextlinux_engine.db.entities import upgrade
+from nextlinux_engine.subsys import logger
 
 logger.enable_bootstrap_logging()
 

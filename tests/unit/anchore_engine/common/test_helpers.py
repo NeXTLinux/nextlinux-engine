@@ -1,7 +1,7 @@
 import pytest
 
-from anchore_engine.common import helpers
-from anchore_engine.common.helpers import make_anchore_exception
+from nextlinux_engine.common import helpers
+from nextlinux_engine.common.helpers import make_nextlinux_exception
 
 values = [
     pytest.param("{}", {}, id="'{}'"),
@@ -50,10 +50,10 @@ class TestExtractPythonContent:
 
 class TestMakeResponseError:
     class TestException(Exception):
-        def __init__(self, msg, anchore_error_json=None):
+        def __init__(self, msg, nextlinux_error_json=None):
             super().__init__(msg)
-            if anchore_error_json is not None:
-                self.anchore_error_json = anchore_error_json
+            if nextlinux_error_json is not None:
+                self.nextlinux_error_json = nextlinux_error_json
 
     params = [
         pytest.param(
@@ -128,7 +128,7 @@ class TestMakeResponseError:
             {
                 "errmsg": TestException(
                     "testexception",
-                    anchore_error_json={
+                    nextlinux_error_json={
                         "message": "test",
                         "httpcode": 500,
                         "detail": {"error_codes": [404]},
@@ -142,13 +142,13 @@ class TestMakeResponseError:
                     "detail": {"error_codes": [404]},
                 },
             },
-            id="basic-exception-with-anchore-error-json",
+            id="basic-exception-with-nextlinux-error-json",
         ),
         pytest.param(
             {
                 "errmsg": TestException(
                     "testexception",
-                    anchore_error_json={
+                    nextlinux_error_json={
                         "message": "test",
                         "httpcode": 500,
                         "detail": {"error_codes": [404]},
@@ -163,13 +163,13 @@ class TestMakeResponseError:
                     "detail": {"error_codes": [404, 401]},
                 },
             },
-            id="basic-exception-with-anchore-error-json-and-error-code",
+            id="basic-exception-with-nextlinux-error-json-and-error-code",
         ),
         pytest.param(
             {
                 "errmsg": TestException(
                     "testexception",
-                    anchore_error_json='{"message": "test", "httpcode": 500, "detail": {"error_codes": [404]}}',
+                    nextlinux_error_json='{"message": "test", "httpcode": 500, "detail": {"error_codes": [404]}}',
                 ),
                 "in_httpcode": 400,
                 "details": None,
@@ -185,7 +185,7 @@ class TestMakeResponseError:
             {
                 "errmsg": TestException(
                     "testexception",
-                    anchore_error_json='{"message" "test", "httpcode": 500, "detail": {"error_codes": [404]}}',
+                    nextlinux_error_json='{"message" "test", "httpcode": 500, "detail": {"error_codes": [404]}}',
                 ),
                 "in_httpcode": 400,
                 "details": None,
@@ -209,11 +209,11 @@ class TestMakeResponseError:
         assert actual["detail"] == param["expected"]["detail"]
 
 
-class TestMakeAnchoreException:
+class TestMakeNextlinuxException:
 
     # This handles the case where attributes are already set on the exception passed in
     err_with_attrs = Exception("test")
-    err_with_attrs.anchore_error_json = {
+    err_with_attrs.nextlinux_error_json = {
         "message": "attr-test",
         "detail": {
             "raw_exception_message": "attribute test",
@@ -235,7 +235,7 @@ class TestMakeAnchoreException:
                     "override_existing": None,
                     "input_error_codes": None,
                     "expected_msg": "test",
-                    "expected_anchore_json": {
+                    "expected_nextlinux_json": {
                         "message": "test",
                         "detail": {
                             "raw_exception_message": "test",
@@ -255,7 +255,7 @@ class TestMakeAnchoreException:
                     "override_existing": None,
                     "input_error_codes": None,
                     "expected_msg": "test",
-                    "expected_anchore_json": {
+                    "expected_nextlinux_json": {
                         "message": "test",
                         "detail": {
                             "raw_exception_message": "test",
@@ -275,7 +275,7 @@ class TestMakeAnchoreException:
                     "override_existing": None,
                     "input_error_codes": None,
                     "expected_msg": "test",
-                    "expected_anchore_json": {
+                    "expected_nextlinux_json": {
                         "message": "attr-test",
                         "detail": {
                             "raw_exception_message": "attribute test",
@@ -295,7 +295,7 @@ class TestMakeAnchoreException:
                     "override_existing": True,
                     "input_error_codes": [402, 403],
                     "expected_msg": "test",
-                    "expected_anchore_json": {
+                    "expected_nextlinux_json": {
                         "message": "override-msg",
                         "detail": {"unit": "test", "error_codes": [402, 403, 404]},
                         "httpcode": 401,
@@ -305,8 +305,8 @@ class TestMakeAnchoreException:
             ),
         ],
     )
-    def test_make_anchore_exception(self, param):
-        actual = make_anchore_exception(
+    def test_make_nextlinux_exception(self, param):
+        actual = make_nextlinux_exception(
             param["err"],
             param["input_message"],
             param["input_httpcode"],
@@ -316,4 +316,4 @@ class TestMakeAnchoreException:
         )
 
         assert str(actual) == param["expected_msg"]
-        assert actual.anchore_error_json == param["expected_anchore_json"]
+        assert actual.nextlinux_error_json == param["expected_nextlinux_json"]

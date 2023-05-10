@@ -1,6 +1,6 @@
 import pytest
 
-from anchore_engine.util.cpe_generators import (
+from nextlinux_engine.util.cpe_generators import (
     generate_fuzzy_cpes,
     generate_fuzzy_go_cpes,
     generate_gem_products,

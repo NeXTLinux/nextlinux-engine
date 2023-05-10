@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 import pytest
 
-from anchore_engine.services.catalog.catalog_impl import is_image_valid_size
+from nextlinux_engine.services.catalog.catalog_impl import is_image_valid_size
 
 max_image_size_tests = [
     {
@@ -40,7 +40,7 @@ max_image_size_tests = [
 
 
 @patch(
-    "anchore_engine.services.catalog.catalog_impl.anchore_engine.configuration.localconfig"
+    "nextlinux_engine.services.catalog.catalog_impl.nextlinux_engine.configuration.localconfig"
 )
 @pytest.mark.parametrize("test_context", max_image_size_tests)
 def test_is_image_valid_size(mock_config, test_context):

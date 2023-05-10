@@ -1,11 +1,11 @@
 import pytest
 
-from anchore_engine.db.entities.policy_engine import Image
-from anchore_engine.services.policy_engine.engine.policy.exceptions import (
+from nextlinux_engine.db.entities.policy_engine import Image
+from nextlinux_engine.services.policy_engine.engine.policy.exceptions import (
     PolicyRuleValidationErrorCollection,
 )
-from anchore_engine.services.policy_engine.engine.policy.gate import ExecutionContext
-from anchore_engine.services.policy_engine.engine.policy.gates import image_metadata
+from nextlinux_engine.services.policy_engine.engine.policy.gate import ExecutionContext
+from nextlinux_engine.services.policy_engine.engine.policy.gates import image_metadata
 
 image_id = "1"
 user = "admin"

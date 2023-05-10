@@ -2,23 +2,23 @@ from twisted.application.service import IServiceMaker
 from twisted.plugin import IPlugin
 from zope.interface import implementer
 
-# anchore modules
-from anchore_engine.services.policy_engine import PolicyEngineService
-from anchore_engine.twisted import CommonOptions, WsgiApiServiceMaker
+# nextlinux modules
+from nextlinux_engine.services.policy_engine import PolicyEngineService
+from nextlinux_engine.twisted import CommonOptions, WsgiApiServiceMaker
 
 
 @implementer(IServiceMaker, IPlugin)
 class PolicyEngineServiceMaker(WsgiApiServiceMaker):
     """
-    Anchore Engine Policy Engine twistd plugin.
+    Nextlinux Engine Policy Engine twistd plugin.
 
-    Invoke with 'twistd anchore-policy-engine -c <config>'
+    Invoke with 'twistd nextlinux-policy-engine -c <config>'
 
     """
 
-    tapname = "anchore-policy-engine"
+    tapname = "nextlinux-policy-engine"
     description = (
-        "Anchore Engine Policy Engine Service. Provides policy evaluation service."
+        "Nextlinux Engine Policy Engine Service. Provides policy evaluation service."
     )
     service_cls = PolicyEngineService
     options = CommonOptions

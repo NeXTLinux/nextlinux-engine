@@ -1,6 +1,6 @@
 import pytest
 
-from anchore_engine.subsys.object_store import manager
+from nextlinux_engine.subsys.object_store import manager
 
 
 class TestManager:

@@ -1,16 +1,16 @@
 import pytest
 
-from anchore_engine.services.policy_engine.engine.policy.gates import (
+from nextlinux_engine.services.policy_engine.engine.policy.gates import (
     PackageCheckGate,
     BaseTrigger,
 )
-from anchore_engine.services.policy_engine.engine.policy.gates.dockerfile import (
+from nextlinux_engine.services.policy_engine.engine.policy.gates.dockerfile import (
     EffectiveUserTrigger,
 )
-from anchore_engine.services.policy_engine.engine.policy.gates.npms import (
+from nextlinux_engine.services.policy_engine.engine.policy.gates.npms import (
     PkgMatchTrigger,
 )
-from anchore_engine.services.policy_engine.engine.policy.params import (
+from nextlinux_engine.services.policy_engine.engine.policy.params import (
     CommaDelimitedStringListParameter,
     EnumStringParameter,
     TriggerParameter,

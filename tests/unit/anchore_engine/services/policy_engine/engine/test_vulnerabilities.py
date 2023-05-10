@@ -1,5 +1,5 @@
-from anchore_engine.services.policy_engine.engine import vulnerabilities
-from anchore_engine.subsys import logger
+from nextlinux_engine.services.policy_engine.engine import vulnerabilities
+from nextlinux_engine.subsys import logger
 
 logger.enable_test_logging(level="info")
 

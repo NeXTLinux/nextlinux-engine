@@ -1,9 +1,9 @@
 import pytest
 
-from anchore_engine.services.catalog.image_content.get_image_content import (
+from nextlinux_engine.services.catalog.image_content.get_image_content import (
     MultipleContentTypesGetter,
 )
-from anchore_engine.subsys.object_store import manager
+from nextlinux_engine.subsys.object_store import manager
 
 
 class TestMultipleContentTypesGetter:

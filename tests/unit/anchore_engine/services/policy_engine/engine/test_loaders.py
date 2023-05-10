@@ -1,5 +1,5 @@
-from anchore_engine.db import Image
-from anchore_engine.services.policy_engine.engine.loaders import ImageLoader
+from nextlinux_engine.db import Image
+from nextlinux_engine.services.policy_engine.engine.loaders import ImageLoader
 
 
 def get_image():
@@ -21,8 +21,8 @@ class TestLoadingJavaCPEs:
         }
     }
 
-    def test_extract_java_syft_cpes_returns_cpes(self):
-        cpes = ImageLoader(self.ANALYSIS_DATA).extract_syft_cpes(
+    def test_extract_java_gosbom_cpes_returns_cpes(self):
+        cpes = ImageLoader(self.ANALYSIS_DATA).extract_gosbom_cpes(
             {},
             self.ANALYSIS_DATA["package_list"]["pkgs.java"]["base"],
             get_image(),
@@ -49,8 +49,8 @@ class TestLoadingPythonCPEs:
         }
     }
 
-    def test_extract_python_syft_cpes_returns_cpes(self):
-        cpes = ImageLoader(self.ANALYSIS_DATA).extract_syft_cpes(
+    def test_extract_python_gosbom_cpes_returns_cpes(self):
+        cpes = ImageLoader(self.ANALYSIS_DATA).extract_gosbom_cpes(
             {},
             self.ANALYSIS_DATA["package_list"]["pkgs.python"]["base"],
             get_image(),
@@ -77,8 +77,8 @@ class TestLoadingGemsCPEs:
         }
     }
 
-    def test_extract_gems_syft_cpes_returns_cpes(self):
-        cpes = ImageLoader(self.ANALYSIS_DATA).extract_syft_cpes(
+    def test_extract_gems_gosbom_cpes_returns_cpes(self):
+        cpes = ImageLoader(self.ANALYSIS_DATA).extract_gosbom_cpes(
             {},
             self.ANALYSIS_DATA["package_list"]["pkgs.gems"]["base"],
             get_image(),
@@ -105,8 +105,8 @@ class TestLoadingNpmsCPEs:
         }
     }
 
-    def test_extract_npms_syft_cpes_returns_cpes(self):
-        cpes = ImageLoader(self.ANALYSIS_DATA).extract_syft_cpes(
+    def test_extract_npms_gosbom_cpes_returns_cpes(self):
+        cpes = ImageLoader(self.ANALYSIS_DATA).extract_gosbom_cpes(
             {},
             self.ANALYSIS_DATA["package_list"]["pkgs.npms"]["base"],
             get_image(),

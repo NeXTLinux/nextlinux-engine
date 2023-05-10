@@ -4,7 +4,7 @@ import os
 
 import pytest
 
-from anchore_engine.analyzers.manager import apply_hints
+from nextlinux_engine.analyzers.manager import apply_hints
 
 # Used to determine which path in findings should be accessed
 hint_file_pkg_type_map = {
@@ -22,7 +22,7 @@ distro_hint_files = ["alpine_hints.json", "debian_hints.json", "rpm_hints.json"]
 class TestApplyHints:
     @pytest.fixture
     def log_to_stdout(self, monkeypatch):
-        monkeypatch.setattr("anchore_engine.subsys.logger._log_to_stdout", True)
+        monkeypatch.setattr("nextlinux_engine.subsys.logger._log_to_stdout", True)
 
     @pytest.fixture
     def module_path(self, request):
@@ -57,7 +57,7 @@ class TestApplyHints:
             def _hints(**kwargs):
                 return hints
 
-            monkeypatch.setattr("anchore_engine.analyzers.utils.get_hintsfile", _hints)
+            monkeypatch.setattr("nextlinux_engine.analyzers.utils.get_hintsfile", _hints)
 
         return _patch_read
 
@@ -75,7 +75,7 @@ class TestApplyHints:
 
     @pytest.mark.parametrize("hints_filename", hint_file_pkg_type_map.keys())
     def test_hints_defines_path(self, hints_filename, patch_hints_read, get_hints):
-        # There was a bug that was causing issues when syft did not process a certain type of artifact that was then
+        # There was a bug that was causing issues when gosbom did not process a certain type of artifact that was then
         # processed as a hint. Certain paths of nested attributes were being accessed without being defined
         # This test is designed to ensure that each handler can set the attributes it needs when hints are applied
         analyzer_report = {}

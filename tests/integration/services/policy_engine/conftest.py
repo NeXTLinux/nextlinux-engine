@@ -4,23 +4,23 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from anchore_engine.db import end_session
-from anchore_engine.services.policy_engine import init_feed_registry
-from anchore_engine.services.policy_engine.engine.feeds.config import (
+from nextlinux_engine.db import end_session
+from nextlinux_engine.services.policy_engine import init_feed_registry
+from nextlinux_engine.services.policy_engine.engine.feeds.config import (
     compute_selected_configs_to_sync,
 )
-from anchore_engine.services.policy_engine.engine.feeds.feeds import FeedSyncResult
-from anchore_engine.services.policy_engine.engine.feeds.sync import DataFeeds
-from anchore_engine.services.policy_engine.engine.tasks import ImageLoadTask
-from anchore_engine.services.policy_engine.engine.vulns.providers import LegacyProvider
-from anchore_engine.subsys import logger
+from nextlinux_engine.services.policy_engine.engine.feeds.feeds import FeedSyncResult
+from nextlinux_engine.services.policy_engine.engine.feeds.sync import DataFeeds
+from nextlinux_engine.services.policy_engine.engine.tasks import ImageLoadTask
+from nextlinux_engine.services.policy_engine.engine.vulns.providers import LegacyProvider
+from nextlinux_engine.subsys import logger
 from tests.integration.services.policy_engine.utils import LocalTestDataEnvironment
 
 
 def _init_te(init_feeds=True):
     init_feed_registry()
     t = LocalTestDataEnvironment(
-        os.getenv("ANCHORE_TEST_DATA_ENV_DIR", "tests/data/test_data_env")
+        os.getenv("NEXTLINUX_TEST_DATA_ENV_DIR", "tests/data/test_data_env")
     )
     if init_feeds:
         t.init_feeds()
@@ -29,10 +29,10 @@ def _init_te(init_feeds=True):
 
 
 @pytest.fixture
-def test_data_env(anchore_db):
+def test_data_env(nextlinux_db):
     """
     Fixture for a test data env
-    :param anchore_db:
+    :param nextlinux_db:
     :return:
     """
     try:
@@ -44,12 +44,12 @@ def test_data_env(anchore_db):
 
 
 @pytest.fixture
-def cls_test_data_env(anchore_db, request):
+def cls_test_data_env(nextlinux_db, request):
     request.cls.test_env = _init_te(True)
 
 
 @pytest.fixture(scope="class")
-def cls_test_data_env2(cls_anchore_db, request):
+def cls_test_data_env2(cls_nextlinux_db, request):
     request.cls.test_env = _init_te(True)
 
 
@@ -89,15 +89,15 @@ def run_legacy_sync(
     test_env: LocalTestDataEnvironment, to_sync: List[str]
 ) -> List[FeedSyncResult]:
     DataFeeds.__scratch_dir__ = "/tmp"
-    feed_url = os.getenv("ANCHORE_GRYPE_DB_URL", "https://ancho.re/v1/service/feeds")
+    feed_url = os.getenv("NEXTLINUX_GRYPE_DB_URL", "https://ancho.re/v1/service/feeds")
     data_clause = {}
     for feed_name in to_sync:
         data_clause[feed_name] = {"enabled": True, "url": feed_url}
     config = {
         "provider": "legacy",
         "sync": {
-            "enabled": os.getenv("ANCHORE_FEEDS_ENABLED", True),
-            "ssl_verify": os.getenv("ANCHORE_FEEDS_SSL_VERIFY", True),
+            "enabled": os.getenv("NEXTLINUX_FEEDS_ENABLED", True),
+            "ssl_verify": os.getenv("NEXTLINUX_FEEDS_SSL_VERIFY", True),
             "connection_timeout_seconds": 3,
             "read_timeout_seconds": 60,
             "data": data_clause,

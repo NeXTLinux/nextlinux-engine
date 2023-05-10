@@ -113,7 +113,7 @@ ENV/
 .history/
 
 # CI scripts
-anchore-ci*/
+nextlinux-ci*/
 
 tags
 

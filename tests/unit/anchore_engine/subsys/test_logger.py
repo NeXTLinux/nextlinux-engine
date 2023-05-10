@@ -1,6 +1,6 @@
 import pytest
 
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
 
 class TestSafeFormatter:

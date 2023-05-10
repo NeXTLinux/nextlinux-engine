@@ -8,17 +8,17 @@ TEST_IMAGE_NAME="${3:?'Missing required parameter: TEST_IMAGE_NAME'}"
 CLI_REPO="${4:?'Missing required parameter: CLI_REPO'}"
 
 # Optional - only used for print_colorized
-source anchore-ci/utils
+source nextlinux-ci/utils
 
-# Get the latest anchore-cli tag from remote
+# Get the latest nextlinux-cli tag from remote
 if [[ "${GIT_TAG}" =~ ^v[0-9]+(\.[0-9]+)*.*$ ]]; then
-    anchore_cli_commit="$(git -c 'versionsort.suffix=-' ls-remote --exit-code --tags --refs --sort="v:refname" ${CLI_REPO} 'v*' | tail -n1 | sed 's/.*\///')"
-# Or, get commit SHA from HEAD of master anchore-cli remote
+    nextlinux_cli_commit="$(git -c 'versionsort.suffix=-' ls-remote --exit-code --tags --refs --sort="v:refname" ${CLI_REPO} 'v*' | tail -n1 | sed 's/.*\///')"
+# Or, get commit SHA from HEAD of master nextlinux-cli remote
 else
-    anchore_cli_commit="$(git ls-remote ${CLI_REPO} master | cut -f 1)"
+    nextlinux_cli_commit="$(git ls-remote ${CLI_REPO} master | cut -f 1)"
 fi
 
-print_colorized INFO "Building Anchore Engine image ${TEST_IMAGE_NAME}; installing anchore-cli from git@${anchore_cli_commit}."; echo
+print_colorized INFO "Building Nextlinux Engine image ${TEST_IMAGE_NAME}; installing nextlinux-cli from git@${nextlinux_cli_commit}."; echo
 
 if [[ ${CI:-false} == "true" ]]; then
   BUILD_CACHE_ARG="--no-cache"
@@ -26,6 +26,6 @@ else
   BUILD_CACHE_ARG=""
 fi
 
-docker build ${BUILD_CACHE_ARG} --build-arg ANCHORE_COMMIT="${COMMIT_SHA}" --build-arg CLI_COMMIT="${anchore_cli_commit}" -t "${TEST_IMAGE_NAME}" -f ./Dockerfile .
+docker build ${BUILD_CACHE_ARG} --build-arg NEXTLINUX_COMMIT="${COMMIT_SHA}" --build-arg CLI_COMMIT="${nextlinux_cli_commit}" -t "${TEST_IMAGE_NAME}" -f ./Dockerfile .
 
-print_colorized INFO "Built Anchore Engine image ${TEST_IMAGE_NAME}."; echo
+print_colorized INFO "Built Nextlinux Engine image ${TEST_IMAGE_NAME}."; echo

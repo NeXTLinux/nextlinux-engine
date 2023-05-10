@@ -1,7 +1,7 @@
 import pytest
 
-from anchore_engine.db import Image, get_thread_scoped_session
-from anchore_engine.services.policy_engine.engine.policy.gates.passwd_file import (
+from nextlinux_engine.db import Image, get_thread_scoped_session
+from nextlinux_engine.services.policy_engine.engine.policy.gates.passwd_file import (
     FileNotStoredTrigger,
     FileparsePasswordGate,
     GroupIdMatchTrigger,
@@ -10,7 +10,7 @@ from anchore_engine.services.policy_engine.engine.policy.gates.passwd_file impor
     UserIdMatchTrigger,
     UsernameMatchTrigger,
 )
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 from tests.integration.services.policy_engine.engine.policy.gates import GateUnitTest
 
 logger.enable_test_logging()

@@ -1,21 +1,21 @@
 import pytest
 
-from anchore_engine.db import get_thread_scoped_session
-from anchore_engine.db.entities.policy_engine import (
+from nextlinux_engine.db import get_thread_scoped_session
+from nextlinux_engine.db.entities.policy_engine import (
     DistroMapping,
     DistroNamespace,
     DistroTuple,
     FeedGroupMetadata,
     FeedMetadata,
 )
-from anchore_engine.services.policy_engine import (  # _init_distro_mappings
+from nextlinux_engine.services.policy_engine import (  # _init_distro_mappings
     process_preflight,
 )
-from anchore_engine.services.policy_engine.engine.feeds.feeds import (
+from nextlinux_engine.services.policy_engine.engine.feeds.feeds import (
     feed_registry,
     have_vulnerabilities_for,
 )
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
 logger.enable_test_logging()
 
@@ -25,17 +25,17 @@ class AnotherVulnClass:
 
 
 @pytest.fixture()
-def initialized_mappings(anchore_db):
+def initialized_mappings(nextlinux_db):
     process_preflight()
     feed_registry.register(AnotherVulnClass, True)
     # _init_distro_mappings()
 
 
 @pytest.fixture()
-def initialized_feed_metadata(anchore_db):
+def initialized_feed_metadata(nextlinux_db):
     """
     Add feed metadata records to the test db, but not vulns
-    :param anchore_db:
+    :param nextlinux_db:
     :return:
     """
 

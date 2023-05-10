@@ -2,25 +2,25 @@ from typing import Dict, List, Type
 
 import pytest
 
-from anchore_engine.common.models.schemas import (
+from nextlinux_engine.common.models.schemas import (
     FeedAPIGroupRecord,
     FeedAPIRecord,
     GrypeDBListing,
 )
-from anchore_engine.db import FeedGroupMetadata, FeedMetadata
-from anchore_engine.db.entities.common import anchore_now_datetime
-from anchore_engine.services.policy_engine.engine.feeds import FeedList
-from anchore_engine.services.policy_engine.engine.feeds.client import (
+from nextlinux_engine.db import FeedGroupMetadata, FeedMetadata
+from nextlinux_engine.db.entities.common import nextlinux_now_datetime
+from nextlinux_engine.services.policy_engine.engine.feeds import FeedList
+from nextlinux_engine.services.policy_engine.engine.feeds.client import (
     FeedServiceClient,
     GrypeDBServiceClient,
     IFeedSource,
 )
-from anchore_engine.services.policy_engine.engine.feeds.config import SyncConfig
-from anchore_engine.services.policy_engine.engine.feeds.feeds import (
+from nextlinux_engine.services.policy_engine.engine.feeds.config import SyncConfig
+from nextlinux_engine.services.policy_engine.engine.feeds.feeds import (
     GrypeDBFeed,
     VulnerabilityFeed,
 )
-from anchore_engine.services.policy_engine.engine.feeds.sync_utils import (
+from nextlinux_engine.services.policy_engine.engine.feeds.sync_utils import (
     GrypeDBSyncUtilProvider,
     LegacySyncUtilProvider,
     SyncUtilProvider,
@@ -33,29 +33,29 @@ class TestSyncUtilProvider:
         [
             (
                 LegacySyncUtilProvider,
-                {"packages": SyncConfig(url="www.anchore.com", enabled=True)},
+                {"packages": SyncConfig(url="www.nextlinux.com", enabled=True)},
                 ["packages"],
             ),
             (
                 LegacySyncUtilProvider,
                 {
-                    "nvdv2": SyncConfig(url="www.anchore.com", enabled=True),
-                    "vulnerabilities": SyncConfig(url="www.anchore.com", enabled=True),
+                    "nvdv2": SyncConfig(url="www.nextlinux.com", enabled=True),
+                    "vulnerabilities": SyncConfig(url="www.nextlinux.com", enabled=True),
                 },
                 ["nvdv2", "vulnerabilities"],
             ),
             (
                 GrypeDBSyncUtilProvider,
-                {"grypedb": SyncConfig(url="www.anchore.com", enabled=True)},
-                ["grypedb"],
+                {"govulnersdb": SyncConfig(url="www.nextlinux.com", enabled=True)},
+                ["govulnersdb"],
             ),
             (
                 GrypeDBSyncUtilProvider,
                 {
-                    "grypedb": SyncConfig(url="www.anchore.com", enabled=True),
-                    "packages": SyncConfig(url="www.anchore.com", enabled=True),
+                    "govulnersdb": SyncConfig(url="www.nextlinux.com", enabled=True),
+                    "packages": SyncConfig(url="www.nextlinux.com", enabled=True),
                 },
-                ["grypedb"],
+                ["govulnersdb"],
             ),
         ],
     )
@@ -72,12 +72,12 @@ class TestSyncUtilProvider:
         The GrypeDBSyncUtilProvider works for the GrypeDB feed format.
         However, the VulnerabilitiesProvider has two implementations.
         The LegacyProvider contains all vulnerability logic that changes when the provider is set to "legacy"
-        The GrypeProvider contains all vulnerability logic that changes when the provider is set to "grype"
-        As such, the GrypeProvider actually returns both "packages" and "grypedb" SyncConfigs,
+        The GrypeProvider contains all vulnerability logic that changes when the provider is set to "govulners"
+        As such, the GrypeProvider actually returns both "packages" and "govulnersdb" SyncConfigs,
         while "packages" is actually a Legacy style feed.
         Meanwhile, the "packages" feed can only be synced by the LegacySyncUtilProvider.
         The solution is likely to wrap the entire sync method with the SyncUtilProvider, that way LegacySyncUtilProvider
-        can just do legacy feeds, while GrypeDBSyncUtilProvider will first do "grypedb" feed with the grype logic
+        can just do legacy feeds, while GrypeDBSyncUtilProvider will first do "govulnersdb" feed with the govulners logic
         and then do "packages" feed with the legacy logic.
         """
         filtered_configs = sync_util_provider._get_filtered_sync_configs(sync_configs)
@@ -88,12 +88,12 @@ class TestSyncUtilProvider:
         [
             (
                 LegacySyncUtilProvider,
-                {"vulnerabilities": SyncConfig(url="www.anchore.com", enabled=True)},
+                {"vulnerabilities": SyncConfig(url="www.nextlinux.com", enabled=True)},
                 FeedServiceClient,
             ),
             (
                 GrypeDBSyncUtilProvider,
-                {"grypedb": SyncConfig(url="www.anchore.com", enabled=True)},
+                {"govulnersdb": SyncConfig(url="www.nextlinux.com", enabled=True)},
                 GrypeDBServiceClient,
             ),
         ],
@@ -111,41 +111,41 @@ class TestSyncUtilProvider:
         "metadata, expected_number_groups, expected_feed_group_metadata",
         [
             (
-                FeedMetadata(name="grypedb", enabled=True),
+                FeedMetadata(name="govulnersdb", enabled=True),
                 1,
                 FeedGroupMetadata(
-                    name="grypedb:vulnerabilities", feed_name="grypedb", enabled=True
+                    name="govulnersdb:vulnerabilities", feed_name="govulnersdb", enabled=True
                 ),
             ),
-            (FeedMetadata(name="grypedb", enabled=False), 0, None),
+            (FeedMetadata(name="govulnersdb", enabled=False), 0, None),
         ],
     )
-    def test_get_groups_to_download_grype(
+    def test_get_groups_to_download_govulners(
         self,
         metadata: FeedMetadata,
         expected_number_groups: int,
         expected_feed_group_metadata: FeedMetadata,
     ):
         source_feeds = {
-            "grypedb": {
+            "govulnersdb": {
                 "meta": FeedList(
                     feeds=[
                         FeedAPIRecord(
-                            name="grypedb",
-                            description="grypedb feed",
+                            name="govulnersdb",
+                            description="govulnersdb feed",
                             access_tier="0",
                         )
                     ]
                 ),
                 "groups": [
                     FeedAPIGroupRecord(
-                        name="grypedb:vulnerabilities",
-                        description="grypedb:vulnerabilities group",
+                        name="govulnersdb:vulnerabilities",
+                        description="govulnersdb:vulnerabilities group",
                         access_tier="0",
-                        grype_listing=GrypeDBListing(
-                            built=anchore_now_datetime(),
+                        govulners_listing=GrypeDBListing(
+                            built=nextlinux_now_datetime(),
                             version="2",
-                            url="www.anchore.com",
+                            url="www.nextlinux.com",
                             checksum="sha256:xxx",
                         ),
                     )
@@ -153,7 +153,7 @@ class TestSyncUtilProvider:
             }
         }
         feeds_to_sync = [GrypeDBFeed(metadata=metadata)]
-        sync_config = {"grypedb": SyncConfig(enabled=True, url="www.anchore.com")}
+        sync_config = {"govulnersdb": SyncConfig(enabled=True, url="www.nextlinux.com")}
         groups_to_download = GrypeDBSyncUtilProvider(
             sync_config
         ).get_groups_to_download(source_feeds, feeds_to_sync, "0")
@@ -179,7 +179,7 @@ class TestSyncUtilProvider:
             )
         ]
         sync_config = {
-            "vulnerabilities": SyncConfig(enabled=True, url="www.anchore.com")
+            "vulnerabilities": SyncConfig(enabled=True, url="www.nextlinux.com")
         }
         groups_to_download = LegacySyncUtilProvider(sync_config).get_groups_to_download(
             {}, feeds_to_sync, "0"

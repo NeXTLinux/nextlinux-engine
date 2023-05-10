@@ -1,11 +1,11 @@
 import pytest
 
-from anchore_engine.clients import localanchore_standalone
-from anchore_engine.clients.localanchore_standalone import (
+from nextlinux_engine.clients import localnextlinux_standalone
+from nextlinux_engine.clients.localnextlinux_standalone import (
     AnalysisError,
     retrying_pull_image,
 )
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
 logger.enable_test_logging(level="DEBUG")
 
@@ -38,12 +38,12 @@ def fail_twice(*args, **kwargs):
 
 @pytest.fixture()
 def alwaysfail_pull(monkeypatch):
-    monkeypatch.setattr(localanchore_standalone, "pull_image", always_fail)
+    monkeypatch.setattr(localnextlinux_standalone, "pull_image", always_fail)
 
 
 @pytest.fixture()
 def fail2_pull(monkeypatch):
-    monkeypatch.setattr(localanchore_standalone, "pull_image", fail_twice)
+    monkeypatch.setattr(localnextlinux_standalone, "pull_image", fail_twice)
 
 
 def test_retrying_image_pull_full_failure(alwaysfail_pull):

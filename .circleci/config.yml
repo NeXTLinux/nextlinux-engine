@@ -12,7 +12,7 @@ parameters:
     default: false
 
 .global_environment_vars: &global_environment_vars
-  PROD_IMAGE_REPO: anchore/anchore-engine
+  PROD_IMAGE_REPO: nextlinux/nextlinux-engine
   LATEST_RELEASE_MAJOR_VERSION: 1.1.0
   TERM: xterm
 
@@ -30,7 +30,7 @@ parameters:
   run:
     name: Forward remote-docker ports for testing
     command: |
-      ssh -MS anchore-api -fN4 -L 8228:localhost:8228 remote-docker
+      ssh -MS nextlinux-api -fN4 -L 8228:localhost:8228 remote-docker
       ssh -MS k8s-api -fN4 -L 32768:localhost:32768 remote-docker
 
 .filter_rc_tags: &filter_rc_tags
@@ -67,7 +67,7 @@ parameters:
 # Start circleci configuration
 version: 2.1
 orbs:
-  grype: anchore/grype@0.2.0
+  govulners: nextlinux/govulners@0.2.0
   slack: circleci/slack@4.5
 
 commands:
@@ -154,31 +154,31 @@ jobs:
         type: string
     docker:
       - image: circleci/python:<<parameters.py_version>>
-      - image: anchore/test-infra-minio:latest
+      - image: nextlinux/test-infra-minio:latest
         command:
           - server
           - /data
-      - image: anchore/test-infra-swift:latest
+      - image: nextlinux/test-infra-swift:latest
       - image: circleci/postgres:9.6
         environment:
           POSTGRES_PASSWORD: "postgres"
     resource_class: large
     environment:
       <<: *global_environment_vars
-      ANCHORE_TEST_S3_ACCESS_KEY: "9EB92C7W61YPFQ6QLDOU"
-      ANCHORE_TEST_S3_SECRET_KEY: "TuHo2UbBx+amD3YiCeidy+R3q82MPTPiyd+dlW+s"
-      ANCHORE_TEST_S3_URL: "http://localhost:9000"
-      ANCHORE_TEST_S3_BUCKET: "testarchivebucket"
+      NEXTLINUX_TEST_S3_ACCESS_KEY: "9EB92C7W61YPFQ6QLDOU"
+      NEXTLINUX_TEST_S3_SECRET_KEY: "TuHo2UbBx+amD3YiCeidy+R3q82MPTPiyd+dlW+s"
+      NEXTLINUX_TEST_S3_URL: "http://localhost:9000"
+      NEXTLINUX_TEST_S3_BUCKET: "testarchivebucket"
 
-      ANCHORE_TEST_SWIFT_AUTH_URL: "http://localhost:8080/auth/v1.0"
-      ANCHORE_TEST_SWIFT_KEY: "testing"
-      ANCHORE_TEST_SWIFT_USER: "test:tester"
-      ANCHORE_TEST_SWIFT_CONTAINER: "testarchive"
+      NEXTLINUX_TEST_SWIFT_AUTH_URL: "http://localhost:8080/auth/v1.0"
+      NEXTLINUX_TEST_SWIFT_KEY: "testing"
+      NEXTLINUX_TEST_SWIFT_USER: "test:tester"
+      NEXTLINUX_TEST_SWIFT_CONTAINER: "testarchive"
 
-      ANCHORE_TEST_DB_URL: "postgresql+pg8000://postgres@localhost:5432/circle_test"
-      ANCHORE_TEST_DB_USER: "postgres"
-      ANCHORE_TEST_DB_PASS: "postgres"
-      ANCHORE_TEST_DATA_ENV_DIR: "test/data/test_data_env"
+      NEXTLINUX_TEST_DB_URL: "postgresql+pg8000://postgres@localhost:5432/circle_test"
+      NEXTLINUX_TEST_DB_USER: "postgres"
+      NEXTLINUX_TEST_DB_PASS: "postgres"
+      NEXTLINUX_TEST_DATA_ENV_DIR: "test/data/test_data_env"
     steps:
       - checkout
       - run_tests:
@@ -213,14 +213,14 @@ jobs:
         type: string
       vulnerabilities_provider:
         type: string
-        default: "-grype"
+        default: "-govulners"
 
     machine:
       image: ubuntu-2004:202201-02
     environment:
       <<: *global_environment_vars
-      ANCHORE_TEST_DOCKER_REGISTRY_USER: anchore
-      ANCHORE_TEST_DOCKER_REGISTRY_PASS: foobar
+      NEXTLINUX_TEST_DOCKER_REGISTRY_USER: nextlinux
+      NEXTLINUX_TEST_DOCKER_REGISTRY_PASS: foobar
     steps:
       - checkout
       - <<: *attach_workspace
@@ -247,7 +247,7 @@ jobs:
       - <<: *load_docker_image
       - <<: *ssh_forward_port
       - run:
-          name: Run anchore-cli smoke tests
+          name: Run nextlinux-cli smoke tests
           no_output_timeout: 30m
           command: make setup-and-test-cli
 
@@ -278,7 +278,7 @@ jobs:
                   "type": "header",
                   "text": {
                     "type": "plain_text",
-                    "text": "An image has shipped! :anchore::rocket:",
+                    "text": "An image has shipped! :nextlinux::rocket:",
                     "emoji": true
                   }
                 },
@@ -313,7 +313,7 @@ jobs:
                         "type": "plain_text",
                         "text": "View Source"
                       },
-                      "url": "https://github.com/anchore/${CIRCLE_PROJECT_REPONAME}/tree/${CIRCLE_TAG}"
+                      "url": "https://github.com/nextlinux/${CIRCLE_PROJECT_REPONAME}/tree/${CIRCLE_TAG}"
                     }
                   ]
                 },
@@ -358,12 +358,12 @@ jobs:
           name: Run container-structure-tests
           command: make test-container
 
-  grype_vuln_scan:
-    description: "Uses grype orb for vuln scans"
+  govulners_vuln_scan:
+    description: "Uses govulners orb for vuln scans"
     parameters:
       image_name:
         type: string
-        default: "docker:anchore-engine:dev"
+        default: "docker:nextlinux-engine:dev"
     docker:
       - image: cimg/python:3.8.4
     steps:
@@ -374,12 +374,12 @@ jobs:
       - run:
           name: Login to Registry
           command: "echo ${DOCKER_PASS} | docker login --username ${DOCKER_USER} --password-stdin"
-      - grype/scan-image:
+      - govulners/scan-image:
           image-name: << parameters.image_name >>
           output-format: "table"
       - run:
           name: List Grype Vulns
-          command: "cat grype-vulns.output"
+          command: "cat govulners-vulns.output"
 
 workflows:
   default_workflow:
@@ -421,8 +421,8 @@ workflows:
           requires:
             - build
       - functional_tests:
-          name: functional_tests_38_grype
-          vulnerabilities_provider: "grype"
+          name: functional_tests_38_govulners
+          vulnerabilities_provider: "govulners"
           tox_env: "py38"
           requires:
             - build
@@ -432,11 +432,11 @@ workflows:
           context: dockerhub
           filters: *filter_release_branch
           requires:
-            - functional_tests_38_grype
+            - functional_tests_38_govulners
             - functional_tests_38_legacy
             - integration_tests_38
             - test_container_dev
-      - grype_vuln_scan:
+      - govulners_vuln_scan:
           context: dockerhub
           requires:
             - push_dev_image
@@ -483,8 +483,8 @@ workflows:
           requires:
             - build
       - functional_tests:
-          name: functional_tests_38_grype
-          vulnerabilities_provider: "grype"
+          name: functional_tests_38_govulners
+          vulnerabilities_provider: "govulners"
           tox_env: "py38"
           filters: *filter_nightly
           requires:
@@ -503,15 +503,15 @@ workflows:
           filters: *filter_nightly
           requires:
             - functional_tests_38_legacy
-            - functional_tests_38_grype
+            - functional_tests_38_govulners
             - integration_tests_38
             - cli_smoke_tests_38
             - test_container_nightly
-      - grype_vuln_scan:
+      - govulners_vuln_scan:
           context: dockerhub
           requires:
             - push_nightly_image
-          image_name: anchore/anchore-engine-dev:nightly
+          image_name: nextlinux/nextlinux-engine-dev:nightly
           filters: *filter_nightly
 
   rc_image_workflow:
@@ -541,7 +541,7 @@ workflows:
           requires:
             - rc_cli_smoke_tests_38
             - test_container_rc
-      - grype_vuln_scan:
+      - govulners_vuln_scan:
           context: dockerhub
           requires:
             - push_rc_image
@@ -629,8 +629,8 @@ workflows:
           requires:
             - build
       - functional_tests:
-          name: functional_tests_38_grype
-          vulnerabilities_provider: "grype"
+          name: functional_tests_38_govulners
+          vulnerabilities_provider: "govulners"
           tox_env: "py38"
           filters: *filter_rebuild_tags
           requires:
@@ -650,11 +650,11 @@ workflows:
           requires:
             - cli_smoke_tests_38
             - functional_tests_38_legacy
-            - functional_tests_38_grype
+            - functional_tests_38_govulners
             - integration_tests_38
             - test_container_rebuild
-      - grype_vuln_scan:
-          name: grype_list_image_vulns
+      - govulners_vuln_scan:
+          name: govulners_list_image_vulns
           context: dockerhub
           requires:
             - push_dev_image
@@ -663,7 +663,7 @@ workflows:
           type: approval
           filters: *filter_rebuild_tags
           requires:
-            - grype_list_image_vulns
+            - govulners_list_image_vulns
       - push_image:
           name: push_rebuild_image
           make_job: push-rebuild

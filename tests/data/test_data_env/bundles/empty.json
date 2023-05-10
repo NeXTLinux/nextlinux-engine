@@ -1,11 +1,11 @@
 {
-  "name": "AnchoreUserDefault",
+  "name": "NextlinuxUserDefault",
   "id": "empty",
   "whitelists": [],
   "version": "1_0",
   "policies": [
     {
-      "comment": "Default policy from Anchore CLI",
+      "comment": "Default policy from Nextlinux CLI",
       "rules": [
         {
           "action": "STOP",

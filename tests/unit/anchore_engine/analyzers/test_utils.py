@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-from anchore_engine.analyzers.utils import dig, write_kvfile_fromdict
+from nextlinux_engine.analyzers.utils import dig, write_kvfile_fromdict
 
 
 class TestDig:

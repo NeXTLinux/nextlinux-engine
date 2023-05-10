@@ -6,21 +6,21 @@ import os
 import tempfile
 import uuid
 
-from anchore_engine.common.models.schemas import (
+from nextlinux_engine.common.models.schemas import (
     DownloadOperationConfiguration,
     GroupDownloadOperationConfiguration,
     GroupDownloadOperationParams,
 )
-from anchore_engine.services.policy_engine.engine.feeds.client import get_feeds_client
-from anchore_engine.services.policy_engine.engine.feeds.config import SyncConfig
-from anchore_engine.services.policy_engine.engine.feeds.download import FeedDownloader
-from anchore_engine.subsys import logger
-from anchore_engine.utils import timer
+from nextlinux_engine.services.policy_engine.engine.feeds.client import get_feeds_client
+from nextlinux_engine.services.policy_engine.engine.feeds.config import SyncConfig
+from nextlinux_engine.services.policy_engine.engine.feeds.download import FeedDownloader
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.utils import timer
 from tests.utils import init_test_logging
 
 init_test_logging(level="debug")
 
-ANCHOREIO_URI = "https://ancho.re/v1/service/feeds"
+NEXTLINUXIO_URI = "https://ancho.re/v1/service/feeds"
 
 
 def test_feed_downloader():
@@ -44,15 +44,15 @@ def test_feed_downloader():
         # GroupDownloadOperationConfiguration(feed='nvdv2', group='nvdv2:cves', parameters=GroupDownloadOperationParams(since=None))
     ]
     dl_conf = DownloadOperationConfiguration(
-        groups=groups_to_sync, uuid=uuid.uuid4().hex, source_uri=ANCHOREIO_URI
+        groups=groups_to_sync, uuid=uuid.uuid4().hex, source_uri=NEXTLINUXIO_URI
     )
-    tmpdir = tempfile.mkdtemp(prefix="anchoretest_repo-")
+    tmpdir = tempfile.mkdtemp(prefix="nextlinuxtest_repo-")
     data_repo = None
     try:
         client = get_feeds_client(
             SyncConfig(
                 enabled=True,
-                url=ANCHOREIO_URI,
+                url=NEXTLINUXIO_URI,
                 username="something",
                 password="something",
                 connection_timeout_seconds=1,

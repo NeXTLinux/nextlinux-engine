@@ -1,5 +1,5 @@
-from anchore_engine.db import FixedArtifact, Vulnerability, session_scope
-from anchore_engine.subsys import logger
+from nextlinux_engine.db import FixedArtifact, Vulnerability, session_scope
+from nextlinux_engine.subsys import logger
 from tests.utils import init_test_logging
 
 init_test_logging(level="info")
@@ -17,7 +17,7 @@ def tearDown():
             session.delete(record)
 
 
-def test_FixedArtifact_fix_observed_at_behavior(anchore_db):
+def test_FixedArtifact_fix_observed_at_behavior(nextlinux_db):
     try:
         with session_scope() as session:
             testV = Vulnerability()

@@ -4,15 +4,15 @@ import time
 
 import pytest
 
-from anchore_engine.db.entities.catalog import (
+from nextlinux_engine.db.entities.catalog import (
     ArchivedImage,
     ArchivedImageDocker,
     ArchiveTransitions,
     CatalogImage,
     CatalogImageDocker,
 )
-from anchore_engine.services.catalog import archiver
-from anchore_engine.utils import ensure_bytes
+from nextlinux_engine.services.catalog import archiver
+from nextlinux_engine.utils import ensure_bytes
 
 
 def test_archive_basic():

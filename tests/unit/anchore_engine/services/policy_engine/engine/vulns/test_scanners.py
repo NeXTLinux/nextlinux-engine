@@ -1,6 +1,6 @@
 import pytest
 
-from anchore_engine.services.policy_engine.engine.vulns.scanners import GrypeScanner
+from nextlinux_engine.services.policy_engine.engine.vulns.scanners import GrypeScanner
 
 
 @pytest.mark.parametrize(

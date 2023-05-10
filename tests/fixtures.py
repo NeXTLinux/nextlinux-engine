@@ -7,28 +7,28 @@ import os
 
 import pytest
 
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
 logger.enable_test_logging()
 
 
 @pytest.fixture()
-def anchore_db(connection_str=None, do_echo=False):
+def nextlinux_db(connection_str=None, do_echo=False):
     """
     Sets up a db connection to an existing db, and fails if not found/present
     :return:
     """
 
-    from anchore_engine.db.entities.common import (
+    from nextlinux_engine.db.entities.common import (
         do_disconnect,
         end_session,
         get_engine,
         init_thread_session,
         initialize,
     )
-    from anchore_engine.db.entities.upgrade import do_create_tables
+    from nextlinux_engine.db.entities.upgrade import do_create_tables
 
-    conn_str = connection_str if connection_str else os.getenv("ANCHORE_TEST_DB_URL")
+    conn_str = connection_str if connection_str else os.getenv("NEXTLINUX_TEST_DB_URL")
 
     config = {"credentials": {"database": {"db_connect": conn_str, "db_echo": do_echo}}}
 
@@ -44,7 +44,7 @@ def anchore_db(connection_str=None, do_echo=False):
         engine.execute("GRANT ALL ON SCHEMA public TO postgres")
         engine.execute("GRANT ALL ON SCHEMA public TO public")
 
-        # Now ready for anchore init (tables etc)
+        # Now ready for nextlinux init (tables etc)
         logger.info("Creating tables")
         do_create_tables()
 
@@ -56,7 +56,7 @@ def anchore_db(connection_str=None, do_echo=False):
 
 
 @pytest.fixture(scope="class")
-def cls_anchore_db(connection_str=None, do_echo=False):
+def cls_nextlinux_db(connection_str=None, do_echo=False):
     """
     Sets up a db connection to an existing db, and fails if not found/present.
 
@@ -64,16 +64,16 @@ def cls_anchore_db(connection_str=None, do_echo=False):
     :return:
     """
 
-    from anchore_engine.db.entities.common import (
+    from nextlinux_engine.db.entities.common import (
         do_disconnect,
         end_session,
         get_engine,
         init_thread_session,
         initialize,
     )
-    from anchore_engine.db.entities.upgrade import do_create_tables
+    from nextlinux_engine.db.entities.upgrade import do_create_tables
 
-    conn_str = connection_str if connection_str else os.getenv("ANCHORE_TEST_DB_URL")
+    conn_str = connection_str if connection_str else os.getenv("NEXTLINUX_TEST_DB_URL")
 
     config = {"credentials": {"database": {"db_connect": conn_str, "db_echo": do_echo}}}
 
@@ -89,7 +89,7 @@ def cls_anchore_db(connection_str=None, do_echo=False):
         engine.execute("GRANT ALL ON SCHEMA public TO postgres")
         engine.execute("GRANT ALL ON SCHEMA public TO public")
 
-        # Now ready for anchore init (tables etc)
+        # Now ready for nextlinux init (tables etc)
         logger.info("Creating tables")
         do_create_tables()
 
@@ -101,23 +101,23 @@ def cls_anchore_db(connection_str=None, do_echo=False):
 
 
 @pytest.fixture()
-def echo_anchore_db():
+def echo_nextlinux_db():
     def invoke():
-        return anchore_db(connection_str=None, do_echo=True)
+        return nextlinux_db(connection_str=None, do_echo=True)
 
     return invoke
 
 
 @pytest.fixture
 def mem_db(do_echo=False):
-    from anchore_engine.db.entities.common import (
+    from nextlinux_engine.db.entities.common import (
         do_disconnect,
         end_session,
         get_engine,
         init_thread_session,
         initialize,
     )
-    from anchore_engine.db.entities.upgrade import do_create_tables
+    from nextlinux_engine.db.entities.upgrade import do_create_tables
 
     conn_str = "sqllite://:memory:"
 
@@ -135,7 +135,7 @@ def mem_db(do_echo=False):
         engine.execute("GRANT ALL ON SCHEMA public TO postgres")
         engine.execute("GRANT ALL ON SCHEMA public TO public")
 
-        # Now ready for anchore init (tables etc)
+        # Now ready for nextlinux init (tables etc)
         logger.info("Creating tables")
         do_create_tables()
 

@@ -6,13 +6,13 @@ import os
 
 import pytest
 
-from anchore_engine.subsys import logger, object_store
-from anchore_engine.subsys.object_store import get_manager
-from anchore_engine.subsys.object_store.config import (
+from nextlinux_engine.subsys import logger, object_store
+from nextlinux_engine.subsys.object_store import get_manager
+from nextlinux_engine.subsys.object_store.config import (
     ALT_OBJECT_STORE_CONFIG_KEY,
     DEFAULT_OBJECT_STORE_MANAGER_ID,
 )
-from anchore_engine.subsys.object_store.exc import (
+from nextlinux_engine.subsys.object_store.exc import (
     BadCredentialsError,
     DriverConfigurationError,
 )
@@ -109,12 +109,12 @@ def run_test():
     assert document_1.decode("utf-8") == resp
 
 
-def test_noop(anchore_db):
+def test_noop(nextlinux_db):
     pass
 
 
 @pytest.mark.skipif(disable_tests, reason="skipped by config")
-def test_fs(anchore_db):
+def test_fs(nextlinux_db):
     config = {
         "archive": {
             "compression": {"enabled": True},
@@ -136,7 +136,7 @@ def test_fs(anchore_db):
 
 
 @pytest.mark.skipif(disable_tests, reason="skipped by config")
-def test_swift(swift_container, anchore_db):
+def test_swift(swift_container, nextlinux_db):
     config = {
         "archive": {
             "compression": {"enabled": True},
@@ -164,7 +164,7 @@ def test_swift(swift_container, anchore_db):
 
 
 @pytest.mark.skipif(disable_tests, reason="skipped by config")
-def test_swift_create_container(swift_container, anchore_db):
+def test_swift_create_container(swift_container, nextlinux_db):
     config = {
         "archive": {
             "compression": {"enabled": True},
@@ -193,7 +193,7 @@ def test_swift_create_container(swift_container, anchore_db):
 
 
 @pytest.mark.skipif(disable_tests, reason="skipped by config")
-def test_swift_bad_creds(swift_container, anchore_db):
+def test_swift_bad_creds(swift_container, nextlinux_db):
     config = {
         "archive": {
             "compression": {"enabled": True},
@@ -224,7 +224,7 @@ def test_swift_bad_creds(swift_container, anchore_db):
 
 
 @pytest.mark.skipif(disable_tests, reason="skipped by config")
-def test_swift_bad_container(swift_container, anchore_db):
+def test_swift_bad_container(swift_container, nextlinux_db):
     config = {
         "archive": {
             "compression": {"enabled": True},
@@ -254,7 +254,7 @@ def test_swift_bad_container(swift_container, anchore_db):
 
 
 @pytest.mark.skipif(disable_tests, reason="skipped by config")
-def test_db(anchore_db):
+def test_db(nextlinux_db):
     config = {
         "archive": {
             "compression": {"enabled": True},
@@ -273,7 +273,7 @@ def test_db(anchore_db):
 
 
 @pytest.mark.skipif(disable_tests, reason="skipped by config")
-def test_legacy_db(anchore_db):
+def test_legacy_db(nextlinux_db):
     # NOTE: legacy db driver does not support compression since it uses string type instead of binary for content storage
     config = {
         "archive": {
@@ -294,7 +294,7 @@ def test_legacy_db(anchore_db):
 
 
 @pytest.mark.skipif(disable_tests, reason="skipped by config")
-def test_s3(s3_bucket, anchore_db):
+def test_s3(s3_bucket, nextlinux_db):
     logger.info("Creds: {} / {}".format(test_s3_key, test_s3_secret_key))
     config = {
         "archive": {
@@ -323,7 +323,7 @@ def test_s3(s3_bucket, anchore_db):
 
 
 @pytest.mark.skipif(disable_tests, reason="skipped by config")
-def test_s3_create_bucket(s3_bucket, anchore_db):
+def test_s3_create_bucket(s3_bucket, nextlinux_db):
     config = {
         "archive": {
             "compression": {"enabled": False},
@@ -352,7 +352,7 @@ def test_s3_create_bucket(s3_bucket, anchore_db):
 
 
 @pytest.mark.skipif(disable_tests, reason="skipped by config")
-def test_s3_bad_creds(s3_bucket, anchore_db):
+def test_s3_bad_creds(s3_bucket, nextlinux_db):
     config = {
         "archive": {
             "compression": {"enabled": False},
@@ -411,7 +411,7 @@ def test_s3_bad_creds(s3_bucket, anchore_db):
 
 
 @pytest.mark.skipif(disable_tests, reason="skipped by config")
-def test_s3_bad_bucket(s3_bucket, anchore_db):
+def test_s3_bad_bucket(s3_bucket, nextlinux_db):
     config = {
         "archive": {
             "compression": {"enabled": False},
@@ -440,7 +440,7 @@ def test_s3_bad_bucket(s3_bucket, anchore_db):
 
 
 @pytest.mark.skip  # if(disable_tests, reason='skipped by config')
-def test_s3_auto(s3_bucket, anchore_db):
+def test_s3_auto(s3_bucket, nextlinux_db):
     os.environ["AWS_ACCESS_KEY"] = test_s3_key
     os.environ["AWS_SECRET_ACCESS_KEY"] = test_s3_secret_key
 

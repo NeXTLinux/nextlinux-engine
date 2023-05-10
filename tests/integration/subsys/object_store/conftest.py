@@ -2,18 +2,18 @@ import os
 
 import pytest
 
-from anchore_engine.subsys import logger
+from nextlinux_engine.subsys import logger
 
-test_s3_key = os.getenv("ANCHORE_TEST_S3_ACCESS_KEY")
-test_s3_secret_key = os.getenv("ANCHORE_TEST_S3_SECRET_KEY")
-test_s3_url = os.getenv("ANCHORE_TEST_S3_URL")
-test_s3_region = os.getenv("ANCHORE_TEST_S3_REGION")
-test_s3_bucket = os.getenv("ANCHORE_TEST_S3_BUCKET")
+test_s3_key = os.getenv("NEXTLINUX_TEST_S3_ACCESS_KEY")
+test_s3_secret_key = os.getenv("NEXTLINUX_TEST_S3_SECRET_KEY")
+test_s3_url = os.getenv("NEXTLINUX_TEST_S3_URL")
+test_s3_region = os.getenv("NEXTLINUX_TEST_S3_REGION")
+test_s3_bucket = os.getenv("NEXTLINUX_TEST_S3_BUCKET")
 
-test_swift_user = os.getenv("ANCHORE_TEST_SWIFT_USER")
-test_swift_key = os.getenv("ANCHORE_TEST_SWIFT_KEY")
-test_swift_auth_url = os.getenv("ANCHORE_TEST_SWIFT_AUTH_URL")
-test_swift_container = os.getenv("ANCHORE_TEST_SWIFT_CONTAINER")
+test_swift_user = os.getenv("NEXTLINUX_TEST_SWIFT_USER")
+test_swift_key = os.getenv("NEXTLINUX_TEST_SWIFT_KEY")
+test_swift_auth_url = os.getenv("NEXTLINUX_TEST_SWIFT_AUTH_URL")
+test_swift_container = os.getenv("NEXTLINUX_TEST_SWIFT_CONTAINER")
 
 
 @pytest.fixture

@@ -3,14 +3,14 @@ from typing import List
 
 import pytest
 
-from anchore_engine.configuration import localconfig
-from anchore_engine.services.policy_engine.engine.feeds.config import (
+from nextlinux_engine.configuration import localconfig
+from nextlinux_engine.services.policy_engine.engine.feeds.config import (
     compute_selected_configs_to_sync,
     get_provider_name,
     get_section_for_vulnerabilities,
     is_sync_enabled,
 )
-from anchore_engine.services.policy_engine.engine.vulns.providers import (
+from nextlinux_engine.services.policy_engine.engine.vulns.providers import (
     GrypeProvider,
     LegacyProvider,
 )
@@ -75,9 +75,9 @@ def test_get_feeds_config(test_input, expected):
         ),
         pytest.param(
             GrypeProvider,
-            {"provider": "grype", "sync": {"data": {}}},
-            {"grypedb"},
-            id="invalid-provider-grype",
+            {"provider": "govulners", "sync": {"data": {}}},
+            {"govulnersdb"},
+            id="invalid-provider-govulners",
         ),
     ],
 )
@@ -132,42 +132,42 @@ def test_get_selected_configs_to_sync_defaults(provider, test_config, expected):
         ),
         pytest.param(
             GrypeProvider,
-            {"provider": "grype", "sync": {"data": {"grypedb": {"enabled": True}}}},
-            {"grypedb"},
-            id="valid-grype-grypedb",
+            {"provider": "govulners", "sync": {"data": {"govulnersdb": {"enabled": True}}}},
+            {"govulnersdb"},
+            id="valid-govulners-govulnersdb",
         ),
         pytest.param(
             GrypeProvider,
-            {"provider": "grype", "sync": {"data": {"github": {"enabled": True}}}},
+            {"provider": "govulners", "sync": {"data": {"github": {"enabled": True}}}},
             set(),
-            id="invalid-grype-github",
+            id="invalid-govulners-github",
         ),
         pytest.param(
             GrypeProvider,
             {
-                "provider": "grype",
+                "provider": "govulners",
                 "sync": {"data": {"vulnerabilities": {"enabled": True}}},
             },
             set(),
-            id="invalid-grype-vulnerabilities",
+            id="invalid-govulners-vulnerabilities",
         ),
         pytest.param(
             GrypeProvider,
-            {"provider": "grype", "sync": {"data": {"nvdv2": {"enabled": True}}}},
+            {"provider": "govulners", "sync": {"data": {"nvdv2": {"enabled": True}}}},
             set(),
-            id="invalid-grype-nvdv2",
+            id="invalid-govulners-nvdv2",
         ),
         pytest.param(
             GrypeProvider,
-            {"provider": "grype", "sync": {"data": {"vulndb": {"enabled": True}}}},
+            {"provider": "govulners", "sync": {"data": {"vulndb": {"enabled": True}}}},
             set(),
-            id="invalid-grype-vulndb",
+            id="invalid-govulners-vulndb",
         ),
         pytest.param(
             LegacyProvider,
-            {"provider": "legacy", "sync": {"data": {"grypedb": {"enabled": True}}}},
+            {"provider": "legacy", "sync": {"data": {"govulnersdb": {"enabled": True}}}},
             set(),
-            id="invalid-legacy-grypedb",
+            id="invalid-legacy-govulnersdb",
         ),
     ],
 )
@@ -211,9 +211,9 @@ def test_get_selected_configs_to_sync_valid_data(provider, test_config, expected
             id="valid-legacy",
         ),
         pytest.param(
-            {"provider": "grype"},
-            "grype",
-            id="valid-grype",
+            {"provider": "govulners"},
+            "govulners",
+            id="valid-govulners",
         ),
     ],
 )
@@ -272,7 +272,7 @@ def get_config_for_params(provider: str, feed_configurations: List[FeedConfigura
             "data": {
                 feed_configuration.feed_name: {
                     "enabled": feed_configuration.enabled,
-                    "url": "www.anchore.com",
+                    "url": "www.nextlinux.com",
                 }
                 for feed_configuration in feed_configurations
             },
@@ -283,41 +283,41 @@ def get_config_for_params(provider: str, feed_configurations: List[FeedConfigura
 @pytest.mark.parametrize(
     "provider, feed_configurations, expected_to_sync_after_compute",
     [
-        (  # Legacy provider with one invalid config (vulndb), one grype config, and two legacy configs
+        (  # Legacy provider with one invalid config (vulndb), one govulners config, and two legacy configs
             "legacy",
             [
                 FeedConfiguration("vulnerabilities", True),
                 FeedConfiguration("nvdv2", True),
                 FeedConfiguration("vulndb", True),
-                FeedConfiguration("grypedb", True),
+                FeedConfiguration("govulnersdb", True),
             ],
             ["nvdv2", "vulnerabilities"],
         ),
-        (  # Grype provider with one invalid config (vulndb) one grype config, and two legacy configs
-            "grype",
+        (  # Grype provider with one invalid config (vulndb) one govulners config, and two legacy configs
+            "govulners",
             [
                 FeedConfiguration("vulnerabilities", True),
                 FeedConfiguration("nvdv2", True),
                 FeedConfiguration("vulndb", True),
-                FeedConfiguration("grypedb", True),
+                FeedConfiguration("govulnersdb", True),
             ],
-            ["grypedb"],
+            ["govulnersdb"],
         ),
-        (  # Legacy provider with two disabled configs and one grypedb config that is enabled
+        (  # Legacy provider with two disabled configs and one govulnersdb config that is enabled
             "legacy",
             [
                 FeedConfiguration("vulnerabilities", False),
                 FeedConfiguration("nvdv2", False),
-                FeedConfiguration("grypedb", True),
+                FeedConfiguration("govulnersdb", True),
             ],
             [],
         ),
-        (  # Grype provider disabled grypedb config and two legacy configs enabled
-            "grype",
+        (  # Grype provider disabled govulnersdb config and two legacy configs enabled
+            "govulners",
             [
                 FeedConfiguration("vulnerabilities", True),
                 FeedConfiguration("nvdv2", True),
-                FeedConfiguration("grypedb", False),
+                FeedConfiguration("govulnersdb", False),
             ],
             [],
         ),
@@ -326,35 +326,35 @@ def get_config_for_params(provider: str, feed_configurations: List[FeedConfigura
             [
                 FeedConfiguration("vulnerabilities", False),
                 FeedConfiguration("nvdv2", False),
-                FeedConfiguration("grypedb", False),
+                FeedConfiguration("govulnersdb", False),
             ],
             [],
         ),
         (  # Grype provider with all disabled configs
-            "grype",
+            "govulners",
             [
                 FeedConfiguration("vulnerabilities", False),
                 FeedConfiguration("nvdv2", False),
-                FeedConfiguration("grypedb", False),
+                FeedConfiguration("govulnersdb", False),
             ],
             [],
         ),
-        (  # Grype provider with packages and grypedb enabled
-            "grype",
+        (  # Grype provider with packages and govulnersdb enabled
+            "govulners",
             [
                 FeedConfiguration("vulnerabilities", False),
                 FeedConfiguration("nvdv2", False),
-                FeedConfiguration("grypedb", True),
+                FeedConfiguration("govulnersdb", True),
                 FeedConfiguration("packages", True),
             ],
-            ["grypedb", "packages"],
+            ["govulnersdb", "packages"],
         ),
-        (  # legacy provider with packages and grypedb enabled
+        (  # legacy provider with packages and govulnersdb enabled
             "legacy",
             [
                 FeedConfiguration("vulnerabilities", False),
                 FeedConfiguration("nvdv2", False),
-                FeedConfiguration("grypedb", True),
+                FeedConfiguration("govulnersdb", True),
                 FeedConfiguration("packages", True),
             ],
             ["packages"],

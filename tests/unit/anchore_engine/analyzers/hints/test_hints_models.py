@@ -1,6 +1,6 @@
 import pytest
 
-from anchore_engine.analyzers.hints import (
+from nextlinux_engine.analyzers.hints import (
     AlpineHint,
     BaseHint,
     BinaryHint,
@@ -122,14 +122,14 @@ class TestBaseHint:
                     "pkg": {
                         "name": "zlib",
                         "version": "1.0.0",
-                        "origin": "Anchore, Inc.",
+                        "origin": "Nextlinux, Inc.",
                     },
                     "type": "apkg",
                     "expected": {
                         "type": "apkg",
                         "name": "zlib",
                         "version": "1.0.0",
-                        "origin": "Anchore, Inc.",
+                        "origin": "Nextlinux, Inc.",
                     },
                     "expected_error": "",
                 },
@@ -549,7 +549,7 @@ class TestGoHint:
                     "pkg": {
                         "name": "rem",
                         "version": "v0.1.8",
-                        "origin": "Anchore Engineering <engineering@anchore.com>",
+                        "origin": "Nextlinux Engineering <engineering@nextlinux.com>",
                         "license": "Apache2.0",
                         "arch": "x86_64",
                         "source": "rem",
@@ -561,7 +561,7 @@ class TestGoHint:
                         "type": "go",
                         "name": "rem",
                         "version": "v0.1.8",
-                        "origin": "Anchore Engineering <engineering@anchore.com>",
+                        "origin": "Nextlinux Engineering <engineering@nextlinux.com>",
                         "license": "Apache2.0",
                         "arch": "x86_64",
                         "sourcepkg": "rem",
@@ -696,7 +696,7 @@ class TestBinaryHint:
                     "pkg": {
                         "name": "rem",
                         "version": "v0.1.8",
-                        "origin": "Anchore Engineering <engineering@anchore.com>",
+                        "origin": "Nextlinux Engineering <engineering@nextlinux.com>",
                         "license": "Apache2.0",
                         "files": [
                             "file1",
@@ -708,7 +708,7 @@ class TestBinaryHint:
                         "type": "binary",
                         "name": "rem",
                         "version": "v0.1.8",
-                        "origin": "Anchore Engineering <engineering@anchore.com>",
+                        "origin": "Nextlinux Engineering <engineering@nextlinux.com>",
                         "license": "Apache2.0",
                         "files": [
                             "file1",
@@ -1035,7 +1035,7 @@ class TestGemHint:
                     "pkg": {
                         "name": "rubylib",
                         "version": "1.0.0",
-                        "origin": "Anchore <anchore@anchore.com>",
+                        "origin": "Nextlinux <nextlinux@nextlinux.com>",
                         "license": "Apache2.0",
                         "source": "sourctest",
                         "files": [
@@ -1053,7 +1053,7 @@ class TestGemHint:
                     "pkg": {
                         "name": "rubylib",
                         "versions": "1.0.0",
-                        "origin": "Anchore <anchore@anchore.com>",
+                        "origin": "Nextlinux <nextlinux@nextlinux.com>",
                         "license": "Apache2.0",
                         "source": "sourctest",
                         "files": [
@@ -1071,7 +1071,7 @@ class TestGemHint:
                     "pkg": {
                         "name": "rubylib",
                         "version": "1.0.0",
-                        "origin": "Anchore <anchore@anchore.com>",
+                        "origin": "Nextlinux <nextlinux@nextlinux.com>",
                         "licenses": "Apache2.0",
                         "source": "sourctest",
                         "files": [
@@ -1089,7 +1089,7 @@ class TestGemHint:
                     "pkg": {
                         "name": "rubylib",
                         "version": "1.0.0",
-                        "origins": "Anchore <anchore@anchore.com>",
+                        "origins": "Nextlinux <nextlinux@nextlinux.com>",
                         "license": "Apache2.0",
                         "source": "sourctest",
                         "files": [
@@ -1107,7 +1107,7 @@ class TestGemHint:
                     "pkg": {
                         "name": "rubylib",
                         "versions": "1.0.0",
-                        "origin": "Anchore <anchore@anchore.com>",
+                        "origin": "Nextlinux <nextlinux@nextlinux.com>",
                         "license": "Apache2.0",
                         "source": "sourctest",
                         "files": "file1",
@@ -1123,7 +1123,7 @@ class TestGemHint:
                     "pkg": {
                         "name": "rubylib",
                         "version": "1.0.0",
-                        "origin": "Anchore <anchore@anchore.com>",
+                        "origin": "Nextlinux <nextlinux@nextlinux.com>",
                         "license": "Apache2.0",
                         "source": "sourctest",
                         "files": [
@@ -1230,7 +1230,7 @@ class TestNPMHint:
                     "pkg": {
                         "name": "nodelib",
                         "version": "1.0.0",
-                        "origin": "Anchore <anchore@anchore.com>",
+                        "origin": "Nextlinux <nextlinux@nextlinux.com>",
                         "license": "Apache2.0",
                         "source": "sourctest",
                         "files": [
@@ -1248,7 +1248,7 @@ class TestNPMHint:
                     "pkg": {
                         "name": "nodelib",
                         "versions": "1.0.0",
-                        "origin": "Anchore <anchore@anchore.com>",
+                        "origin": "Nextlinux <nextlinux@nextlinux.com>",
                         "license": "Apache2.0",
                         "source": "sourctest",
                         "files": [
@@ -1266,7 +1266,7 @@ class TestNPMHint:
                     "pkg": {
                         "name": "nodelib",
                         "version": "1.0.0",
-                        "origin": "Anchore <anchore@anchore.com>",
+                        "origin": "Nextlinux <nextlinux@nextlinux.com>",
                         "licenses": "Apache2.0",
                         "source": "sourctest",
                         "files": [
@@ -1284,7 +1284,7 @@ class TestNPMHint:
                     "pkg": {
                         "name": "nodelib",
                         "version": "1.0.0",
-                        "origins": "Anchore <anchore@anchore.com>",
+                        "origins": "Nextlinux <nextlinux@nextlinux.com>",
                         "license": "Apache2.0",
                         "source": "sourctest",
                         "files": [
@@ -1302,7 +1302,7 @@ class TestNPMHint:
                     "pkg": {
                         "name": "nodelib",
                         "versions": "1.0.0",
-                        "origin": "Anchore <anchore@anchore.com>",
+                        "origin": "Nextlinux <nextlinux@nextlinux.com>",
                         "license": "Apache2.0",
                         "source": "sourctest",
                         "files": "file1",
@@ -1318,7 +1318,7 @@ class TestNPMHint:
                     "pkg": {
                         "name": "nodelib",
                         "version": "1.0.0",
-                        "origin": "Anchore <anchore@anchore.com>",
+                        "origin": "Nextlinux <nextlinux@nextlinux.com>",
                         "license": "Apache2.0",
                         "source": "sourctest",
                         "files": [

@@ -3,14 +3,14 @@ Tests for the archive subsystem. Tests for each driver are here.
 """
 import pytest
 
-from anchore_engine.subsys import logger
-from anchore_engine.subsys.object_store import exc
-from anchore_engine.subsys.object_store.drivers.filesystem import (
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.subsys.object_store import exc
+from nextlinux_engine.subsys.object_store.drivers.filesystem import (
     FilesystemObjectStorageDriver,
 )
-from anchore_engine.subsys.object_store.drivers.rdbms import DbDriver
-from anchore_engine.subsys.object_store.drivers.s3 import S3ObjectStorageDriver
-from anchore_engine.subsys.object_store.drivers.swift import SwiftObjectStorageDriver
+from nextlinux_engine.subsys.object_store.drivers.rdbms import DbDriver
+from nextlinux_engine.subsys.object_store.drivers.s3 import S3ObjectStorageDriver
+from nextlinux_engine.subsys.object_store.drivers.swift import SwiftObjectStorageDriver
 from tests.integration.subsys.object_store.conftest import (
     test_s3_bucket,
     test_s3_key,
@@ -105,21 +105,21 @@ def do_test_CRUD(driver_cls, driver_config):
     logger.info("CRUD test complete for driver: {}".format(driver))
 
 
-def test_fs_driver(anchore_db):
+def test_fs_driver(nextlinux_db):
     driver_cls = FilesystemObjectStorageDriver
     driver_config = {"archive_data_dir": "/tmp/archive_test/fs_driver"}
 
     do_test_CRUD(driver_cls, driver_config)
 
 
-def test_db_driver(anchore_db):
+def test_db_driver(nextlinux_db):
     driver_cls = DbDriver
     driver_config = {"use_db": True, "connection_string": None}
 
     do_test_CRUD(driver_cls, driver_config)
 
 
-def test_s3_driver(s3_bucket, anchore_db):
+def test_s3_driver(s3_bucket, nextlinux_db):
     driver_config = {
         "access_key": test_s3_key,
         "secret_key": test_s3_secret_key,
@@ -133,7 +133,7 @@ def test_s3_driver(s3_bucket, anchore_db):
     do_test_CRUD(driver_cls, driver_config)
 
 
-def test_swift_driver(swift_container, anchore_db):
+def test_swift_driver(swift_container, nextlinux_db):
     driver_config = {
         "user": test_swift_user,
         "key": test_swift_key,
