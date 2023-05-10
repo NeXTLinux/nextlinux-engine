@@ -9,7 +9,7 @@ from typing import Dict, List, Tuple, Union
 
 from sqlalchemy.orm.session import Session
 
-from nextlinux_engine.clients.govulners_wrapper import GrypeWrapperSingleton
+from nextlinux_engine.clients.govulners_wrapper import GovulnersWrapperSingleton
 from nextlinux_engine.clients.services import internal_client_for
 from nextlinux_engine.clients.services.catalog import CatalogClient
 from nextlinux_engine.common import nonos_package_types
@@ -28,7 +28,7 @@ from nextlinux_engine.db.entities.policy_engine import (
 )
 from nextlinux_engine.services.policy_engine.engine import vulnerabilities
 from nextlinux_engine.services.policy_engine.engine.feeds.govulnersdb_sync import (
-    GrypeDBSyncManager,
+    GovulnersDBSyncManager,
     NoActiveDBSyncError,
 )
 from nextlinux_engine.subsys import logger
@@ -95,7 +95,7 @@ class LegacyScanner:
         return matches
 
 
-class GrypeScanner:
+class GovulnersScanner:
     """
     The scanner sits a level above the govulners_wrapper. It orchestrates dependencies such as govulners-db for the wrapper
     and interacts with the wrapper for all things vulnerabilities
@@ -222,7 +222,7 @@ class GrypeScanner:
 
         # check and run govulners sync if necessary
         try:
-            GrypeDBSyncManager.run_govulnersdb_sync(db_session)
+            GovulnersDBSyncManager.run_govulnersdb_sync(db_session)
         except NoActiveDBSyncError:
             logger.exception("Failed to initialize local vulnerability database")
             report.problems.append(
@@ -265,7 +265,7 @@ class GrypeScanner:
 
             # submit the image for analysis to govulners
             govulners_response = (
-                GrypeWrapperSingleton.get_instance().get_vulnerabilities_for_sbom(
+                GovulnersWrapperSingleton.get_instance().get_vulnerabilities_for_sbom(
                     json.dumps(sbom)
                 )
             )
@@ -307,7 +307,7 @@ class GrypeScanner:
         """
         # Query requested vulnerabilities
         vulnerabilities_result = (
-            GrypeWrapperSingleton.get_instance().query_vulnerabilities(
+            GovulnersWrapperSingleton.get_instance().query_vulnerabilities(
                 vuln_id=ids,
                 affected_package=affected_package,
                 affected_package_version=affected_package_version,
@@ -323,7 +323,7 @@ class GrypeScanner:
         if self._is_only_nvd_namespace(namespace):
             return (
                 vulnerabilities_result,
-                [item.GrypeVulnerabilityMetadata for item in vulnerabilities_result],
+                [item.GovulnersVulnerabilityMetadata for item in vulnerabilities_result],
             )
 
         # Get set of related nvd vulnerabilities
@@ -332,7 +332,7 @@ class GrypeScanner:
 
         for raw_result in vulnerabilities_result:
             related_vulns = (
-                raw_result.GrypeVulnerability.deserialized_related_vulnerabilities
+                raw_result.GovulnersVulnerability.deserialized_related_vulnerabilities
             )
             if related_vulns:
                 for related_vuln in related_vulns:
@@ -343,7 +343,7 @@ class GrypeScanner:
 
         if related_nvd_vulnerabilities:
             related_nvd_metadata_records = (
-                GrypeWrapperSingleton.get_instance().query_vulnerability_metadata(
+                GovulnersWrapperSingleton.get_instance().query_vulnerability_metadata(
                     vuln_ids=related_nvd_vulnerabilities,
                     namespaces=[nvd_namespace],
                 )

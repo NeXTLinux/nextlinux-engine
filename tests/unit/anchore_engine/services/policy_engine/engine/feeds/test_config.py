@@ -11,7 +11,7 @@ from nextlinux_engine.services.policy_engine.engine.feeds.config import (
     is_sync_enabled,
 )
 from nextlinux_engine.services.policy_engine.engine.vulns.providers import (
-    GrypeProvider,
+    GovulnersProvider,
     LegacyProvider,
 )
 
@@ -74,7 +74,7 @@ def test_get_feeds_config(test_input, expected):
             id="invalid-provider-legacy",
         ),
         pytest.param(
-            GrypeProvider,
+            GovulnersProvider,
             {"provider": "govulners", "sync": {"data": {}}},
             {"govulnersdb"},
             id="invalid-provider-govulners",
@@ -131,19 +131,19 @@ def test_get_selected_configs_to_sync_defaults(provider, test_config, expected):
             id="invalid-legacy-vulndb",
         ),
         pytest.param(
-            GrypeProvider,
+            GovulnersProvider,
             {"provider": "govulners", "sync": {"data": {"govulnersdb": {"enabled": True}}}},
             {"govulnersdb"},
             id="valid-govulners-govulnersdb",
         ),
         pytest.param(
-            GrypeProvider,
+            GovulnersProvider,
             {"provider": "govulners", "sync": {"data": {"github": {"enabled": True}}}},
             set(),
             id="invalid-govulners-github",
         ),
         pytest.param(
-            GrypeProvider,
+            GovulnersProvider,
             {
                 "provider": "govulners",
                 "sync": {"data": {"vulnerabilities": {"enabled": True}}},
@@ -152,13 +152,13 @@ def test_get_selected_configs_to_sync_defaults(provider, test_config, expected):
             id="invalid-govulners-vulnerabilities",
         ),
         pytest.param(
-            GrypeProvider,
+            GovulnersProvider,
             {"provider": "govulners", "sync": {"data": {"nvdv2": {"enabled": True}}}},
             set(),
             id="invalid-govulners-nvdv2",
         ),
         pytest.param(
-            GrypeProvider,
+            GovulnersProvider,
             {"provider": "govulners", "sync": {"data": {"vulndb": {"enabled": True}}}},
             set(),
             id="invalid-govulners-vulndb",
@@ -293,7 +293,7 @@ def get_config_for_params(provider: str, feed_configurations: List[FeedConfigura
             ],
             ["nvdv2", "vulnerabilities"],
         ),
-        (  # Grype provider with one invalid config (vulndb) one govulners config, and two legacy configs
+        (  # Govulners provider with one invalid config (vulndb) one govulners config, and two legacy configs
             "govulners",
             [
                 FeedConfiguration("vulnerabilities", True),
@@ -312,7 +312,7 @@ def get_config_for_params(provider: str, feed_configurations: List[FeedConfigura
             ],
             [],
         ),
-        (  # Grype provider disabled govulnersdb config and two legacy configs enabled
+        (  # Govulners provider disabled govulnersdb config and two legacy configs enabled
             "govulners",
             [
                 FeedConfiguration("vulnerabilities", True),
@@ -330,7 +330,7 @@ def get_config_for_params(provider: str, feed_configurations: List[FeedConfigura
             ],
             [],
         ),
-        (  # Grype provider with all disabled configs
+        (  # Govulners provider with all disabled configs
             "govulners",
             [
                 FeedConfiguration("vulnerabilities", False),
@@ -339,7 +339,7 @@ def get_config_for_params(provider: str, feed_configurations: List[FeedConfigura
             ],
             [],
         ),
-        (  # Grype provider with packages and govulnersdb enabled
+        (  # Govulners provider with packages and govulnersdb enabled
             "govulners",
             [
                 FeedConfiguration("vulnerabilities", False),
@@ -369,7 +369,7 @@ def test_compute_selected_configs_to_sync(
     if provider == "legacy":
         vulnerabilities_provider = LegacyProvider()
     else:
-        vulnerabilities_provider = GrypeProvider()
+        vulnerabilities_provider = GovulnersProvider()
     sync_configs = compute_selected_configs_to_sync(
         provider=vulnerabilities_provider.get_config_name(),
         vulnerabilities_config=get_config_for_params(provider, feed_configurations),

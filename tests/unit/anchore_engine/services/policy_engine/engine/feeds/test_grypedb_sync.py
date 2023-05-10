@@ -4,17 +4,17 @@ from unittest.mock import MagicMock, Mock, patch
 
 import pytest
 
-from nextlinux_engine.db import GrypeDBFeedMetadata
-from nextlinux_engine.db.db_govulners_db_feed_metadata import NoActiveGrypeDB
+from nextlinux_engine.db import GovulnersDBFeedMetadata
+from nextlinux_engine.db.db_govulners_db_feed_metadata import NoActiveGovulnersDB
 from nextlinux_engine.services.policy_engine.engine.feeds.govulnersdb_sync import (
-    GrypeDBSyncLock,
-    GrypeDBSyncLockAquisitionTimeout,
-    GrypeDBSyncManager,
+    GovulnersDBSyncLock,
+    GovulnersDBSyncLockAquisitionTimeout,
+    GovulnersDBSyncManager,
     NoActiveDBSyncError,
 )
 
 
-class TestGrypeDBSyncTask:
+class TestGovulnersDBSyncTask:
     @pytest.fixture
     def mock_query_active_dbs_with_data(self, monkeypatch):
         """
@@ -40,7 +40,7 @@ class TestGrypeDBSyncTask:
 
         def _mock_query(mocked_output):
             monkeypatch.setattr(
-                GrypeDBSyncManager,
+                GovulnersDBSyncManager,
                 "_get_local_govulnersdb_checksum",
                 Mock(return_value=mocked_output),
             )
@@ -74,7 +74,7 @@ class TestGrypeDBSyncTask:
         )
 
         # mock initial state so execution occurs
-        mock_calls_for_sync(GrypeDBFeedMetadata(archive_checksum=old_checksum), "")
+        mock_calls_for_sync(GovulnersDBFeedMetadata(archive_checksum=old_checksum), "")
 
         # Mock the update_govulnersdb method for task to sleep and update mocks for active and local govulners dbs
         def _mock_update_govulnersdb_for_thread1(
@@ -86,16 +86,16 @@ class TestGrypeDBSyncTask:
             # mock the returns to mimic persistent change of active govulnersdb local and global
             # This in effect mocks the actual execution for the first thread
             mock_calls_for_sync(
-                GrypeDBFeedMetadata(archive_checksum=new_checksum), new_checksum
+                GovulnersDBFeedMetadata(archive_checksum=new_checksum), new_checksum
             )
 
         monkeypatch.setattr(
-            GrypeDBSyncManager, "_update_govulnersdb", _mock_update_govulnersdb_for_thread1
+            GovulnersDBSyncManager, "_update_govulnersdb", _mock_update_govulnersdb_for_thread1
         )
 
     def test_no_active_govulnersdb(self, monkeypatch):
         def _mocked_call(session):
-            raise NoActiveGrypeDB
+            raise NoActiveGovulnersDB
 
         monkeypatch.setattr(
             "nextlinux_engine.services.policy_engine.engine.feeds.govulnersdb_sync.get_most_recent_active_govulnersdb",
@@ -103,16 +103,16 @@ class TestGrypeDBSyncTask:
         )
 
         with pytest.raises(NoActiveDBSyncError):
-            GrypeDBSyncManager.run_govulnersdb_sync(Mock())
+            GovulnersDBSyncManager.run_govulnersdb_sync(Mock())
 
     def test_matching_checksums(self, mock_calls_for_sync):
         checksum = "eef3b1bcd5728346cb1b30eae09647348bacfbde3ba225d70cb0374da249277c"
         mock_calls_for_sync(
-            mock_active_db=GrypeDBFeedMetadata(archive_checksum=checksum),
+            mock_active_db=GovulnersDBFeedMetadata(archive_checksum=checksum),
             mock_local_checksum=checksum,
         )
 
-        sync_ran = GrypeDBSyncManager.run_govulnersdb_sync(Mock())
+        sync_ran = GovulnersDBSyncManager.run_govulnersdb_sync(Mock())
 
         assert sync_ran is False
 
@@ -125,24 +125,24 @@ class TestGrypeDBSyncTask:
         )
 
         mock_calls_for_sync(
-            mock_active_db=GrypeDBFeedMetadata(archive_checksum=global_checksum),
+            mock_active_db=GovulnersDBFeedMetadata(archive_checksum=global_checksum),
             mock_local_checksum=local_checksum,
         )
 
         # mock execution of update
         monkeypatch.setattr(
-            GrypeDBSyncManager, "_update_govulnersdb", Mock(return_value=True)
+            GovulnersDBSyncManager, "_update_govulnersdb", Mock(return_value=True)
         )
 
         # pass a file path to bypass connection to catalog to retrieve tar from object storage
-        sync_ran = GrypeDBSyncManager.run_govulnersdb_sync(
+        sync_ran = GovulnersDBSyncManager.run_govulnersdb_sync(
             Mock(), govulnersdb_file_path="test/bypass/catalog.txt"
         )
 
         assert sync_ran is True
 
     def test_uninitialized_govulners_wrapper(self):
-        assert GrypeDBSyncManager._get_local_govulnersdb_checksum() is None
+        assert GovulnersDBSyncManager._get_local_govulnersdb_checksum() is None
 
     def test_class_lock_called(self, mock_calls_for_sync, monkeypatch):
         """
@@ -151,17 +151,17 @@ class TestGrypeDBSyncTask:
         """
         checksum = "366ab0a94f4ed9c22f5cc93e4d8f6724163a357ae5190740c1b5f251fd706cc4"
         mock_lock = MagicMock()
-        monkeypatch.setattr(GrypeDBSyncLock, "_lock", mock_lock)
+        monkeypatch.setattr(GovulnersDBSyncLock, "_lock", mock_lock)
         mock_calls_for_sync(
-            mock_active_db=GrypeDBFeedMetadata(archive_checksum=checksum),
+            mock_active_db=GovulnersDBFeedMetadata(archive_checksum=checksum),
             mock_local_checksum="",
         )
 
         monkeypatch.setattr(
-            GrypeDBSyncManager, "_update_govulnersdb", Mock(return_value=True)
+            GovulnersDBSyncManager, "_update_govulnersdb", Mock(return_value=True)
         )
 
-        sync_ran = GrypeDBSyncManager.run_govulnersdb_sync(
+        sync_ran = GovulnersDBSyncManager.run_govulnersdb_sync(
             Mock(), govulnersdb_file_path="test/bypass/catalog.txt"
         )
 
@@ -183,16 +183,16 @@ class TestGrypeDBSyncTask:
         with ThreadPoolExecutor() as executor:
             # run thread1
             thread1 = executor.submit(
-                GrypeDBSyncManager.run_govulnersdb_sync, "test/bypass/catalog.txt"
+                GovulnersDBSyncManager.run_govulnersdb_sync, "test/bypass/catalog.txt"
             )
 
             # Wait until thread1 has taken the lock and then run thread2 with timeout of ~5 seconds
             synchronous_task = False
             lock_acquired = False
             for attempt in range(10):
-                if GrypeDBSyncLock._lock.locked():
+                if GovulnersDBSyncLock._lock.locked():
                     lock_acquired = True
-                    synchronous_task = GrypeDBSyncManager.run_govulnersdb_sync(
+                    synchronous_task = GovulnersDBSyncManager.run_govulnersdb_sync(
                         Mock(), govulnersdb_file_path="test/bypass/catalog.txt"
                     )
                     break
@@ -217,16 +217,16 @@ class TestGrypeDBSyncTask:
         with ThreadPoolExecutor() as executor:
             # run thread1
             thread1 = executor.submit(
-                GrypeDBSyncManager.run_govulnersdb_sync, Mock(), "test/bypass/catalog.txt"
+                GovulnersDBSyncManager.run_govulnersdb_sync, Mock(), "test/bypass/catalog.txt"
             )
 
             # Wait until thread1 has taken the lock and then run thread2 with timeout of ~5 seconds
             lock_acquired = False
             for attempt in range(5):
-                if GrypeDBSyncLock._lock.locked():
+                if GovulnersDBSyncLock._lock.locked():
                     lock_acquired = True
-                    with pytest.raises(GrypeDBSyncLockAquisitionTimeout):
-                        GrypeDBSyncManager.run_govulnersdb_sync(
+                    with pytest.raises(GovulnersDBSyncLockAquisitionTimeout):
+                        GovulnersDBSyncManager.run_govulnersdb_sync(
                             Mock(), govulnersdb_file_path="test/bypass/catalog.txt"
                         )
                     break

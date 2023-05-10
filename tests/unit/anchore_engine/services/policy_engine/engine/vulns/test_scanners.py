@@ -1,6 +1,6 @@
 import pytest
 
-from nextlinux_engine.services.policy_engine.engine.vulns.scanners import GrypeScanner
+from nextlinux_engine.services.policy_engine.engine.vulns.scanners import GovulnersScanner
 
 
 @pytest.mark.parametrize(
@@ -16,6 +16,6 @@ from nextlinux_engine.services.policy_engine.engine.vulns.scanners import GrypeS
 )
 def test_is_only_nvd_namespace(input, expected_output):
     """
-    Tests private function in GrypeScanner that determines if namespace is an nvd namespace
+    Tests private function in GovulnersScanner that determines if namespace is an nvd namespace
     """
-    assert GrypeScanner()._is_only_nvd_namespace(input) is expected_output
+    assert GovulnersScanner()._is_only_nvd_namespace(input) is expected_output

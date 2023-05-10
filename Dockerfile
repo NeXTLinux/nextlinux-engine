@@ -12,8 +12,8 @@ ENV LANG=en_US.UTF-8
 ENV LC_ALL=C.UTF-8
 
 # environment variables for dependent binary versions
-ENV SYFT_VERSION=v0.33.0
-ENV GRYPE_VERSION=v0.27.3
+ENV GOSBOM_VERSION=v0.33.0
+ENV GOVULNERS_VERSION=v0.27.3
 ENV PIP_VERSION=21.0.1
 
 # setup build artifact directory
@@ -59,11 +59,11 @@ RUN set -ex && \
 
 RUN set -exo pipefail && \
     echo "downloading Syft" && \
-    curl -sSfL https://raw.githubusercontent.com/nextlinux/gosbom/main/install.sh | sh -s -- -b /build_output/deps "${SYFT_VERSION}"
+    curl -sSfL https://raw.githubusercontent.com/nextlinux/gosbom/main/install.sh | sh -s -- -b /build_output/deps "${GOSBOM_VERSION}"
 
 RUN set -exo pipefail && \
-    echo "downloading Grype" && \
-    curl -sSfL https://raw.githubusercontent.com/nextlinux/govulners/main/install.sh | sh -s -- -b /build_output/deps "${GRYPE_VERSION}"
+    echo "downloading Govulners" && \
+    curl -sSfL https://raw.githubusercontent.com/nextlinux/govulners/main/install.sh | sh -s -- -b /build_output/deps "${GOVULNERS_VERSION}"
 
 COPY . /buildsource
 WORKDIR /buildsource
@@ -141,7 +141,7 @@ ENV NEXTLINUX_ADMIN_EMAIL=admin@mynextlinux \
     NEXTLINUX_GLOBAL_CLIENT_CONNECT_TIMEOUT=0 \
     NEXTLINUX_GLOBAL_CLIENT_READ_TIMEOUT=0 \
     NEXTLINUX_GLOBAL_SERVER_REQUEST_TIMEOUT_SEC=180 \
-    NEXTLINUX_GRYPE_DB_URL="https://toolbox-data.nextlinux.io/govulners/databases/listing.json" \
+    NEXTLINUX_GOVULNERS_DB_URL="https://toolbox-data.nextlinux.io/govulners/databases/listing.json" \
     NEXTLINUX_HINTS_ENABLED=false \
     NEXTLINUX_HOST_ID="nextlinux-quickstart" \
     NEXTLINUX_INTERNAL_SSL_VERIFY=false \

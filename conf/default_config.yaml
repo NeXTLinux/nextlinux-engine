@@ -178,7 +178,7 @@ services:
           # govulnersdb feed is synced if the provider is set to govulners. All the remaining feeds except for packages are ignored even if they are enabled
           govulnersdb:
             enabled: true
-            url: ${NEXTLINUX_GRYPE_DB_URL}
+            url: ${NEXTLINUX_GOVULNERS_DB_URL}
           # The following feeds are synced if provider is set to legacy
           vulnerabilities:
             enabled: true

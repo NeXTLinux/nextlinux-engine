@@ -7,7 +7,7 @@ from nextlinux_engine.common.models.policy_engine import ImageVulnerabilitiesRep
 from nextlinux_engine.db import Image
 from nextlinux_engine.db import ImageVulnerabilitiesReport as DbImageVulnerabilities
 from nextlinux_engine.db.db_govulners_db_feed_metadata import (
-    NoActiveGrypeDB,
+    NoActiveGovulnersDB,
     get_most_recent_active_govulnersdb,
 )
 from nextlinux_engine.subsys import logger
@@ -28,13 +28,13 @@ class Status(enum.Enum):
     missing = "missing"
 
 
-class GrypeDBKey:
+class GovulnersDBKey:
     """
     A key in the context of the image vulnerabilities store is the information that makes an entry in the store unique.
     The key class has functions for generating an instance from the store's report_key and a ImageVulnerabilitiesReport
     instance. It should also support a function for returning the status of the store entry
 
-    This key is based only on Grype DB details of the generated report.
+    This key is based only on Govulners DB details of the generated report.
 
     To swap key implementation create a new key class with get_report_status() and assign the class to
     ImageVulnerabilitiesStore.__report_key_class__
@@ -56,7 +56,7 @@ class GrypeDBKey:
             try:
                 active_db = get_most_recent_active_govulnersdb(session)
                 active_db_checksum = active_db.db_checksum
-            except NoActiveGrypeDB:
+            except NoActiveGovulnersDB:
                 active_db_checksum = None
 
             logger.debug(
@@ -80,7 +80,7 @@ class GrypeDBKey:
 
 class ImageVulnerabilitiesStore:
 
-    __report_key_class__ = GrypeDBKey
+    __report_key_class__ = GovulnersDBKey
 
     def __init__(self, image_object: Image):
         self.image = image_object

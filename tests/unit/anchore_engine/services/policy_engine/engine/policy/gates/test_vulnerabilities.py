@@ -10,7 +10,7 @@ from nextlinux_engine.db import Image
 from nextlinux_engine.db.entities.policy_engine import (
     FeedGroupMetadata,
     FeedMetadata,
-    GrypeDBFeedMetadata,
+    GovulnersDBFeedMetadata,
 )
 from nextlinux_engine.services.policy_engine.engine.policy.gate import ExecutionContext
 from nextlinux_engine.services.policy_engine.engine.policy.gates.vulnerabilities import (
@@ -21,12 +21,12 @@ from nextlinux_engine.services.policy_engine.engine.policy.gates.vulnerabilities
     VulnerabilityMatchTrigger,
 )
 from nextlinux_engine.services.policy_engine.engine.vulns.providers import (
-    GrypeProvider,
+    GovulnersProvider,
     LegacyProvider,
 )
 from tests.unit.nextlinux_engine.clients.test_govulners_wrapper import (  # pylint: disable=W0611
-    GRYPE_DB_VERSION,
-    TestGrypeWrapperSingleton,
+    GOVULNERS_DB_VERSION,
+    TestGovulnersWrapperSingleton,
     patch_govulners_wrapper_singleton,
     production_govulners_db_dir,
     test_govulners_wrapper_singleton,
@@ -38,7 +38,7 @@ def set_provider(monkeypatch):
     def _set_provider(provider_name=None):
         provider = LegacyProvider
         if provider_name == "govulners":
-            provider = GrypeProvider
+            provider = GovulnersProvider
         monkeypatch.setattr(
             "nextlinux_engine.services.policy_engine.engine.policy.gates.vulnerabilities.get_vulnerabilities_provider",
             lambda: provider(),
@@ -75,7 +75,7 @@ def setup_mocks_vulnerabilities_gate(
     )
     # required for VulnerabilitiesGate.prepare_context
     # mocks nextlinux_engine.services.policy_engine.engine.vulns.providers.LegacyProvider.get_image_vulnerabilities
-    # mocks nextlinux_engine.services.policy_engine.engine.vulns.providers.GrypeProvider.get_image_vulnerabilities
+    # mocks nextlinux_engine.services.policy_engine.engine.vulns.providers.GovulnersProvider.get_image_vulnerabilities
     # mocks nextlinux_engine.db.session_scope
     def _setup_mocks_vulnerabilities_gate(file_name, provider_name):
         set_provider(provider_name)
@@ -88,7 +88,7 @@ def setup_mocks_vulnerabilities_gate(
             )
         if provider_name == "govulners":
             monkeypatch.setattr(
-                "nextlinux_engine.services.policy_engine.engine.vulns.providers.GrypeProvider.get_image_vulnerabilities",
+                "nextlinux_engine.services.policy_engine.engine.vulns.providers.GovulnersProvider.get_image_vulnerabilities",
                 lambda instance, image, db_session: load_vulnerabilities_report_file(
                     file_name
                 ),
@@ -134,7 +134,7 @@ class TestVulnerabilitiesGate:
                 ),
                 "debian_1_os_will-fix.json",
                 None,
-                GrypeDBFeedMetadata(
+                GovulnersDBFeedMetadata(
                     built_at=datetime.datetime.now() - datetime.timedelta(days=2)
                 ),
                 True,
@@ -146,7 +146,7 @@ class TestVulnerabilitiesGate:
                 ),
                 "debian_1_os_will-fix.json",
                 None,
-                GrypeDBFeedMetadata(built_at=datetime.datetime.now()),
+                GovulnersDBFeedMetadata(built_at=datetime.datetime.now()),
                 False,
             ),
         ],
@@ -215,7 +215,7 @@ class TestVulnerabilitiesGate:
                 ),
                 "debian_1_os_will-fix.json",
                 None,
-                GrypeDBFeedMetadata(
+                GovulnersDBFeedMetadata(
                     groups=[{"name": "debian:10", "record_count": 200}]
                 ),
                 True,
@@ -227,7 +227,7 @@ class TestVulnerabilitiesGate:
                 ),
                 "debian_1_os_will-fix.json",
                 None,
-                GrypeDBFeedMetadata(
+                GovulnersDBFeedMetadata(
                     groups=[{"name": "debian:10", "record_count": 200}]
                 ),
                 False,

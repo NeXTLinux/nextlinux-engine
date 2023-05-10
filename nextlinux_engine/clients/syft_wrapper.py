@@ -16,8 +16,8 @@ def run_gosbom(tmp_dir_path: str, oci_image_dir_path: str):
     proc_env = os.environ.copy()
 
     gosbom_env = {
-        "SYFT_CHECK_FOR_APP_UPDATE": "0",
-        "SYFT_LOG_STRUCTURED": "1",
+        "GOSBOM_CHECK_FOR_APP_UPDATE": "0",
+        "GOSBOM_LOG_STRUCTURED": "1",
         "TMPDIR": tmp_dir_path,
     }
 

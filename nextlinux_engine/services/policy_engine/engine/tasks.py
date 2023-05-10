@@ -30,7 +30,7 @@ from nextlinux_engine.services.policy_engine.engine.feeds.config import (
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.feeds import FeedSyncResult
 from nextlinux_engine.services.policy_engine.engine.feeds.govulnersdb_sync import (
-    GrypeDBSyncManager,
+    GovulnersDBSyncManager,
     NoActiveDBSyncError,
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.sync import (
@@ -39,7 +39,7 @@ from nextlinux_engine.services.policy_engine.engine.feeds.sync import (
 )
 from nextlinux_engine.services.policy_engine.engine.loaders import ImageLoader
 from nextlinux_engine.services.policy_engine.engine.vulns.providers import (
-    GrypeProvider,
+    GovulnersProvider,
     LegacyProvider,
     get_vulnerabilities_provider,
 )
@@ -241,7 +241,7 @@ class FeedsUpdateTask(IAsyncTask):
             updated_data_feeds = list()
             updated_data_feeds.extend(
                 DataFeeds.sync(
-                    sync_util_provider=GrypeProvider().get_sync_util_provider(
+                    sync_util_provider=GovulnersProvider().get_sync_util_provider(
                         self.sync_configs
                     ),
                     full_flush=self.full_flush,
@@ -566,7 +566,7 @@ class ImageLoadTask(IAsyncTask):
             return json.load(r)
 
 
-class GrypeDBSyncTask(IAsyncTask):
+class GovulnersDBSyncTask(IAsyncTask):
     __task_name__ = "govulnersdb_sync_task"
 
     def __init__(self, govulnersdb_file_path: Optional[str] = None):
@@ -574,11 +574,11 @@ class GrypeDBSyncTask(IAsyncTask):
 
     def execute(self):
         """
-        Runs the GrypeDBSyncTask by calling the GrypeDBSyncManager.
+        Runs the GovulnersDBSyncTask by calling the GovulnersDBSyncManager.
         """
         with session_scope() as session:
             try:
-                GrypeDBSyncManager.run_govulnersdb_sync(session, self.govulnersdb_file_path)
+                GovulnersDBSyncManager.run_govulnersdb_sync(session, self.govulnersdb_file_path)
             except NoActiveDBSyncError:
                 logger.warn(
                     "Cannot initialize govulners db locally since no record was found"

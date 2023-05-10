@@ -27,7 +27,7 @@ Base = declarative_base()
 
 
 # Table definitions.
-class GrypeVulnerability(Base, UtilMixin):
+class GovulnersVulnerability(Base, UtilMixin):
     __tablename__ = VULNERABILITY_TABLE_NAME
 
     pk = Column(Integer, primary_key=True)
@@ -51,7 +51,7 @@ class GrypeVulnerability(Base, UtilMixin):
         return json.loads(self.fixed_in_versions)
 
 
-class GrypeVulnerabilityMetadata(Base, UtilMixin):
+class GovulnersVulnerabilityMetadata(Base, UtilMixin):
     __tablename__ = VULNERABILITY_METADATA_TABLE_NAME
 
     id = Column(String, ForeignKey(f"{VULNERABILITY_TABLE_NAME}.id"), primary_key=True)
@@ -73,7 +73,7 @@ class GrypeVulnerabilityMetadata(Base, UtilMixin):
 
 
 @dataclass
-class GrypeDBMetadata:
+class GovulnersDBMetadata:
     built: str
     version: str
     checksum: str
@@ -81,13 +81,13 @@ class GrypeDBMetadata:
     @staticmethod
     def to_object(db_metadata: dict):
         """
-        Convert a dict object into a GrypeDBMetadata
+        Convert a dict object into a GovulnersDBMetadata
         """
-        return GrypeDBMetadata(**db_metadata)
+        return GovulnersDBMetadata(**db_metadata)
 
 
 @dataclass
-class GrypeDBEngineMetadata:
+class GovulnersDBEngineMetadata:
     db_checksum: str
     archive_checksum: str
     govulners_db_version: str
@@ -95,9 +95,9 @@ class GrypeDBEngineMetadata:
     @staticmethod
     def to_object(engine_metadata: dict):
         """
-        Convert a dict object into a GrypeEngineMetadata
+        Convert a dict object into a GovulnersEngineMetadata
         """
-        return GrypeDBEngineMetadata(**engine_metadata)
+        return GovulnersDBEngineMetadata(**engine_metadata)
 
 
 @dataclass
@@ -112,41 +112,41 @@ class LockAcquisitionError(Exception):
     pass
 
 
-class GrypeWrapperSingleton(object):
+class GovulnersWrapperSingleton(object):
     _govulners_wrapper_instance = None
 
     # These values should be treated as constants, and will not be changed by the functions below
     LOCK_READ_ACCESS_TIMEOUT = 60000
     LOCK_WRITE_ACCESS_TIMEOUT = 60000
     SQL_LITE_URL_TEMPLATE = "sqlite:///{}"
-    GRYPE_SUB_COMMAND = "govulners -vv -o json"
-    GRYPE_VERSION_COMMAND = "govulners version -o json"
+    GOVULNERS_SUB_COMMAND = "govulners -vv -o json"
+    GOVULNERS_VERSION_COMMAND = "govulners version -o json"
     VULNERABILITY_FILE_NAME = "vulnerability.db"
     METADATA_FILE_NAME = "metadata.json"
     ENGINE_METADATA_FILE_NAME = "engine_metadata.json"
     ARCHIVE_FILE_NOT_FOUND_ERROR_MESSAGE = "New govulners_db archive file not found"
-    STAGED_GRYPE_DB_NOT_FOUND_ERROR_MESSAGE = "Unable to promote staged govulners_db with archive checksum %s because it was not found."
-    GRYPE_BASE_ENV_VARS = {
-        "GRYPE_CHECK_FOR_APP_UPDATE": "0",
-        "GRYPE_LOG_STRUCTURED": "1",
-        "GRYPE_DB_AUTO_UPDATE": "0",
+    STAGED_GOVULNERS_DB_NOT_FOUND_ERROR_MESSAGE = "Unable to promote staged govulners_db with archive checksum %s because it was not found."
+    GOVULNERS_BASE_ENV_VARS = {
+        "GOVULNERS_CHECK_FOR_APP_UPDATE": "0",
+        "GOVULNERS_LOG_STRUCTURED": "1",
+        "GOVULNERS_DB_AUTO_UPDATE": "0",
     }
-    MISSING_GRYPE_DB_DIR_ERROR_MESSAGE = (
+    MISSING_GOVULNERS_DB_DIR_ERROR_MESSAGE = (
         "Cannot access missing govulners_db dir. Reinitialize govulners_db."
     )
-    MISSING_GRYPE_DB_VERSION_ERROR_MESSAGE = (
+    MISSING_GOVULNERS_DB_VERSION_ERROR_MESSAGE = (
         "Cannot access missing govulners_db version. Reinitialize govulners_db."
     )
-    MISSING_GRYPE_DB_SESSION_MAKER_ERROR_MESSAGE = (
+    MISSING_GOVULNERS_DB_SESSION_MAKER_ERROR_MESSAGE = (
         "Cannot access missing govulners_db session maker. Reinitialize govulners_db."
     )
 
     def __new__(cls):
         # If the singleton has not been initialized yet, do so with the instance variables below
         if cls._govulners_wrapper_instance is None:
-            logger.debug("Initializing Grype wrapper instance.")
+            logger.debug("Initializing Govulners wrapper instance.")
             # The singleton instance, only instantiated once outside of testing
-            cls._govulners_wrapper_instance = super(GrypeWrapperSingleton, cls).__new__(cls)
+            cls._govulners_wrapper_instance = super(GovulnersWrapperSingleton, cls).__new__(cls)
 
             # These variables are mutable, their state can be changed when govulners_db is updated
             cls._govulners_db_dir_internal = None
@@ -169,12 +169,12 @@ class GrypeWrapperSingleton(object):
         """
         Returns the singleton instance of this class.
         """
-        return GrypeWrapperSingleton()
+        return GovulnersWrapperSingleton()
 
     @property
     def _govulners_db_dir(self):
         if self._govulners_db_dir_internal is None:
-            raise ValueError(self.MISSING_GRYPE_DB_DIR_ERROR_MESSAGE)
+            raise ValueError(self.MISSING_GOVULNERS_DB_DIR_ERROR_MESSAGE)
         else:
             return self._govulners_db_dir_internal
 
@@ -185,7 +185,7 @@ class GrypeWrapperSingleton(object):
     @property
     def _govulners_db_version(self):
         if self._govulners_db_version_internal is None:
-            raise ValueError(self.MISSING_GRYPE_DB_VERSION_ERROR_MESSAGE)
+            raise ValueError(self.MISSING_GOVULNERS_DB_VERSION_ERROR_MESSAGE)
         else:
             return self._govulners_db_version_internal
 
@@ -196,7 +196,7 @@ class GrypeWrapperSingleton(object):
     @property
     def _govulners_db_session_maker(self):
         if self._govulners_db_session_maker_internal is None:
-            raise ValueError(self.MISSING_GRYPE_DB_SESSION_MAKER_ERROR_MESSAGE)
+            raise ValueError(self.MISSING_GOVULNERS_DB_SESSION_MAKER_ERROR_MESSAGE)
         else:
             return self._govulners_db_session_maker_internal
 
@@ -277,7 +277,7 @@ class GrypeWrapperSingleton(object):
     @contextmanager
     def govulners_session_scope(self, use_staging: bool = False):
         """
-        Provides simplified session scope management around the currently configured govulners db. Grype
+        Provides simplified session scope management around the currently configured govulners db. Govulners
         wrapper only reads from this db (writes only ever happen upstream when the db file is created!)
         so there's no need for normal transaction management as there will never be changes to commit.
         This context manager primarily ensures the session is closed after use.
@@ -563,7 +563,7 @@ class GrypeWrapperSingleton(object):
         archive_checksum: str,
         govulners_db_version: str,
         use_staging: bool = False,
-    ) -> Optional[GrypeDBEngineMetadata]:
+    ) -> Optional[GovulnersDBEngineMetadata]:
         """
         Make an update to govulners_db, using the provided archive file, archive checksum, and govulners db version.
         use_staging determines if this is the active, production govulners db used for scanning images and
@@ -618,7 +618,7 @@ class GrypeWrapperSingleton(object):
             # Return the engine metadata as a data object
             return self.get_govulners_db_engine_metadata(use_staging=use_staging)
 
-    def unstage_govulners_db(self) -> Optional[GrypeDBEngineMetadata]:
+    def unstage_govulners_db(self) -> Optional[GovulnersDBEngineMetadata]:
         """
         Unstages the staged govulners_db. This method returns the production govulners_db engine metadata, if a production
         govulners_db has been set. Otherwise it returns None.
@@ -659,7 +659,7 @@ class GrypeWrapperSingleton(object):
 
     def get_govulners_db_metadata(
         self, use_staging: bool = False
-    ) -> Optional[GrypeDBMetadata]:
+    ) -> Optional[GovulnersDBMetadata]:
         """
         Return the contents of the current govulners_db metadata file as a data object.
         This file contains metadata specific to govulners about the current govulners_db instance.
@@ -671,13 +671,13 @@ class GrypeWrapperSingleton(object):
         )
 
         if db_metadata:
-            return GrypeDBMetadata.to_object(db_metadata)
+            return GovulnersDBMetadata.to_object(db_metadata)
         else:
             return None
 
     def get_govulners_db_engine_metadata(
         self, use_staging: bool = False
-    ) -> Optional[GrypeDBEngineMetadata]:
+    ) -> Optional[GovulnersDBEngineMetadata]:
         """
         Return the contents of the current govulners_db engine metadata file as a data object.
         This file contains metadata specific to engine about the current govulners_db instance.
@@ -689,7 +689,7 @@ class GrypeWrapperSingleton(object):
         )
 
         if engine_metadata:
-            return GrypeDBEngineMetadata.to_object(engine_metadata)
+            return GovulnersDBEngineMetadata.to_object(engine_metadata)
         else:
             return None
 
@@ -697,12 +697,12 @@ class GrypeWrapperSingleton(object):
         self, include_govulners_db: bool = True, use_staging: bool = False
     ) -> Dict[str, str]:
         # Set govulners env variables, optionally including the govulners db location
-        govulners_env = self.GRYPE_BASE_ENV_VARS.copy()
+        govulners_env = self.GOVULNERS_BASE_ENV_VARS.copy()
         if include_govulners_db:
             if use_staging:
-                govulners_env["GRYPE_DB_CACHE_DIR"] = self._staging_govulners_db_dir
+                govulners_env["GOVULNERS_DB_CACHE_DIR"] = self._staging_govulners_db_dir
             else:
-                govulners_env["GRYPE_DB_CACHE_DIR"] = self._govulners_db_dir
+                govulners_env["GOVULNERS_DB_CACHE_DIR"] = self._govulners_db_dir
 
         env_variables = os.environ.copy()
         env_variables.update(govulners_env)
@@ -716,19 +716,19 @@ class GrypeWrapperSingleton(object):
             env_variables = self._get_env_variables(include_govulners_db=False)
 
             logger.debug(
-                "Getting govulners version with command: %s", self.GRYPE_VERSION_COMMAND
+                "Getting govulners version with command: %s", self.GOVULNERS_VERSION_COMMAND
             )
 
             stdout = None
             err = None
             try:
                 stdout, _ = run_check(
-                    shlex.split(self.GRYPE_VERSION_COMMAND), env=env_variables
+                    shlex.split(self.GOVULNERS_VERSION_COMMAND), env=env_variables
                 )
             except CommandException as exc:
                 logger.error(
                     "Exception running command: %s, stderr: %s",
-                    self.GRYPE_VERSION_COMMAND,
+                    self.GOVULNERS_VERSION_COMMAND,
                     exc.stderr,
                 )
                 raise exc
@@ -745,12 +745,12 @@ class GrypeWrapperSingleton(object):
             # Get env variables to run the govulners scan with
             env_variables = self._get_env_variables()
 
-            # Format and run the command. Grype supports piping in an sbom string
-            cmd = "{}".format(self.GRYPE_SUB_COMMAND)
+            # Format and run the command. Govulners supports piping in an sbom string
+            cmd = "{}".format(self.GOVULNERS_SUB_COMMAND)
 
             logger.spew(
                 "Running govulners with command: {} | {}".format(
-                    govulners_sbom, self.GRYPE_SUB_COMMAND
+                    govulners_sbom, self.GOVULNERS_SUB_COMMAND
                 )
             )
 
@@ -783,7 +783,7 @@ class GrypeWrapperSingleton(object):
 
             # Format and run the command
             cmd = "{govulners_sub_command} sbom:{sbom}".format(
-                govulners_sub_command=self.GRYPE_SUB_COMMAND, sbom=govulners_sbom_file
+                govulners_sub_command=self.GOVULNERS_SUB_COMMAND, sbom=govulners_sbom_file
             )
 
             logger.debug("Running govulners with command: %s", cmd)
@@ -807,9 +807,9 @@ class GrypeWrapperSingleton(object):
 
     def query_vulnerability_metadata(
         self, vuln_ids: List[str], namespaces: List[str]
-    ) -> Iterable[GrypeVulnerabilityMetadata]:
+    ) -> Iterable[GovulnersVulnerabilityMetadata]:
         """
-        Provided a list of vulnerability ids and namespaces, returns a list of matching GrypeVulnerabilityMetadata records
+        Provided a list of vulnerability ids and namespaces, returns a list of matching GovulnersVulnerabilityMetadata records
         """
 
         if not vuln_ids:
@@ -818,19 +818,19 @@ class GrypeWrapperSingleton(object):
 
         with self.read_lock_access():
             logger.debug(
-                "Querying govulners_db for GrypeVulenrabilityMetadata records matching vuln_ids: %s, namespace: %s",
+                "Querying govulners_db for GovulnersVulenrabilityMetadata records matching vuln_ids: %s, namespace: %s",
                 vuln_ids,
                 namespaces,
             )
 
             with self.govulners_session_scope() as session:
-                query = session.query(GrypeVulnerabilityMetadata).filter(
-                    GrypeVulnerabilityMetadata.id.in_(vuln_ids)
+                query = session.query(GovulnersVulnerabilityMetadata).filter(
+                    GovulnersVulnerabilityMetadata.id.in_(vuln_ids)
                 )
 
                 if namespaces:
                     query = query.filter(
-                        GrypeVulnerabilityMetadata.namespace.in_(namespaces)
+                        GovulnersVulnerabilityMetadata.namespace.in_(namespaces)
                     )
 
                 return query.all()
@@ -862,27 +862,27 @@ class GrypeWrapperSingleton(object):
             )
 
             with self.govulners_session_scope() as session:
-                # GrypeVulnerabilityMetadata contains info for the vulnerability. GrypeVulnerability contains info for the affected/fixed package
-                # A vulnerability can impact 0 or more packages i.e. a GrypeVulnerabilityMetadata row can be associated with 0 or more GrypeVulnerability rows
-                # Since the lookup is for vulnerability information, the query should left outer join GrypeVulnerabilityMetadata with GrypeVulnerability
+                # GovulnersVulnerabilityMetadata contains info for the vulnerability. GovulnersVulnerability contains info for the affected/fixed package
+                # A vulnerability can impact 0 or more packages i.e. a GovulnersVulnerabilityMetadata row can be associated with 0 or more GovulnersVulnerability rows
+                # Since the lookup is for vulnerability information, the query should left outer join GovulnersVulnerabilityMetadata with GovulnersVulnerability
                 query = session.query(
-                    GrypeVulnerability, GrypeVulnerabilityMetadata
+                    GovulnersVulnerability, GovulnersVulnerabilityMetadata
                 ).outerjoin(
-                    GrypeVulnerability,
+                    GovulnersVulnerability,
                     and_(
-                        GrypeVulnerability.id == GrypeVulnerabilityMetadata.id,
-                        GrypeVulnerability.namespace
-                        == GrypeVulnerabilityMetadata.namespace,
+                        GovulnersVulnerability.id == GovulnersVulnerabilityMetadata.id,
+                        GovulnersVulnerability.namespace
+                        == GovulnersVulnerabilityMetadata.namespace,
                     ),
                 )
 
                 if vuln_id is not None:
-                    query = query.filter(GrypeVulnerability.id.in_(vuln_id))
+                    query = query.filter(GovulnersVulnerability.id.in_(vuln_id))
                 if namespace is not None:
-                    query = query.filter(GrypeVulnerability.namespace.in_(namespace))
+                    query = query.filter(GovulnersVulnerability.namespace.in_(namespace))
                 if affected_package is not None:
                     query = query.filter(
-                        GrypeVulnerability.package_name == affected_package
+                        GovulnersVulnerability.package_name == affected_package
                     )
 
                 logger.debug("govulners_db sql query for vulnerabilities lookup: %s", query)
@@ -901,10 +901,10 @@ class GrypeWrapperSingleton(object):
             with self.govulners_session_scope(use_staging) as session:
                 results = (
                     session.query(
-                        GrypeVulnerabilityMetadata.namespace,
-                        func.count(GrypeVulnerabilityMetadata.namespace).label("count"),
+                        GovulnersVulnerabilityMetadata.namespace,
+                        func.count(GovulnersVulnerabilityMetadata.namespace).label("count"),
                     )
-                    .group_by(GrypeVulnerabilityMetadata.namespace)
+                    .group_by(GovulnersVulnerabilityMetadata.namespace)
                     .all()
                 )
 

@@ -109,7 +109,7 @@ class DataFeeds(object):
     # @staticmethod
     # def get_govulners_db_listing(
     #         feed_group_information, govulnersdb_feed_name
-    # ) -> GrypeDBListing:
+    # ) -> GovulnersDBListing:
     #     for feed_name, feed_api_record in feed_group_information.items():
     #         if feed_name == govulnersdb_feed_name:
     #             return next(group.govulners_listing for group in feed_api_record["groups"])

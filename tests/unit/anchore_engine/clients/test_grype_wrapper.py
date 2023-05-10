@@ -11,16 +11,16 @@ from sqlalchemy.orm import sessionmaker
 import nextlinux_engine.configuration.localconfig
 from nextlinux_engine.clients.govulners_wrapper import (
     VULNERABILITIES,
-    GrypeDBEngineMetadata,
-    GrypeDBMetadata,
-    GrypeWrapperSingleton,
+    GovulnersDBEngineMetadata,
+    GovulnersDBMetadata,
+    GovulnersWrapperSingleton,
 )
 
 TEST_DATA_RELATIVE_PATH = "../../data/govulners_db/"
-GRYPE_ARCHIVE_FILE_NAME = "govulners_db_test_archive.tar.gz"
-GRYPE_DB_VERSION = "3"
+GOVULNERS_ARCHIVE_FILE_NAME = "govulners_db_test_archive.tar.gz"
+GOVULNERS_DB_VERSION = "3"
 
-GRYPE_DB_DIR = "govulners_db/"
+GOVULNERS_DB_DIR = "govulners_db/"
 PRODUCTION_VERSION_MOCK_CHECKSUM = "old_version"
 STAGED_VERSION_MOCK_CHECKSUM = "new_version"
 MOCK_DB_CHECKSUM = "mock_db_checksum"
@@ -31,9 +31,9 @@ LAST_SYNCED_TIMESTAMP = "2021-04-07T08:12:05Z"
 @pytest.fixture
 def test_govulners_wrapper_singleton(
     monkeypatch, production_govulners_db_dir
-) -> GrypeWrapperSingleton:
+) -> GovulnersWrapperSingleton:
     """
-    Creates a TestGrypeWrapperSingleton, with attributes attributes for a mock production govulners_db.
+    Creates a TestGovulnersWrapperSingleton, with attributes attributes for a mock production govulners_db.
     That db contains a small number of (mock, not production) vulnerability records. This fixture is intended
     to provide an easy, reusable method for tests outside of this module to get a working govulners wrapper
     that has already been populated with a trivial amount of test data.
@@ -42,14 +42,14 @@ def test_govulners_wrapper_singleton(
     each time it is called in order to maintain atomicity between tests. This fixture therefore monkey
     patches providers.py so that the wrapper created here is accessed during test execution.
     """
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     govulners_wrapper_singleton._govulners_db_dir = production_govulners_db_dir
-    govulners_wrapper_singleton._govulners_db_version = GRYPE_DB_VERSION
+    govulners_wrapper_singleton._govulners_db_version = GOVULNERS_DB_VERSION
 
     test_production_govulners_db_engine = (
         govulners_wrapper_singleton._init_latest_govulners_db_engine(
-            production_govulners_db_dir, GRYPE_DB_VERSION
+            production_govulners_db_dir, GOVULNERS_DB_VERSION
         )
     )
 
@@ -79,14 +79,14 @@ def patch_govulners_wrapper_singleton(monkeypatch, test_govulners_wrapper_single
     return _test_govulners_wrapper_singleton
 
 
-class TestGrypeWrapperSingleton(GrypeWrapperSingleton):
+class TestGovulnersWrapperSingleton(GovulnersWrapperSingleton):
     @classmethod
     def get_instance(cls):
         """
         Returns a new test instance of this class. This method is not intended for use outside of tests.
         """
         cls._govulners_wrapper_instance = None
-        return TestGrypeWrapperSingleton()
+        return TestGovulnersWrapperSingleton()
 
 
 def get_test_file_path(basename: str) -> str:
@@ -130,22 +130,22 @@ def mock_synced_dir(base_path, mock_checksum, include_engine_metadata) -> str:
 
     # Create the subdirs we will copy data into and pas to govulners wrapper methods in our tests
     govulners_dir = os.path.join(parent_dir, mock_checksum)
-    versioned_dir = os.path.join(govulners_dir, GRYPE_DB_VERSION)
+    versioned_dir = os.path.join(govulners_dir, GOVULNERS_DB_VERSION)
     if not os.path.exists(versioned_dir):
         os.makedirs(versioned_dir)
 
     # Copy test files
     shutil.copy(
-        os.path.join(test_dir, GrypeWrapperSingleton.VULNERABILITY_FILE_NAME),
+        os.path.join(test_dir, GovulnersWrapperSingleton.VULNERABILITY_FILE_NAME),
         versioned_dir,
     )
     shutil.copy(
-        os.path.join(test_dir, GrypeWrapperSingleton.METADATA_FILE_NAME), versioned_dir
+        os.path.join(test_dir, GovulnersWrapperSingleton.METADATA_FILE_NAME), versioned_dir
     )
     # Since govulners wrapper creates the engine metadata, not all tests require it to be mocked
     if include_engine_metadata:
         shutil.copy(
-            os.path.join(test_dir, GrypeWrapperSingleton.ENGINE_METADATA_FILE_NAME),
+            os.path.join(test_dir, GovulnersWrapperSingleton.ENGINE_METADATA_FILE_NAME),
             versioned_dir,
         )
 
@@ -162,7 +162,7 @@ def govulners_db_parent_dir(tmp_path):
     localconfig["service_dir"] = tmp_path
     nextlinux_engine.configuration.localconfig.localconfig = localconfig
 
-    return os.path.join(tmp_path, GRYPE_DB_DIR)
+    return os.path.join(tmp_path, GOVULNERS_DB_DIR)
 
 
 @pytest.fixture
@@ -174,7 +174,7 @@ def govulners_db_archive(tmp_path):
     input_dir = os.path.join(tmp_path, "input")
     if not os.path.exists(input_dir):
         os.mkdir(input_dir)
-    shutil.copy(get_test_file_path(GRYPE_ARCHIVE_FILE_NAME), input_dir)
+    shutil.copy(get_test_file_path(GOVULNERS_ARCHIVE_FILE_NAME), input_dir)
     return os.path.join(input_dir, "govulners_db_test_archive.tar.gz")
 
 
@@ -225,18 +225,18 @@ def mock_govulners_db_session_maker():
     This object can be used in tests and parameterized to test methods that require it, but cannot
     actually be successfully queried for data because it is not backed by a real database file.
     """
-    db_connect = GrypeWrapperSingleton.SQL_LITE_URL_TEMPLATE.format("/does/not/exist")
+    db_connect = GovulnersWrapperSingleton.SQL_LITE_URL_TEMPLATE.format("/does/not/exist")
     mock_govulners_db_engine = sqlalchemy.create_engine(db_connect, echo=True)
     return sessionmaker(bind=mock_govulners_db_engine)
 
 
 def test_get_missing_govulners_db_dir():
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Expect exception and validate message
     with pytest.raises(
-        ValueError, match=GrypeWrapperSingleton.MISSING_GRYPE_DB_DIR_ERROR_MESSAGE
+        ValueError, match=GovulnersWrapperSingleton.MISSING_GOVULNERS_DB_DIR_ERROR_MESSAGE
     ):
         # Function under test
         govulners_wrapper_singleton._govulners_db_dir
@@ -244,12 +244,12 @@ def test_get_missing_govulners_db_dir():
 
 def test_get_missing_govulners_db_session():
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Expect exception and validate message
     with pytest.raises(
         ValueError,
-        match=GrypeWrapperSingleton.MISSING_GRYPE_DB_SESSION_MAKER_ERROR_MESSAGE,
+        match=GovulnersWrapperSingleton.MISSING_GOVULNERS_DB_SESSION_MAKER_ERROR_MESSAGE,
     ):
         # Function under test
         govulners_wrapper_singleton._govulners_db_session_maker
@@ -257,7 +257,7 @@ def test_get_missing_govulners_db_session():
 
 def test_get_current_govulners_db_checksum(staging_govulners_db_dir):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Setup test input
     govulners_wrapper_singleton._govulners_db_dir = staging_govulners_db_dir
@@ -271,7 +271,7 @@ def test_get_current_govulners_db_checksum(staging_govulners_db_dir):
 
 def test_get_current_govulners_db_checksum_missing_db_dir_value():
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Setup test input with a non-existant path
     govulners_wrapper_singleton._govulners_db_dir = "/does/not/exist"
@@ -285,12 +285,12 @@ def test_get_current_govulners_db_checksum_missing_db_dir_value():
 
 def test_get_current_govulners_db_checksum_missing_db_dir():
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Expect exception and validate message
     with pytest.raises(
         ValueError,
-        match=GrypeWrapperSingleton.MISSING_GRYPE_DB_DIR_ERROR_MESSAGE,
+        match=GovulnersWrapperSingleton.MISSING_GOVULNERS_DB_DIR_ERROR_MESSAGE,
     ):
         # Function under test
         govulners_wrapper_singleton.get_current_govulners_db_checksum()
@@ -298,7 +298,7 @@ def test_get_current_govulners_db_checksum_missing_db_dir():
 
 def test_get_default_cache_dir_from_config(govulners_db_parent_dir, tmp_path):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Function under test
     local_db_dir = govulners_wrapper_singleton._get_default_govulners_db_dir_from_config()
@@ -310,7 +310,7 @@ def test_get_default_cache_dir_from_config(govulners_db_parent_dir, tmp_path):
 
 def test_move_govulners_db_archive(tmp_path, govulners_db_archive):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Setup the output dir to be copied into
     output_dir = os.path.join(tmp_path, "output")
@@ -330,7 +330,7 @@ def test_move_govulners_db_archive(tmp_path, govulners_db_archive):
 
 def test_move_missing_govulners_db_archive(tmp_path):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Setup non-existent input archive and real output dir
     missing_output_archive = "/does/not/exist.tar.gz"
@@ -353,7 +353,7 @@ def test_move_missing_govulners_db_archive(tmp_path):
 
 def test_move_govulners_db_archive_to_missing_dir(tmp_path, govulners_db_archive):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Create a var for the output dir, but don't actually create it
     output_dir = os.path.join(tmp_path, "output")
@@ -366,7 +366,7 @@ def test_move_govulners_db_archive_to_missing_dir(tmp_path, govulners_db_archive
 
 def test_open_govulners_db_archive(govulners_db_archive):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Setup input var
     parent_dir = os.path.abspath(os.path.join(govulners_db_archive, os.pardir))
@@ -375,23 +375,23 @@ def test_open_govulners_db_archive(govulners_db_archive):
     expected_output_dir = os.path.join(parent_dir, STAGED_VERSION_MOCK_CHECKSUM)
     expected_output_file = os.path.join(
         expected_output_dir,
-        GRYPE_DB_VERSION,
+        GOVULNERS_DB_VERSION,
         govulners_wrapper_singleton.VULNERABILITY_FILE_NAME,
     )
 
     # Function under test
     latest_govulners_db_dir = govulners_wrapper_singleton._open_govulners_db_archive(
-        govulners_db_archive, parent_dir, STAGED_VERSION_MOCK_CHECKSUM, GRYPE_DB_VERSION
+        govulners_db_archive, parent_dir, STAGED_VERSION_MOCK_CHECKSUM, GOVULNERS_DB_VERSION
     )
 
     # Validate expected dir contents and location
     assert os.path.exists(expected_output_dir)
     assert latest_govulners_db_dir == expected_output_dir
-    assert os.path.exists(os.path.join(expected_output_dir, GRYPE_DB_VERSION))
+    assert os.path.exists(os.path.join(expected_output_dir, GOVULNERS_DB_VERSION))
     assert os.path.exists(
         os.path.join(
             expected_output_dir,
-            GRYPE_DB_VERSION,
+            GOVULNERS_DB_VERSION,
             govulners_wrapper_singleton.VULNERABILITY_FILE_NAME,
         )
     )
@@ -399,11 +399,11 @@ def test_open_govulners_db_archive(govulners_db_archive):
 
 def test_write_engine_metadata_to_file(staging_govulners_db_dir_no_engine_metadata):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Setup input var and create directories
     versioned_dir = os.path.join(
-        staging_govulners_db_dir_no_engine_metadata, GRYPE_DB_VERSION
+        staging_govulners_db_dir_no_engine_metadata, GOVULNERS_DB_VERSION
     )
     if not os.path.exists(versioned_dir):
         os.makedirs(versioned_dir)
@@ -414,7 +414,7 @@ def test_write_engine_metadata_to_file(staging_govulners_db_dir_no_engine_metada
     )
     expected_engine_metadata = {
         "archive_checksum": STAGED_VERSION_MOCK_CHECKSUM,
-        "govulners_db_version": GRYPE_DB_VERSION,
+        "govulners_db_version": GOVULNERS_DB_VERSION,
         "db_checksum": MOCK_DB_CHECKSUM,
     }
 
@@ -422,7 +422,7 @@ def test_write_engine_metadata_to_file(staging_govulners_db_dir_no_engine_metada
     govulners_wrapper_singleton._write_engine_metadata_to_file(
         staging_govulners_db_dir_no_engine_metadata,
         STAGED_VERSION_MOCK_CHECKSUM,
-        GRYPE_DB_VERSION,
+        GOVULNERS_DB_VERSION,
     )
 
     # Validate output
@@ -437,7 +437,7 @@ def test_write_engine_metadata_to_file(staging_govulners_db_dir_no_engine_metada
 
 def test_remove_govulners_db_archive(govulners_db_archive):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Function under test
     govulners_wrapper_singleton._remove_govulners_db_archive(govulners_db_archive)
@@ -448,41 +448,41 @@ def test_remove_govulners_db_archive(govulners_db_archive):
 
 def test_init_govulners_db_engine(staging_govulners_db_dir):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Setup expected output var
     expected_output_path = os.path.join(
         staging_govulners_db_dir,
-        GRYPE_DB_VERSION,
+        GOVULNERS_DB_VERSION,
         govulners_wrapper_singleton.VULNERABILITY_FILE_NAME,
     )
 
     # Function under test
     latest_govulners_db_engine = govulners_wrapper_singleton._init_latest_govulners_db_engine(
-        staging_govulners_db_dir, GRYPE_DB_VERSION
+        staging_govulners_db_dir, GOVULNERS_DB_VERSION
     )
 
     # Validate expected output
     assert str(
         latest_govulners_db_engine.url
-    ) == GrypeWrapperSingleton.SQL_LITE_URL_TEMPLATE.format(expected_output_path)
+    ) == GovulnersWrapperSingleton.SQL_LITE_URL_TEMPLATE.format(expected_output_path)
 
 
 def test_init_latest_govulners_db_engine(staging_govulners_db_dir):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Setup expected output var
     expected_output = os.path.join(
         staging_govulners_db_dir,
-        GRYPE_DB_VERSION,
+        GOVULNERS_DB_VERSION,
         govulners_wrapper_singleton.VULNERABILITY_FILE_NAME,
     )
 
     # Function under test
     latest_govulners_db_engine = govulners_wrapper_singleton._init_latest_govulners_db_engine(
         staging_govulners_db_dir,
-        GRYPE_DB_VERSION,
+        GOVULNERS_DB_VERSION,
     )
 
     # Validate output
@@ -491,19 +491,19 @@ def test_init_latest_govulners_db_engine(staging_govulners_db_dir):
 
 def test_init_latest_govulners_db_session_maker(staging_govulners_db_dir):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Setup db engine
     vuln_file_path = os.path.join(
         staging_govulners_db_dir,
-        GRYPE_DB_VERSION,
+        GOVULNERS_DB_VERSION,
         govulners_wrapper_singleton.VULNERABILITY_FILE_NAME,
     )
-    db_connect = GrypeWrapperSingleton.SQL_LITE_URL_TEMPLATE.format(vuln_file_path)
+    db_connect = GovulnersWrapperSingleton.SQL_LITE_URL_TEMPLATE.format(vuln_file_path)
     latest_govulners_db_engine = sqlalchemy.create_engine(db_connect, echo=True)
     assert str(
         latest_govulners_db_engine.url
-    ) == GrypeWrapperSingleton.SQL_LITE_URL_TEMPLATE.format(vuln_file_path)
+    ) == GovulnersWrapperSingleton.SQL_LITE_URL_TEMPLATE.format(vuln_file_path)
 
     # Function under test
     latest_govulners_db_session = (
@@ -518,7 +518,7 @@ def test_init_latest_govulners_db_session_maker(staging_govulners_db_dir):
 
 def test_init_govulners_db(govulners_db_parent_dir, govulners_db_archive):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Setup expected output vars
     expected_output_dir = os.path.join(
@@ -526,17 +526,17 @@ def test_init_govulners_db(govulners_db_parent_dir, govulners_db_archive):
     )
     expected_output_vulnerability_file = os.path.join(
         expected_output_dir,
-        GRYPE_DB_VERSION,
+        GOVULNERS_DB_VERSION,
         govulners_wrapper_singleton.VULNERABILITY_FILE_NAME,
     )
     expected_output_metadata_file = os.path.join(
         expected_output_dir,
-        GRYPE_DB_VERSION,
+        GOVULNERS_DB_VERSION,
         govulners_wrapper_singleton.METADATA_FILE_NAME,
     )
     expected_output_engine_metadata_file = os.path.join(
         expected_output_dir,
-        GRYPE_DB_VERSION,
+        GOVULNERS_DB_VERSION,
         govulners_wrapper_singleton.ENGINE_METADATA_FILE_NAME,
     )
 
@@ -545,7 +545,7 @@ def test_init_govulners_db(govulners_db_parent_dir, govulners_db_archive):
         latest_govulners_db_dir,
         latest_govulners_db_session_maker,
     ) = govulners_wrapper_singleton._init_latest_govulners_db(
-        govulners_db_archive, STAGED_VERSION_MOCK_CHECKSUM, GRYPE_DB_VERSION
+        govulners_db_archive, STAGED_VERSION_MOCK_CHECKSUM, GOVULNERS_DB_VERSION
     )
 
     # Validate expected output
@@ -560,7 +560,7 @@ def test_init_govulners_db(govulners_db_parent_dir, govulners_db_archive):
 
 def test_remove_local_govulners_db(production_govulners_db_dir):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Function under test
     govulners_wrapper_singleton._remove_local_govulners_db(production_govulners_db_dir)
@@ -576,7 +576,7 @@ def test_update_govulners_db_staging(
     govulners_db_archive,
 ):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Setup expected output vars
     expected_staging_output_dir = os.path.join(
@@ -584,23 +584,23 @@ def test_update_govulners_db_staging(
     )
     expected_staging_output_vulnerability_file = os.path.join(
         expected_staging_output_dir,
-        GRYPE_DB_VERSION,
+        GOVULNERS_DB_VERSION,
         govulners_wrapper_singleton.VULNERABILITY_FILE_NAME,
     )
     expected_staging_output_metadata_file = os.path.join(
         expected_staging_output_dir,
-        GRYPE_DB_VERSION,
+        GOVULNERS_DB_VERSION,
         govulners_wrapper_singleton.METADATA_FILE_NAME,
     )
     expected_staging_output_engine_metadata_file = os.path.join(
         expected_staging_output_dir,
-        GRYPE_DB_VERSION,
+        GOVULNERS_DB_VERSION,
         govulners_wrapper_singleton.ENGINE_METADATA_FILE_NAME,
     )
 
     # Function under test
     govulners_wrapper_singleton.update_govulners_db(
-        govulners_db_archive, STAGED_VERSION_MOCK_CHECKSUM, GRYPE_DB_VERSION, True
+        govulners_db_archive, STAGED_VERSION_MOCK_CHECKSUM, GOVULNERS_DB_VERSION, True
     )
 
     # Validate output
@@ -629,7 +629,7 @@ def test_update_govulners_db_production(
     govulners_db_archive,
 ):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Setup expected output vars
     expected_production_output_dir = os.path.join(
@@ -637,23 +637,23 @@ def test_update_govulners_db_production(
     )
     expected_production_output_vulnerability_file = os.path.join(
         expected_production_output_dir,
-        GRYPE_DB_VERSION,
+        GOVULNERS_DB_VERSION,
         govulners_wrapper_singleton.VULNERABILITY_FILE_NAME,
     )
     expected_production_output_metadata_file = os.path.join(
         expected_production_output_dir,
-        GRYPE_DB_VERSION,
+        GOVULNERS_DB_VERSION,
         govulners_wrapper_singleton.METADATA_FILE_NAME,
     )
     expected_production_output_engine_metadata_file = os.path.join(
         expected_production_output_dir,
-        GRYPE_DB_VERSION,
+        GOVULNERS_DB_VERSION,
         govulners_wrapper_singleton.ENGINE_METADATA_FILE_NAME,
     )
 
     # Function under test
     govulners_wrapper_singleton.update_govulners_db(
-        govulners_db_archive, PRODUCTION_VERSION_MOCK_CHECKSUM, GRYPE_DB_VERSION, False
+        govulners_db_archive, PRODUCTION_VERSION_MOCK_CHECKSUM, GOVULNERS_DB_VERSION, False
     )
 
     # Validate output
@@ -679,16 +679,16 @@ def test_unstage_govulners_db(
     production_govulners_db_dir_no_engine_metadata, staging_govulners_db_dir_no_engine_metadata
 ):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Setup test inputs
     govulners_wrapper_singleton._govulners_db_dir = production_govulners_db_dir_no_engine_metadata
-    govulners_wrapper_singleton._govulners_db_version = GRYPE_DB_VERSION
+    govulners_wrapper_singleton._govulners_db_version = GOVULNERS_DB_VERSION
     govulners_wrapper_singleton._govulners_db_session_maker = mock_govulners_db_session_maker
     govulners_wrapper_singleton._staging_govulners_db_dir = (
         staging_govulners_db_dir_no_engine_metadata
     )
-    govulners_wrapper_singleton._staging_govulners_db_version = GRYPE_DB_VERSION
+    govulners_wrapper_singleton._staging_govulners_db_version = GOVULNERS_DB_VERSION
     govulners_wrapper_singleton._staging_govulners_db_session_maker = (
         mock_govulners_db_session_maker
     )
@@ -696,19 +696,19 @@ def test_unstage_govulners_db(
     govulners_wrapper_singleton._write_engine_metadata_to_file(
         production_govulners_db_dir_no_engine_metadata,
         PRODUCTION_VERSION_MOCK_CHECKSUM,
-        GRYPE_DB_VERSION,
+        GOVULNERS_DB_VERSION,
     )
 
     govulners_wrapper_singleton._write_engine_metadata_to_file(
         staging_govulners_db_dir_no_engine_metadata,
         STAGED_VERSION_MOCK_CHECKSUM,
-        GRYPE_DB_VERSION,
+        GOVULNERS_DB_VERSION,
     )
 
-    expected_metadata = GrypeDBEngineMetadata(
+    expected_metadata = GovulnersDBEngineMetadata(
         db_checksum=MOCK_DB_CHECKSUM,
         archive_checksum=PRODUCTION_VERSION_MOCK_CHECKSUM,
-        govulners_db_version=GRYPE_DB_VERSION,
+        govulners_db_version=GOVULNERS_DB_VERSION,
     )
 
     # Method under test
@@ -723,7 +723,7 @@ def test_unstage_govulners_db(
         govulners_wrapper_singleton._govulners_db_dir
         == production_govulners_db_dir_no_engine_metadata
     )
-    assert govulners_wrapper_singleton._govulners_db_version == GRYPE_DB_VERSION
+    assert govulners_wrapper_singleton._govulners_db_version == GOVULNERS_DB_VERSION
     assert (
         govulners_wrapper_singleton._govulners_db_session_maker == mock_govulners_db_session_maker
     )
@@ -735,16 +735,16 @@ def test_unstage_govulners_db(
 
 def test_convert_govulners_db_metadata(production_govulners_db_dir):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Setup test inputs
     govulners_wrapper_singleton._govulners_db_dir = production_govulners_db_dir
-    govulners_wrapper_singleton._govulners_db_version = GRYPE_DB_VERSION
+    govulners_wrapper_singleton._govulners_db_version = GOVULNERS_DB_VERSION
 
     # Setup expected output
-    expected_output = GrypeDBMetadata(
+    expected_output = GovulnersDBMetadata(
         built=MOCK_BUILT_TIMESTAMP,
-        version=int(GRYPE_DB_VERSION),
+        version=int(GOVULNERS_DB_VERSION),
         checksum=MOCK_DB_CHECKSUM,
     )
 
@@ -756,22 +756,22 @@ def test_convert_govulners_db_metadata(production_govulners_db_dir):
 
 def test_convert_govulners_db_engine_metadata(production_govulners_db_dir_no_engine_metadata):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Setup test inputs
     govulners_wrapper_singleton._govulners_db_dir = production_govulners_db_dir_no_engine_metadata
-    govulners_wrapper_singleton._govulners_db_version = GRYPE_DB_VERSION
+    govulners_wrapper_singleton._govulners_db_version = GOVULNERS_DB_VERSION
     govulners_wrapper_singleton._write_engine_metadata_to_file(
         production_govulners_db_dir_no_engine_metadata,
         STAGED_VERSION_MOCK_CHECKSUM,
-        GRYPE_DB_VERSION,
+        GOVULNERS_DB_VERSION,
     )
 
     # Setup expected output
-    expected_output = GrypeDBEngineMetadata(
+    expected_output = GovulnersDBEngineMetadata(
         db_checksum=MOCK_DB_CHECKSUM,
         archive_checksum=STAGED_VERSION_MOCK_CHECKSUM,
-        govulners_db_version=GRYPE_DB_VERSION,
+        govulners_db_version=GOVULNERS_DB_VERSION,
     )
 
     # Function under test
@@ -783,25 +783,25 @@ def test_convert_govulners_db_engine_metadata(production_govulners_db_dir_no_eng
 @pytest.mark.parametrize(
     "metadata_file_name",
     [
-        GrypeWrapperSingleton.METADATA_FILE_NAME,
-        GrypeWrapperSingleton.ENGINE_METADATA_FILE_NAME,
+        GovulnersWrapperSingleton.METADATA_FILE_NAME,
+        GovulnersWrapperSingleton.ENGINE_METADATA_FILE_NAME,
     ],
 )
 def test_get_staging_govulners_db_metadata(
     production_govulners_db_dir, staging_govulners_db_dir, metadata_file_name
 ):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Setup test inputs
     govulners_wrapper_singleton._govulners_db_dir = production_govulners_db_dir
-    govulners_wrapper_singleton._govulners_db_version = GRYPE_DB_VERSION
+    govulners_wrapper_singleton._govulners_db_version = GOVULNERS_DB_VERSION
     govulners_wrapper_singleton._staging_govulners_db_dir = staging_govulners_db_dir
-    govulners_wrapper_singleton._staging_govulners_db_version = GRYPE_DB_VERSION
+    govulners_wrapper_singleton._staging_govulners_db_version = GOVULNERS_DB_VERSION
 
     # Setup expected output
     metadata_file_path = os.path.join(
-        production_govulners_db_dir, GRYPE_DB_VERSION, metadata_file_name
+        production_govulners_db_dir, GOVULNERS_DB_VERSION, metadata_file_name
     )
     with open(metadata_file_path, "r") as read_file:
         expected_metadata = json.load(read_file)
@@ -818,25 +818,25 @@ def test_get_staging_govulners_db_metadata(
 @pytest.mark.parametrize(
     "metadata_file_name",
     [
-        GrypeWrapperSingleton.METADATA_FILE_NAME,
-        GrypeWrapperSingleton.ENGINE_METADATA_FILE_NAME,
+        GovulnersWrapperSingleton.METADATA_FILE_NAME,
+        GovulnersWrapperSingleton.ENGINE_METADATA_FILE_NAME,
     ],
 )
 def test_get_current_govulners_db_metadata(
     production_govulners_db_dir, staging_govulners_db_dir, metadata_file_name
 ):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Setup test inputs
     govulners_wrapper_singleton._govulners_db_dir = production_govulners_db_dir
-    govulners_wrapper_singleton._govulners_db_version = GRYPE_DB_VERSION
+    govulners_wrapper_singleton._govulners_db_version = GOVULNERS_DB_VERSION
     govulners_wrapper_singleton._staging_govulners_db_dir = staging_govulners_db_dir
-    govulners_wrapper_singleton._staging_govulners_db_version = GRYPE_DB_VERSION
+    govulners_wrapper_singleton._staging_govulners_db_version = GOVULNERS_DB_VERSION
 
     # Setup expected output
     metadata_file_path = os.path.join(
-        staging_govulners_db_dir, GRYPE_DB_VERSION, metadata_file_name
+        staging_govulners_db_dir, GOVULNERS_DB_VERSION, metadata_file_name
     )
     with open(metadata_file_path, "r") as read_file:
         expected_metadata = json.load(read_file)
@@ -853,19 +853,19 @@ def test_get_current_govulners_db_metadata(
 @pytest.mark.parametrize(
     "metadata_file_name",
     [
-        GrypeWrapperSingleton.METADATA_FILE_NAME,
-        GrypeWrapperSingleton.ENGINE_METADATA_FILE_NAME,
+        GovulnersWrapperSingleton.METADATA_FILE_NAME,
+        GovulnersWrapperSingleton.ENGINE_METADATA_FILE_NAME,
     ],
 )
 def test_get_govulners_db_metadata_missing_dir(metadata_file_name):
     # Create govulners_wrapper_singleton instance, with govulners_db_version but no govulners_db_dir set
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
-    govulners_wrapper_singleton._govulners_db_version = GRYPE_DB_VERSION
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
+    govulners_wrapper_singleton._govulners_db_version = GOVULNERS_DB_VERSION
 
     # Expect exception and validate message
     with pytest.raises(
         ValueError,
-        match=GrypeWrapperSingleton.MISSING_GRYPE_DB_DIR_ERROR_MESSAGE,
+        match=GovulnersWrapperSingleton.MISSING_GOVULNERS_DB_DIR_ERROR_MESSAGE,
     ):
         # Function under test
         govulners_wrapper_singleton._get_metadata_file_contents(metadata_file_name)
@@ -874,19 +874,19 @@ def test_get_govulners_db_metadata_missing_dir(metadata_file_name):
 @pytest.mark.parametrize(
     "metadata_file_name",
     [
-        GrypeWrapperSingleton.METADATA_FILE_NAME,
-        GrypeWrapperSingleton.ENGINE_METADATA_FILE_NAME,
+        GovulnersWrapperSingleton.METADATA_FILE_NAME,
+        GovulnersWrapperSingleton.ENGINE_METADATA_FILE_NAME,
     ],
 )
 def test_get_govulners_db_metadata_missing_version(metadata_file_name):
     # Create govulners_wrapper_singleton instance, with govulners_db_dir but no govulners_db_version set
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
     govulners_wrapper_singleton._govulners_db_dir = "dummy_version"
 
     # Expect exception and validate message
     with pytest.raises(
         ValueError,
-        match=GrypeWrapperSingleton.MISSING_GRYPE_DB_VERSION_ERROR_MESSAGE,
+        match=GovulnersWrapperSingleton.MISSING_GOVULNERS_DB_VERSION_ERROR_MESSAGE,
     ):
         # Function under test
         govulners_wrapper_singleton._get_metadata_file_contents(metadata_file_name)
@@ -895,17 +895,17 @@ def test_get_govulners_db_metadata_missing_version(metadata_file_name):
 @pytest.mark.parametrize(
     "metadata_file_name",
     [
-        GrypeWrapperSingleton.METADATA_FILE_NAME,
-        GrypeWrapperSingleton.ENGINE_METADATA_FILE_NAME,
+        GovulnersWrapperSingleton.METADATA_FILE_NAME,
+        GovulnersWrapperSingleton.ENGINE_METADATA_FILE_NAME,
     ],
 )
 def test_get_current_govulners_db_metadata_missing_file(tmp_path, metadata_file_name):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Setup test input
     govulners_wrapper_singleton._govulners_db_dir = os.path.join(tmp_path)
-    govulners_wrapper_singleton._govulners_db_version = GRYPE_DB_VERSION
+    govulners_wrapper_singleton._govulners_db_version = GOVULNERS_DB_VERSION
 
     # Function under test
     result = govulners_wrapper_singleton._get_metadata_file_contents(metadata_file_name)
@@ -917,18 +917,18 @@ def test_get_current_govulners_db_metadata_missing_file(tmp_path, metadata_file_
 @pytest.mark.parametrize(
     "metadata_file_name",
     [
-        GrypeWrapperSingleton.METADATA_FILE_NAME,
-        GrypeWrapperSingleton.ENGINE_METADATA_FILE_NAME,
+        GovulnersWrapperSingleton.METADATA_FILE_NAME,
+        GovulnersWrapperSingleton.ENGINE_METADATA_FILE_NAME,
     ],
 )
 def test_get_current_govulners_db_metadata_bad_file(tmp_path, metadata_file_name):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Setup test input
     tmp_path.joinpath("metadata.json").touch()
     govulners_wrapper_singleton._govulners_db_dir = os.path.join(tmp_path)
-    govulners_wrapper_singleton._govulners_db_version = GRYPE_DB_VERSION
+    govulners_wrapper_singleton._govulners_db_version = GOVULNERS_DB_VERSION
 
     # Function under test
     result = govulners_wrapper_singleton._get_metadata_file_contents(metadata_file_name)
@@ -939,7 +939,7 @@ def test_get_current_govulners_db_metadata_bad_file(tmp_path, metadata_file_name
 
 def test_get_staging_proc_env(production_govulners_db_dir, staging_govulners_db_dir):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Setup test input
     govulners_wrapper_singleton._govulners_db_dir = production_govulners_db_dir
@@ -949,15 +949,15 @@ def test_get_staging_proc_env(production_govulners_db_dir, staging_govulners_db_
     result = govulners_wrapper_singleton._get_env_variables(use_staging=True)
 
     # Validate result
-    assert result["GRYPE_CHECK_FOR_APP_UPDATE"] == "0"
-    assert result["GRYPE_LOG_STRUCTURED"] == "1"
-    assert result["GRYPE_DB_AUTO_UPDATE"] == "0"
-    assert result["GRYPE_DB_CACHE_DIR"] == staging_govulners_db_dir
+    assert result["GOVULNERS_CHECK_FOR_APP_UPDATE"] == "0"
+    assert result["GOVULNERS_LOG_STRUCTURED"] == "1"
+    assert result["GOVULNERS_DB_AUTO_UPDATE"] == "0"
+    assert result["GOVULNERS_DB_CACHE_DIR"] == staging_govulners_db_dir
 
 
 def test_get_production_proc_env(production_govulners_db_dir, staging_govulners_db_dir):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Setup test input
     govulners_wrapper_singleton._govulners_db_dir = production_govulners_db_dir
@@ -967,20 +967,20 @@ def test_get_production_proc_env(production_govulners_db_dir, staging_govulners_
     result = govulners_wrapper_singleton._get_env_variables()
 
     # Validate result
-    assert result["GRYPE_CHECK_FOR_APP_UPDATE"] == "0"
-    assert result["GRYPE_LOG_STRUCTURED"] == "1"
-    assert result["GRYPE_DB_AUTO_UPDATE"] == "0"
-    assert result["GRYPE_DB_CACHE_DIR"] == production_govulners_db_dir
+    assert result["GOVULNERS_CHECK_FOR_APP_UPDATE"] == "0"
+    assert result["GOVULNERS_LOG_STRUCTURED"] == "1"
+    assert result["GOVULNERS_DB_AUTO_UPDATE"] == "0"
+    assert result["GOVULNERS_DB_CACHE_DIR"] == production_govulners_db_dir
 
 
 def test_get_proc_env_missing_dir():
     # Create govulners_wrapper_singleton instance, with no govulners_db_dir set
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Expect exception and validate message
     with pytest.raises(
         ValueError,
-        match=GrypeWrapperSingleton.MISSING_GRYPE_DB_DIR_ERROR_MESSAGE,
+        match=GovulnersWrapperSingleton.MISSING_GOVULNERS_DB_DIR_ERROR_MESSAGE,
     ):
         # Function under test
         govulners_wrapper_singleton._get_env_variables()
@@ -991,7 +991,7 @@ def test_get_proc_env_missing_dir():
 # pass if you have govulners installed.
 # def test_get_govulners_version():
 #     # Create govulners_wrapper_singleton instance
-#     govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+#     govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 #
 #     # Function under test
 #     result = govulners_wrapper_singleton.get_govulners_version()
@@ -1014,7 +1014,7 @@ def test_get_proc_env_missing_dir():
 # )
 # def test_get_vulnerabilities_for_sbom(govulners_db_dir, sbom_file_name, expected_output):
 #     # Create govulners_wrapper_singleton instance
-#     govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+#     govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 #
 #     # Setup test inputs
 #     govulners_wrapper_singleton._govulners_db_dir = govulners_db_dir
@@ -1042,7 +1042,7 @@ def test_get_proc_env_missing_dir():
 #     staging_govulners_db_dir, sbom_file_name, expected_output
 # ):
 #     # Create govulners_wrapper_singleton instance
-#     govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+#     govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 #
 #     # Setup test inputs
 #     govulners_wrapper_singleton._govulners_db_dir = staging_govulners_db_dir
@@ -1057,12 +1057,12 @@ def test_get_proc_env_missing_dir():
 
 def test_get_vulnerabilities_for_sbom_missing_dir():
     # Create govulners_wrapper_singleton instance, with no govulners_db_dir set
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Expect exception and validate message
     with pytest.raises(
         ValueError,
-        match=GrypeWrapperSingleton.MISSING_GRYPE_DB_DIR_ERROR_MESSAGE,
+        match=GovulnersWrapperSingleton.MISSING_GOVULNERS_DB_DIR_ERROR_MESSAGE,
     ):
         # Function under test
         govulners_wrapper_singleton.get_vulnerabilities_for_sbom(None)
@@ -1070,12 +1070,12 @@ def test_get_vulnerabilities_for_sbom_missing_dir():
 
 def test_get_vulnerabilities_for_sbom_file_missing_dir():
     # Create govulners_wrapper_singleton instance, with no govulners_db_dir set
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Expect exception and validate message
     with pytest.raises(
         ValueError,
-        match=GrypeWrapperSingleton.MISSING_GRYPE_DB_DIR_ERROR_MESSAGE,
+        match=GovulnersWrapperSingleton.MISSING_GOVULNERS_DB_DIR_ERROR_MESSAGE,
     ):
         # Function under test
         govulners_wrapper_singleton.get_vulnerabilities_for_sbom_file(None)
@@ -1140,11 +1140,11 @@ def test_query_vulnerabilities(
     expected_output,
 ):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Setup the sqlalchemy artifacts on the test govulners db
     test_govulners_db_engine = govulners_wrapper_singleton._init_latest_govulners_db_engine(
-        production_govulners_db_dir, GRYPE_DB_VERSION
+        production_govulners_db_dir, GOVULNERS_DB_VERSION
     )
     govulners_wrapper_singleton._govulners_db_session_maker = (
         govulners_wrapper_singleton._init_latest_govulners_db_session_maker(
@@ -1163,7 +1163,7 @@ def test_query_vulnerabilities(
     assert len(results) == expected_result_length
     assert (
         sorted(
-            list(set(map(lambda result: result.GrypeVulnerabilityMetadata.id, results)))
+            list(set(map(lambda result: result.GovulnersVulnerabilityMetadata.id, results)))
         )
         == expected_output
     )
@@ -1171,12 +1171,12 @@ def test_query_vulnerabilities(
 
 def test_query_vulnerabilities_missing_session():
     # Create govulners_wrapper_singleton instance, with no govulners_db_dir set
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Expect exception and validate message
     with pytest.raises(
         ValueError,
-        match=GrypeWrapperSingleton.MISSING_GRYPE_DB_SESSION_MAKER_ERROR_MESSAGE,
+        match=GovulnersWrapperSingleton.MISSING_GOVULNERS_DB_SESSION_MAKER_ERROR_MESSAGE,
     ):
         # Function under test
         govulners_wrapper_singleton.query_vulnerabilities(
@@ -1203,14 +1203,14 @@ def test_query_record_source_counts(
     use_staging,
 ):
     # Create govulners_wrapper_singleton instance
-    govulners_wrapper_singleton = TestGrypeWrapperSingleton.get_instance()
+    govulners_wrapper_singleton = TestGovulnersWrapperSingleton.get_instance()
 
     # Setup the govulners_db_dir state and the sqlalchemy artifacts on the test staging govulners db
     govulners_wrapper_singleton._staging_govulners_db_dir = staging_govulners_db_dir
-    govulners_wrapper_singleton._staging_govulners_db_version = GRYPE_DB_VERSION
+    govulners_wrapper_singleton._staging_govulners_db_version = GOVULNERS_DB_VERSION
 
     test_staging_govulners_db_engine = govulners_wrapper_singleton._init_latest_govulners_db_engine(
-        staging_govulners_db_dir, GRYPE_DB_VERSION
+        staging_govulners_db_dir, GOVULNERS_DB_VERSION
     )
 
     govulners_wrapper_singleton._staging_govulners_db_session_maker = (
@@ -1221,11 +1221,11 @@ def test_query_record_source_counts(
 
     # Setup the govulners_db_dir state and the sqlalchemy artifacts on the test production govulners db
     govulners_wrapper_singleton._govulners_db_dir = production_govulners_db_dir
-    govulners_wrapper_singleton._govulners_db_version = GRYPE_DB_VERSION
+    govulners_wrapper_singleton._govulners_db_version = GOVULNERS_DB_VERSION
 
     test_production_govulners_db_engine = (
         govulners_wrapper_singleton._init_latest_govulners_db_engine(
-            production_govulners_db_dir, GRYPE_DB_VERSION
+            production_govulners_db_dir, GOVULNERS_DB_VERSION
         )
     )
 
@@ -1294,7 +1294,7 @@ class TestLocking:
         """
         Tests that two threads reading at the same time is possible.
         """
-        govulners_wrapper = TestGrypeWrapperSingleton.get_instance()
+        govulners_wrapper = TestGovulnersWrapperSingleton.get_instance()
         # This queue will be used to tell threads to release the lock.
         instruction_queue = Queue()
         # This queue will be used for the threads to notify whether or not they have acquired the lock.
@@ -1332,7 +1332,7 @@ class TestLocking:
         """
         Tests that two threads writing at the same time is not possible.
         """
-        govulners_wrapper = TestGrypeWrapperSingleton.get_instance()
+        govulners_wrapper = TestGovulnersWrapperSingleton.get_instance()
 
         # These queues will be used to tell threads to release the lock.
         writer_1_instruction_queue = Queue()
@@ -1391,7 +1391,7 @@ class TestLocking:
         """
         Tests that one thread cannot write while another thread is already reading.
         """
-        govulners_wrapper = TestGrypeWrapperSingleton.get_instance()
+        govulners_wrapper = TestGovulnersWrapperSingleton.get_instance()
 
         # These queues will be used to tell threads to release the lock.
         reader_instruction_queue = Queue()
@@ -1440,7 +1440,7 @@ class TestLocking:
         """
         Tests that one thread cannot read while another thread is already writing.
         """
-        govulners_wrapper = TestGrypeWrapperSingleton.get_instance()
+        govulners_wrapper = TestGovulnersWrapperSingleton.get_instance()
 
         # These queues will be used to tell threads to release the lock.
         reader_instruction_queue = Queue()

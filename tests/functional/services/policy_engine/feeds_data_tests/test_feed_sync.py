@@ -3,8 +3,8 @@ import os
 import pytest
 
 import tests.functional.services.policy_engine.utils.api as policy_engine_api
-from nextlinux_engine.services.policy_engine.engine.feeds.feeds import GrypeDBFeed
-from nextlinux_engine.services.policy_engine.engine.vulns.providers import GrypeProvider
+from nextlinux_engine.services.policy_engine.engine.feeds.feeds import GovulnersDBFeed
+from nextlinux_engine.services.policy_engine.engine.vulns.providers import GovulnersProvider
 from tests.functional.services.policy_engine.conftest import (
     is_legacy_provider,
     read_expected_content,
@@ -46,9 +46,9 @@ def build_feed_sync_test_matrix():
             for group in groups:
                 params.append((feed["name"], group["name"], 10))
     else:
-        provider = GrypeProvider()
+        provider = GovulnersProvider()
         provider.init_display_mapper()
-        feed = provider.display_mapper.get_display_name(GrypeDBFeed.__feed_name__)
+        feed = provider.display_mapper.get_display_name(GovulnersDBFeed.__feed_name__)
         expected_groups = read_expected_content(
             __file__, "expected_govulners_feed_and_group_counts"
         )
@@ -248,7 +248,7 @@ class TestFeedSync:
                     < second_group["last_sync"]
                 )
 
-    ############# Grype specific tests #################
+    ############# Govulners specific tests #################
     @pytest.mark.skipif(is_legacy_provider(), reason="skipping govulners specific test")
     def test_updated_record_count_on_resync(self, initial_feed_sync_resp):
         """
@@ -270,13 +270,13 @@ class TestFeedSync:
         """
         assert initial_feed_sync_resp == http_utils.APIResponse(200)
         govulnersdb_feed = self._find_by_attr(
-            "feed", initial_feed_sync_resp.body, GrypeDBFeed.__feed_name__
+            "feed", initial_feed_sync_resp.body, GovulnersDBFeed.__feed_name__
         )
         assert govulnersdb_feed is None
 
         feeds_get_resp = policy_engine_api.feeds.get_feeds(True)
         govulnersdb_feed = self._find_by_attr(
-            "name", feeds_get_resp.body, GrypeDBFeed.__feed_name__
+            "name", feeds_get_resp.body, GovulnersDBFeed.__feed_name__
         )
         assert govulnersdb_feed is None
 

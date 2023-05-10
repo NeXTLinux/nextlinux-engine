@@ -415,8 +415,8 @@ class ImportQueueMessage(JsonSerializable):
         self.type = type
 
 
-class GrypeDBListing(JsonSerializable):
-    class GrypeDBListingV1Schema(Schema):
+class GovulnersDBListing(JsonSerializable):
+    class GovulnersDBListingV1Schema(Schema):
         built = fields.DateTime()
         version = fields.Int()
         url = fields.Str()
@@ -424,9 +424,9 @@ class GrypeDBListing(JsonSerializable):
 
         @post_load
         def make(self, data, **kwargs):
-            return GrypeDBListing(**data)
+            return GovulnersDBListing(**data)
 
-    __schema__ = GrypeDBListingV1Schema()
+    __schema__ = GovulnersDBListingV1Schema()
 
     def __init__(self, built, version, url, checksum):
         self.built = built
@@ -441,7 +441,7 @@ class FeedAPIGroupRecord(JsonSerializable):
         access_tier = fields.Int()
         description = fields.Str()
         govulners_listing = fields.Nested(
-            GrypeDBListing.GrypeDBListingV1Schema, allow_none=True
+            GovulnersDBListing.GovulnersDBListingV1Schema, allow_none=True
         )
 
         @post_load
@@ -455,7 +455,7 @@ class FeedAPIGroupRecord(JsonSerializable):
         name="",
         access_tier=0,
         description="",
-        govulners_listing: Optional[GrypeDBListing] = None,
+        govulners_listing: Optional[GovulnersDBListing] = None,
     ):
         self.name = name
         self.access_tier = access_tier

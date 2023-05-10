@@ -139,7 +139,7 @@ class FeedGroupMetadata(Base, UtilMixin):
         return j
 
 
-class GrypeDBFeedMetadata(Base):
+class GovulnersDBFeedMetadata(Base):
     """
     A data model for persisting the current active govulners db that the system should use across all policy-engine instances
     Each instance of policy engine witll use the active record in this table to determine the correct govulners db
@@ -2544,16 +2544,16 @@ class ImageCpe(Base):
 
     def get_cpe23_fs_for_sbom(self):
         """
-        Returns the formatted string representation of 2.3 CPE for use in sbom constructed for Grype
+        Returns the formatted string representation of 2.3 CPE for use in sbom constructed for Govulners
 
         A 2.3 CPE is in the format
         cpe:2.3:part:vendor:product:version:update:edition:language:sw_edition:target_sw:target_hw:other
 
         The value '-' for a CPE component means the field is not applicable. Component comparison results in not-equal
         if one CPE has the component set (to value other than * or -) and another CPE indicates the same component is not applicable (-)
-        Grype uses all the CPE components for finding a match against the CPEs provided by the vulnerability data.
+        Govulners uses all the CPE components for finding a match against the CPEs provided by the vulnerability data.
         Nextlinux engine does not currently record the last 5 components and thereby defaults them to '-'.
-        But that runs the risk of missed matches because of Grype's matching logic as explained above.
+        But that runs the risk of missed matches because of Govulners's matching logic as explained above.
         This function is at the other end of the spectrum where it defaults all missing components to the wild character.
         While more matches are found this way, this approach runs the risk of finding false positives.
         Considering the components in play here, there may be a very small chance of such false positives since not many CPEs make use of them

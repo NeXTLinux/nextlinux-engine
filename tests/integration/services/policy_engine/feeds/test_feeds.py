@@ -12,7 +12,7 @@ from nextlinux_engine.services.policy_engine.engine.feeds.download import (
     LocalFeedDataRepo,
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.feeds import (
-    GrypeDBFeed,
+    GovulnersDBFeed,
     feed_instance_by_name,
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.sync import DataFeeds
@@ -138,7 +138,7 @@ def test_metadata_sync(test_data_env):
     assert r[0].get("nvdv2")
 
 
-class TestGrypeDBFeed:
+class TestGovulnersDBFeed:
     @pytest.mark.parametrize(
         "test_input, batch_size",
         [
@@ -151,7 +151,7 @@ class TestGrypeDBFeed:
         ],
     )
     def test_create_refresh_tasks_invalid_input(self, test_input, batch_size):
-        assert GrypeDBFeed._create_refresh_tasks(test_input, batch_size) == []
+        assert GovulnersDBFeed._create_refresh_tasks(test_input, batch_size) == []
 
     @pytest.mark.parametrize(
         "test_input, batch_size, expected",
@@ -201,7 +201,7 @@ class TestGrypeDBFeed:
         ],
     )
     def test_create_refresh_tasks(self, test_input, batch_size, expected):
-        actual = GrypeDBFeed._create_refresh_tasks(test_input, batch_size)
+        actual = GovulnersDBFeed._create_refresh_tasks(test_input, batch_size)
         assert len(actual) == len(expected)
 
         for actual_batch, expected_batch in zip(actual, expected):

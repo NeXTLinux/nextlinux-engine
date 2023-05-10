@@ -4,8 +4,8 @@ from nextlinux_engine.common.models.policy_engine import NVDReference
 from nextlinux_engine.services.policy_engine.engine.vulns.mappers import (
     ENGINE_DISTRO_MAPPERS,
     ENGINE_PACKAGE_MAPPERS,
-    GRYPE_PACKAGE_MAPPERS,
-    EngineGrypeDBMapper,
+    GOVULNERS_PACKAGE_MAPPERS,
+    EngineGovulnersDBMapper,
     JavaMapper,
     VulnerabilityMapper,
 )
@@ -62,7 +62,7 @@ def test_engine_package_mappers(test_type, expected_type):
     ],
 )
 def test_govulners_package_mappers(test_type, expected_type):
-    mapper = GRYPE_PACKAGE_MAPPERS.get(test_type)
+    mapper = GOVULNERS_PACKAGE_MAPPERS.get(test_type)
     assert mapper.engine_type == expected_type
 
 
@@ -153,7 +153,7 @@ class TestJavaMapper:
         assert result == expected_output
 
 
-class TestImageContentAPIToGrypeSbom:
+class TestImageContentAPIToGovulnersSbom:
     @pytest.mark.parametrize(
         "mapper, test_input, expected",
         [
@@ -729,7 +729,7 @@ class TestVulnerabilityMapper:
         assert VulnerabilityMapper._try_make_link(vuln_id, url) == expected
 
 
-class TestEngineGrypeDBMapper:
+class TestEngineGovulnersDBMapper:
     @pytest.mark.parametrize(
         "cvss_dict, expected",
         [
@@ -838,7 +838,7 @@ class TestEngineGrypeDBMapper:
         ],
     )
     def test_transform_cvss_score(self, cvss_dict, expected):
-        assert EngineGrypeDBMapper()._transform_cvss_score(cvss_dict) == expected
+        assert EngineGovulnersDBMapper()._transform_cvss_score(cvss_dict) == expected
 
     @pytest.mark.parametrize(
         "vuln_id, cvss_dict, expected",
@@ -902,7 +902,7 @@ class TestEngineGrypeDBMapper:
         ],
     )
     def test_transform_cvss(self, vuln_id, cvss_dict, expected):
-        assert EngineGrypeDBMapper()._transform_cvss(vuln_id, cvss_dict) == expected
+        assert EngineGovulnersDBMapper()._transform_cvss(vuln_id, cvss_dict) == expected
 
     @pytest.mark.parametrize(
         "urls, expected",
@@ -921,4 +921,4 @@ class TestEngineGrypeDBMapper:
         ],
     )
     def test__transform_urls(self, urls, expected):
-        assert EngineGrypeDBMapper._transform_urls(urls) == expected
+        assert EngineGovulnersDBMapper._transform_urls(urls) == expected

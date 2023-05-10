@@ -378,7 +378,7 @@ jobs:
           image-name: << parameters.image_name >>
           output-format: "table"
       - run:
-          name: List Grype Vulns
+          name: List Govulners Vulns
           command: "cat govulners-vulns.output"
 
 workflows:

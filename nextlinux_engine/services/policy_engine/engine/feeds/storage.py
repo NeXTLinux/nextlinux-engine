@@ -19,15 +19,15 @@ class ChecksumMismatchError(Exception):
 
     def __init__(self, expected_checksum: str, actual_checksum: str) -> None:
         super().__init__(
-            f"GrypeDB Checksum does not match! Expected: {expected_checksum}, Actual: {actual_checksum}"
+            f"GovulnersDB Checksum does not match! Expected: {expected_checksum}, Actual: {actual_checksum}"
         )
 
 
-class GrypeDBFile:
+class GovulnersDBFile:
     """
-    Class for reading/writing an individual govulners db file. Should only be instantiated by GrypeDBStorage.
+    Class for reading/writing an individual govulners db file. Should only be instantiated by GovulnersDBStorage.
 
-    :param parent_directory_path: The path of the parent directory (temp dir for caching Grype DB)
+    :param parent_directory_path: The path of the parent directory (temp dir for caching Govulners DB)
     :type parent_directory_path: str
     """
 
@@ -91,31 +91,31 @@ class GrypeDBFile:
         return self._file_path
 
 
-class GrypeDBStorage:
+class GovulnersDBStorage:
     """
-    Disk cache for Grype DB.
+    Disk cache for Govulners DB.
     Context manager wrapping tempfile.TemporaryDirectory.
-    Abstracts actual temp dir creation/destruction logic and returns instance of GrypeDBFile on context entry.
+    Abstracts actual temp dir creation/destruction logic and returns instance of GovulnersDBFile on context entry.
     """
 
     def __init__(self):
         self.directory: Optional[tempfile.TemporaryDirectory] = None
-        self.govulnersdbfile: Optional[GrypeDBFile] = None
+        self.govulnersdbfile: Optional[GovulnersDBFile] = None
 
     def _create(self) -> None:
         """
-        Create the temp dir and instantiate the GrypeDBFile
+        Create the temp dir and instantiate the GovulnersDBFile
         """
         self.directory = tempfile.TemporaryDirectory()
-        self.govulnersdbfile = GrypeDBFile(self.directory.name)
+        self.govulnersdbfile = GovulnersDBFile(self.directory.name)
 
-    def __enter__(self) -> GrypeDBFile:
+    def __enter__(self) -> GovulnersDBFile:
         """
-        Setup if the directory has not been created, yield instance of GrypeDBFile initialized with this temp dir
+        Setup if the directory has not been created, yield instance of GovulnersDBFile initialized with this temp dir
         location
 
-        :return: instance of GrypeDBFile
-        :rtype: GrypeDBFile
+        :return: instance of GovulnersDBFile
+        :rtype: GovulnersDBFile
         """
         if not self.directory:
             self._create()

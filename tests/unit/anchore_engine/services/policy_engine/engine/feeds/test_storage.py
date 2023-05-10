@@ -4,8 +4,8 @@ import pytest
 
 from nextlinux_engine.services.policy_engine.engine.feeds.storage import (
     ChecksumMismatchError,
-    GrypeDBFile,
-    GrypeDBStorage,
+    GovulnersDBFile,
+    GovulnersDBStorage,
 )
 
 test_data = b"test"
@@ -20,16 +20,16 @@ class TestStorage:
         """
         Test class function that verifies checksum of data
         """
-        GrypeDBFile.verify_integrity(test_data, test_data_checksum)
+        GovulnersDBFile.verify_integrity(test_data, test_data_checksum)
 
         with pytest.raises(ChecksumMismatchError):
-            GrypeDBFile.verify_integrity(malformed_data, test_data_checksum)
+            GovulnersDBFile.verify_integrity(malformed_data, test_data_checksum)
 
     def test_directory_creation_and_cleanup(self):
         """
         Tests that the temp directory is created by context manager and then is deleted once exited
         """
-        with GrypeDBStorage() as govulnersdb_file:
+        with GovulnersDBStorage() as govulnersdb_file:
             directory_path = govulnersdb_file.root_directory
             assert os.path.exists(directory_path) is True
 
@@ -39,7 +39,7 @@ class TestStorage:
         """
         Tests that file created exists in context but is deleted once exited
         """
-        with GrypeDBStorage() as govulnersdb_file:
+        with GovulnersDBStorage() as govulnersdb_file:
             with govulnersdb_file.create_file(test_data_checksum) as f:
                 f.write(test_data)
             file_path = govulnersdb_file._file_path
@@ -52,12 +52,12 @@ class TestStorage:
         Integrity is also verified on file creation so tests that error is thrown when it does not match
         """
         with pytest.raises(ChecksumMismatchError):
-            with GrypeDBStorage() as govulnersdb_file:
+            with GovulnersDBStorage() as govulnersdb_file:
                 with govulnersdb_file.create_file(test_data_checksum) as f:
                     f.write(malformed_data)
 
     def test_file_data(self):
-        with GrypeDBStorage() as govulnersdb_file:
+        with GovulnersDBStorage() as govulnersdb_file:
             with govulnersdb_file.create_file(test_data_checksum) as f:
                 f.write(test_data)
 

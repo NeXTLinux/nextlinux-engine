@@ -21,11 +21,11 @@ from nextlinux_engine.db import FeedGroupMetadata as DbFeedGroupMetadata
 from nextlinux_engine.db import FeedMetadata as DbFeedMetadata
 from nextlinux_engine.services.policy_engine.engine.feeds import db, sync
 from nextlinux_engine.services.policy_engine.engine.feeds.sync_utils import (
-    GRYPE_DB_FEED_NAME,
+    GOVULNERS_DB_FEED_NAME,
 )
 from nextlinux_engine.services.policy_engine.engine.tasks import FeedsUpdateTask
 from nextlinux_engine.services.policy_engine.engine.vulns.providers import (
-    GrypeProvider,
+    GovulnersProvider,
     InvalidFeed,
     get_vulnerabilities_provider,
 )
@@ -167,7 +167,7 @@ def toggle_group_enabled(feed, group, enabled):
         raise BadRequest(message="state must be a boolean", detail={"value": enabled})
     provider = get_vulnerabilities_provider()
     internal_feed_name = provider.display_mapper.get_internal_name(feed)
-    if isinstance(provider, GrypeProvider) and internal_feed_name == GRYPE_DB_FEED_NAME:
+    if isinstance(provider, GovulnersProvider) and internal_feed_name == GOVULNERS_DB_FEED_NAME:
         raise HTTPNotImplementedError(
             message=f"Enabling and disabling groups for {feed} feed with the govulners vulnerability provider enabled is not currently supported.",
             detail={},
@@ -199,7 +199,7 @@ def toggle_group_enabled(feed, group, enabled):
 def delete_feed(feed):
     provider = get_vulnerabilities_provider()
     internal_feed_name = provider.display_mapper.get_internal_name(feed)
-    if isinstance(provider, GrypeProvider) and internal_feed_name == GRYPE_DB_FEED_NAME:
+    if isinstance(provider, GovulnersProvider) and internal_feed_name == GOVULNERS_DB_FEED_NAME:
         raise HTTPNotImplementedError(
             message=f"Deleting the {feed} feed with the govulners vulnerability provider enabled is not yet supported.",
             detail={},
@@ -239,7 +239,7 @@ def delete_feed(feed):
 def delete_group(feed, group):
     provider = get_vulnerabilities_provider()
     internal_feed_name = provider.display_mapper.get_internal_name(feed)
-    if isinstance(provider, GrypeProvider) and internal_feed_name == GRYPE_DB_FEED_NAME:
+    if isinstance(provider, GovulnersProvider) and internal_feed_name == GOVULNERS_DB_FEED_NAME:
         raise HTTPNotImplementedError(
             message=f"Deleting individual groups for the {feed} feed with the govulners vulnerability provider enabled is not yet supported.",
             detail={},

@@ -9,7 +9,7 @@ from nextlinux_engine.db import get_thread_scoped_session as get_session
 from nextlinux_engine.services.policy_engine.engine.feeds import IFeedSource
 from nextlinux_engine.services.policy_engine.engine.feeds.client import (
     FeedServiceClient,
-    GrypeDBServiceClient,
+    GovulnersDBServiceClient,
     get_feeds_client,
     get_govulners_db_client,
 )
@@ -19,11 +19,11 @@ from nextlinux_engine.services.policy_engine.engine.feeds.feeds import (
     DataFeed,
     FeedSyncResult,
     GroupSyncResult,
-    GrypeDBFeed,
+    GovulnersDBFeed,
 )
 from nextlinux_engine.subsys import logger
 
-GRYPE_DB_FEED_NAME = GrypeDBFeed.__feed_name__
+GOVULNERS_DB_FEED_NAME = GovulnersDBFeed.__feed_name__
 
 
 class MetadataSyncUtils:
@@ -285,7 +285,7 @@ class SyncUtilProvider(ABC):
         """
         Instantiate the appropriate feed client (implementation of IFeedSource) for this provider
 
-        :return: instance of GrypeDBServiceClient or FeedServiceClient
+        :return: instance of GovulnersDBServiceClient or FeedServiceClient
         :rtype: IFeedSource
         """
         ...
@@ -383,7 +383,7 @@ class LegacySyncUtilProvider(SyncUtilProvider):
         return {
             feed_name: sync_config
             for feed_name, sync_config in sync_configs.items()
-            if feed_name != GRYPE_DB_FEED_NAME
+            if feed_name != GOVULNERS_DB_FEED_NAME
         }
 
     def get_client(self) -> FeedServiceClient:
@@ -508,7 +508,7 @@ class LegacySyncUtilProvider(SyncUtilProvider):
         feed_result.groups.append(group_result)
 
 
-class GrypeDBSyncUtilProvider(SyncUtilProvider):
+class GovulnersDBSyncUtilProvider(SyncUtilProvider):
     """
     Encapsulates all feeds sync logic that functions differently for govulnersdb feed.
     """
@@ -524,19 +524,19 @@ class GrypeDBSyncUtilProvider(SyncUtilProvider):
         :return: filtered mapping of feed names to SyncConfigs
         :rtype: Dict[str, SyncConfig]
         """
-        govulners_sync_config = sync_configs.get(GRYPE_DB_FEED_NAME)
+        govulners_sync_config = sync_configs.get(GOVULNERS_DB_FEED_NAME)
         if govulners_sync_config:
-            return {GRYPE_DB_FEED_NAME: govulners_sync_config}
+            return {GOVULNERS_DB_FEED_NAME: govulners_sync_config}
         return {}
 
-    def get_client(self) -> GrypeDBServiceClient:
+    def get_client(self) -> GovulnersDBServiceClient:
         """
-        Instantiates the GrypeDBServiceClient
+        Instantiates the GovulnersDBServiceClient
 
-        :return: instance of GrypeDBServiceClient
-        :rtype: GrypeDBServiceClient
+        :return: instance of GovulnersDBServiceClient
+        :rtype: GovulnersDBServiceClient
         """
-        govulners_db_sync_config = self._sync_configs.get(GRYPE_DB_FEED_NAME)
+        govulners_db_sync_config = self._sync_configs.get(GOVULNERS_DB_FEED_NAME)
         return get_govulners_db_client(govulners_db_sync_config)
 
     def sync_metadata(
@@ -583,7 +583,7 @@ class GrypeDBSyncUtilProvider(SyncUtilProvider):
         :return:
         """
         # TODO consider throwing exceptions if length is not 1 for these
-        api_feed_group = source_feeds[GRYPE_DB_FEED_NAME]["groups"][0]
+        api_feed_group = source_feeds[GOVULNERS_DB_FEED_NAME]["groups"][0]
         feed_metadata = feeds_to_sync[0].metadata
         groups_to_download = []
         if feed_metadata.enabled:
@@ -608,9 +608,9 @@ class GrypeDBSyncUtilProvider(SyncUtilProvider):
         feed_sync_results: List[FeedSyncResult], group_metadata: FeedGroupMetadata
     ) -> GroupSyncResult:
         """
-        Grype method oif retrieving group results from results of sync_from_fetched.
+        Govulners method oif retrieving group results from results of sync_from_fetched.
         This is used for event notification and logging, not necessarily for response to api call or async task
-        Because of this, it returns the singular group used to manage the sync of GrypeDB
+        Because of this, it returns the singular group used to manage the sync of GovulnersDB
 
         :param feed_sync_results: result of sync_from_fetched call on DataFeed object
         :type feed_sync_results: List[FeedSyncResult]
@@ -641,7 +641,7 @@ class GrypeDBSyncUtilProvider(SyncUtilProvider):
         group_result: GroupSyncResult,
     ) -> None:
         """
-        Grype function for updating response.
+        Govulners function for updating response.
         Pulls all the groups from the feed result and sets that to the feeds response
 
         :return:

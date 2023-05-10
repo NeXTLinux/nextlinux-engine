@@ -89,7 +89,7 @@ def run_legacy_sync(
     test_env: LocalTestDataEnvironment, to_sync: List[str]
 ) -> List[FeedSyncResult]:
     DataFeeds.__scratch_dir__ = "/tmp"
-    feed_url = os.getenv("NEXTLINUX_GRYPE_DB_URL", "https://ancho.re/v1/service/feeds")
+    feed_url = os.getenv("NEXTLINUX_GOVULNERS_DB_URL", "https://ancho.re/v1/service/feeds")
     data_clause = {}
     for feed_name in to_sync:
         data_clause[feed_name] = {"enabled": True, "url": feed_url}

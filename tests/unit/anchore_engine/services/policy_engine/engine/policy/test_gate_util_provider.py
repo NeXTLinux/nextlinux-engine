@@ -7,15 +7,15 @@ import pytest
 from nextlinux_engine.db.entities.policy_engine import (
     DistroNamespace,
     FeedGroupMetadata,
-    GrypeDBFeedMetadata,
+    GovulnersDBFeedMetadata,
 )
 from nextlinux_engine.services.policy_engine.engine.policy.gate_util_provider import (
     GateUtilProvider,
-    GrypeGateUtilProvider,
+    GovulnersGateUtilProvider,
     LegacyGateUtilProvider,
 )
 
-govulners_db_for_unsupported_distro = GrypeDBFeedMetadata(
+govulners_db_for_unsupported_distro = GovulnersDBFeedMetadata(
     groups=[
         {"name": "ubuntu:20.04", "record_count": 4909},
         {"name": "amzn:2", "record_count": 0},
@@ -51,14 +51,14 @@ class TestGateUtilProvider:
             ),
             # Case, govulners provider, active govulners DB exists
             (
-                GrypeGateUtilProvider,
+                GovulnersGateUtilProvider,
                 None,
-                GrypeDBFeedMetadata(built_at=sync_time),
+                GovulnersDBFeedMetadata(built_at=sync_time),
                 sync_time,
             ),
             # Case, govulners provider, active govulners DB does not exist
             (
-                GrypeGateUtilProvider,
+                GovulnersGateUtilProvider,
                 None,
                 None,
                 None,
@@ -69,7 +69,7 @@ class TestGateUtilProvider:
         self,
         gate_util_provider: Type[GateUtilProvider],
         feed_group_metadata: Optional[FeedGroupMetadata],
-        govulners_db_feed_metadata: Optional[GrypeDBFeedMetadata],
+        govulners_db_feed_metadata: Optional[GovulnersDBFeedMetadata],
         expected_oldest_update: Optional[datetime.datetime],
         mock_distromapping_query,
         mock_gate_util_provider_feed_data,
@@ -96,7 +96,7 @@ class TestGateUtilProvider:
             (govulners_db_for_unsupported_distro, "github", "python", True),
             (govulners_db_for_unsupported_distro, "ubuntu", "17.04", False),
             (None, "alpine", "3.10", False),  # This one tests no active govulnersdb
-            (GrypeDBFeedMetadata(groups=None), "alpine", "3.10", False),
+            (GovulnersDBFeedMetadata(groups=None), "alpine", "3.10", False),
         ],
     )
     def test_have_vulnerabilities_for_govulners_provider(
@@ -116,7 +116,7 @@ class TestGateUtilProvider:
             f"{base_distro_name}.2",
             base_distro_name,
         ]
-        provider = GrypeGateUtilProvider()
+        provider = GovulnersGateUtilProvider()
 
         mock_gate_util_provider_feed_data(govulners_db_feed_metadata=govulnersdb)
 

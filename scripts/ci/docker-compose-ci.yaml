@@ -118,7 +118,7 @@ services:
       - NEXTLINUX_OAUTH_ENABLED=true
       - NEXTLINUX_AUTH_SECRET=supersharedsecret
       - NEXTLINUX_FEEDS_URL="http://mock-feeds-nginx:8080/v1/service/feeds"
-      - NEXTLINUX_GRYPE_DB_URL=http://mock-feeds-nginx:8080/v1/service/databases/govulnersdb
+      - NEXTLINUX_GOVULNERS_DB_URL=http://mock-feeds-nginx:8080/v1/service/databases/govulnersdb
       - NEXTLINUX_FEEDS_ENABLED=true
       - NEXTLINUX_FEEDS_CLIENT_URL=null
       - NEXTLINUX_FEEDS_TOKEN_URL=null

@@ -6,10 +6,10 @@ from nextlinux_engine.common.models.policy_engine import (
     Vulnerability,
     VulnerabilityMatch,
 )
-from nextlinux_engine.services.policy_engine.engine.vulns.providers import GrypeProvider
+from nextlinux_engine.services.policy_engine.engine.vulns.providers import GovulnersProvider
 
 
-class TestGrypeProvider:
+class TestGovulnersProvider:
     @pytest.mark.parametrize(
         "test_input",
         [
@@ -36,7 +36,7 @@ class TestGrypeProvider:
         ],
     )
     def test_exclude_will_not_fix_false(self, test_input):
-        assert len(GrypeProvider._exclude_will_not_fix(test_input)) == 1
+        assert len(GovulnersProvider._exclude_will_not_fix(test_input)) == 1
 
     @pytest.mark.parametrize(
         "test_input",
@@ -48,7 +48,7 @@ class TestGrypeProvider:
         ],
     )
     def test_exclude_will_not_fix_true(self, test_input):
-        assert len(GrypeProvider._exclude_will_not_fix(test_input)) == 0
+        assert len(GovulnersProvider._exclude_will_not_fix(test_input)) == 0
 
     @pytest.mark.parametrize(
         "test_input, expected_output",
@@ -103,7 +103,7 @@ class TestGrypeProvider:
             ),
         )
 
-        results = GrypeProvider._filter_vulnerability_matches(
+        results = GovulnersProvider._filter_vulnerability_matches(
             matches=[vuln_match],
             vulnerability_id="CVE-xyz",
             severity_filter=None,
@@ -176,7 +176,7 @@ class TestGrypeProvider:
             fix=FixedArtifact(will_not_fix=test_input),
         )
 
-        results = GrypeProvider._filter_vulnerability_matches(
+        results = GovulnersProvider._filter_vulnerability_matches(
             matches=[vuln_match],
             vulnerability_id="CVE-xyz",
             severity_filter=None,
@@ -222,7 +222,7 @@ class TestGrypeProvider:
             artifact=Artifact(name="foo"),
         )
 
-        results = GrypeProvider._filter_vulnerability_matches(
+        results = GovulnersProvider._filter_vulnerability_matches(
             matches=[vuln_match],
             vulnerability_id="CVE-xyz",
             severity_filter=test_filter,
@@ -268,7 +268,7 @@ class TestGrypeProvider:
             artifact=Artifact(name="foo"),
         )
 
-        results = GrypeProvider._filter_vulnerability_matches(
+        results = GovulnersProvider._filter_vulnerability_matches(
             matches=[vuln_match],
             vulnerability_id="CVE-xyz",
             severity_filter=None,

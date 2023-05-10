@@ -7,9 +7,9 @@ from typing import List, Optional, Sequence, Tuple
 from sqlalchemy.orm.session import Session
 
 from nextlinux_engine.clients.govulners_wrapper import (
-    GrypeDBEngineMetadata,
-    GrypeDBMetadata,
-    GrypeWrapperSingleton,
+    GovulnersDBEngineMetadata,
+    GovulnersDBMetadata,
+    GovulnersWrapperSingleton,
     RecordSource,
 )
 from nextlinux_engine.clients.services import internal_client_for
@@ -31,7 +31,7 @@ from nextlinux_engine.db import (
     FixedArtifact,
     GemMetadata,
     GenericFeedDataRecord,
-    GrypeDBFeedMetadata,
+    GovulnersDBFeedMetadata,
     Image,
     NpmMetadata,
     NvdMetadata,
@@ -51,8 +51,8 @@ from nextlinux_engine.services.policy_engine.engine.feeds.download import (
     LocalFeedDataRepo,
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.govulnersdb_sync import (
-    GrypeDBSyncError,
-    GrypeDBSyncManager,
+    GovulnersDBSyncError,
+    GovulnersDBSyncManager,
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.mappers import (
     FeedDataMapper,
@@ -67,8 +67,8 @@ from nextlinux_engine.services.policy_engine.engine.feeds.mappers import (
     VulnerabilityFeedDataMapper,
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.storage import (
-    GrypeDBFile,
-    GrypeDBStorage,
+    GovulnersDBFile,
+    GovulnersDBStorage,
 )
 from nextlinux_engine.services.policy_engine.engine.vulnerabilities import (
     ThreadLocalFeedGroupNameCache,
@@ -682,18 +682,18 @@ class NextlinuxServiceFeed(LogContextMixin, DataFeed, ABC):
             return None
 
 
-class GrypeDBFeedSyncError(Exception):
+class GovulnersDBFeedSyncError(Exception):
     pass
 
 
-class UnexpectedRawGrypeDBFile(GrypeDBFeedSyncError):
+class UnexpectedRawGovulnersDBFile(GovulnersDBFeedSyncError):
     def __init__(self):
         super().__init__(
-            "Unexpected Condition: More than one GrypeDB file downloaded during feed sync."
+            "Unexpected Condition: More than one GovulnersDB file downloaded during feed sync."
         )
 
 
-class RefreshTaskCreationError(GrypeDBFeedSyncError):
+class RefreshTaskCreationError(GovulnersDBFeedSyncError):
     def __init__(self, errors: Sequence[Tuple[str, Exception]]):
         self.errors = errors
         super().__init__(
@@ -701,18 +701,18 @@ class RefreshTaskCreationError(GrypeDBFeedSyncError):
         )
 
 
-class GrypeDBStagingFailure(GrypeDBFeedSyncError):
+class GovulnersDBStagingFailure(GovulnersDBFeedSyncError):
     def __init__(
-        self, engine_metadata: GrypeDBEngineMetadata, db_metadata: GrypeDBMetadata
+        self, engine_metadata: GovulnersDBEngineMetadata, db_metadata: GovulnersDBMetadata
     ):
         super().__init__(
-            f"Staging new Grype DB file was unsuccessful. (engine_metadata: {engine_metadata}, db_metadata: {engine_metadata})"
+            f"Staging new Govulners DB file was unsuccessful. (engine_metadata: {engine_metadata}, db_metadata: {engine_metadata})"
         )
 
 
-class GrypeDBFeed(LogContextMixin, DataFeed):
+class GovulnersDBFeed(LogContextMixin, DataFeed):
     """
-    NextlinuxServiceFeed used to sync Grype DB data.
+    NextlinuxServiceFeed used to sync Govulners DB data.
 
     :param metadata: FeedMetadata instance to use to store stateful information about this feed
     :type metadata: Optional[FeedMetadata], defaults to None
@@ -740,7 +740,7 @@ class GrypeDBFeed(LogContextMixin, DataFeed):
         """
         if not isinstance(self._catalog_svc_client, CatalogClient):
             logger.debug(
-                "Catalog Client not initialized in GrypeDBFeed. Initializing..."
+                "Catalog Client not initialized in GovulnersDBFeed. Initializing..."
             )
             self._catalog_svc_client = internal_client_for(CatalogClient, userId=None)
         return self._catalog_svc_client
@@ -748,9 +748,9 @@ class GrypeDBFeed(LogContextMixin, DataFeed):
     @staticmethod
     def _get_db_metadata_records(
         db: Session, checksum: Optional[str] = None, active: Optional[bool] = None
-    ) -> List[GrypeDBFeedMetadata]:
+    ) -> List[GovulnersDBFeedMetadata]:
         """
-        Utility Method, queries GrypeDBFeedMetadata and optionally filters on checksum or active attribute.
+        Utility Method, queries GovulnersDBFeedMetadata and optionally filters on checksum or active attribute.
 
         :param db: sqlalchemy database session
         :type db: Session
@@ -758,22 +758,22 @@ class GrypeDBFeed(LogContextMixin, DataFeed):
         :type checksum: Optional[str], defaults to None
         :param active: whether or not to filter on the active record
         :type active: Optional[bool], defaults to None
-        :return: list of GrypeDBFeedMetadata
-        :rtype: List[GrypeDBFeedMetadata]
+        :return: list of GovulnersDBFeedMetadata
+        :rtype: List[GovulnersDBFeedMetadata]
         """
         # sort by created at so the first index would be the correct active one if more than one returned
-        results = db.query(GrypeDBFeedMetadata).order_by(
-            GrypeDBFeedMetadata.created_at.desc()
+        results = db.query(GovulnersDBFeedMetadata).order_by(
+            GovulnersDBFeedMetadata.created_at.desc()
         )
         if checksum:
-            results = results.filter(GrypeDBFeedMetadata.archive_checksum == checksum)
+            results = results.filter(GovulnersDBFeedMetadata.archive_checksum == checksum)
         if isinstance(active, bool):
-            results = results.filter(GrypeDBFeedMetadata.active.is_(active))
+            results = results.filter(GovulnersDBFeedMetadata.active.is_(active))
         return results.all()
 
     def record_count(self, group_name: str, db: Session) -> int:
         """
-        Returns number of records present in the database for a given group (GrypeDBFeedMetadata records)
+        Returns number of records present in the database for a given group (GovulnersDBFeedMetadata records)
 
         :param group_name: name of the group
         :type group_name: str
@@ -855,7 +855,7 @@ class GrypeDBFeed(LogContextMixin, DataFeed):
             logger.debug("No images in the system to refresh")
             return
 
-        queue_messages = GrypeDBFeed._create_refresh_tasks(
+        queue_messages = GovulnersDBFeed._create_refresh_tasks(
             all_images, MESSAGE_BATCH_SIZE
         )
         q_client = internal_client_for(SimpleQueueClient, None)
@@ -916,21 +916,21 @@ class GrypeDBFeed(LogContextMixin, DataFeed):
         self,
         db: Session,
         record: FileData,
-        engine_metadata: GrypeDBEngineMetadata,
-        db_metadata: GrypeDBMetadata,
+        engine_metadata: GovulnersDBEngineMetadata,
+        db_metadata: GovulnersDBMetadata,
     ) -> None:
         """
-        Inserts a new active GrypeDBFeedMetadata record. Before doing so, it deletes all inactive records and then
-        marks the currently active record as inactive. No more than two GrypeDBFeedMetadata records are persisted at once.
+        Inserts a new active GovulnersDBFeedMetadata record. Before doing so, it deletes all inactive records and then
+        marks the currently active record as inactive. No more than two GovulnersDBFeedMetadata records are persisted at once.
 
         :param db: sqlalchemy database session
         :type db: Session
         :param record: FileData record retrieved from download.FileListIterator
         :type record: FileData
-        :param engine_metadata: metadata from staged Grype DB file
-        :type engine_metadata: GrypeDBEngineMetadata
-        :param db_metadata: metadata from staged Grype DB file
-        :type db_metadata: GrypeDBMetadata
+        :param engine_metadata: metadata from staged Govulners DB file
+        :type engine_metadata: GovulnersDBEngineMetadata
+        :param db_metadata: metadata from staged Govulners DB file
+        :type db_metadata: GovulnersDBMetadata
         """
         catalog_client = self._catalog_client
 
@@ -952,7 +952,7 @@ class GrypeDBFeed(LogContextMixin, DataFeed):
             self.__feed_name__, engine_metadata.archive_checksum, record.data
         )
         built_at = rfc3339str_to_datetime(db_metadata.built)
-        self.govulnersdb_meta = GrypeDBFeedMetadata(
+        self.govulnersdb_meta = GovulnersDBFeedMetadata(
             archive_checksum=engine_metadata.archive_checksum,
             db_checksum=engine_metadata.db_checksum,
             schema_version=engine_metadata.govulners_db_version,
@@ -967,32 +967,32 @@ class GrypeDBFeed(LogContextMixin, DataFeed):
         db: Session, checksum: str, govulners_db_data: bytes
     ) -> None:
         """
-        Write the Grype DB to a tar.gz in a temporary directory and pass to GrypeDBSyncManager.
-        The GrypeDBSyncManager updates the working copy of GrypeDB on this instance of policy engine.
+        Write the Govulners DB to a tar.gz in a temporary directory and pass to GovulnersDBSyncManager.
+        The GovulnersDBSyncManager updates the working copy of GovulnersDB on this instance of policy engine.
 
         :param checksum: govulners DB file checksum
         :type checksum: str
         :param govulners_db_data: raw tar.gz file data
         :type govulners_db_data: bytes
         """
-        with GrypeDBStorage() as govulnersdb_file:
+        with GovulnersDBStorage() as govulnersdb_file:
             with govulnersdb_file.create_file(checksum) as f:
                 f.write(govulners_db_data)
-            GrypeDBSyncManager.run_govulnersdb_sync(db, govulnersdb_file.path)
+            GovulnersDBSyncManager.run_govulnersdb_sync(db, govulnersdb_file.path)
 
     def _set_group_counts(self, db, source_counts: List[RecordSource]) -> None:
         """
         Uses govulners wrapper to query the source counts in the govulnersdb
-        casts these source counts to FeedGroupMetadata and saves it to GrypeDBFeedMetadata groups column
+        casts these source counts to FeedGroupMetadata and saves it to GovulnersDBFeedMetadata groups column
         certain timestamps like the last_sync are not set in this process the first time around because it has not yet
-        been set on the GrypeDBFeedMetadata object
+        been set on the GovulnersDBFeedMetadata object
         """
         if source_counts and isinstance(source_counts, list):
             groups = []
 
             for source in source_counts:
                 logger.debug(
-                    "Adding group %s consisting of %d vulns to GrypeDBFeedMetadata record",
+                    "Adding group %s consisting of %d vulns to GovulnersDBFeedMetadata record",
                     source.group,
                     source.count,
                 )
@@ -1011,7 +1011,7 @@ class GrypeDBFeed(LogContextMixin, DataFeed):
             db.flush()
         else:
             raise ValueError(
-                "GrypeDBFeedMetadata type is non iterable and incorrectly set"
+                "GovulnersDBFeedMetadata type is non iterable and incorrectly set"
             )
 
     def _update_group_timestamps(self, db):
@@ -1039,7 +1039,7 @@ class GrypeDBFeed(LogContextMixin, DataFeed):
             db.flush()
         else:
             raise ValueError(
-                "GrypeDBFeedMetadata type is non iterable and incorrectly set"
+                "GovulnersDBFeedMetadata type is non iterable and incorrectly set"
             )
 
     def _process_govulners_file_records(
@@ -1049,7 +1049,7 @@ class GrypeDBFeed(LogContextMixin, DataFeed):
         local_repo: Optional[LocalFeedDataRepo],
     ) -> bool:
         """
-        Convert the download results for Grype DB into database records and write to the database session.
+        Convert the download results for Govulners DB into database records and write to the database session.
         Returns true or false based upon whether downloaded db is new or not
         :param db: sqlalchemy database session
         :type db: Session
@@ -1064,27 +1064,27 @@ class GrypeDBFeed(LogContextMixin, DataFeed):
         for record in local_repo.read_files(
             group_download_result.feed, group_download_result.group
         ):
-            # If we go through two files, then that means the feed service provided two GrypeDB files.
+            # If we go through two files, then that means the feed service provided two GovulnersDB files.
             # This is an unexpected condition.
             if total_records_updated >= 1:
-                raise UnexpectedRawGrypeDBFile()
+                raise UnexpectedRawGovulnersDBFile()
             # Check that the data that we downloaded matches the checksum provided
             checksum = record.metadata["checksum"]
-            GrypeDBFile.verify_integrity(record.data, checksum)
+            GovulnersDBFile.verify_integrity(record.data, checksum)
 
             # If there aren't any other active database files with the same checksum, then treat this as a new one
             matches = self._get_db_metadata_records(db, checksum, True)
 
             if len(matches) == 0:
                 # Cache the file to temporary storage
-                with GrypeDBStorage() as govulnersdb_file:
+                with GovulnersDBStorage() as govulnersdb_file:
                     with govulnersdb_file.create_file(checksum) as f:
                         f.write(record.data)
-                    logger.info("Staging new Grype DB file for update.")
+                    logger.info("Staging new Govulners DB file for update.")
 
                     # Call govulners-wrapper to stage a db update. Wrapper responds with object containing archive and db checksums.
                     engine_metadata = (
-                        GrypeWrapperSingleton.get_instance().update_govulners_db(
+                        GovulnersWrapperSingleton.get_instance().update_govulners_db(
                             govulnersdb_file.path,
                             checksum,
                             str(record.metadata["version"]),
@@ -1092,42 +1092,42 @@ class GrypeDBFeed(LogContextMixin, DataFeed):
                         )
                     )
                     db_metadata = (
-                        GrypeWrapperSingleton.get_instance().get_govulners_db_metadata(
+                        GovulnersWrapperSingleton.get_instance().get_govulners_db_metadata(
                             use_staging=True
                         )
                     )
 
                     # get source counts on govulnersdb syncing for use upstream. Raise error if it fails
                     self.source_counts = (
-                        GrypeWrapperSingleton.get_instance().query_record_source_counts(
+                        GovulnersWrapperSingleton.get_instance().query_record_source_counts(
                             use_staging=True
                         )
                     )
                     if not self.source_counts:
-                        raise GrypeDBStagingFailure(engine_metadata, db_metadata)
+                        raise GovulnersDBStagingFailure(engine_metadata, db_metadata)
 
-                    GrypeWrapperSingleton.get_instance().unstage_govulners_db()
+                    GovulnersWrapperSingleton.get_instance().unstage_govulners_db()
 
                     if engine_metadata and db_metadata:
                         logger.info(
-                            "Staging Grype DB was successful. Switching active Grype DB file to new DB."
+                            "Staging Govulners DB was successful. Switching active Govulners DB file to new DB."
                         )
                         # Based on the response policy-engine creates an active govulnersdbfeed record and marks the rest inactive.
-                        # Update the database and the catalog with the new Grype DB file.
+                        # Update the database and the catalog with the new Govulners DB file.
                         self._switch_active_govulnersdb(
                             db, record, engine_metadata, db_metadata
                         )
                         is_new = True
-                        # Changes are unstaged to allow GrypeDBSyncTask to control swapping of working copy.
-                        # GrypeDBSyncTask swaps out working Grype DB on this instance of policy engine
-                        # Even if the GrypeDBSyncTask fails, we still want the FeedSync to succeed.
-                        # The GrypeDBSyncTask is also registered to a watcher, so it will try to sync again later.
+                        # Changes are unstaged to allow GovulnersDBSyncTask to control swapping of working copy.
+                        # GovulnersDBSyncTask swaps out working Govulners DB on this instance of policy engine
+                        # Even if the GovulnersDBSyncTask fails, we still want the FeedSync to succeed.
+                        # The GovulnersDBSyncTask is also registered to a watcher, so it will try to sync again later.
                         try:
-                            GrypeDBSyncManager.run_govulnersdb_sync(db, govulnersdb_file.path)
-                        except GrypeDBSyncError:
+                            GovulnersDBSyncManager.run_govulnersdb_sync(db, govulnersdb_file.path)
+                        except GovulnersDBSyncError:
                             logger.exception(
                                 self._log_context.format_msg(
-                                    "Error running GrypeDBSyncTask. Working copy of GrypeDB could not be updated.",
+                                    "Error running GovulnersDBSyncTask. Working copy of GovulnersDB could not be updated.",
                                 )
                             )
 
@@ -1136,10 +1136,10 @@ class GrypeDBFeed(LogContextMixin, DataFeed):
                             self._enqueue_refresh_tasks(db)
                         except RefreshTaskCreationError:
                             logger.exception(
-                                "Logging and ignoring error queuing report refresh tasks post GrypeDB sync"
+                                "Logging and ignoring error queuing report refresh tasks post GovulnersDB sync"
                             )
                     else:
-                        raise GrypeDBStagingFailure(engine_metadata, db_metadata)
+                        raise GovulnersDBStagingFailure(engine_metadata, db_metadata)
                 # Update number of records processed
                 total_records_updated += 1
                 logger.info(
@@ -1227,7 +1227,7 @@ class GrypeDBFeed(LogContextMixin, DataFeed):
                 self._set_group_counts(db, source_counts)
             else:
                 source_counts = (
-                    GrypeWrapperSingleton.get_instance().query_record_source_counts()
+                    GovulnersWrapperSingleton.get_instance().query_record_source_counts()
                 )
 
             sync_time = time.time() - sync_started
@@ -1289,7 +1289,7 @@ class GrypeDBFeed(LogContextMixin, DataFeed):
                 db.refresh(self.govulnersdb_meta)
             else:
                 logger.error("No govulnersdb meta found to update last sync timestamp")
-                raise ValueError("Grype DB Meta not found")
+                raise ValueError("Govulners DB Meta not found")
 
             self.govulnersdb_meta.synced_at = last_sync
             self._update_group_timestamps(db)

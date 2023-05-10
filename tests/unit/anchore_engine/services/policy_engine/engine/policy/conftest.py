@@ -3,7 +3,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from nextlinux_engine.db.db_govulners_db_feed_metadata import NoActiveGrypeDB
+from nextlinux_engine.db.db_govulners_db_feed_metadata import NoActiveGovulnersDB
 from nextlinux_engine.db.entities.policy_engine import DistroMapping
 from nextlinux_engine.services.policy_engine import init_feed_registry
 
@@ -50,7 +50,7 @@ def mock_gate_util_provider_feed_data(monkeypatch, mock_distromapping_query):
         yield None
 
     def raise_no_active_govulnersdb(session):
-        raise NoActiveGrypeDB
+        raise NoActiveGovulnersDB
 
     def _setup_mocks(
         feed_group_metadata=None, govulners_db_feed_metadata=None, feed_metadata=None

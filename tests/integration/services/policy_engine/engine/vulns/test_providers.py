@@ -1,7 +1,7 @@
 import pytest
 
 from nextlinux_engine.db import FeedMetadata, session_scope
-from nextlinux_engine.services.policy_engine.engine.feeds.feeds import GrypeDBFeed
+from nextlinux_engine.services.policy_engine.engine.feeds.feeds import GovulnersDBFeed
 from nextlinux_engine.services.policy_engine.engine.vulns import providers
 
 
@@ -9,7 +9,7 @@ class TestLegacyProvider:
     @pytest.fixture(autouse=True)
     def setup_feed_data(self, test_data_env):
         with session_scope() as session:
-            session.add(FeedMetadata(name=GrypeDBFeed.__feed_name__))
+            session.add(FeedMetadata(name=GovulnersDBFeed.__feed_name__))
             session.add(FeedMetadata(name="vulnerabilities"))
             session.commit()
 

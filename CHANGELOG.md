@@ -8,7 +8,7 @@ DB Schema version - 0.0.16
 Engine v1.1.0 fixes some bugs that arose from 1.0.1
 
 ### Changes
-+ Added - Vulnerability scanning support for Rocky Linux in both legacy and Grype scanners
++ Added - Vulnerability scanning support for Rocky Linux in both legacy and Govulners scanners
 + Fixed - Images with Go content and hints enabled failing analysis
 + Fixed - Missing NVD CVSS scores in query vulnerabilities API with "govulners" vulnerabilities provider
 
@@ -33,10 +33,10 @@ API version - 0.1.19
 
 DB Schema version - 0.0.15
 
-Engine 1.0.0 makes the Grype-based vulnerabilities provider, introduced in v0.10.0, the default for new deployments. This release
+Engine 1.0.0 makes the Govulners-based vulnerabilities provider, introduced in v0.10.0, the default for new deployments. This release
 also improves the scanning results and API consistency when using the "govulners" provider. The "legacy" provider is deprecated 
 and will be removed in a future release. Current deployments and upgrades will not automatically convert to the new provider, so 
-please update your configurations and templates to use the new Grype provider.
+please update your configurations and templates to use the new Govulners provider.
 
 See the [documentation](https://engine.nextlinux.io/docs/releasenotes/) for more information on the transition process and upgrade options.
 
@@ -46,17 +46,17 @@ The "legacy" vulnerability provider mode is deprecated. It will be removed in a 
 
 ### Changes
 
-+ Added - Sets default vulnerabilities provider to Grype for new deployments via Docker Compose or Helm. Note: the "legacy" provider is deprecated.
-+ Added - Support for vuln scanning binary and go content types with Grype provider
-+ Added - Updates Syft to 0.24.1 and Grype to 0.21.0
-+ Added - Vulnerability scanning support for SLES/SUSE in both legacy and Grype scanners
++ Added - Sets default vulnerabilities provider to Govulners for new deployments via Docker Compose or Helm. Note: the "legacy" provider is deprecated.
++ Added - Support for vuln scanning binary and go content types with Govulners provider
++ Added - Updates Syft to 0.24.1 and Govulners to 0.21.0
++ Added - Vulnerability scanning support for SLES/SUSE in both legacy and Govulners scanners
 + Fixed - Add logic to the gate util providers for UnsupportedDistroTrigger to call, so the trigger works for both vuln providers. Fixes #1184
-+ Fixed - Support for FeedOutOfDateTrigger in Vulnerabilities gate for Grype provider. Fixes #1179
-+ Fixed - Content hints vulnerability scanning for Grype-mode provider including golang and binary-type hints
-+ Fixed - Adds epoch to rpm metadata SBoM generation for Syft to fix version mismatch in Grype mode.
++ Fixed - Support for FeedOutOfDateTrigger in Vulnerabilities gate for Govulners provider. Fixes #1179
++ Fixed - Content hints vulnerability scanning for Govulners-mode provider including golang and binary-type hints
++ Fixed - Adds epoch to rpm metadata SBoM generation for Syft to fix version mismatch in Govulners mode.
 + Fixed - Set will_not_fix in Vulnerability definition to Boolean type in the Swagger specification of external API 
 + Improved - Update Click dependency version to 8.0.1 and SQLAlchemy dependency version to 1.4.23.  Fixes #908, #1204 
-+ Improved - When using the Grype provider, the ability to enable, disable, and delete groups within the "vulnerabilities" feed is not supported and returns a clear error message.
++ Improved - When using the Govulners provider, the ability to enable, disable, and delete groups within the "vulnerabilities" feed is not supported and returns a clear error message.
 + Improved - Make the Syft invocation only log the full output of the command at spew level instead of debug to ensure logs are not flooded with large Syft SBoMs.
 + Improved - Rename "govulnersdb" feed to be called "vulnerabilities" for clarity and consistency. Fixes #1192
 + Improved - Removes default config fallback for vulnerability provider, users must now explicitly specify this configuration value
@@ -101,19 +101,19 @@ This release contains a database schema update. There are no data migrations, on
 
 ### Configurable Vulnerability Providers
 
-0.10.0 is a significant release for Engine as it now has both [Syft](https://github.com/nextlinux/gosbom) and [Grype](https://github.com/nextlinux/govulners) 
+0.10.0 is a significant release for Engine as it now has both [Syft](https://github.com/nextlinux/gosbom) and [Govulners](https://github.com/nextlinux/govulners) 
 integrations in place to move to a unified vulnerability scanning core across local tools as well as stateful Engine services. 
-This release adds [Grype](https://github.com/nextlinux/govulners) integration as a new vulnerability scanning option in the policy 
+This release adds [Govulners](https://github.com/nextlinux/govulners) integration as a new vulnerability scanning option in the policy 
 engine. There is now a configuration option for specifying a vulnerability scanning provider in the policy engine service 
-configuration. The legacy provider (non-Grype) is the default to ensure smooth upgrades and allow operators to choose when to make the switch.
-The new Grype provider syncs vulnerability data from the same upstream sources as Engine, but uses the Grype DB update mechanism 
+configuration. The legacy provider (non-Govulners) is the default to ensure smooth upgrades and allow operators to choose when to make the switch.
+The new Govulners provider syncs vulnerability data from the same upstream sources as Engine, but uses the Govulners DB update mechanism 
 to achieve much faster feed updates, and no longer uses the https://ancho.re endpoint for retrieving data. See 
-[Release Notes](https://engine.nextlinux.io/docs/releasenotes/0100) for more information and links on Grype mode.
+[Release Notes](https://engine.nextlinux.io/docs/releasenotes/0100) for more information and links on Govulners mode.
 
 Note:
-- Grype mode is a beta release and not recommended for production use, but we encourage feedback and use in dev environments.
+- Govulners mode is a beta release and not recommended for production use, but we encourage feedback and use in dev environments.
 - The `vulnerability_data_unavailable` and `stale_feed_data` policy triggers in the `vulnerabilities` gate are not yet 
-  supported for the Grype provider. They will return incorrect results when used with the Grype provider.
+  supported for the Govulners provider. They will return incorrect results when used with the Govulners provider.
 - The `GET /query/images_by_vulnerability` result set may be stale for some images after a feed sync due to differences 
   in how vulnerabilities are scanned for images in the new provider. The system will rescan each image and updated results 
   will become available then. Importantly, however, scan results for an individual image are always up-to-date whenever requested via `GET /imges/<digest>/vulnerabilities`
@@ -122,10 +122,10 @@ The vulnerability provider is now configurable in the `policy_engine` service co
 [Default Config](./conf/default_config.yaml) for more info.
 
 ### Deprecations
-- The `affected_package_version` query parameter in `GET /query/vulnerabilities` is not supported in Grype mode and has 
+- The `affected_package_version` query parameter in `GET /query/vulnerabilities` is not supported in Govulners mode and has 
   known correctness issues in the legacy mode. It is deprecated and will be removed in a future release.
 - The legacy feed service endpoint (https://ancho.re) used by the legacy vulnerability provider is now officially 
-  deprecated, and will be replaced by the Grype DB sync introduced in this release. We will be announcing an End-of-Life timeline 
+  deprecated, and will be replaced by the Govulners DB sync introduced in this release. We will be announcing an End-of-Life timeline 
   for the service along with the upcoming 1.0 Engine release in the next few months. The timeline will include reasonable 
   time to upgrade and migrate deployments to 1.0+ versions. This deprecation notice serves as an early notice ahead of 
   the actual 1.0 release and formal timeline announcement. For 0.10.0, there are no changes to the service or user actions required.
@@ -136,7 +136,7 @@ The vulnerability provider is now configurable in the `policy_engine` service co
 
 ### Changes
 
-+ Added - Policy engine should leverage Grype. Fixes #706 and #707
++ Added - Policy engine should leverage Govulners. Fixes #706 and #707
 + Added - Improved alpine vulnerability scanning by using NVD matches for OS packages for CVEs that are not yet present in Alpine SecDB. Fixes #268
 + Added - Analyzer service configuration option to control package-ownership filtering. Allows exposing all packages regardless of ownership relationship. Fixes #1122
 + Fixed - Adds missing fields and fixes errors in the swagger spec for the API
@@ -199,7 +199,7 @@ since the database bootstrap is already completed.
 
 ## 0.9.0
 
-0.9.0 is a big step towards full integration of Syft and Grype into Nextlinux Engine as planned for 1.0. In this release, Syft is used for all package identification, and
+0.9.0 is a big step towards full integration of Syft and Govulners into Nextlinux Engine as planned for 1.0. In this release, Syft is used for all package identification, and
 a new API is also added to support uploads of Syft results into the system but with less analysis depth than an in-deployment analysis. This release 
 also involves an API update to 0.1.16 and a db schema update to 0.0.14, and resolves a long-standing issue with db varchar field lengths in the
 policy engine.

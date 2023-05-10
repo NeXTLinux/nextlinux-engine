@@ -4,7 +4,7 @@ from typing import Optional
 
 from nextlinux_engine.db import DistroNamespace, session_scope
 from nextlinux_engine.db.db_govulners_db_feed_metadata import (
-    NoActiveGrypeDB,
+    NoActiveGovulnersDB,
     get_most_recent_active_govulnersdb,
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.db import (
@@ -93,9 +93,9 @@ class LegacyGateUtilProvider(GateUtilProvider):
         return have_vulnerabilities_for(distro_namespace)
 
 
-class GrypeGateUtilProvider(GateUtilProvider):
+class GovulnersGateUtilProvider(GateUtilProvider):
     """
-    Gate-specific logic for the GrypeProvider.
+    Gate-specific logic for the GovulnersProvider.
     """
 
     def oldest_namespace_feed_sync(
@@ -114,14 +114,14 @@ class GrypeGateUtilProvider(GateUtilProvider):
             try:
                 govulnersdb = get_most_recent_active_govulnersdb(session)
                 return govulnersdb.built_at
-            except NoActiveGrypeDB:
+            except NoActiveGovulnersDB:
                 return None
 
     def have_vulnerabilities_for(self, distro_namespace_obj: DistroNamespace) -> bool:
         with session_scope() as session:
             try:
                 govulnersdb = get_most_recent_active_govulnersdb(session)
-            except NoActiveGrypeDB:
+            except NoActiveGovulnersDB:
                 logger.info(
                     "No vulnerabilities for image distro found because no active govulners db found"
                 )

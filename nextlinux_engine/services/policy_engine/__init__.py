@@ -10,7 +10,7 @@ from sqlalchemy.exc import IntegrityError
 import nextlinux_engine.clients.services.common
 import nextlinux_engine.subsys.metrics
 import nextlinux_engine.subsys.servicestatus
-from nextlinux_engine.clients.govulners_wrapper import GrypeWrapperSingleton
+from nextlinux_engine.clients.govulners_wrapper import GovulnersWrapperSingleton
 from nextlinux_engine.clients.services import internal_client_for, simplequeue
 from nextlinux_engine.clients.services.simplequeue import SimpleQueueClient
 from nextlinux_engine.common.models.schemas import BatchImageVulnerabilitiesQueueMessage
@@ -26,7 +26,7 @@ from nextlinux_engine.services.policy_engine.engine.feeds.config import (
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.feeds import (
     GithubFeed,
-    GrypeDBFeed,
+    GovulnersDBFeed,
     NvdFeed,
     NvdV2Feed,
     PackagesFeed,
@@ -185,7 +185,7 @@ def init_feed_registry():
         (PackagesFeed, False),
         (GithubFeed, False),
         (NvdFeed, False),
-        (GrypeDBFeed, True),
+        (GovulnersDBFeed, True),
     ]:
         logger.info("Registering feed handler {}".format(cls_tuple[0].__feed_name__))
         feed_registry.register(cls_tuple[0], is_vulnerability_feed=cls_tuple[1])
@@ -335,7 +335,7 @@ def handle_feed_sync_trigger(*args, **kwargs):
 
 def handle_govulnersdb_sync(*args, **kwargs):
     """
-    Calls function to run GrypeDBSyncTask
+    Calls function to run GovulnersDBSyncTask
 
     :param args:
     :param kwargs:
@@ -344,7 +344,7 @@ def handle_govulnersdb_sync(*args, **kwargs):
     # import code in function so that it is not imported to all contexts that import policy engine
     # this is an issue caused by these handlers being declared within the __init__.py file
     # See https://github.com/nextlinux/nextlinux-engine/issues/991
-    from nextlinux_engine.services.policy_engine.engine.tasks import GrypeDBSyncTask
+    from nextlinux_engine.services.policy_engine.engine.tasks import GovulnersDBSyncTask
 
     logger.info("init args: {}".format(kwargs))
     cycle_time = kwargs["mythread"]["cycle_timer"]
@@ -353,15 +353,15 @@ def handle_govulnersdb_sync(*args, **kwargs):
         provider = get_provider_name(get_section_for_vulnerabilities())
         if provider == "govulners":  # TODO fix this
             try:
-                GrypeDBSyncTask().execute()
+                GovulnersDBSyncTask().execute()
             # TODO narrow scope of exceptions in handlers. see https://github.com/nextlinux/nextlinux-engine/issues/1005
             except Exception:
                 logger.exception(
-                    "Error encountered when running GrypeDBSyncTask from async monitor"
+                    "Error encountered when running GovulnersDBSyncTask from async monitor"
                 )
         else:
             logger.debug(
-                "Grype DB sync not supported for vulnerabilities provider %s, skipping",
+                "Govulners DB sync not supported for vulnerabilities provider %s, skipping",
                 provider,
             )
         time.sleep(cycle_time)
@@ -467,9 +467,9 @@ def handle_image_vulnerabilities_refresh(*args, **kwargs):
 
 
 def initialize_govulners_wrapper():
-    logger.debug("Initializing Grype wrapper singleton.")
-    GrypeWrapperSingleton.get_instance()
-    logger.debug("Grype wrapper initialized.")
+    logger.debug("Initializing Govulners wrapper singleton.")
+    GovulnersWrapperSingleton.get_instance()
+    logger.debug("Govulners wrapper initialized.")
 
 
 class PolicyEngineService(ApiService):

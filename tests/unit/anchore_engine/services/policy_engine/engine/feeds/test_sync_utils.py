@@ -5,23 +5,23 @@ import pytest
 from nextlinux_engine.common.models.schemas import (
     FeedAPIGroupRecord,
     FeedAPIRecord,
-    GrypeDBListing,
+    GovulnersDBListing,
 )
 from nextlinux_engine.db import FeedGroupMetadata, FeedMetadata
 from nextlinux_engine.db.entities.common import nextlinux_now_datetime
 from nextlinux_engine.services.policy_engine.engine.feeds import FeedList
 from nextlinux_engine.services.policy_engine.engine.feeds.client import (
     FeedServiceClient,
-    GrypeDBServiceClient,
+    GovulnersDBServiceClient,
     IFeedSource,
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.config import SyncConfig
 from nextlinux_engine.services.policy_engine.engine.feeds.feeds import (
-    GrypeDBFeed,
+    GovulnersDBFeed,
     VulnerabilityFeed,
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.sync_utils import (
-    GrypeDBSyncUtilProvider,
+    GovulnersDBSyncUtilProvider,
     LegacySyncUtilProvider,
     SyncUtilProvider,
 )
@@ -45,12 +45,12 @@ class TestSyncUtilProvider:
                 ["nvdv2", "vulnerabilities"],
             ),
             (
-                GrypeDBSyncUtilProvider,
+                GovulnersDBSyncUtilProvider,
                 {"govulnersdb": SyncConfig(url="www.nextlinux.com", enabled=True)},
                 ["govulnersdb"],
             ),
             (
-                GrypeDBSyncUtilProvider,
+                GovulnersDBSyncUtilProvider,
                 {
                     "govulnersdb": SyncConfig(url="www.nextlinux.com", enabled=True),
                     "packages": SyncConfig(url="www.nextlinux.com", enabled=True),
@@ -69,15 +69,15 @@ class TestSyncUtilProvider:
         This is a bit confusing and probably should be changed, which is why i've written a test for it.
         There are two SyncUtilProviders.
         The LegacySyncUtilProvider works for all feeds that follow the legacy format.
-        The GrypeDBSyncUtilProvider works for the GrypeDB feed format.
+        The GovulnersDBSyncUtilProvider works for the GovulnersDB feed format.
         However, the VulnerabilitiesProvider has two implementations.
         The LegacyProvider contains all vulnerability logic that changes when the provider is set to "legacy"
-        The GrypeProvider contains all vulnerability logic that changes when the provider is set to "govulners"
-        As such, the GrypeProvider actually returns both "packages" and "govulnersdb" SyncConfigs,
+        The GovulnersProvider contains all vulnerability logic that changes when the provider is set to "govulners"
+        As such, the GovulnersProvider actually returns both "packages" and "govulnersdb" SyncConfigs,
         while "packages" is actually a Legacy style feed.
         Meanwhile, the "packages" feed can only be synced by the LegacySyncUtilProvider.
         The solution is likely to wrap the entire sync method with the SyncUtilProvider, that way LegacySyncUtilProvider
-        can just do legacy feeds, while GrypeDBSyncUtilProvider will first do "govulnersdb" feed with the govulners logic
+        can just do legacy feeds, while GovulnersDBSyncUtilProvider will first do "govulnersdb" feed with the govulners logic
         and then do "packages" feed with the legacy logic.
         """
         filtered_configs = sync_util_provider._get_filtered_sync_configs(sync_configs)
@@ -92,9 +92,9 @@ class TestSyncUtilProvider:
                 FeedServiceClient,
             ),
             (
-                GrypeDBSyncUtilProvider,
+                GovulnersDBSyncUtilProvider,
                 {"govulnersdb": SyncConfig(url="www.nextlinux.com", enabled=True)},
-                GrypeDBServiceClient,
+                GovulnersDBServiceClient,
             ),
         ],
     )
@@ -142,7 +142,7 @@ class TestSyncUtilProvider:
                         name="govulnersdb:vulnerabilities",
                         description="govulnersdb:vulnerabilities group",
                         access_tier="0",
-                        govulners_listing=GrypeDBListing(
+                        govulners_listing=GovulnersDBListing(
                             built=nextlinux_now_datetime(),
                             version="2",
                             url="www.nextlinux.com",
@@ -152,9 +152,9 @@ class TestSyncUtilProvider:
                 ],
             }
         }
-        feeds_to_sync = [GrypeDBFeed(metadata=metadata)]
+        feeds_to_sync = [GovulnersDBFeed(metadata=metadata)]
         sync_config = {"govulnersdb": SyncConfig(enabled=True, url="www.nextlinux.com")}
-        groups_to_download = GrypeDBSyncUtilProvider(
+        groups_to_download = GovulnersDBSyncUtilProvider(
             sync_config
         ).get_groups_to_download(source_feeds, feeds_to_sync, "0")
         assert len(groups_to_download) == expected_number_groups

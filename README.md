@@ -2,7 +2,7 @@
 
 **IMPORTANT NOTE**
 
-As of 2023, Nextlinux Engine is no longer maintained. There will be no future versions released. Users are advised to use [Gosbom](https://github.com/nextlinux/gosbom) and [Grype](https://github.com/nextlinux/govulners).
+As of 2023, Nextlinux Engine is no longer maintained. There will be no future versions released. Users are advised to use [Gosbom](https://github.com/nextlinux/gosbom) and [Govulners](https://github.com/nextlinux/govulners).
 
 For users interested in a supported commercial solution for container scanning and complaiance, [schedule a demo](https://get.nextlinux.com/demo-request/) to see Nextlinux Enterprise’s broad set of enterprise capabilities including SBOM management, vulnerability management, and compliance management.
 

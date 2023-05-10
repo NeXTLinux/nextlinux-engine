@@ -58,7 +58,7 @@ from .entities.policy_engine import (
     FixedArtifact,
     GemMetadata,
     GenericFeedDataRecord,
-    GrypeDBFeedMetadata,
+    GovulnersDBFeedMetadata,
     Image,
     ImageCpe,
     ImageGem,

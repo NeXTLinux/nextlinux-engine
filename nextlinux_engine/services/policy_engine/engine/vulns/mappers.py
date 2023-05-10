@@ -4,7 +4,7 @@ import re
 import uuid
 from typing import Dict, List, Optional
 
-from nextlinux_engine.clients.govulners_wrapper import GrypeVulnerabilityMetadata
+from nextlinux_engine.clients.govulners_wrapper import GovulnersVulnerabilityMetadata
 from nextlinux_engine.common import nonos_package_types
 from nextlinux_engine.common.models.policy_engine import (
     CVSS,
@@ -118,8 +118,8 @@ class RpmMapper(LinuxDistroPackageMapper):
         # Handle Epoch
 
         # This epoch handling is necessary because in RPMs the epoch of the binary package is often not part of the
-        # sourceRpm name, but Grype needs it to do the version comparison correctly.
-        # Without this step Grype will use the wrong version string for the vulnerability match
+        # sourceRpm name, but Govulners needs it to do the version comparison correctly.
+        # Without this step Govulners will use the wrong version string for the vulnerability match
         full_version = record.get("version")
         epoch = None
 
@@ -573,7 +573,7 @@ ENGINE_PACKAGE_MAPPERS = {
 }
 
 # key is the govulners package type
-GRYPE_PACKAGE_MAPPERS = {
+GOVULNERS_PACKAGE_MAPPERS = {
     "rpm": RpmMapper(),
     "deb": DpkgMapper(),
     "apk": ApkgMapper(),
@@ -598,7 +598,7 @@ GRYPE_PACKAGE_MAPPERS = {
     "msrc-kb": KBMapper(),
 }
 
-GRYPE_MATCH_MAPPER = VulnerabilityMapper()
+GOVULNERS_MATCH_MAPPER = VulnerabilityMapper()
 
 
 def image_content_to_govulners_sbom(image: Image, image_content_map: Dict) -> Dict:
@@ -677,7 +677,7 @@ def govulners_to_engine_image_vulnerabilities(govulners_response):
     for item in matches:
         artifact = item.get("artifact")
 
-        pkg_mapper = GRYPE_PACKAGE_MAPPERS.get(artifact.get("type"))
+        pkg_mapper = GOVULNERS_PACKAGE_MAPPERS.get(artifact.get("type"))
         if not pkg_mapper:
             log.warn(
                 "No mapper found for govulners artifact type %s, skipping vulnerability match",
@@ -687,7 +687,7 @@ def govulners_to_engine_image_vulnerabilities(govulners_response):
 
         try:
             results.append(
-                GRYPE_MATCH_MAPPER.govulners_to_engine_image_vulnerability(
+                GOVULNERS_MATCH_MAPPER.govulners_to_engine_image_vulnerability(
                     item, pkg_mapper, now
                 )
             )
@@ -699,7 +699,7 @@ def govulners_to_engine_image_vulnerabilities(govulners_response):
     return results
 
 
-class EngineGrypeDBMapper:
+class EngineGovulnersDBMapper:
     return_el_template = {
         "id": None,
         "namespace": None,
@@ -787,7 +787,7 @@ class EngineGrypeDBMapper:
         return result
 
     def _cvss_from_govulners_raw_result(
-        self, govulners_vulnerability_metadata: GrypeVulnerabilityMetadata
+        self, govulners_vulnerability_metadata: GovulnersVulnerabilityMetadata
     ) -> List:
         """
         Given the raw govulners vulnerability input, returns a dict of its cvss scores
@@ -816,7 +816,7 @@ class EngineGrypeDBMapper:
     def to_engine_vulnerabilities(
         self,
         govulners_vulnerabilities: List,
-        related_nvd_metadata_records: List[GrypeVulnerabilityMetadata],
+        related_nvd_metadata_records: List[GovulnersVulnerabilityMetadata],
     ):
         """
         Receives query results from govulners_db and returns a list of vulnerabilities mapped
@@ -831,8 +831,8 @@ class EngineGrypeDBMapper:
         }
 
         for govulners_raw_result in govulners_vulnerabilities:
-            govulners_vulnerability = govulners_raw_result.GrypeVulnerability
-            govulners_vulnerability_metadata = govulners_raw_result.GrypeVulnerabilityMetadata
+            govulners_vulnerability = govulners_raw_result.GovulnersVulnerability
+            govulners_vulnerability_metadata = govulners_raw_result.GovulnersVulnerabilityMetadata
 
             vuln_dict = intermediate_tuple_list.get(
                 (
