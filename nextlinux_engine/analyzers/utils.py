@@ -728,7 +728,7 @@ def get_hintsfile(unpackdir=None, squashtar=None):
     from the `NEXTLINUX_ANALYZERS_UNPACKDIR` environment variable.
 
     Finally, this function uses a caching closure , for up to 24 different
-    calls. The Syft handlers will consume this hints function without passing
+    calls. The Gosbom handlers will consume this hints function without passing
     any arguments at all for every package but relying on a unique path still,
     which is why it is useful to have the hints file contents cached.
     """

@@ -149,7 +149,7 @@ def test_sbom(request):
         return json.load(file)
 
 
-class TestConvertSyftToEngine:
+class TestConvertGosbomToEngine:
     @pytest.mark.parametrize(
         "enable_package_filtering",
         [False, True],

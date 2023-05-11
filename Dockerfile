@@ -58,7 +58,7 @@ RUN set -ex && \
     pip3 wheel --wheel-dir=/build_output/cli_wheels/ git+https://github.com/nextlinux/nextlinux-cli.git@"${CLI_COMMIT}"\#egg=nextlinuxcli
 
 RUN set -exo pipefail && \
-    echo "downloading Syft" && \
+    echo "downloading Gosbom" && \
     curl -sSfL https://raw.githubusercontent.com/nextlinux/gosbom/main/install.sh | sh -s -- -b /build_output/deps "${GOSBOM_VERSION}"
 
 RUN set -exo pipefail && \

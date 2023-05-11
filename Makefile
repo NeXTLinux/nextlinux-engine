@@ -281,9 +281,9 @@ endif
 
 GOSBOM_LATEST_VERSION = $(shell curl "https://api.github.com/repos/nextlinux/gosbom/releases/latest" 2>/dev/null | jq -r '.tag_name')
 .PHONY: upgrade-gosbom
-upgrade-gosbom: jq-installed ## Upgrade Syft to the latest release
+upgrade-gosbom: jq-installed ## Upgrade Gosbom to the latest release
 	if [ -n "$$GITHUB_ENV" ]; then echo "gosbom_v=${GOSBOM_LATEST_VERSION}" >> $$GITHUB_ENV; fi
-	# Setting Syft to ${GOSBOM_LATEST_VERSION}
+	# Setting Gosbom to ${GOSBOM_LATEST_VERSION}
 	$(SEDI) 's/^(ENV GOSBOM_VERSION=).+$$/\1${GOSBOM_LATEST_VERSION}/' Dockerfile
 
 GOVULNERS_LATEST_VERSION = $(shell curl "https://api.github.com/repos/nextlinux/govulners/releases/latest" 2>/dev/null | jq -r '.tag_name')
@@ -295,4 +295,4 @@ upgrade-govulners: jq-installed ## Upgrade Govulners to the latest release
 
 # TODO: Intent is to create a weekly/daily/continuous GitHub Action that runs the following and auto-opens a PR
 .PHONY: upgrade-nextlinux-tools
-upgrade-nextlinux-tools: upgrade-gosbom upgrade-govulners ## Upgrade Syft and Govulners to the latest release
+upgrade-nextlinux-tools: upgrade-gosbom upgrade-govulners ## Upgrade Gosbom and Govulners to the latest release

@@ -22,9 +22,9 @@ Engine v1.0.1 fixes some bugs that arose from 1.0.0
 
 ### Changes
 + Fixed - policy-engine feeds failing for GitHub group due to a constraint violation
-+ Fixed - Upgrade to Syft v0.26.0 fixed issue in analysis caused by unexpected python package format 
++ Fixed - Upgrade to Gosbom v0.26.0 fixed issue in analysis caused by unexpected python package format 
 + Fixed - Content hints now correctly use '*' for vendor field instead of '-' in generated cpes. Fixes [#1279](https://github.com/nextlinux/nextlinux-engine/issues/1279).
-+ Fixed - Syft invocation during image analysis uses analyzer unpack directory configured in engine as opposed to OS default temp directory
++ Fixed - Gosbom invocation during image analysis uses analyzer unpack directory configured in engine as opposed to OS default temp directory
 
 
 ## 1.0.0
@@ -48,16 +48,16 @@ The "legacy" vulnerability provider mode is deprecated. It will be removed in a 
 
 + Added - Sets default vulnerabilities provider to Govulners for new deployments via Docker Compose or Helm. Note: the "legacy" provider is deprecated.
 + Added - Support for vuln scanning binary and go content types with Govulners provider
-+ Added - Updates Syft to 0.24.1 and Govulners to 0.21.0
++ Added - Updates Gosbom to 0.24.1 and Govulners to 0.21.0
 + Added - Vulnerability scanning support for SLES/SUSE in both legacy and Govulners scanners
 + Fixed - Add logic to the gate util providers for UnsupportedDistroTrigger to call, so the trigger works for both vuln providers. Fixes #1184
 + Fixed - Support for FeedOutOfDateTrigger in Vulnerabilities gate for Govulners provider. Fixes #1179
 + Fixed - Content hints vulnerability scanning for Govulners-mode provider including golang and binary-type hints
-+ Fixed - Adds epoch to rpm metadata SBoM generation for Syft to fix version mismatch in Govulners mode.
++ Fixed - Adds epoch to rpm metadata SBoM generation for Gosbom to fix version mismatch in Govulners mode.
 + Fixed - Set will_not_fix in Vulnerability definition to Boolean type in the Swagger specification of external API 
 + Improved - Update Click dependency version to 8.0.1 and SQLAlchemy dependency version to 1.4.23.  Fixes #908, #1204 
 + Improved - When using the Govulners provider, the ability to enable, disable, and delete groups within the "vulnerabilities" feed is not supported and returns a clear error message.
-+ Improved - Make the Syft invocation only log the full output of the command at spew level instead of debug to ensure logs are not flooded with large Syft SBoMs.
++ Improved - Make the Gosbom invocation only log the full output of the command at spew level instead of debug to ensure logs are not flooded with large Gosbom SBoMs.
 + Improved - Rename "govulnersdb" feed to be called "vulnerabilities" for clarity and consistency. Fixes #1192
 + Improved - Removes default config fallback for vulnerability provider, users must now explicitly specify this configuration value
 
@@ -101,7 +101,7 @@ This release contains a database schema update. There are no data migrations, on
 
 ### Configurable Vulnerability Providers
 
-0.10.0 is a significant release for Engine as it now has both [Syft](https://github.com/nextlinux/gosbom) and [Govulners](https://github.com/nextlinux/govulners) 
+0.10.0 is a significant release for Engine as it now has both [Gosbom](https://github.com/nextlinux/gosbom) and [Govulners](https://github.com/nextlinux/govulners) 
 integrations in place to move to a unified vulnerability scanning core across local tools as well as stateful Engine services. 
 This release adds [Govulners](https://github.com/nextlinux/govulners) integration as a new vulnerability scanning option in the policy 
 engine. There is now a configuration option for specifying a vulnerability scanning provider in the policy engine service 
@@ -156,7 +156,7 @@ The vulnerability provider is now configurable in the `policy_engine` service co
 + Fixed - Server-side connection timeout of 75 seconds if client holds connection open after bytes sent, caused image load errors in some resource constrained situations. Now defaults to 3 minutes and is configurable. Fixes #990
 + Fixed - Incorrect CPE v2.3 string construction in some cases. Fixes #959
 + Fixed - Hints behavior regression. Fixes #1006
-+ Improved - Reduced false positive matches for vulnerabilities in java artifacts by update to CPE generation logic via Syft upgrade to 0.15.1
++ Improved - Reduced false positive matches for vulnerabilities in java artifacts by update to CPE generation logic via Gosbom upgrade to 0.15.1
 + Improved - Better vulnerability listing performance by removing unnecessary CPE hashing
 
 ## 0.9.3
@@ -185,7 +185,7 @@ since the database bootstrap is already completed.
 + Added - Ability to block image analysis operations if the image's compressed size is above a configured value. Fixes #786 
 + Improved - Updated output messages and description for vulnerability_data_unavailable trigger and stale_feeds_data trigger to clarify only OS packages impacted. Fixes #879
 + Improved - Do not allow selectors to be empty unless using max_images_per_account_rule. Fixes #863
-+ Improved - Updates Syft to version 0.12.4 to fix several issues in image analysis including empty package names/versions in invalid package.json files and java jar parent references being Nil.
++ Improved - Updates Gosbom to version 0.12.4 to fix several issues in image analysis including empty package names/versions in invalid package.json files and java jar parent references being Nil.
 + Improved - Require user to set explicit default admin password at bootstrap instead of defaulting to a value if none found. Fixes #810
 + Improved - Update PyYAML to 5.4.1
 + Improved - Update Passlib to 1.7.4
@@ -199,16 +199,16 @@ since the database bootstrap is already completed.
 
 ## 0.9.0
 
-0.9.0 is a big step towards full integration of Syft and Govulners into Nextlinux Engine as planned for 1.0. In this release, Syft is used for all package identification, and
-a new API is also added to support uploads of Syft results into the system but with less analysis depth than an in-deployment analysis. This release 
+0.9.0 is a big step towards full integration of Gosbom and Govulners into Nextlinux Engine as planned for 1.0. In this release, Gosbom is used for all package identification, and
+a new API is also added to support uploads of Gosbom results into the system but with less analysis depth than an in-deployment analysis. This release 
 also involves an API update to 0.1.16 and a db schema update to 0.0.14, and resolves a long-standing issue with db varchar field lengths in the
 policy engine.
 
-+ Added - New APIs for uploading externally run Syft analysis of an image to generate an SBoM and importing results as an image into engine. Fixes #783
++ Added - New APIs for uploading externally run Gosbom analysis of an image to generate an SBoM and importing results as an image into engine. Fixes #783
 + Added - Support for analysis archive rules to trigger based on total number of images in each account. Fixes #700
 + Added - Exclusion filters for analysis archive rules. Fixes #699
 + Added - Ability to exclude paths from vulnerability.packages rules using path regex. Fixes #229
-+ Added - Integrates new Syft tool (https://github.com/nextlinux/gosbom) as package bill of materials analyzer. Fixes #679, #685, #682
++ Added - Integrates new Gosbom tool (https://github.com/nextlinux/gosbom) as package bill of materials analyzer. Fixes #679, #685, #682
 + Added - Ability to set an expiration for individual whitelist rules. Fixes #178, 
 + Added - Ability to test webhook delivery via API call and provide schemas for webhook payloads. Fixes #489, #490
 + Added - Success and error counters in prometheus metrics exported by analyzers ("nextlinux_analysis_success" and "nextlinux_analysis_error")  
