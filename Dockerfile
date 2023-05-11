@@ -12,17 +12,17 @@ ENV LANG=en_US.UTF-8
 ENV LC_ALL=C.UTF-8
 
 # environment variables for dependent binary versions
-ENV GOSBOM_VERSION=v0.33.0
-ENV GOVULNERS_VERSION=v0.27.3
+ENV GOSBOM_VERSION=null
+ENV GOVULNERS_VERSION=null
 ENV PIP_VERSION=21.0.1
 
 # setup build artifact directory
 RUN set -ex && \
     mkdir -p \
-        /build_output/configs \
-        /build_output/cli_wheels \
-        /build_output/deps \
-        /build_output/wheels
+    /build_output/configs \
+    /build_output/cli_wheels \
+    /build_output/deps \
+    /build_output/wheels
 
 # installing build dependencies
 RUN set -ex && \
@@ -33,14 +33,14 @@ RUN set -ex && \
     yum module disable -y python36 && \
     yum module enable -y python38 && \
     yum install -y \
-        gcc \
-        git \
-        go \
-        make \
-        python38 \
-        python38-devel \
-        python38-psycopg2 \
-        python38-wheel && \
+    gcc \
+    git \
+    go \
+    make \
+    python38 \
+    python38-devel \
+    python38-psycopg2 \
+    python38-wheel && \
     yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
     pip3 install pip=="${PIP_VERSION}"
 
@@ -49,9 +49,9 @@ RUN set -ex && \
     echo "downloading OS dependencies" && \
     pip3 download -d /build_output/wheels pip=="${PIP_VERSION}" && \
     yum install -y --downloadonly --downloaddir=/build_output/deps/ \
-        clamav \
-        clamav-update \
-        dpkg
+    clamav \
+    clamav-update \
+    dpkg
 
 RUN set -ex && \
     echo "downloading nextlinux-cli" && \
@@ -92,14 +92,14 @@ ARG NEXTLINUX_ENGINE_RELEASE="r0"
 
 # Container metadata section
 LABEL nextlinux_cli_commit="${CLI_COMMIT}" \
-      nextlinux_commit="${NEXTLINUX_COMMIT}" \
-      name="nextlinux-engine" \
-      maintainer="dev@nextlinux.com" \
-      vendor="Nextlinux Inc." \
-      version="${NEXTLINUX_ENGINE_VERSION}" \
-      release="${NEXTLINUX_ENGINE_RELEASE}" \
-      summary="Nextlinux Engine - container image scanning service for policy-based security, best-practice and compliance enforcement." \
-      description="Nextlinux is an open platform for container security and compliance that allows developers, operations, and security teams to discover, analyze, and certify container images on-premises or in the cloud. Nextlinux Engine is the on-prem, OSS, API accessible service that allows ops and developers to perform detailed analysis, run queries, produce reports and define policies on container images that can be used in CI/CD pipelines to ensure that only containers that meet your organization’s requirements are deployed into production."
+    nextlinux_commit="${NEXTLINUX_COMMIT}" \
+    name="nextlinux-engine" \
+    maintainer="dev@nextlinux.com" \
+    vendor="Nextlinux Inc." \
+    version="${NEXTLINUX_ENGINE_VERSION}" \
+    release="${NEXTLINUX_ENGINE_RELEASE}" \
+    summary="Nextlinux Engine - container image scanning service for policy-based security, best-practice and compliance enforcement." \
+    description="Nextlinux is an open platform for container security and compliance that allows developers, operations, and security teams to discover, analyze, and certify container images on-premises or in the cloud. Nextlinux Engine is the on-prem, OSS, API accessible service that allows ops and developers to perform detailed analysis, run queries, produce reports and define policies on container images that can be used in CI/CD pipelines to ensure that only containers that meet your organization’s requirements are deployed into production."
 
 # Environment variables to be present in running environment
 ENV AUTHLIB_INSECURE_TRANSPORT=true
@@ -141,7 +141,7 @@ ENV NEXTLINUX_ADMIN_EMAIL=admin@mynextlinux \
     NEXTLINUX_GLOBAL_CLIENT_CONNECT_TIMEOUT=0 \
     NEXTLINUX_GLOBAL_CLIENT_READ_TIMEOUT=0 \
     NEXTLINUX_GLOBAL_SERVER_REQUEST_TIMEOUT_SEC=180 \
-    NEXTLINUX_GOVULNERS_DB_URL="https://toolbox-data.nextlinux.io/govulners/databases/listing.json" \
+    NEXTLINUX_GOVULNERS_DB_URL="https://toolbox-data.next-linux.systems/govulners/databases/listing.json" \
     NEXTLINUX_HINTS_ENABLED=false \
     NEXTLINUX_HOST_ID="nextlinux-quickstart" \
     NEXTLINUX_INTERNAL_SSL_VERIFY=false \
@@ -161,35 +161,35 @@ RUN set -ex && \
     groupadd --gid 1000 nextlinux && \
     useradd --uid 1000 --gid nextlinux --shell /bin/bash --create-home nextlinux && \
     mkdir -p \
-        /analysis_scratch \
-        "${NEXTLINUX_SERVICE_DIR}"/bundles \
-        /config \
-        /home/nextlinux/clamav/db \
-        /licenses \
-        /var/log/nextlinux \
-        /var/run/nextlinux \
-        /workspace \
-        /workspace_preload && \
+    /analysis_scratch \
+    "${NEXTLINUX_SERVICE_DIR}"/bundles \
+    /config \
+    /home/nextlinux/clamav/db \
+    /licenses \
+    /var/log/nextlinux \
+    /var/run/nextlinux \
+    /workspace \
+    /workspace_preload && \
     chown -R 1000:0 \
-        /analysis_scratch \
-        "${NEXTLINUX_SERVICE_DIR}" \
-        /config \
-        /home/nextlinux \
-        /licenses \
-        /var/log/nextlinux \
-        /var/run/nextlinux \
-        /workspace \
-        /workspace_preload && \
+    /analysis_scratch \
+    "${NEXTLINUX_SERVICE_DIR}" \
+    /config \
+    /home/nextlinux \
+    /licenses \
+    /var/log/nextlinux \
+    /var/run/nextlinux \
+    /workspace \
+    /workspace_preload && \
     chmod -R g+rwX \
-        /analysis_scratch \
-        "${NEXTLINUX_SERVICE_DIR}" \
-        /config \
-        /home/nextlinux \
-        /licenses \
-        /var/log/nextlinux \
-        /var/run/nextlinux \
-        /workspace \
-        /workspace_preload
+    /analysis_scratch \
+    "${NEXTLINUX_SERVICE_DIR}" \
+    /config \
+    /home/nextlinux \
+    /licenses \
+    /var/log/nextlinux \
+    /var/run/nextlinux \
+    /workspace \
+    /workspace_preload
 
 # Install build dependencies
 RUN set -ex && \
@@ -197,12 +197,12 @@ RUN set -ex && \
     yum module disable -y python36 && \
     yum module enable -y python38 && \
     yum install -y \
-        procps \
-        psmisc \
-        python38 \
-        python38-psycopg2 \
-        python38-wheel \
-        skopeo && \
+    procps \
+    psmisc \
+    python38 \
+    python38-psycopg2 \
+    python38-wheel \
+    skopeo && \
     yum clean all
 
 # Copy the installed artifacts from the first stage
@@ -239,11 +239,11 @@ RUN set -ex && \
     chmod -R ug+rw /home/nextlinux/clamav && \
     echo "cleaning up unneccesary files used for testing/cache/build" && \
     rm -rf \
-        /build_output \
-        /root/.cache \
-        /usr/local/lib64/python3.8/site-packages/twisted/test \
-        /usr/local/lib64/python3.8/site-packages/Crypto/SelfTest \
-        /usr/share/doc
+    /build_output \
+    /root/.cache \
+    /usr/local/lib64/python3.8/site-packages/twisted/test \
+    /usr/local/lib64/python3.8/site-packages/Crypto/SelfTest \
+    /usr/share/doc
 
 # Container runtime instructions
 

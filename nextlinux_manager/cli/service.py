@@ -448,7 +448,7 @@ def start(
                     + ") but we discovered nextlinux DB version ("
                     + str(db_versions["db_version"])
                     + ") in the running DB - please perform the DB upgrade process and retry\n"
-                    "See: https://engine.nextlinux.io/docs/install/upgrade/#advanced--manual-upgrade-procedure"
+                    "See: https://engine.next-linux.systems/docs/install/upgrade/#advanced--manual-upgrade-procedure"
                 )
 
         except Exception as err:

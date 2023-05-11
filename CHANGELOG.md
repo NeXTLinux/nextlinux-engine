@@ -38,7 +38,7 @@ also improves the scanning results and API consistency when using the "govulners
 and will be removed in a future release. Current deployments and upgrades will not automatically convert to the new provider, so 
 please update your configurations and templates to use the new Govulners provider.
 
-See the [documentation](https://engine.nextlinux.io/docs/releasenotes/) for more information on the transition process and upgrade options.
+See the [documentation](https://engine.next-linux.systems/docs/releasenotes/) for more information on the transition process and upgrade options.
 
 ### Deprecations
 
@@ -108,7 +108,7 @@ engine. There is now a configuration option for specifying a vulnerability scann
 configuration. The legacy provider (non-Govulners) is the default to ensure smooth upgrades and allow operators to choose when to make the switch.
 The new Govulners provider syncs vulnerability data from the same upstream sources as Engine, but uses the Govulners DB update mechanism 
 to achieve much faster feed updates, and no longer uses the https://ancho.re endpoint for retrieving data. See 
-[Release Notes](https://engine.nextlinux.io/docs/releasenotes/0100) for more information and links on Govulners mode.
+[Release Notes](https://engine.next-linux.systems/docs/releasenotes/0100) for more information and links on Govulners mode.
 
 Note:
 - Govulners mode is a beta release and not recommended for production use, but we encourage feedback and use in dev environments.
@@ -514,7 +514,7 @@ NOTE: For users upgrading from 0.2.X to 0.3.X, please note that the upgrade proc
   + Information about internal processes like vulnerability feed sync start and end events
   + Troubleshooting information on image and repository watcher failures
   + Troubleshooting information about distributed nextlinux-engine services orphaned due to network connectivity or other issues
-  + Details about policy sync failures from nextlinux.io if the automatic policy sync is turned on in the config
+  + Details about policy sync failures from next-linux.systems if the automatic policy sync is turned on in the config
   + Troubleshooting information that presents details when other asynchronous engine operations experience failures
 + Improved java artifact analysis - Add support for scanning Jenkins plugins. This adds the file extension ".hpi" and ".jpi" to the list of recognized Java library filenames. (contributed by Matt Sicker <boards@gmail.com>)
 + Improved 'metadata' content implementation for handling the addition of dockerfile contents after an image has already been added

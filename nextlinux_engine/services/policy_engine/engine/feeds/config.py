@@ -98,7 +98,7 @@ def compute_selected_configs_to_sync(
     :param default_provider_sync_config: the default sync configuration for the provider.
     A dictionary with feed names each mapped to its respective SyncConfig
     {
-        "govulnersdb": SyncConfig(enabled=True, url="https://toolbox-data.nextlinux.io/govulners/databases/listing.json"),
+        "govulnersdb": SyncConfig(enabled=True, url="https://toolbox-data.next-linux.systems/govulners/databases/listing.json"),
         "packages": SyncConfig(enabled=False, url="https://ancho.re/v1/service/feeds")
     }
     :return: dictionary with feed names each mapped to its respective SyncConfig

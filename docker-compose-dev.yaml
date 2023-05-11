@@ -1,5 +1,5 @@
 # This is a docker-compose file for development purposes. It refereneces unstable developer builds from the HEAD of master branch in https://github.com/nextlinux/nextlinux-engine
-# For a compose file intended for use with a released version, see https://engine.nextlinux.io/docs/quickstart/
+# For a compose file intended for use with a released version, see https://engine.next-linux.systems/docs/quickstart/
 #
 ---
 version: '2.1'

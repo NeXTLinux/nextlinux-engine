@@ -1095,7 +1095,7 @@ class GovulnersProvider(VulnerabilitiesProvider):
     __default_sync_config__ = {
         "govulnersdb": SyncConfig(
             enabled=True,
-            url="https://toolbox-data.nextlinux.io/govulners/databases/listing.json",
+            url="https://toolbox-data.next-linux.systems/govulners/databases/listing.json",
         ),
         "packages": SyncConfig(enabled=False, url="https://ancho.re/v1/service/feeds"),
     }

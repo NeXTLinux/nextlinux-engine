@@ -37,7 +37,7 @@ if [[ "${CI:-false}" == true ]]; then
 fi
 
 if ! helm list | grep "${CLUSTER_NAME}"; then
-    helm repo add nextlinux https://charts.nextlinux.io
+    helm repo add nextlinux https://charts.next-linux.systems
     helm install "${CLUSTER_NAME}" -f scripts/ci/config/base-values.yaml --set nextlinuxGlobal.image="${engine_image}" nextlinux/nextlinux-engine | head -n6
 fi
 
