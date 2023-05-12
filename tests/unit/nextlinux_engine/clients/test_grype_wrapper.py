@@ -9,7 +9,7 @@ import sqlalchemy
 from sqlalchemy.orm import sessionmaker
 
 import nextlinux_engine.configuration.localconfig
-from nextlinux_engine.clients.grype_wrapper import (
+from nextlinux_engine.clients.govulners_wrapper import (
     VULNERABILITIES,
     GovulnersDBEngineMetadata,
     GovulnersDBMetadata,
