@@ -8,10 +8,17 @@ from collections import OrderedDict
 from urllib.request import urlretrieve
 
 import nextlinux_engine.configuration.localconfig
+<<<<<<< HEAD
+from nextlinux_engine.common.errors import AnchoreError
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.utils import (
+    AnchoreException,
+=======
 from nextlinux_engine.common.errors import NextlinuxError
 from nextlinux_engine.subsys import logger
 from nextlinux_engine.utils import (
     NextlinuxException,
+>>>>>>> master
     ensure_str,
     run_command,
     run_command_list,

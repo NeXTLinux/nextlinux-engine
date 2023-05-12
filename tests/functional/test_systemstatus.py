@@ -6,9 +6,15 @@ import requests
 from tests.functional import get_engine_version
 
 # Functional tests for system status as a basic connectivity/nextlinux-engine up test
+<<<<<<< HEAD
+nextlinux_user = os.environ["ANCHORE_CLI_USER"]
+nextlinux_pass = os.environ["ANCHORE_CLI_PASS"]
+nextlinux_url = os.environ["ANCHORE_CLI_URL"]
+=======
 nextlinux_user = os.environ["NEXTLINUX_CLI_USER"]
 nextlinux_pass = os.environ["NEXTLINUX_CLI_PASS"]
 nextlinux_url = os.environ["NEXTLINUX_CLI_URL"]
+>>>>>>> master
 
 # User and endpoint for most requests
 base_url = nextlinux_url

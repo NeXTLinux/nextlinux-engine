@@ -1,7 +1,11 @@
 import pytest
 
 from nextlinux_engine.db import FeedMetadata, session_scope
+<<<<<<< HEAD
+from nextlinux_engine.services.policy_engine.engine.feeds.feeds import GrypeDBFeed
+=======
 from nextlinux_engine.services.policy_engine.engine.feeds.feeds import GovulnersDBFeed
+>>>>>>> master
 from nextlinux_engine.services.policy_engine.engine.vulns import providers
 
 

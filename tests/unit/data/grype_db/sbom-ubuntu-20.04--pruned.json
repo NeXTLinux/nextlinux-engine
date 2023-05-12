@@ -261,6 +261,10 @@
   },
   "schema": {
     "version": "1.0.1",
+<<<<<<< HEAD
+    "url": "https://raw.githubusercontent.com/nextlinux/syft/main/schema/json/schema-1.0.1.json"
+=======
     "url": "https://raw.githubusercontent.com/nextlinux/gosbom/main/schema/json/schema-1.0.1.json"
+>>>>>>> master
   }
 }

@@ -116,7 +116,11 @@ class WsgiApiServiceMaker(object):
 
     service_cls = None
     tapname = None  # e.g. "nextlinux-api"
+<<<<<<< HEAD
+    description = None  # e.g. "Anchore Service"
+=======
     description = None  # e.g. "Nextlinux Service"
+>>>>>>> master
     options = CommonOptions
 
     def __init__(self, *args, **kwargs):

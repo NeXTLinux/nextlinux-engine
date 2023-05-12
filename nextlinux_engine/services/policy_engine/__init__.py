@@ -10,14 +10,23 @@ from sqlalchemy.exc import IntegrityError
 import nextlinux_engine.clients.services.common
 import nextlinux_engine.subsys.metrics
 import nextlinux_engine.subsys.servicestatus
+<<<<<<< HEAD
+from nextlinux_engine.clients.grype_wrapper import GrypeWrapperSingleton
+=======
 from nextlinux_engine.clients.govulners_wrapper import GovulnersWrapperSingleton
+>>>>>>> master
 from nextlinux_engine.clients.services import internal_client_for, simplequeue
 from nextlinux_engine.clients.services.simplequeue import SimpleQueueClient
 from nextlinux_engine.common.models.schemas import BatchImageVulnerabilitiesQueueMessage
 from nextlinux_engine.configuration import localconfig
 from nextlinux_engine.service import ApiService, LifeCycleStages
+<<<<<<< HEAD
+from nextlinux_engine.services.policy_engine.engine.feeds import (  # Import grypedb_sync so that class variables are initialized before twistd threads start
+    grypedb_sync,
+=======
 from nextlinux_engine.services.policy_engine.engine.feeds import (  # Import govulnersdb_sync so that class variables are initialized before twistd threads start
     govulnersdb_sync,
+>>>>>>> master
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.config import (
     get_provider_name,
@@ -344,7 +353,11 @@ def handle_govulnersdb_sync(*args, **kwargs):
     # import code in function so that it is not imported to all contexts that import policy engine
     # this is an issue caused by these handlers being declared within the __init__.py file
     # See https://github.com/nextlinux/nextlinux-engine/issues/991
+<<<<<<< HEAD
+    from nextlinux_engine.services.policy_engine.engine.tasks import GrypeDBSyncTask
+=======
     from nextlinux_engine.services.policy_engine.engine.tasks import GovulnersDBSyncTask
+>>>>>>> master
 
     logger.info("init args: {}".format(kwargs))
     cycle_time = kwargs["mythread"]["cycle_timer"]
@@ -353,7 +366,11 @@ def handle_govulnersdb_sync(*args, **kwargs):
         provider = get_provider_name(get_section_for_vulnerabilities())
         if provider == "govulners":  # TODO fix this
             try:
+<<<<<<< HEAD
+                GrypeDBSyncTask().execute()
+=======
                 GovulnersDBSyncTask().execute()
+>>>>>>> master
             # TODO narrow scope of exceptions in handlers. see https://github.com/nextlinux/nextlinux-engine/issues/1005
             except Exception:
                 logger.exception(

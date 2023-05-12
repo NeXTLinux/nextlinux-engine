@@ -17,14 +17,14 @@ from nextlinux_engine.twisted import CommonOptions, WsgiApiServiceMaker
 @implementer(IServiceMaker, IPlugin)
 class ExternalApiServiceMaker(WsgiApiServiceMaker):
     """
-    Nextlinux External API twistd plugin.
+    Anchore External API twistd plugin.
 
     Invoke with 'twistd nextlinux-api -c <config>'
 
     """
 
     tapname = "nextlinux-api"
-    description = "Nextlinux Engine External API Service. Provides the user-facing API."
+    description = "Anchore Engine External API Service. Provides the user-facing API."
     service_cls = ExternalApiService
     options = CommonOptions
 

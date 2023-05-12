@@ -18,7 +18,11 @@ else
     nextlinux_cli_commit="$(git ls-remote ${CLI_REPO} master | cut -f 1)"
 fi
 
+<<<<<<< HEAD
+print_colorized INFO "Building Anchore Engine image ${TEST_IMAGE_NAME}; installing nextlinux-cli from git@${nextlinux_cli_commit}."; echo
+=======
 print_colorized INFO "Building Nextlinux Engine image ${TEST_IMAGE_NAME}; installing nextlinux-cli from git@${nextlinux_cli_commit}."; echo
+>>>>>>> master
 
 if [[ ${CI:-false} == "true" ]]; then
   BUILD_CACHE_ARG="--no-cache"
@@ -26,6 +30,10 @@ else
   BUILD_CACHE_ARG=""
 fi
 
+<<<<<<< HEAD
+docker build ${BUILD_CACHE_ARG} --build-arg ANCHORE_COMMIT="${COMMIT_SHA}" --build-arg CLI_COMMIT="${nextlinux_cli_commit}" -t "${TEST_IMAGE_NAME}" -f ./Dockerfile .
+=======
 docker build ${BUILD_CACHE_ARG} --build-arg NEXTLINUX_COMMIT="${COMMIT_SHA}" --build-arg CLI_COMMIT="${nextlinux_cli_commit}" -t "${TEST_IMAGE_NAME}" -f ./Dockerfile .
+>>>>>>> master
 
 print_colorized INFO "Built Nextlinux Engine image ${TEST_IMAGE_NAME}."; echo

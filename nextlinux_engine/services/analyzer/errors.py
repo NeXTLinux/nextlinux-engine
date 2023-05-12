@@ -1,7 +1,11 @@
 """
 Exception types for the analyzer service
 """
+<<<<<<< HEAD
+from nextlinux_engine.utils import AnchoreException
+=======
 from nextlinux_engine.utils import NextlinuxException
+>>>>>>> master
 
 
 class ClientError(NextlinuxException):

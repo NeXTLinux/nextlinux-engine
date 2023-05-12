@@ -13,7 +13,11 @@ with open("requirements.txt") as f:
 
 setup(
     name="nextlinux_engine",
+<<<<<<< HEAD
+    author="Anchore Inc.",
+=======
     author="Nextlinux Inc.",
+>>>>>>> master
     author_email="dev@nextlinux.com",
     license="Apache License 2.0",
     description="Nextlinux Engine",

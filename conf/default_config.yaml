@@ -66,7 +66,11 @@ webhooks:
 default_admin_password: ${NEXTLINUX_ADMIN_PASSWORD}
 
 # Can be ommitted and will default to 'admin@mynextlinux'
+<<<<<<< HEAD
+default_admin_email: ${ANCHORE_ADMIN_EMAIL}
+=======
 default_admin_email: ${NEXTLINUX_ADMIN_EMAIL}
+>>>>>>> master
 
 credentials:
   database:
@@ -166,9 +170,15 @@ services:
       feed_sync_checker: 3600 # 1 hour between checks to see if there needs to be a task queued
       govulnersdb_sync: 60 # 1 minute between checks to verify local govulners-db is up to date
     vulnerabilities:
+<<<<<<< HEAD
+      # Available providers are legacy and grype. Legacy provider offers the same matching logic as previous versions of nextlinux-engine (<= 0.9.4)
+      # grype is a new provider that was introduced in 1.0.0, it uses the grype tool for all things vulnerabilities
+      provider: ${ANCHORE_VULNERABILITIES_PROVIDER}
+=======
       # Available providers are legacy and govulners. Legacy provider offers the same matching logic as previous versions of nextlinux-engine (<= 0.9.4)
       # govulners is a new provider that was introduced in 1.0.0, it uses the govulners tool for all things vulnerabilities
       provider: ${NEXTLINUX_VULNERABILITIES_PROVIDER}
+>>>>>>> master
       sync:
         enabled: ${NEXTLINUX_FEEDS_ENABLED}
         ssl_verify: ${NEXTLINUX_FEEDS_SSL_VERIFY}
@@ -188,7 +198,11 @@ services:
             url: ${NEXTLINUX_FEEDS_URL}
           github:
             enabled: true
+<<<<<<< HEAD
+            url: ${ANCHORE_FEEDS_URL}
+=======
             url: ${NEXTLINUX_FEEDS_URL}
+>>>>>>> master
           # VulnDB feed is available only in nextlinux-enterprise
           #vulndb:
           #  enabled: true

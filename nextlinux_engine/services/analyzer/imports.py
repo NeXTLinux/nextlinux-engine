@@ -2,7 +2,11 @@ import json
 import time
 
 import nextlinux_engine.clients.localnextlinux_standalone
+<<<<<<< HEAD
+from nextlinux_engine.analyzers.syft.adapters import FilteringEngineAdapter
+=======
 from nextlinux_engine.analyzers.gosbom.adapters import FilteringEngineAdapter
+>>>>>>> master
 from nextlinux_engine.analyzers.utils import merge_nested_dict
 from nextlinux_engine.clients.services import internal_client_for
 from nextlinux_engine.clients.services.catalog import CatalogClient
@@ -31,7 +35,11 @@ from nextlinux_engine.util.docker import (
     DockerV1ManifestMetadata,
     DockerV2ManifestMetadata,
 )
+<<<<<<< HEAD
+from nextlinux_engine.utils import AnchoreException
+=======
 from nextlinux_engine.utils import NextlinuxException
+>>>>>>> master
 
 from .tasks import WorkerTask
 

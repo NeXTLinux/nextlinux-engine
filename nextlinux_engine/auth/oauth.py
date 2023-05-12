@@ -16,8 +16,13 @@ from nextlinux_engine.configuration.localconfig import (
 from nextlinux_engine.subsys import logger
 from nextlinux_engine.utils import ensure_bytes
 
+<<<<<<< HEAD
+ANCHORE_ISSUER = "nextlinux-engine"
+ANCHORE_AUDIENCE = "nextlinux-engine"
+=======
 NEXTLINUX_ISSUER = "nextlinux-engine"
 NEXTLINUX_AUDIENCE = "nextlinux-engine"
+>>>>>>> master
 EXPIRATION_LEEWAY_SECONDS = 10
 SUPPORTED_ALGORITHMS = ["HS256", "HS512", "RS256", "RS512"]
 

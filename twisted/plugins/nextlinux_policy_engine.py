@@ -10,7 +10,7 @@ from nextlinux_engine.twisted import CommonOptions, WsgiApiServiceMaker
 @implementer(IServiceMaker, IPlugin)
 class PolicyEngineServiceMaker(WsgiApiServiceMaker):
     """
-    Nextlinux Engine Policy Engine twistd plugin.
+    Anchore Engine Policy Engine twistd plugin.
 
     Invoke with 'twistd nextlinux-policy-engine -c <config>'
 
@@ -18,7 +18,7 @@ class PolicyEngineServiceMaker(WsgiApiServiceMaker):
 
     tapname = "nextlinux-policy-engine"
     description = (
-        "Nextlinux Engine Policy Engine Service. Provides policy evaluation service."
+        "Anchore Engine Policy Engine Service. Provides policy evaluation service."
     )
     service_cls = PolicyEngineService
     options = CommonOptions

@@ -94,7 +94,11 @@ pkgs = {
         "type": "go",
         "version": "v1.4.0",
     },
+<<<<<<< HEAD
+    "/usr/local/bin/grype:github.com/nextlinux/go-rpmdb@v0.0.0-20210914181456-a9c52348da63": {
+=======
     "/usr/local/bin/govulners:github.com/nextlinux/go-rpmdb@v0.0.0-20210914181456-a9c52348da63": {
+>>>>>>> master
         "cpes": [
             "cpe:2.3:a:nextlinux:go-rpmdb:v0.0.0-20210914181456-a9c52348da63:*:*:*:*:*:*:*",
             "cpe:2.3:a:nextlinux:go_rpmdb:v0.0.0-20210914181456-a9c52348da63:*:*:*:*:*:*:*",
@@ -112,7 +116,11 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20210914181456-a9c52348da63",
     },
+<<<<<<< HEAD
+    "/usr/local/bin/grype:github.com/nextlinux/go-version@v1.2.2-0.20210903204242-51efa5b487c4": {
+=======
     "/usr/local/bin/govulners:github.com/nextlinux/go-version@v1.2.2-0.20210903204242-51efa5b487c4": {
+>>>>>>> master
         "cpes": [
             "cpe:2.3:a:nextlinux:go-version:v1.2.2-0.20210903204242-51efa5b487c4:*:*:*:*:*:*:*",
             "cpe:2.3:a:nextlinux:go_version:v1.2.2-0.20210903204242-51efa5b487c4:*:*:*:*:*:*:*",
@@ -130,7 +138,11 @@ pkgs = {
         "type": "go",
         "version": "v1.2.2-0.20210903204242-51efa5b487c4",
     },
+<<<<<<< HEAD
+    "/usr/local/bin/grype:github.com/nextlinux/packageurl-go@v0.0.0-20210922164639-b3fa992ebd29": {
+=======
     "/usr/local/bin/govulners:github.com/nextlinux/packageurl-go@v0.0.0-20210922164639-b3fa992ebd29": {
+>>>>>>> master
         "cpes": [
             "cpe:2.3:a:nextlinux:packageurl-go:v0.0.0-20210922164639-b3fa992ebd29:*:*:*:*:*:*:*",
             "cpe:2.3:a:nextlinux:packageurl_go:v0.0.0-20210922164639-b3fa992ebd29:*:*:*:*:*:*:*",
@@ -148,7 +160,11 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20210922164639-b3fa992ebd29",
     },
+<<<<<<< HEAD
+    "/usr/local/bin/grype:github.com/nextlinux/stereoscope@v0.0.0-20220110181730-c91cf94a3718": {
+=======
     "/usr/local/bin/govulners:github.com/nextlinux/stereoscope@v0.0.0-20220110181730-c91cf94a3718": {
+>>>>>>> master
         "cpes": [
             "cpe:2.3:a:nextlinux:stereoscope:v0.0.0-20220110181730-c91cf94a3718:*:*:*:*:*:*:*"
         ],
@@ -165,8 +181,13 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20220110181730-c91cf94a3718",
     },
+<<<<<<< HEAD
+    "/usr/local/bin/grype:github.com/nextlinux/syft@v0.36.0": {
+        "cpes": ["cpe:2.3:a:nextlinux:syft:v0.36.0:*:*:*:*:*:*:*"],
+=======
     "/usr/local/bin/govulners:github.com/nextlinux/gosbom@v0.36.0": {
         "cpes": ["cpe:2.3:a:nextlinux:gosbom:v0.36.0:*:*:*:*:*:*:*"],
+>>>>>>> master
         "files": [],
         "license": "N/A",
         "location": "/usr/local/bin/govulners",
@@ -175,7 +196,11 @@ pkgs = {
             "goCompiledVersion": "go1.16.13",
             "h1Digest": "h1:+uwTfkbnkgRnK4HOgQfxw59axlCKBqajG8vmRV17N+8=",
         },
+<<<<<<< HEAD
+        "name": "github.com/nextlinux/syft",
+=======
         "name": "github.com/nextlinux/gosbom",
+>>>>>>> master
         "origin": "N/A",
         "type": "go",
         "version": "v0.36.0",
@@ -1789,7 +1814,11 @@ pkgs = {
         "type": "go",
         "version": "v0.2.1",
     },
+<<<<<<< HEAD
+    "/usr/local/bin/syft:github.com/nextlinux/client-go@v0.0.0-20210222170800-9c70f9b80bcf": {
+=======
     "/usr/local/bin/gosbom:github.com/nextlinux/client-go@v0.0.0-20210222170800-9c70f9b80bcf": {
+>>>>>>> master
         "cpes": [
             "cpe:2.3:a:nextlinux:client-go:v0.0.0-20210222170800-9c70f9b80bcf:*:*:*:*:*:*:*",
             "cpe:2.3:a:nextlinux:client_go:v0.0.0-20210222170800-9c70f9b80bcf:*:*:*:*:*:*:*",
@@ -1807,7 +1836,11 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20210222170800-9c70f9b80bcf",
     },
+<<<<<<< HEAD
+    "/usr/local/bin/syft:github.com/nextlinux/go-rpmdb@v0.0.0-20210914181456-a9c52348da63": {
+=======
     "/usr/local/bin/gosbom:github.com/nextlinux/go-rpmdb@v0.0.0-20210914181456-a9c52348da63": {
+>>>>>>> master
         "cpes": [
             "cpe:2.3:a:nextlinux:go-rpmdb:v0.0.0-20210914181456-a9c52348da63:*:*:*:*:*:*:*",
             "cpe:2.3:a:nextlinux:go_rpmdb:v0.0.0-20210914181456-a9c52348da63:*:*:*:*:*:*:*",
@@ -1825,7 +1858,11 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20210914181456-a9c52348da63",
     },
+<<<<<<< HEAD
+    "/usr/local/bin/syft:github.com/nextlinux/go-version@v1.2.2-0.20200701162849-18adb9c92b9b": {
+=======
     "/usr/local/bin/gosbom:github.com/nextlinux/go-version@v1.2.2-0.20200701162849-18adb9c92b9b": {
+>>>>>>> master
         "cpes": [
             "cpe:2.3:a:nextlinux:go-version:v1.2.2-0.20200701162849-18adb9c92b9b:*:*:*:*:*:*:*",
             "cpe:2.3:a:nextlinux:go_version:v1.2.2-0.20200701162849-18adb9c92b9b:*:*:*:*:*:*:*",
@@ -1843,7 +1880,11 @@ pkgs = {
         "type": "go",
         "version": "v1.2.2-0.20200701162849-18adb9c92b9b",
     },
+<<<<<<< HEAD
+    "/usr/local/bin/syft:github.com/nextlinux/packageurl-go@v0.0.0-20210922164639-b3fa992ebd29": {
+=======
     "/usr/local/bin/gosbom:github.com/nextlinux/packageurl-go@v0.0.0-20210922164639-b3fa992ebd29": {
+>>>>>>> master
         "cpes": [
             "cpe:2.3:a:nextlinux:packageurl-go:v0.0.0-20210922164639-b3fa992ebd29:*:*:*:*:*:*:*",
             "cpe:2.3:a:nextlinux:packageurl_go:v0.0.0-20210922164639-b3fa992ebd29:*:*:*:*:*:*:*",
@@ -1861,7 +1902,11 @@ pkgs = {
         "type": "go",
         "version": "v0.0.0-20210922164639-b3fa992ebd29",
     },
+<<<<<<< HEAD
+    "/usr/local/bin/syft:github.com/nextlinux/stereoscope@v0.0.0-20220110181730-c91cf94a3718": {
+=======
     "/usr/local/bin/gosbom:github.com/nextlinux/stereoscope@v0.0.0-20220110181730-c91cf94a3718": {
+>>>>>>> master
         "cpes": [
             "cpe:2.3:a:nextlinux:stereoscope:v0.0.0-20220110181730-c91cf94a3718:*:*:*:*:*:*:*"
         ],

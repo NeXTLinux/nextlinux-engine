@@ -9,14 +9,14 @@ from nextlinux_engine.twisted import CommonOptions, WsgiApiServiceMaker
 @implementer(IServiceMaker, IPlugin)
 class CatalogServiceMaker(WsgiApiServiceMaker):
     """
-    Nextlinux Engine Catalog twistd plugin.
+    Anchore Engine Catalog twistd plugin.
 
     Invoke with 'twistd nextlinux-catalog -c <config>'
 
     """
 
     tapname = "nextlinux-catalog"
-    description = "Nextlinux Engine Catalog Service. Provides the core data model and document archive."
+    description = "Anchore Engine Catalog Service. Provides the core data model and document archive."
     service_cls = CatalogService
     options = CommonOptions
 

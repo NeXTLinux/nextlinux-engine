@@ -26,7 +26,11 @@ from nextlinux_engine.util.docker import (
     DockerV1ManifestMetadata,
     DockerV2ManifestMetadata,
 )
+<<<<<<< HEAD
+from nextlinux_engine.utils import AnchoreException
+=======
 from nextlinux_engine.utils import NextlinuxException
+>>>>>>> master
 
 nextlinuxlock = threading.Lock()
 nextlinuxlocks = {}
@@ -585,8 +589,13 @@ def make_staging_dirs(rootdir, use_cache_dir=None):
     # fact that Nextlinux Engine will not try to extract the hinstfile if it has
     # already been unpacked in the unpack directory.
     try:
+<<<<<<< HEAD
+        if os.environ.get("ANCHORE_TEST_HINTSFILE"):
+            test_hints = os.environ["ANCHORE_TEST_HINTSFILE"]
+=======
         if os.environ.get("NEXTLINUX_TEST_HINTSFILE"):
             test_hints = os.environ["NEXTLINUX_TEST_HINTSFILE"]
+>>>>>>> master
             destination = os.path.join(unpackdir, "nextlinux_hints.json")
             shutil.copyfile(test_hints, destination)
     except Exception as err:

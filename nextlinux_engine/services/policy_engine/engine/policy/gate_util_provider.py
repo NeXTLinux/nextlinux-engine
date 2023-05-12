@@ -3,9 +3,15 @@ from abc import ABC, abstractmethod
 from typing import Optional
 
 from nextlinux_engine.db import DistroNamespace, session_scope
+<<<<<<< HEAD
+from nextlinux_engine.db.db_grype_db_feed_metadata import (
+    NoActiveGrypeDB,
+    get_most_recent_active_grypedb,
+=======
 from nextlinux_engine.db.db_govulners_db_feed_metadata import (
     NoActiveGovulnersDB,
     get_most_recent_active_govulnersdb,
+>>>>>>> master
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.db import (
     get_feed_group_detached,

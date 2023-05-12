@@ -10,7 +10,11 @@ import ijson
 import requests
 import requests.exceptions
 
+<<<<<<< HEAD
+from nextlinux_engine.clients.grype_wrapper import GrypeWrapperSingleton
+=======
 from nextlinux_engine.clients.govulners_wrapper import GovulnersWrapperSingleton
+>>>>>>> master
 from nextlinux_engine.common.models.schemas import (
     FeedAPIGroupRecord,
     FeedAPIRecord,
@@ -26,7 +30,11 @@ from nextlinux_engine.services.policy_engine.engine.feeds.config import SyncConf
 from nextlinux_engine.subsys import logger
 from nextlinux_engine.util.time import rfc3339str_to_datetime
 from nextlinux_engine.utils import (
+<<<<<<< HEAD
+    AnchoreException,
+=======
     NextlinuxException,
+>>>>>>> master
     CommandException,
     ensure_bytes,
     ensure_str,

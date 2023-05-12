@@ -348,8 +348,13 @@ def read_config(configfile=None):
 
         try:
             nextlinux_envs = {}
+<<<<<<< HEAD
+            if "ANCHORE_ENV_FILE" in os.environ and os.path.exists(
+                os.environ["ANCHORE_ENV_FILE"]
+=======
             if "NEXTLINUX_ENV_FILE" in os.environ and os.path.exists(
                 os.environ["NEXTLINUX_ENV_FILE"]
+>>>>>>> master
             ):
                 try:
                     with open(os.environ["NEXTLINUX_ENV_FILE"], "r") as FH:
@@ -359,7 +364,11 @@ def read_config(configfile=None):
                             (k, v) = line.split("=", 1)
                             v = re.sub("^(\"|')+", "", v)
                             v = re.sub("(\"|')+$", "", v)
+<<<<<<< HEAD
+                            if re.match("^ANCHORE.*", k):
+=======
                             if re.match("^NEXTLINUX.*", k):
+>>>>>>> master
                                 nextlinux_envs[k] = str(v)
                         except Exception as err:
                             logger.warn(
@@ -370,7 +379,11 @@ def read_config(configfile=None):
                     raise err
 
             for e in list(os.environ.keys()):
+<<<<<<< HEAD
+                if re.match("^ANCHORE.*", e):
+=======
                 if re.match("^NEXTLINUX.*", e):
+>>>>>>> master
                     nextlinux_envs[e] = str(os.environ[e])
 
             if nextlinux_envs:

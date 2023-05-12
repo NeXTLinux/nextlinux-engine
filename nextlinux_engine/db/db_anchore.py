@@ -1,5 +1,9 @@
 from nextlinux_engine import db
+<<<<<<< HEAD
+from nextlinux_engine.db import Anchore
+=======
 from nextlinux_engine.db import Nextlinux
+>>>>>>> master
 
 # for the Nextlinux class/table
 

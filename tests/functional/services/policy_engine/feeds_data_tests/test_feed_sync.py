@@ -3,8 +3,13 @@ import os
 import pytest
 
 import tests.functional.services.policy_engine.utils.api as policy_engine_api
+<<<<<<< HEAD
+from nextlinux_engine.services.policy_engine.engine.feeds.feeds import GrypeDBFeed
+from nextlinux_engine.services.policy_engine.engine.vulns.providers import GrypeProvider
+=======
 from nextlinux_engine.services.policy_engine.engine.feeds.feeds import GovulnersDBFeed
 from nextlinux_engine.services.policy_engine.engine.vulns.providers import GovulnersProvider
+>>>>>>> master
 from tests.functional.services.policy_engine.conftest import (
     is_legacy_provider,
     read_expected_content,

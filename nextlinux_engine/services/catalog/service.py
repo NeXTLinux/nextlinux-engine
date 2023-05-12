@@ -60,7 +60,11 @@ from nextlinux_engine.subsys.object_store.config import (
     ALT_OBJECT_STORE_CONFIG_KEY,
     DEFAULT_OBJECT_STORE_MANAGER_ID,
 )
+<<<<<<< HEAD
+from nextlinux_engine.utils import AnchoreException, bytes_to_mb
+=======
 from nextlinux_engine.utils import NextlinuxException, bytes_to_mb
+>>>>>>> master
 
 MAX_DELETION_WORKERS = 1
 ##########################################################

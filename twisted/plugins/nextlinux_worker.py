@@ -10,14 +10,14 @@ from nextlinux_engine.twisted import CommonOptions, WsgiApiServiceMaker
 @implementer(IServiceMaker, IPlugin)
 class ExternalApiServiceMaker(WsgiApiServiceMaker):
     """
-    Nextlinux Engine Analyzer Worker twistd plugin.
+    Anchore Engine Analyzer Worker twistd plugin.
 
     Invoke with 'twistd nextlinux-worker -c <config>'
 
     """
 
     tapname = "nextlinux-worker"
-    description = "Nextlinux Engine Worker Service. Provides image analysis services."
+    description = "Anchore Engine Worker Service. Provides image analysis services."
     service_cls = AnalyzerService
     options = CommonOptions
 

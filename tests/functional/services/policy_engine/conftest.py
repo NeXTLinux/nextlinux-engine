@@ -146,7 +146,11 @@ def set_env_vars(monkeysession) -> None:
     """
     if not os.getenv("NEXTLINUX_TEST_DB_URL"):
         monkeysession.setenv(
+<<<<<<< HEAD
+            "ANCHORE_TEST_DB_URL",
+=======
             "NEXTLINUX_TEST_DB_URL",
+>>>>>>> master
             "postgresql://postgres:mysecretpassword@nextlinux-db:5432/postgres",
         )
 

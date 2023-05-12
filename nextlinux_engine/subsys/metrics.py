@@ -129,7 +129,11 @@ def init_flask_metrics(flask_app, export_defaults=True, **kwargs):
 
         flask_metrics.info(
             "nextlinux_service_info",
+<<<<<<< HEAD
+            "Anchore Service Static Information",
+=======
             "Nextlinux Service Static Information",
+>>>>>>> master
             version=version,
             **kwargs
         )

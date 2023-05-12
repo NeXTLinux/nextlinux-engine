@@ -9,7 +9,11 @@ info:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 #externalDocs:
+<<<<<<< HEAD
+#  description: "Anchore Engine"
+=======
 #  description: "Nextlinux Engine"
+>>>>>>> master
 #  url: "http://github.com/nextlinux/nextlinux-engine"
 tags:
   - name: Subscriptions
@@ -1123,7 +1127,11 @@ paths:
       x-swagger-router-controller: nextlinux_engine.services.apiext.api.controllers.images
       operationId: get_image_sbom_native
       x-nextlinux-authz-action: getImage
+<<<<<<< HEAD
+      summary: Get image sbom in the native Anchore format
+=======
       summary: Get image sbom in the native Nextlinux format
+>>>>>>> master
       produces:
         - application/gzip
       parameters:
@@ -1642,7 +1650,11 @@ paths:
             type: array
             description: List of Error Code Descriptions
             items:
+<<<<<<< HEAD
+              $ref: "#/definitions/AnchoreErrorCode"
+=======
               $ref: "#/definitions/NextlinuxErrorCode"
+>>>>>>> master
       x-swagger-router-controller: nextlinux_engine.services.apiext.api.controllers.system
   /event_types:
     get:
@@ -2629,7 +2641,11 @@ paths:
       x-swagger-router-controller: nextlinux_engine.services.apiext.api.controllers.image_imports
       operationId: create_operation
       x-nextlinux-authz-action: importImage
+<<<<<<< HEAD
+      summary: "Begin the import of an image analyzed by Syft into the system"
+=======
       summary: "Begin the import of an image analyzed by Gosbom into the system"
+>>>>>>> master
       produces:
         - "application/json"
       responses:
@@ -2726,7 +2742,11 @@ paths:
       x-swagger-router-controller: nextlinux_engine.services.apiext.api.controllers.image_imports
       operationId: import_image_packages
       x-nextlinux-authz-action: importImage
+<<<<<<< HEAD
+      summary: "Begin the import of an image analyzed by Syft into the system"
+=======
       summary: "Begin the import of an image analyzed by Gosbom into the system"
+>>>>>>> master
       produces:
         - "application/json"
       consumes:
@@ -2776,7 +2796,11 @@ paths:
       x-swagger-router-controller: nextlinux_engine.services.apiext.api.controllers.image_imports
       operationId: import_image_dockerfile
       x-nextlinux-authz-action: importImage
+<<<<<<< HEAD
+      summary: "Begin the import of an image analyzed by Syft into the system"
+=======
       summary: "Begin the import of an image analyzed by Gosbom into the system"
+>>>>>>> master
       produces:
         - "application/json"
       consumes:

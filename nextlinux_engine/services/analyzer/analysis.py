@@ -30,7 +30,11 @@ from nextlinux_engine.subsys.events.util import (
     analysis_complete_notification_factory,
     fulltag_from_detail,
 )
+<<<<<<< HEAD
+from nextlinux_engine.utils import AnchoreException
+=======
 from nextlinux_engine.utils import NextlinuxException
+>>>>>>> master
 
 ANALYSIS_TIME_SECONDS_BUCKETS = [
     1.0,

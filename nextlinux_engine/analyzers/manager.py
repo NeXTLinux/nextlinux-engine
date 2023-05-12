@@ -6,7 +6,11 @@ import re
 from pkg_resources import resource_filename
 
 import nextlinux_engine.utils
+<<<<<<< HEAD
+from nextlinux_engine.analyzers import binary, hints, syft, utils
+=======
 from nextlinux_engine.analyzers import binary, hints, gosbom, utils
+>>>>>>> master
 from nextlinux_engine.analyzers.hints import HintsTypeError
 from nextlinux_engine.configuration.localconfig import analyzer_paths
 from nextlinux_engine.subsys import logger

@@ -1581,7 +1581,11 @@ def get_image_sbom_native(imageDigest: str):
     GET /images/{digest}/sboms/native
 
     :param imageDigest:
+<<<<<<< HEAD
+    :return: A native nextlinux (syft) formatted sbom for the image
+=======
     :return: A native nextlinux (gosbom) formatted sbom for the image
+>>>>>>> master
     """
 
     account = ApiRequestContextProxy.namespace()

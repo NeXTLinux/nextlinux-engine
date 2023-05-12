@@ -3,7 +3,11 @@ ARG BASE_IMAGE=ubi8/ubi
 ARG BASE_TAG=8.5
 
 #### Start first stage
+<<<<<<< HEAD
+#### Anchore wheels, binary dependencies, etc. are staged to /build_output for second stage
+=======
 #### Nextlinux wheels, binary dependencies, etc. are staged to /build_output for second stage
+>>>>>>> master
 FROM ${BASE_REGISTRY}/${BASE_IMAGE}:${BASE_TAG} as nextlinux-engine-builder
 
 ARG CLI_COMMIT
@@ -58,12 +62,21 @@ RUN set -ex && \
     pip3 wheel --wheel-dir=/build_output/cli_wheels/ git+https://github.com/nextlinux/nextlinux-cli.git@"${CLI_COMMIT}"\#egg=nextlinuxcli
 
 RUN set -exo pipefail && \
+<<<<<<< HEAD
+    echo "downloading Syft" && \
+    curl -sSfL https://raw.githubusercontent.com/nextlinux/syft/main/install.sh | sh -s -- -b /build_output/deps "${SYFT_VERSION}"
+
+RUN set -exo pipefail && \
+    echo "downloading Grype" && \
+    curl -sSfL https://raw.githubusercontent.com/nextlinux/grype/main/install.sh | sh -s -- -b /build_output/deps "${GRYPE_VERSION}"
+=======
     echo "downloading Gosbom" && \
     curl -sSfL https://raw.githubusercontent.com/nextlinux/gosbom/main/install.sh | sh -s -- -b /build_output/deps "${GOSBOM_VERSION}"
 
 RUN set -exo pipefail && \
     echo "downloading Govulners" && \
     curl -sSfL https://raw.githubusercontent.com/nextlinux/govulners/main/install.sh | sh -s -- -b /build_output/deps "${GOVULNERS_VERSION}"
+>>>>>>> master
 
 COPY . /buildsource
 WORKDIR /buildsource
@@ -92,6 +105,16 @@ ARG NEXTLINUX_ENGINE_RELEASE="r0"
 
 # Container metadata section
 LABEL nextlinux_cli_commit="${CLI_COMMIT}" \
+<<<<<<< HEAD
+      nextlinux_commit="${ANCHORE_COMMIT}" \
+      name="nextlinux-engine" \
+      maintainer="dev@nextlinux.com" \
+      vendor="Anchore Inc." \
+      version="${ANCHORE_ENGINE_VERSION}" \
+      release="${ANCHORE_ENGINE_RELEASE}" \
+      summary="Anchore Engine - container image scanning service for policy-based security, best-practice and compliance enforcement." \
+      description="Anchore is an open platform for container security and compliance that allows developers, operations, and security teams to discover, analyze, and certify container images on-premises or in the cloud. Anchore Engine is the on-prem, OSS, API accessible service that allows ops and developers to perform detailed analysis, run queries, produce reports and define policies on container images that can be used in CI/CD pipelines to ensure that only containers that meet your organization’s requirements are deployed into production."
+=======
     nextlinux_commit="${NEXTLINUX_COMMIT}" \
     name="nextlinux-engine" \
     maintainer="dev@nextlinux.com" \
@@ -100,6 +123,7 @@ LABEL nextlinux_cli_commit="${CLI_COMMIT}" \
     release="${NEXTLINUX_ENGINE_RELEASE}" \
     summary="Nextlinux Engine - container image scanning service for policy-based security, best-practice and compliance enforcement." \
     description="Nextlinux is an open platform for container security and compliance that allows developers, operations, and security teams to discover, analyze, and certify container images on-premises or in the cloud. Nextlinux Engine is the on-prem, OSS, API accessible service that allows ops and developers to perform detailed analysis, run queries, produce reports and define policies on container images that can be used in CI/CD pipelines to ensure that only containers that meet your organization’s requirements are deployed into production."
+>>>>>>> master
 
 # Environment variables to be present in running environment
 ENV AUTHLIB_INSECURE_TRANSPORT=true
@@ -109,6 +133,52 @@ ENV PATH="${PATH}:/nextlinux-cli/bin"
 ENV SET_HOSTID_TO_HOSTNAME=false
 
 # Default values overrideable at runtime of the container
+<<<<<<< HEAD
+ENV ANCHORE_ADMIN_EMAIL=admin@mynextlinux \
+    ANCHORE_ADMIN_PASSWORD=null \
+    ANCHORE_AUTH_ENABLE_HASHED_PASSWORDS=false \
+    ANCHORE_AUTH_PRIVKEY=null \
+    ANCHORE_AUTH_PUBKEY=null \
+    ANCHORE_AUTH_SECRET=null \
+    ANCHORE_AUTHZ_HANDLER=native \
+    ANCHORE_CATALOG_NOTIFICATION_INTERVAL_SEC=30 \
+    ANCHORE_CLI_PASS=foobar \
+    ANCHORE_CLI_USER=admin \
+    ANCHORE_CLI_URL="http://localhost:8228" \
+    ANCHORE_CONFIG_DIR=/config \
+    ANCHORE_DB_NAME=postgres \
+    ANCHORE_DB_PORT=5432 \
+    ANCHORE_DB_USER=postgres \
+    ANCHORE_DISABLE_METRICS_AUTH=false \
+    ANCHORE_ENABLE_METRICS=false \
+    ANCHORE_ENABLE_PACKAGE_FILTERING="true" \
+    ANCHORE_ENDPOINT_HOSTNAME=localhost \
+    ANCHORE_EVENTS_NOTIFICATIONS_ENABLED=false \
+    ANCHORE_EXTERNAL_AUTHZ_ENDPOINT=null \
+    ANCHORE_EXTERNAL_PORT=null \
+    ANCHORE_EXTERNAL_TLS=false \
+    ANCHORE_FEEDS_CLIENT_URL="https://ancho.re/v1/account/users" \
+    ANCHORE_FEEDS_ENABLED=true \
+    ANCHORE_FEEDS_SSL_VERIFY=true \
+    ANCHORE_FEED_SYNC_INTERVAL_SEC=21600 \
+    ANCHORE_FEEDS_TOKEN_URL="https://ancho.re/oauth/token" \
+    ANCHORE_FEEDS_URL="https://ancho.re/v1/service/feeds" \
+    ANCHORE_GLOBAL_CLIENT_CONNECT_TIMEOUT=0 \
+    ANCHORE_GLOBAL_CLIENT_READ_TIMEOUT=0 \
+    ANCHORE_GLOBAL_SERVER_REQUEST_TIMEOUT_SEC=180 \
+    ANCHORE_GRYPE_DB_URL="https://toolbox-data.nextlinux.io/grype/databases/listing.json" \
+    ANCHORE_HINTS_ENABLED=false \
+    ANCHORE_HOST_ID="nextlinux-quickstart" \
+    ANCHORE_INTERNAL_SSL_VERIFY=false \
+    ANCHORE_LOG_LEVEL=INFO \
+    ANCHORE_MAX_COMPRESSED_IMAGE_SIZE_MB=-1 \
+    ANCHORE_OAUTH_ENABLED=false \
+    ANCHORE_OAUTH_TOKEN_EXPIRATION=3600 \
+    ANCHORE_SERVICE_DIR=/nextlinux_service \
+    ANCHORE_SERVICE_PORT=8228 \
+    ANCHORE_VULNERABILITIES_PROVIDER=null \
+    ANCHORE_WEBHOOK_DESTINATION_URL=null
+=======
 ENV NEXTLINUX_ADMIN_EMAIL=admin@mynextlinux \
     NEXTLINUX_ADMIN_PASSWORD=null \
     NEXTLINUX_AUTH_ENABLE_HASHED_PASSWORDS=false \
@@ -153,6 +223,7 @@ ENV NEXTLINUX_ADMIN_EMAIL=admin@mynextlinux \
     NEXTLINUX_SERVICE_PORT=8228 \
     NEXTLINUX_VULNERABILITIES_PROVIDER=null \
     NEXTLINUX_WEBHOOK_DESTINATION_URL=null
+>>>>>>> master
 
 #### Perform OS setup
 
@@ -161,6 +232,37 @@ RUN set -ex && \
     groupadd --gid 1000 nextlinux && \
     useradd --uid 1000 --gid nextlinux --shell /bin/bash --create-home nextlinux && \
     mkdir -p \
+<<<<<<< HEAD
+        /analysis_scratch \
+        "${ANCHORE_SERVICE_DIR}"/bundles \
+        /config \
+        /home/nextlinux/clamav/db \
+        /licenses \
+        /var/log/nextlinux \
+        /var/run/nextlinux \
+        /workspace \
+        /workspace_preload && \
+    chown -R 1000:0 \
+        /analysis_scratch \
+        "${ANCHORE_SERVICE_DIR}" \
+        /config \
+        /home/nextlinux \
+        /licenses \
+        /var/log/nextlinux \
+        /var/run/nextlinux \
+        /workspace \
+        /workspace_preload && \
+    chmod -R g+rwX \
+        /analysis_scratch \
+        "${ANCHORE_SERVICE_DIR}" \
+        /config \
+        /home/nextlinux \
+        /licenses \
+        /var/log/nextlinux \
+        /var/run/nextlinux \
+        /workspace \
+        /workspace_preload
+=======
     /analysis_scratch \
     "${NEXTLINUX_SERVICE_DIR}"/bundles \
     /config \
@@ -190,6 +292,7 @@ RUN set -ex && \
     /var/run/nextlinux \
     /workspace \
     /workspace_preload
+>>>>>>> master
 
 # Install build dependencies
 RUN set -ex && \

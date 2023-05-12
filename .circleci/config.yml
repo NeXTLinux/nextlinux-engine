@@ -67,7 +67,11 @@ parameters:
 # Start circleci configuration
 version: 2.1
 orbs:
+<<<<<<< HEAD
+  grype: nextlinux/grype@0.2.0
+=======
   govulners: nextlinux/govulners@0.2.0
+>>>>>>> master
   slack: circleci/slack@4.5
 
 commands:
@@ -219,8 +223,13 @@ jobs:
       image: ubuntu-2004:202201-02
     environment:
       <<: *global_environment_vars
+<<<<<<< HEAD
+      ANCHORE_TEST_DOCKER_REGISTRY_USER: nextlinux
+      ANCHORE_TEST_DOCKER_REGISTRY_PASS: foobar
+=======
       NEXTLINUX_TEST_DOCKER_REGISTRY_USER: nextlinux
       NEXTLINUX_TEST_DOCKER_REGISTRY_PASS: foobar
+>>>>>>> master
     steps:
       - checkout
       - <<: *attach_workspace

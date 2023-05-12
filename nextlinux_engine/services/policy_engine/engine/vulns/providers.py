@@ -35,9 +35,15 @@ from nextlinux_engine.db import ImageVulnerabilitiesReport as DBImageVulnerabili
 from nextlinux_engine.db import VulnDBCpe, VulnDBMetadata, Vulnerability
 from nextlinux_engine.db import get_thread_scoped_session as get_session
 from nextlinux_engine.db import select_nvd_classes, session_scope
+<<<<<<< HEAD
+from nextlinux_engine.db.db_grype_db_feed_metadata import (
+    NoActiveGrypeDB,
+    get_most_recent_active_grypedb,
+=======
 from nextlinux_engine.db.db_govulners_db_feed_metadata import (
     NoActiveGovulnersDB,
     get_most_recent_active_govulnersdb,
+>>>>>>> master
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.config import (
     SyncConfig,
@@ -50,12 +56,20 @@ from nextlinux_engine.services.policy_engine.engine.feeds.db import (
     set_feed_enabled,
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.feeds import (
+<<<<<<< HEAD
+    GrypeDBFeed,
+=======
     GovulnersDBFeed,
+>>>>>>> master
     have_vulnerabilities_for,
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.sync import DataFeeds
 from nextlinux_engine.services.policy_engine.engine.feeds.sync_utils import (
+<<<<<<< HEAD
+    GrypeDBSyncUtilProvider,
+=======
     GovulnersDBSyncUtilProvider,
+>>>>>>> master
     LegacySyncUtilProvider,
     SyncUtilProvider,
 )
@@ -77,10 +91,17 @@ from nextlinux_engine.services.policy_engine.engine.vulns.feed_display_mapper im
     FeedDisplayMapper,
 )
 from nextlinux_engine.services.policy_engine.engine.vulns.mappers import (
+<<<<<<< HEAD
+    EngineGrypeDBMapper,
+)
+from nextlinux_engine.services.policy_engine.engine.vulns.scanners import (
+    GrypeScanner,
+=======
     EngineGovulnersDBMapper,
 )
 from nextlinux_engine.services.policy_engine.engine.vulns.scanners import (
     GovulnersScanner,
+>>>>>>> master
     LegacyScanner,
 )
 from nextlinux_engine.services.policy_engine.engine.vulns.stores import (
@@ -1095,7 +1116,11 @@ class GovulnersProvider(VulnerabilitiesProvider):
     __default_sync_config__ = {
         "govulnersdb": SyncConfig(
             enabled=True,
+<<<<<<< HEAD
+            url="https://toolbox-data.nextlinux.io/grype/databases/listing.json",
+=======
             url="https://toolbox-data.next-linux.systems/govulners/databases/listing.json",
+>>>>>>> master
         ),
         "packages": SyncConfig(enabled=False, url="https://ancho.re/v1/service/feeds"),
     }

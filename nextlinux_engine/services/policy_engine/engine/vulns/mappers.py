@@ -4,7 +4,11 @@ import re
 import uuid
 from typing import Dict, List, Optional
 
+<<<<<<< HEAD
+from nextlinux_engine.clients.grype_wrapper import GrypeVulnerabilityMetadata
+=======
 from nextlinux_engine.clients.govulners_wrapper import GovulnersVulnerabilityMetadata
+>>>>>>> master
 from nextlinux_engine.common import nonos_package_types
 from nextlinux_engine.common.models.policy_engine import (
     CVSS,
@@ -108,8 +112,13 @@ class RpmMapper(LinuxDistroPackageMapper):
         """
         Adds the source package information to govulners sbom
 
+<<<<<<< HEAD
+        Source package has been through a transformation before this point - from syft sbom to analyzer manifest
+        in nextlinux_engine/analyzers/syft/handlers/rpm.py. Fortunately the value remains unchanged and does not require
+=======
         Source package has been through a transformation before this point - from gosbom sbom to analyzer manifest
         in nextlinux_engine/analyzers/gosbom/handlers/rpm.py. Fortunately the value remains unchanged and does not require
+>>>>>>> master
         additional processing
 
         """
@@ -154,8 +163,13 @@ class DpkgMapper(LinuxDistroPackageMapper):
         """
         Adds the source package information to govulners sbom
 
+<<<<<<< HEAD
+        Source package has already been through a transformations before this point - from syft sbom to analyzer manifest
+        in nextlinux_engine/analyzers/syft/handlers/debian.py. Fortunately the value remains unchanged and does not require
+=======
         Source package has already been through a transformations before this point - from gosbom sbom to analyzer manifest
         in nextlinux_engine/analyzers/gosbom/handlers/debian.py. Fortunately the value remains unchanged and does not require
+>>>>>>> master
         additional processing
 
         """
@@ -175,8 +189,13 @@ class ApkgMapper(LinuxDistroPackageMapper):
         """
         Adds the origin package information to govulners sbom
 
+<<<<<<< HEAD
+        Origin package has already been through a transformations before this point - from syft sbom to analyzer manifest
+        in nextlinux_engine/analyzers/syft/handlers/alpine.py. Fortunately the value remains unchanged and does not require
+=======
         Origin package has already been through a transformations before this point - from gosbom sbom to analyzer manifest
         in nextlinux_engine/analyzers/gosbom/handlers/alpine.py. Fortunately the value remains unchanged and does not require
+>>>>>>> master
         additional processing
         """
 
@@ -620,7 +639,11 @@ def image_content_to_govulners_sbom(image: Image, image_content_map: Dict) -> Di
     # not refactoring since use of source sbom will make this transformation moot
     sbom["schema"] = {
         "version": "1.1.0",
+<<<<<<< HEAD
+        "url": "https://raw.githubusercontent.com/nextlinux/syft/main/schema/json/schema-1.1.0.json",
+=======
         "url": "https://raw.githubusercontent.com/nextlinux/gosbom/main/schema/json/schema-1.1.0.json",
+>>>>>>> master
     }
 
     # set the distro information

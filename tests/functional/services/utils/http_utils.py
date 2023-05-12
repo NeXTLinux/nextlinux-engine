@@ -82,7 +82,11 @@ def build_url(path_parts, config):
 
 def get_headers(config, content_type_override=None):
     headers = content_type_override or CONTENT_TYPE_HEADER
+<<<<<<< HEAD
+    headers["x-nextlinux-account"] = config["ANCHORE_API_ACCOUNT"]
+=======
     headers["x-nextlinux-account"] = config["NEXTLINUX_API_ACCOUNT"]
+>>>>>>> master
     return headers
 
 

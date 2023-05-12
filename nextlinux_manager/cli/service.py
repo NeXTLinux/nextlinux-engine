@@ -29,7 +29,11 @@ service_map = {
 }
 
 
+<<<<<<< HEAD
+class AnchoreLogWatcher(RegexMatchingEventHandler):
+=======
 class NextlinuxLogWatcher(RegexMatchingEventHandler):
+>>>>>>> master
     regexes = [re.compile(".*/nextlinux-.*\.log$")]
     files = {}
 
@@ -168,7 +172,11 @@ def terminate_service(service, flush_pidfile=False):
 def startup_service(service, configdir):
     pidfile = "/var/run/nextlinux/" + service + ".pid"
     logfile = "/var/log/nextlinux/" + service + ".log"
+<<<<<<< HEAD
+    # os.environ['ANCHORE_LOGFILE'] = logfile
+=======
     # os.environ['NEXTLINUX_LOGFILE'] = logfile
+>>>>>>> master
 
     logger.info("cleaning up service: {}".format(str(service)))
     terminate_service(service, flush_pidfile=True)
@@ -448,7 +456,11 @@ def start(
                     + ") but we discovered nextlinux DB version ("
                     + str(db_versions["db_version"])
                     + ") in the running DB - please perform the DB upgrade process and retry\n"
+<<<<<<< HEAD
+                    "See: https://engine.nextlinux.io/docs/install/upgrade/#advanced--manual-upgrade-procedure"
+=======
                     "See: https://engine.next-linux.systems/docs/install/upgrade/#advanced--manual-upgrade-procedure"
+>>>>>>> master
                 )
 
         except Exception as err:
@@ -535,7 +547,11 @@ def start(
             # start up the log watchers
             try:
                 observer = Observer()
+<<<<<<< HEAD
+                observer.schedule(AnchoreLogWatcher(), path="/var/log/nextlinux/")
+=======
                 observer.schedule(NextlinuxLogWatcher(), path="/var/log/nextlinux/")
+>>>>>>> master
                 observer.start()
 
                 try:

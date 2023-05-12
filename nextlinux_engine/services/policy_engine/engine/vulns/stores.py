@@ -6,9 +6,15 @@ import retrying
 from nextlinux_engine.common.models.policy_engine import ImageVulnerabilitiesReport
 from nextlinux_engine.db import Image
 from nextlinux_engine.db import ImageVulnerabilitiesReport as DbImageVulnerabilities
+<<<<<<< HEAD
+from nextlinux_engine.db.db_grype_db_feed_metadata import (
+    NoActiveGrypeDB,
+    get_most_recent_active_grypedb,
+=======
 from nextlinux_engine.db.db_govulners_db_feed_metadata import (
     NoActiveGovulnersDB,
     get_most_recent_active_govulnersdb,
+>>>>>>> master
 )
 from nextlinux_engine.subsys import logger
 

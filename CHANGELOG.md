@@ -22,9 +22,15 @@ Engine v1.0.1 fixes some bugs that arose from 1.0.0
 
 ### Changes
 + Fixed - policy-engine feeds failing for GitHub group due to a constraint violation
+<<<<<<< HEAD
++ Fixed - Upgrade to Syft v0.26.0 fixed issue in analysis caused by unexpected python package format 
++ Fixed - Content hints now correctly use '*' for vendor field instead of '-' in generated cpes. Fixes [#1279](https://github.com/nextlinux/nextlinux-engine/issues/1279).
++ Fixed - Syft invocation during image analysis uses analyzer unpack directory configured in engine as opposed to OS default temp directory
+=======
 + Fixed - Upgrade to Gosbom v0.26.0 fixed issue in analysis caused by unexpected python package format 
 + Fixed - Content hints now correctly use '*' for vendor field instead of '-' in generated cpes. Fixes [#1279](https://github.com/nextlinux/nextlinux-engine/issues/1279).
 + Fixed - Gosbom invocation during image analysis uses analyzer unpack directory configured in engine as opposed to OS default temp directory
+>>>>>>> master
 
 
 ## 1.0.0
@@ -38,7 +44,11 @@ also improves the scanning results and API consistency when using the "govulners
 and will be removed in a future release. Current deployments and upgrades will not automatically convert to the new provider, so 
 please update your configurations and templates to use the new Govulners provider.
 
+<<<<<<< HEAD
+See the [documentation](https://engine.nextlinux.io/docs/releasenotes/) for more information on the transition process and upgrade options.
+=======
 See the [documentation](https://engine.next-linux.systems/docs/releasenotes/) for more information on the transition process and upgrade options.
+>>>>>>> master
 
 ### Deprecations
 
@@ -101,14 +111,24 @@ This release contains a database schema update. There are no data migrations, on
 
 ### Configurable Vulnerability Providers
 
+<<<<<<< HEAD
+0.10.0 is a significant release for Engine as it now has both [Syft](https://github.com/nextlinux/syft) and [Grype](https://github.com/nextlinux/grype) 
+integrations in place to move to a unified vulnerability scanning core across local tools as well as stateful Engine services. 
+This release adds [Grype](https://github.com/nextlinux/grype) integration as a new vulnerability scanning option in the policy 
+=======
 0.10.0 is a significant release for Engine as it now has both [Gosbom](https://github.com/nextlinux/gosbom) and [Govulners](https://github.com/nextlinux/govulners) 
 integrations in place to move to a unified vulnerability scanning core across local tools as well as stateful Engine services. 
 This release adds [Govulners](https://github.com/nextlinux/govulners) integration as a new vulnerability scanning option in the policy 
+>>>>>>> master
 engine. There is now a configuration option for specifying a vulnerability scanning provider in the policy engine service 
 configuration. The legacy provider (non-Govulners) is the default to ensure smooth upgrades and allow operators to choose when to make the switch.
 The new Govulners provider syncs vulnerability data from the same upstream sources as Engine, but uses the Govulners DB update mechanism 
 to achieve much faster feed updates, and no longer uses the https://ancho.re endpoint for retrieving data. See 
+<<<<<<< HEAD
+[Release Notes](https://engine.nextlinux.io/docs/releasenotes/0100) for more information and links on Grype mode.
+=======
 [Release Notes](https://engine.next-linux.systems/docs/releasenotes/0100) for more information and links on Govulners mode.
+>>>>>>> master
 
 Note:
 - Govulners mode is a beta release and not recommended for production use, but we encourage feedback and use in dev environments.
@@ -161,8 +181,13 @@ The vulnerability provider is now configurable in the `policy_engine` service co
 
 ## 0.9.3
 
+<<<<<<< HEAD
++ Fixed - Fixes issue where java artifacts are not being matched against records from GHSA feed - synthesize pom properties contents in syft mapper.  Fixes #950
++ Fixed - Updates syft to 0.14.0 to fix missing java elements from image SBOM, for embedded java artifacts combined with malformed pom.properties metadata (see https://github.com/nextlinux/syft Issue #349)
+=======
 + Fixed - Fixes issue where java artifacts are not being matched against records from GHSA feed - synthesize pom properties contents in gosbom mapper.  Fixes #950
 + Fixed - Updates gosbom to 0.14.0 to fix missing java elements from image SBOM, for embedded java artifacts combined with malformed pom.properties metadata (see https://github.com/nextlinux/gosbom Issue #349)
+>>>>>>> master
 
 ## 0.9.2
 
@@ -208,7 +233,11 @@ policy engine.
 + Added - Support for analysis archive rules to trigger based on total number of images in each account. Fixes #700
 + Added - Exclusion filters for analysis archive rules. Fixes #699
 + Added - Ability to exclude paths from vulnerability.packages rules using path regex. Fixes #229
+<<<<<<< HEAD
++ Added - Integrates new Syft tool (https://github.com/nextlinux/syft) as package bill of materials analyzer. Fixes #679, #685, #682
+=======
 + Added - Integrates new Gosbom tool (https://github.com/nextlinux/gosbom) as package bill of materials analyzer. Fixes #679, #685, #682
+>>>>>>> master
 + Added - Ability to set an expiration for individual whitelist rules. Fixes #178, 
 + Added - Ability to test webhook delivery via API call and provide schemas for webhook payloads. Fixes #489, #490
 + Added - Success and error counters in prometheus metrics exported by analyzers ("nextlinux_analysis_success" and "nextlinux_analysis_error")  
@@ -514,7 +543,11 @@ NOTE: For users upgrading from 0.2.X to 0.3.X, please note that the upgrade proc
   + Information about internal processes like vulnerability feed sync start and end events
   + Troubleshooting information on image and repository watcher failures
   + Troubleshooting information about distributed nextlinux-engine services orphaned due to network connectivity or other issues
+<<<<<<< HEAD
+  + Details about policy sync failures from nextlinux.io if the automatic policy sync is turned on in the config
+=======
   + Details about policy sync failures from next-linux.systems if the automatic policy sync is turned on in the config
+>>>>>>> master
   + Troubleshooting information that presents details when other asynchronous engine operations experience failures
 + Improved java artifact analysis - Add support for scanning Jenkins plugins. This adds the file extension ".hpi" and ".jpi" to the list of recognized Java library filenames. (contributed by Matt Sicker <boards@gmail.com>)
 + Improved 'metadata' content implementation for handling the addition of dockerfile contents after an image has already been added

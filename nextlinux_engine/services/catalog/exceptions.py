@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+from nextlinux_engine.utils import AnchoreException
+=======
 from nextlinux_engine.utils import NextlinuxException
+>>>>>>> master
 
 
 class TagManifestParseError(NextlinuxException):

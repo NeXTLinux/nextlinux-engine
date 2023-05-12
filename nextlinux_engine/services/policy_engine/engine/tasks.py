@@ -29,8 +29,13 @@ from nextlinux_engine.services.policy_engine.engine.feeds.config import (
     get_section_for_vulnerabilities,
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.feeds import FeedSyncResult
+<<<<<<< HEAD
+from nextlinux_engine.services.policy_engine.engine.feeds.grypedb_sync import (
+    GrypeDBSyncManager,
+=======
 from nextlinux_engine.services.policy_engine.engine.feeds.govulnersdb_sync import (
     GovulnersDBSyncManager,
+>>>>>>> master
     NoActiveDBSyncError,
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.sync import (
@@ -39,7 +44,11 @@ from nextlinux_engine.services.policy_engine.engine.feeds.sync import (
 )
 from nextlinux_engine.services.policy_engine.engine.loaders import ImageLoader
 from nextlinux_engine.services.policy_engine.engine.vulns.providers import (
+<<<<<<< HEAD
+    GrypeProvider,
+=======
     GovulnersProvider,
+>>>>>>> master
     LegacyProvider,
     get_vulnerabilities_provider,
 )

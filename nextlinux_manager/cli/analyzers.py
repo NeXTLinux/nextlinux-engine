@@ -97,7 +97,11 @@ def exec(
     Analyze a local image stored as a docker archive (output result of 'docker save'), and generate an nextlinux image archive tarball ready for import into an nextlinux engine.
 
     DOCKER_ARCHIVE : Location of input docker archive tarfile to analyze
+<<<<<<< HEAD
+    ANCHORE_ARCHIVE : Location of output nextlinux image archive to write
+=======
     NEXTLINUX_ARCHIVE : Location of output nextlinux image archive to write
+>>>>>>> master
 
     """
 

@@ -9,7 +9,11 @@ from typing import Dict, List, Tuple, Union
 
 from sqlalchemy.orm.session import Session
 
+<<<<<<< HEAD
+from nextlinux_engine.clients.grype_wrapper import GrypeWrapperSingleton
+=======
 from nextlinux_engine.clients.govulners_wrapper import GovulnersWrapperSingleton
+>>>>>>> master
 from nextlinux_engine.clients.services import internal_client_for
 from nextlinux_engine.clients.services.catalog import CatalogClient
 from nextlinux_engine.common import nonos_package_types
@@ -27,8 +31,13 @@ from nextlinux_engine.db.entities.policy_engine import (
     NvdV2Metadata,
 )
 from nextlinux_engine.services.policy_engine.engine import vulnerabilities
+<<<<<<< HEAD
+from nextlinux_engine.services.policy_engine.engine.feeds.grypedb_sync import (
+    GrypeDBSyncManager,
+=======
 from nextlinux_engine.services.policy_engine.engine.feeds.govulnersdb_sync import (
     GovulnersDBSyncManager,
+>>>>>>> master
     NoActiveDBSyncError,
 )
 from nextlinux_engine.subsys import logger
