@@ -1,8 +1,14 @@
 swagger: "2.0"
 info:
+<<<<<<< HEAD:nextlinux_engine/services/apiext/swagger/swagger.yaml
   description: "This is the Nextlinux Engine API. Provides the primary external API for users of the service."
   version: "0.1.15"
   title: "Nextlinux Engine API Server"
+=======
+  description: "This is the Nextlinux Engine API. Provides the primary external API for users of the service."
+  version: "0.1.16"
+  title: "Nextlinux Engine API Server"
+>>>>>>> 6db48a19 (Merge v0.9.0 (#830)):nextlinux_engine/services/apiext/swagger/swagger.yaml
   contact:
     email: "connect@next-linux.systems"
   license:

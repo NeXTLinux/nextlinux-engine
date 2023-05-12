@@ -12,7 +12,7 @@ def save_entry(findings, engine_entry, pkg_key=None):
 
 def translate_and_save_entry(findings, artifact):
     """
-    Handler function to map syft results for an debian package type into the engine "raw" document format.
+    Handler function to map gosbom results for an debian package type into the engine "raw" document format.
     """
     _all_package_files(findings, artifact)
     _all_packages(findings, artifact)
@@ -40,12 +40,17 @@ def _all_package_info(findings, artifact):
         size = "N/A"
 
     source = dig(artifact, "metadata", "source")
-    if source:
-        source = source.split(" ")[0] + "-" + version
+    source_version = dig(artifact, "metadata", "sourceVersion")
+
+    # Normalize this for downstream consumption etc. Eventually we want to leave it split out, but for now needs a join
+    if source and source_version:
+        source = source + "-" + source_version
+    elif source:
+        source = source + "-" + version
     else:
         source = "N/A"
 
-    license = dig(artifact, "licenses") or dig(artifact, "license")
+    license = dig(artifact, "licenses")
     if license:
         license = " ".join(license)
     else:
@@ -91,7 +96,7 @@ def _all_package_files(findings, artifact):
         original_path = file.get("path")
         if not original_path.startswith("/"):
             # the 'alpine-baselayout' package is installed relative to root,
-            # however, syft reports this as an absolute path
+            # however, gosbom reports this as an absolute path
             original_path = "/" + original_path
 
         # nextlinux-engine considers all parent paths to also be a registered apkg path (except root)

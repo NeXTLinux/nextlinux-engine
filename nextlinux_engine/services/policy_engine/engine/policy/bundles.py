@@ -1119,8 +1119,13 @@ class HybridTriggerIdKeyedItemIndex(IWhitelistItemIndex):
 
 
 class StandardCVETriggerIdKey(object):
+<<<<<<< HEAD:nextlinux_engine/services/policy_engine/engine/policy/bundles.py
     cve_trigger_id_regex = re.compile("([A-Za-z0-9\-])+\+\*")
     supported_gates = [NextlinuxSecGate.__gate_name__.lower()]
+=======
+    cve_trigger_id_regex = re.compile(r"([A-Za-z0-9\-])+\+\*")
+    supported_gates = [NextlinuxSecGate.__gate_name__.lower()]
+>>>>>>> 6db48a19 (Merge v0.9.0 (#830)):nextlinux_engine/services/policy_engine/engine/policy/bundles.py
 
     @classmethod
     def whitelist_item_key(cls, item):

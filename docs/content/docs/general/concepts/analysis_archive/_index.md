@@ -78,7 +78,7 @@ has value for audit or historical reasons.
 
 ## Automatic Archiving
 
-The help facilitate data management automatically, Anchore supports rules to define which data to archive and when 
+The help facilitate data management automatically, Nextlinux supports rules to define which data to archive and when 
 based on a few qualities of the image analysis itself. These rules are evaluated periodically by the system.
 
 Nextlinux supports both account-scoped rules, editable by users in the account, and global system rules, editable only by
@@ -154,7 +154,7 @@ match an image tag.
 from the selector defined above.
   * expiration_days: This allows the exclusion filter to expire. When set to -1, the exclusion filter does not expire
 * max_images_per_account: This setting may only be applied on a single "system_global" rule, and controls the maximum number of images 
-allows in the anchore deployment (that are not archived). If this number is exceeded, anchore will transition (according to the transition field value)
+allows in the nextlinux deployment (that are not archived). If this number is exceeded, nextlinux will transition (according to the transition field value)
 the oldest images exceeding this maximum count.
 
 ### Rule conflicts and application:

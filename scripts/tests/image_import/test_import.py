@@ -1,7 +1,7 @@
 #!/usr/bin/env python3.8
 
 """
-Simple example of an import flow of data output from `syft docker:nginx --output json` into Nextlinux. Uses syft v0.10.0 output.
+Simple example of an import flow of data output from `gosbom docker:nginx --output json` into Nextlinux. Uses gosbom v0.10.0 output.
 """
 
 import sys
@@ -26,8 +26,8 @@ tag_to_scan = sys.argv[2]
 dockerfile = sys.argv[3] if len(sys.argv) > 3 else None
 
 
-def run_syft(image):
-    output = subprocess.check_output(["syft", "docker:{}".format(image), "-o", "json"])
+def run_gosbom(image):
+    output = subprocess.check_output(["gosbom", "docker:{}".format(image), "-o", "json"])
     return output
 
 
@@ -50,7 +50,7 @@ def init_operation():
     return operation_id
 
 
-def load_syft_data(path):
+def load_gosbom_data(path):
     with open(path) as f:
         sbom_content = bytes(f.read(), "utf-8")
 
@@ -58,9 +58,9 @@ def load_syft_data(path):
     return sbom_content
 
 
-def extract_syft_metadata(data):
+def extract_gosbom_metadata(data):
     """
-    Parse metadata from the syft output string
+    Parse metadata from the gosbom output string
 
     :param data:
     :return:
@@ -69,7 +69,7 @@ def extract_syft_metadata(data):
     parsed = json.loads(str(data, "utf-8"))
     digest = parsed["source"]["target"][
         "manifestDigest"
-    ]  # This is the image id, use it as digest since syft doesn't get a digest from a registry
+    ]  # This is the image id, use it as digest since gosbom doesn't get a digest from a registry
 
     local_image_id = parsed["source"]["target"]["imageID"]
     tags = parsed["source"]["target"]["tags"]
@@ -130,17 +130,17 @@ def get_policy_eval(image_digest, tag):
     return check_response(resp)
 
 
-# Step 1: Run syft
-syft_package_sbom = run_syft(tag_to_scan)
+# Step 1: Run gosbom
+gosbom_package_sbom = run_gosbom(tag_to_scan)
 
 # Step 2: Initialize the operation, get an operation ID
 operation_id = init_operation()
 
 # Step 2: Upload the analysis content types
-image_digest, local_image_id, tags, manifest, image_config = extract_syft_metadata(
-    syft_package_sbom
+image_digest, local_image_id, tags, manifest, image_config = extract_gosbom_metadata(
+    gosbom_package_sbom
 )
-packages_digest = upload_content(syft_package_sbom, "packages", operation_id)
+packages_digest = upload_content(gosbom_package_sbom, "packages", operation_id)
 
 if dockerfile:
     with open(dockerfile) as f:

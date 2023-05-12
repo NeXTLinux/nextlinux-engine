@@ -1,10 +1,18 @@
 from yosai.core.authc.authc import UsernamePasswordToken
 import time
+<<<<<<< HEAD:nextlinux_engine/apis/oauth.py
 from nextlinux_engine.configuration import localconfig
 from nextlinux_engine.subsys import logger
 from nextlinux_engine.db import session_scope, get_session
 from nextlinux_engine.db.entities.identity import OAuth2Client, OAuth2Token
 from authlib.flask.oauth2.authorization_server import AuthorizationServer
+=======
+from nextlinux_engine.configuration import localconfig
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.db import session_scope, get_session
+from nextlinux_engine.db.entities.identity import OAuth2Client, OAuth2Token
+from authlib.integrations.flask_oauth2.authorization_server import AuthorizationServer
+>>>>>>> 6db48a19 (Merge v0.9.0 (#830)):nextlinux_engine/apis/oauth.py
 from authlib.oauth2.rfc6749 import grants
 from nextlinux_engine.apis.authorization import get_authorizer
 from nextlinux_engine.auth.oauth import token_manager
@@ -105,11 +113,15 @@ def init_oauth(app, grant_types, expiration_config):
                 c.client_id = "anonymous"
                 c.user_id = None
                 c.client_secret = None
-                c.issued_at = time.time() - 100
-                c.expires_at = time.time() + 1000
-                c.grant_type = "password"
-                c.token_endpoint_auth_method = "none"
-                c.client_name = "anonymous"
+                c.client_id_issued_at = time.time() - 100
+                c.client_secret_expires_at = time.time() + 1000
+                c.set_client_metadata(
+                    {
+                        "token_endpoint_auth_method": "none",
+                        "client_name": "anonymous",
+                        "grant_types": ["password"],
+                    }
+                )
                 db.add(c)
     except Exception as e:
         logger.debug("Default client record init failed: {}".format(e))

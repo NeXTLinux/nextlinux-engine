@@ -138,8 +138,17 @@ class TokenVerifier(object):
 
     __claim_params__ = {}
 
+<<<<<<< HEAD:nextlinux_engine/auth/oauth.py
     def __init__(self, key: bytes, alg: str, issuers=[NEXTLINUX_ISSUER]):
         assert alg in SUPPORTED_ALGORITHMS
+=======
+    def __init__(self, key: bytes, alg: str, issuers=None):
+        if issuers is None:
+            issuers = [NEXTLINUX_ISSUER]
+        if alg not in SUPPORTED_ALGORITHMS:
+            raise ValueError(alg)
+
+>>>>>>> 6db48a19 (Merge v0.9.0 (#830)):nextlinux_engine/auth/oauth.py
         self.claim_options = copy.deepcopy(TokenVerifier.__claim_options__)
         self.claim_params = copy.deepcopy(TokenVerifier.__claim_params__)
 

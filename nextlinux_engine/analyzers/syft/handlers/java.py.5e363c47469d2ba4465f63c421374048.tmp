@@ -16,7 +16,7 @@ def save_entry(findings, engine_entry, pkg_key=None):
 
 def translate_and_save_entry(findings, artifact):
     """
-    Handler function to map syft results for java-archive and jenkins-plugin types into the engine "raw" document format.
+    Handler function to map gosbom results for java-archive and jenkins-plugin types into the engine "raw" document format.
     """
     pkg_key = dig(artifact, "metadata", "virtualPath", default="N/A")
 

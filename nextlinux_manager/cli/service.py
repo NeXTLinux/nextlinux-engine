@@ -452,13 +452,13 @@ def start(
                     ") in the running DB - please perform the DB upgrade process and retry\n"
                     "See: https://docs.next-linux.systems/current/docs/engine/engine_installation/upgrade/#advanced--manual-upgrade-procedure"
 =======
-                    "this version of anchore-engine requires the anchore DB version ("
+                    "this version of nextlinux-engine requires the nextlinux DB version ("
                     + str(code_versions["db_version"])
-                    + ") but we discovered anchore DB version ("
+                    + ") but we discovered nextlinux DB version ("
                     + str(db_versions["db_version"])
                     + ") in the running DB - please perform the DB upgrade process and retry\n"
-                    "See: https://engine.anchore.io/docs/install/upgrade/#advanced--manual-upgrade-procedure"
->>>>>>> 98b54aa5 (Updated additional engine doc links):anchore_manager/cli/service.py
+                    "See: https://engine.nextlinux.io/docs/install/upgrade/#advanced--manual-upgrade-procedure"
+>>>>>>> 98b54aa5 (Updated additional engine doc links):nextlinux_manager/cli/service.py
                 )
 
         except Exception as err:

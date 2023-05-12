@@ -15,15 +15,26 @@ import collections
 import yaml
 from pkg_resources import resource_filename
 
+<<<<<<< HEAD:nextlinux_engine/clients/localnextlinux_standalone.py
 import nextlinux_engine.configuration
 import nextlinux_engine.common
 import nextlinux_engine.auth.common
 import nextlinux_engine.clients.skopeo_wrapper
 import nextlinux_engine.common.images
 import nextlinux_engine.analyzers.utils
-import nextlinux_engine.analyzers.syft
+import nextlinux_engine.analyzers.gosbom
 from nextlinux_engine.utils import NextlinuxException
 from nextlinux_engine.util.docker import (
+=======
+import nextlinux_engine.configuration
+import nextlinux_engine.common
+import nextlinux_engine.auth.common
+import nextlinux_engine.clients.skopeo_wrapper
+import nextlinux_engine.common.images
+import nextlinux_engine.analyzers
+from nextlinux_engine.utils import NextlinuxException
+from nextlinux_engine.util.docker import (
+>>>>>>> 6db48a19 (Merge v0.9.0 (#830)):nextlinux_engine/clients/localnextlinux_standalone.py
     DockerV1ManifestMetadata,
     DockerV2ManifestMetadata,
 )
@@ -891,6 +902,7 @@ def list_analyzers():
     :return: list of str that are the names of the analyzer modules
     """
 
+<<<<<<< HEAD:nextlinux_engine/clients/localnextlinux_standalone.py
     nextlinux_module_root = resource_filename("nextlinux_engine", "analyzers")
     analyzer_root = os.path.join(nextlinux_module_root, "modules")
     result = []
@@ -901,6 +913,9 @@ def list_analyzers():
 
     result.sort()
     return result
+=======
+    return nextlinux_engine.analyzers.list_modules()
+>>>>>>> 6db48a19 (Merge v0.9.0 (#830)):nextlinux_engine/clients/localnextlinux_standalone.py
 
 
 def run_nextlinux_analyzers(staging_dirs, imageDigest, imageId, localconfig):
@@ -915,6 +930,7 @@ def run_nextlinux_analyzers(staging_dirs, imageDigest, imageId, localconfig):
         with open(os.path.join(unpackdir, "nextlinux_hints.json"), "w") as OFH:
             OFH.write(json.dumps({}))
 
+<<<<<<< HEAD:nextlinux_engine/clients/localnextlinux_standalone.py
     # run analyzers
     nextlinux_module_root = resource_filename("nextlinux_engine", "analyzers")
     analyzer_root = os.path.join(nextlinux_module_root, "modules")
@@ -956,12 +972,18 @@ def run_nextlinux_analyzers(staging_dirs, imageDigest, imageId, localconfig):
                     "base": data
                 }
 
-    syft_results = nextlinux_engine.analyzers.syft.catalog_image(
+    gosbom_results = nextlinux_engine.analyzers.gosbom.catalog_image(
         image=copydir, unpackdir=unpackdir)
 
     nextlinux_engine.analyzers.utils.merge_nested_dict(analyzer_report,
-                                                     syft_results)
+                                                     gosbom_results)
 
+=======
+    analyzer_report = nextlinux_engine.analyzers.run(
+        configdir, imageId, unpackdir, outputdir, copydir
+    )
+
+>>>>>>> 6db48a19 (Merge v0.9.0 (#830)):nextlinux_engine/clients/localnextlinux_standalone.py
     return dict(analyzer_report)
 
 

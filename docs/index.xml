@@ -540,11 +540,11 @@ sync:
 data:
 grypedb:
 enabled: true
-url: ${NEXTLINUX_GRYPE_DB_URL}
+url: ${NEXTLINUX_GOVULNERS_DB_URL}
 packages:
 enabled: true
 url: ${NEXTLINUX_FEEDS_URL}
-&lt;/code>&lt;/pre>&lt;p>&lt;em>&lt;strong>Note:&lt;/strong>&lt;/em> As shown above, Nextlinux Engine&amp;rsquo;s default is now Grype. The Grype feed is the default, and the only one that Nextlinux Engine syncs.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>&lt;em>&lt;strong>Note:&lt;/strong>&lt;/em> As shown above, Nextlinux Engine&amp;rsquo;s default is now Govulners. The Govulners feed is the default, and the only one that Nextlinux Engine syncs.&lt;/p>
 &lt;h4 id="read-timeout">Read Timeout&lt;/h4>
 &lt;p>Under rare circumstances you may see syncs failing with errors to fetch data due to timeouts. This is typically due to load on the feed service, network issues, or
 some other temporary condition. However, if you want to increase the timeout to improve the likelihood of success, modify the &lt;em>read_timeout_seconds&lt;/em> of the feeds configuration:&lt;/p>
@@ -606,8 +606,8 @@ vulnerabilities ubuntu:18.04 2020-03-27T20:37:35.077867 12547
 vulnerabilities ubuntu:18.10 2020-03-27T20:39:20.097963 8397
 vulnerabilities ubuntu:19.04 2020-03-27T20:40:18.628869 8664
 vulnerabilities ubuntu:19.10 2020-03-27T20:41:20.828796 7327
-&lt;/code>&lt;/pre>&lt;p>&lt;em>&lt;strong>Note:&lt;/strong>&lt;/em> The Grype feed is the only feed that will be synced. It will
-contain the records from all the other groups. It is not possible to include or exclude groups from the Grype feed.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>&lt;em>&lt;strong>Note:&lt;/strong>&lt;/em> The Govulners feed is the only feed that will be synced. It will
+contain the records from all the other groups. It is not possible to include or exclude groups from the Govulners feed.&lt;/p>
 &lt;h3 id="using-the-config-file-to-includeexclude-feeds-at-system-bootstrap">Using the Config File to Include/Exclude Feeds at System Bootstrap&lt;/h3>
 &lt;p>The most common way to set which feeds are synced is in the config.yaml for the policy engine. By default,
 the &lt;em>grypedb&lt;/em> and &lt;em>packages&lt;/em> feeds are synced to provide good vulnerability matching support for a variety of linux distros
@@ -2595,10 +2595,10 @@ if malware was detected during the analysis scan.&lt;/p>
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/usage/integration/ci_cd/inline_analysis/</guid>
             <description>
-&lt;p>&lt;em>&lt;strong>Warning&lt;/strong>: The Nextlinux Inline Scan script is deprecated and will reach &lt;strong>EOL on Jan 10, 2022&lt;/strong>. Please update your integrations to use &lt;a href="https://github.com/nextlinux/grype">Grype&lt;/a> for CI-based vulnerability scanning or &lt;a href="https://github.com/nextlinux/syft">Syft&lt;/a>. We will be updating our integrations that use inline_scan during that time to use Grype directly. Until that time all integrations will continue to function and get updated vulnerability data.&lt;/em>&lt;/p>
+&lt;p>&lt;em>&lt;strong>Warning&lt;/strong>: The Nextlinux Inline Scan script is deprecated and will reach &lt;strong>EOL on Jan 10, 2022&lt;/strong>. Please update your integrations to use &lt;a href="https://github.com/nextlinux/grype">Govulners&lt;/a> for CI-based vulnerability scanning or &lt;a href="https://github.com/nextlinux/gosbom">Syft&lt;/a>. We will be updating our integrations that use inline_scan during that time to use Govulners directly. Until that time all integrations will continue to function and get updated vulnerability data.&lt;/em>&lt;/p>
 &lt;p>&lt;em>&lt;strong>Until Jan 10, 2022&lt;/strong>: we will continue building inline_scan images based on v0.10.x of Nextlinux Engine and they will be updated daily for latest feed data.
 On Jan 10, 2022, we will stop building new versions of the images with updated vulnerability data and the data will be stale.&lt;/em>&lt;/p>
-&lt;p>&lt;em>&lt;strong>After Jan 10, 2022&lt;/strong>: users should be transitioned to &lt;a href="https://github.com/nextlinux/grype">Grype&lt;/a> or Grype-based integrations.&lt;/em>&lt;/p>
+&lt;p>&lt;em>&lt;strong>After Jan 10, 2022&lt;/strong>: users should be transitioned to &lt;a href="https://github.com/nextlinux/grype">Govulners&lt;/a> or Govulners-based integrations.&lt;/em>&lt;/p>
 &lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;p>For use cases where it is desirable to perform image analysis for a locally build container image, and import the image analysis to an existing Nextlinux Engine installation, we support a methodology using the inline_scan tool. With this technique, you can &amp;lsquo;add&amp;rsquo; an image to your nextlinux engine service by analyzing any image that is available locally (say, on the docker host on which the image was built). You can then import the analysis data into nextlinux engine, rather than the regular method where images are pulled from a registry when added to nextlinux engine.&lt;/p>
 &lt;p>The only requirements to run the inline_scan script with the &amp;lsquo;analyze&amp;rsquo; operation is the ability to execute Docker commands, network connectivity to an nextlinux engine API endpoint &amp;amp; bash. We host a versioned copy of this script that can be downloaded directly with curl and executed in a bash pipeline.&lt;/p>
@@ -2653,10 +2653,10 @@ Image Digest: sha256:acd3ca9941a85e8ed16515bfc5328e4e2f8c128caa72959a58a127b7801
             <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
             <guid>/docs/usage/integration/ci_cd/inline_scanning/</guid>
             <description>
-&lt;p>&lt;em>&lt;strong>Warning&lt;/strong>: The Nextlinux Inline Scan script is deprecated and will reach &lt;strong>EOL on Jan 10, 2022&lt;/strong>. Please update your integrations to use &lt;a href="https://github.com/nextlinux/grype">Grype&lt;/a> for CI-based vulnerability scanning or &lt;a href="https://github.com/nextlinux/syft">Syft&lt;/a>. We will be updating our integrations that use inline_scan during that time to use Grype directly. Until that time all integrations will continue to function and get updated vulnerability data.&lt;/em>&lt;/p>
+&lt;p>&lt;em>&lt;strong>Warning&lt;/strong>: The Nextlinux Inline Scan script is deprecated and will reach &lt;strong>EOL on Jan 10, 2022&lt;/strong>. Please update your integrations to use &lt;a href="https://github.com/nextlinux/grype">Govulners&lt;/a> for CI-based vulnerability scanning or &lt;a href="https://github.com/nextlinux/gosbom">Syft&lt;/a>. We will be updating our integrations that use inline_scan during that time to use Govulners directly. Until that time all integrations will continue to function and get updated vulnerability data.&lt;/em>&lt;/p>
 &lt;p>&lt;em>&lt;strong>Until Jan 10, 2022&lt;/strong>: we will continue building inline_scan images based on v0.10.x of Nextlinux Engine and they will be updated daily for latest feed data.
 On Jan 10, 2022, we will stop building new versions of the images with updated vulnerability data and the data will be stale.&lt;/em>&lt;/p>
-&lt;p>&lt;em>&lt;strong>After Jan 10, 2022&lt;/strong>: users should be transitioned to &lt;a href="https://github.com/nextlinux/grype">Grype&lt;/a> or Grype-based integrations.&lt;/em>&lt;/p>
+&lt;p>&lt;em>&lt;strong>After Jan 10, 2022&lt;/strong>: users should be transitioned to &lt;a href="https://github.com/nextlinux/grype">Govulners&lt;/a> or Govulners-based integrations.&lt;/em>&lt;/p>
 &lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;p>&lt;code>curl -s https://ci-tools.nextlinux.io/inline_scan-latest | bash -s -- -p alpine:latest&lt;/code>&lt;/p>
 &lt;p>To make using our inline-scan container as easy as possible, we have provided a simple wrapper script called inline_scan. The only requirements to run the inline_scan script is the ability to execute Docker commands &amp;amp; bash. We host a versioned copy of this script that can be downloaded directly with curl and executed in a bash pipeline.&lt;/p>
@@ -4107,7 +4107,7 @@ If you would like to override any of the default values of those commands or rep
 &lt;ul>
 &lt;li>Images that had Go content and hints enabled were failing analysis. This has been fixed.&lt;/li>
 &lt;li>Images reported via runtime inventory that also had port numbers in the registry host URL were failing to parse properly, which caused scan failures. This issue has been fixed.&lt;/li>
-&lt;li>With the Grype provider, NVD and vendor CVSS scores were missing for records in non-NVD namespaces. This is now fixed.&lt;/li>
+&lt;li>With the Govulners provider, NVD and vendor CVSS scores were missing for records in non-NVD namespaces. This is now fixed.&lt;/li>
 &lt;/ul>
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>

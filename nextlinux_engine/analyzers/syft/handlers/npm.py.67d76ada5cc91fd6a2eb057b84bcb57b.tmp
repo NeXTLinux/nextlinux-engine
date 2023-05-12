@@ -20,7 +20,7 @@ def save_entry(findings, engine_entry, pkg_key=None):
 
 def translate_and_save_entry(findings, artifact):
     """
-    Handler function to map syft results for npm package type into the engine "raw" document format.
+    Handler function to map gosbom results for npm package type into the engine "raw" document format.
     """
     pkg_key = artifact["locations"][0]["path"]
     name = artifact["name"]

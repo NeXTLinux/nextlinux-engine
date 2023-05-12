@@ -1,7 +1,7 @@
 import collections
 
 from nextlinux_engine.analyzers.utils import defaultdict_to_dict, content_hints
-from nextlinux_engine.clients.syft_wrapper import run_syft
+from nextlinux_engine.clients.gosbom_wrapper import run_gosbom
 from .handlers import handlers_by_artifact_type, handlers_by_engine_type
 
 
@@ -11,15 +11,15 @@ def filter_artifacts(artifact):
 
 def catalog_image(image, unpackdir):
     """
-    Catalog the given image with syft, keeping only select artifacts in the returned results.
+    Catalog the given image with gosbom, keeping only select artifacts in the returned results.
     """
-    all_results = run_syft(image)
-    return convert_syft_to_engine(all_results, unpackdir)
+    all_results = run_gosbom(image)
+    return convert_gosbom_to_engine(all_results, unpackdir)
 
 
-def convert_syft_to_engine(all_results, unpackdir, handle_hints=True):
+def convert_gosbom_to_engine(all_results, unpackdir, handle_hints=True):
     """
-    Do the conversion from syft format to engine format
+    Do the conversion from gosbom format to engine format
 
     :param all_results:
     :return:
@@ -29,7 +29,7 @@ def convert_syft_to_engine(all_results, unpackdir, handle_hints=True):
     nested_dict = lambda: collections.defaultdict(nested_dict)
     findings = nested_dict()
 
-    # This is the only use case for consuming the top-level results from syft,
+    # This is the only use case for consuming the top-level results from gosbom,
     # capturing the information needed for BusyBox. No artifacts should be
     # expected, and having outside of the artifacts loop ensure this will only
     # get called once.
@@ -39,7 +39,7 @@ def convert_syft_to_engine(all_results, unpackdir, handle_hints=True):
     elif not distro or not distro.get("name"):
         findings["package_list"]["pkgs.all"]["base"]["Unknown"] = "0"
 
-    # take a sub-set of the syft findings and invoke the handler function to
+    # take a sub-set of the gosbom findings and invoke the handler function to
     # craft the artifact document and inject into the "raw" analyzer json
     # document
     for artifact in filter(filter_artifacts, all_results["artifacts"]):

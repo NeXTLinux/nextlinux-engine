@@ -26,7 +26,7 @@
 &lt;ul>
 &lt;li>Images that had Go content and hints enabled were failing analysis. This has been fixed.&lt;/li>
 &lt;li>Images reported via runtime inventory that also had port numbers in the registry host URL were failing to parse properly, which caused scan failures. This issue has been fixed.&lt;/li>
-&lt;li>With the Grype provider, NVD and vendor CVSS scores were missing for records in non-NVD namespaces. This is now fixed.&lt;/li>
+&lt;li>With the Govulners provider, NVD and vendor CVSS scores were missing for records in non-NVD namespaces. This is now fixed.&lt;/li>
 &lt;/ul>
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
 &lt;ul>
@@ -64,12 +64,12 @@
 &lt;p>API version - 0.1.19&lt;/p>
 &lt;p>DB Schema version - 0.0.16&lt;/p>
 &lt;p>This release contains a database schema update.&lt;/p>
-&lt;h3 id="v2-vulnerability-provider-based-on-grype">V2 vulnerability provider, based on Grype&lt;/h3>
-&lt;p>Version 1.0.0 is a significant release for Engine as it now has Grype integration for vulnerability scanning enabled by default. This creates a unified vulnerability scanning core across local tools as well as stateful Engine services.&lt;/p>
-&lt;p>The legacy provider (non-Grype) is no longer the default for new deployments. If you are a current engine user and want to keep the existing non-Grype scanner, you can upgrade to 1.0.0 and configure Engine to use the legacy scanner. You do not have to use Grype, although upgrading to Grype is recommended because the legacy scanner will be deprecated at some point in the future.&lt;/p>
-&lt;p>The new V2 vulnerability provider syncs vulnerability data from the same upstream sources as Engine, but uses the Grype DB update mechanism to achieve much faster feed updates, and no longer uses the (&lt;a href="https://ancho.re">https://ancho.re&lt;/a>) endpoint for retrieving data.&lt;/p>
+&lt;h3 id="v2-vulnerability-provider-based-on-grype">V2 vulnerability provider, based on Govulners&lt;/h3>
+&lt;p>Version 1.0.0 is a significant release for Engine as it now has Govulners integration for vulnerability scanning enabled by default. This creates a unified vulnerability scanning core across local tools as well as stateful Engine services.&lt;/p>
+&lt;p>The legacy provider (non-Govulners) is no longer the default for new deployments. If you are a current engine user and want to keep the existing non-Govulners scanner, you can upgrade to 1.0.0 and configure Engine to use the legacy scanner. You do not have to use Govulners, although upgrading to Govulners is recommended because the legacy scanner will be deprecated at some point in the future.&lt;/p>
+&lt;p>The new V2 vulnerability provider syncs vulnerability data from the same upstream sources as Engine, but uses the Govulners DB update mechanism to achieve much faster feed updates, and no longer uses the (&lt;a href="https://ancho.re">https://ancho.re&lt;/a>) endpoint for retrieving data.&lt;/p>
 &lt;h3 id="suse-linux-enterprise-server-support">SUSE Linux Enterprise Server support&lt;/h3>
-&lt;p>There is now Grype support for generating lists of CVEs for SLES and OpenSUSE. This is based on published data at (&lt;a href="https://www.suse.com/support/security/)">https://www.suse.com/support/security/)&lt;/a>.&lt;/p>
+&lt;p>There is now Govulners support for generating lists of CVEs for SLES and OpenSUSE. This is based on published data at (&lt;a href="https://www.suse.com/support/security/)">https://www.suse.com/support/security/)&lt;/a>.&lt;/p>
 &lt;h3 id="fixed">Fixed&lt;/h3>
 &lt;p>Dependency updates to resolve non-impacting vulnerability findings&lt;/p>
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
@@ -110,7 +110,7 @@
 &lt;ul>
 &lt;li>Added - &amp;lsquo;will_not_fix&amp;rsquo; field added to vulnerability report API response and vulnerability information query. Fixes #1160&lt;/li>
 &lt;li>Fixed - /tmp directory not cleaned up after an image analysis&lt;/li>
-&lt;li>Fixed - Updates syft version to 0.19.1&lt;/li>
+&lt;li>Fixed - Updates gosbom version to 0.19.1&lt;/li>
 &lt;li>Fixed - Update certifi path in the docker entrypoint script to ensure cert updates are set properly. Fixes #1171&lt;/li>
 &lt;li>Fixed - incorrect handling of hints file input. Fixes #1165&lt;/li>
 &lt;li>Fixed - Ensures all tags attempted for image pull if multiple tags on image being analyzed. Fixes #1139&lt;/li>
@@ -136,19 +136,19 @@
 &lt;p>DB Schema version - 0.0.15&lt;/p>
 &lt;p>This release contains a database schema update, but no data migration only new tables added.&lt;/p>
 &lt;h3 id="configurable-vulnerability-providers">Configurable Vulnerability Providers&lt;/h3>
-&lt;p>0.10.0 is a significant release for Engine as it now has both &lt;a href="https://github.com/nextlinux/syft">Syft&lt;/a> and &lt;a href="https://github.com/nextlinux/grype">Grype&lt;/a>
+&lt;p>0.10.0 is a significant release for Engine as it now has both &lt;a href="https://github.com/nextlinux/gosbom">Syft&lt;/a> and &lt;a href="https://github.com/nextlinux/grype">Govulners&lt;/a>
 integrations in place to move to a unified vulnerability scanning core across local tools as well as stateful Engine services.
-This release adds &lt;a href="https://github.com/nextlinux/grype">Grype&lt;/a> integration as a new vulnerability scanning option in the policy
+This release adds &lt;a href="https://github.com/nextlinux/grype">Govulners&lt;/a> integration as a new vulnerability scanning option in the policy
 engine. There is now a configuration option for specifying a vulnerability scanning provider in the policy engine service
-configuration. The legacy provider (non-Grype) is the default to ensure smooth upgrades and allow operators to choose whent to make the switch.
-The new Grype provider syncs vulnerability data from the same upstream sources as Engine, but uses the Grype DB update mechanism
+configuration. The legacy provider (non-Govulners) is the default to ensure smooth upgrades and allow operators to choose whent to make the switch.
+The new Govulners provider syncs vulnerability data from the same upstream sources as Engine, but uses the Govulners DB update mechanism
 to achieve much faster feed updates, and no longer uses the &lt;a href="https://ancho.re">https://ancho.re&lt;/a> endpoint for retrieving data. See
-&lt;a href="/docs/grype/">Grype Mode&lt;/a> for more information and links.&lt;/p>
+&lt;a href="/docs/grype/">Govulners Mode&lt;/a> for more information and links.&lt;/p>
 &lt;p>Note:&lt;/p>
 &lt;ul>
-&lt;li>Grype mode is a beta release and not recommended for production use, but we encourage feedback and use in dev environments.&lt;/li>
+&lt;li>Govulners mode is a beta release and not recommended for production use, but we encourage feedback and use in dev environments.&lt;/li>
 &lt;li>The &lt;code>vulnerability_data_unavailable&lt;/code> and &lt;code>stale_feed_data&lt;/code> policy triggers in the &lt;code>vulnerabilities&lt;/code> gate are not yet
-supported for the Grype provider. They will return incorrect results when used with the Grype provider.&lt;/li>
+supported for the Govulners provider. They will return incorrect results when used with the Govulners provider.&lt;/li>
 &lt;/ul>
 &lt;p>The vulnerability provider is now configurable in the &lt;code>policy_engine&lt;/code> service configuration of the config.yaml. See
 &lt;a href="./conf/default_config.yaml">Default Config&lt;/a> for more info.&lt;/p>
@@ -163,10 +163,10 @@ However, if you package your own applications as rpms, debs, or similar and need
 then you can disable this behavior.&lt;/p>
 &lt;h3 id="deprecations">Deprecations&lt;/h3>
 &lt;ul>
-&lt;li>The &lt;code>affected_package_version&lt;/code> query parameter in &lt;code>GET /query/vulnerabilities&lt;/code> is not supported in Grype mode and has
+&lt;li>The &lt;code>affected_package_version&lt;/code> query parameter in &lt;code>GET /query/vulnerabilities&lt;/code> is not supported in Govulners mode and has
 known correctness issues in the legacy mode. It is deprecated and will be removed in a future release.&lt;/li>
 &lt;li>The legacy feed service endpoint (&lt;a href="https://ancho.re">https://ancho.re&lt;/a>) used by the legacy vulnerability provider is now officially
-deprecated, and will be replaced by the Grype DB sync introduced in this release. We will be announcing an End-of-Life timeline
+deprecated, and will be replaced by the Govulners DB sync introduced in this release. We will be announcing an End-of-Life timeline
 for the service along with the upcoming 1.0 Engine release in the next few months. The timeline will include reasonable
 time to upgrade and migrate deployments to 1.0+ versions. This deprecation notice serves as an early notice ahead of
 the actual 1.0 release and formal timeline announcement. For 0.10.0, there are no changes to the service or user actions required.&lt;/li>
@@ -175,7 +175,7 @@ the actual 1.0 release and formal timeline announcement. For 0.10.0, there are n
 &lt;p>&lt;em>Note: the policy engine feed sync configuration is now in the policy engine service configuration as part of the provider configuration. The provided helm charts, docker-compose.yaml and default configurations handle this change automatically.&lt;/em>&lt;/p>
 &lt;h3 id="changes">Changes&lt;/h3>
 &lt;ul>
-&lt;li>Added - Policy engine should leverage Grype. Fixes #706 and #707&lt;/li>
+&lt;li>Added - Policy engine should leverage Govulners. Fixes #706 and #707&lt;/li>
 &lt;li>Added - Improved alpine vulnerability scanning by using NVD matches for OS packages for CVEs that are not yet present in Alpine SecDB. Fixes #268&lt;/li>
 &lt;li>Added - Analyzer service configuration option to control package-ownership filtering. Allows exposing all packages regardless of ownership relationship. Fixes #1122&lt;/li>
 &lt;li>Fixed - Adds missing fields and fixes errors in the swagger spec for the API&lt;/li>
@@ -231,8 +231,8 @@ the actual 1.0 release and formal timeline announcement. For 0.10.0, there are n
 &lt;h2 id="changes-of-note">Changes of Note&lt;/h2>
 &lt;h3 id="fixed">Fixed&lt;/h3>
 &lt;ul>
-&lt;li>Fixed - Fixes issue where java artifacts are not being matched against records from GHSA feed - synthesize pom properties contents in syft mapper. Fixes #950&lt;/li>
-&lt;li>Fixed - Updates syft to 0.14.0 to fix missing java elements from image SBOM, for embedded java artifacts combined with malformed pom.properties metadata (see &lt;a href="https://github.com/nextlinux/syft">https://github.com/nextlinux/syft&lt;/a> Issue #349)&lt;/li>
+&lt;li>Fixed - Fixes issue where java artifacts are not being matched against records from GHSA feed - synthesize pom properties contents in gosbom mapper. Fixes #950&lt;/li>
+&lt;li>Fixed - Updates gosbom to 0.14.0 to fix missing java elements from image SBOM, for embedded java artifacts combined with malformed pom.properties metadata (see &lt;a href="https://github.com/nextlinux/gosbom">https://github.com/nextlinux/gosbom&lt;/a> Issue #349)&lt;/li>
 &lt;/ul>
 &lt;p>Additional minor fixes and enhancements&lt;/p>
 &lt;h3 id="upgrading">Upgrading&lt;/h3>
@@ -253,8 +253,8 @@ the actual 1.0 release and formal timeline announcement. For 0.10.0, there are n
 &lt;ul>
 &lt;li>Fixed - Fixes empty string value for &amp;ldquo;metadata&amp;rdquo; field which should be empty array in response for GET /images/{digest}/metadata/dockerfile when no actual dockerfile is presented. Fixes #937&lt;/li>
 &lt;li>Fixed - Fixes oauth2_clients table upgrade to include all needed keys in client_metadata field. Fixes #931&lt;/li>
-&lt;li>Fixed - Updates syft to 0.13.1 and adds filtering of packages by new &amp;lsquo;relationship&amp;rsquo; field to remove duplicate packages that are application packages provided by distro packages managers (e.g. RPMs that install python eggs, will only use the RPM version). Fixes #460&lt;/li>
-&lt;li>Fixed - Updates syft to 0.12.7 to fix analysis failure due to malformed python egg files. Fixes #910&lt;/li>
+&lt;li>Fixed - Updates gosbom to 0.13.1 and adds filtering of packages by new &amp;lsquo;relationship&amp;rsquo; field to remove duplicate packages that are application packages provided by distro packages managers (e.g. RPMs that install python eggs, will only use the RPM version). Fixes #460&lt;/li>
+&lt;li>Fixed - Updates gosbom to 0.12.7 to fix analysis failure due to malformed python egg files. Fixes #910&lt;/li>
 &lt;li>Fixed - Updates cryptography version from 3.3.1 to 3.3.2. Fixes #909&lt;/li>
 &lt;li>Fixed - Updates jsonschema version to avoid legacy validator import issues.&lt;/li>
 &lt;/ul>
@@ -311,7 +311,7 @@ the actual 1.0 release and formal timeline announcement. For 0.10.0, there are n
 &lt;p>Nextlinux Engine 0.9.0, features, bug fixes, and improvements. The latest summary can always be found in the Nextlinux Engine &lt;a href="https://github.com/nextlinux/nextlinux-engine/blob/master/CHANGELOG.md">CHANGELOG&lt;/a> on github.&lt;/p>
 &lt;p>&lt;em>NOTE: this release does involve a database schema update including column updates for some tables that may be quite large for some deployments, schedule
 downtime appropriately as it may take minutes to an hour depending on your database size and number of images you&amp;rsquo;ve analyzed and are present in the DB&lt;/em>&lt;/p>
-&lt;p>Engine 0.9.0 begins the migration of image inspection and vulnerability scanning to the &lt;a href="https://github.com/nextlinux/Syft">Syft&lt;/a> and &lt;a href="https://github.com/nextlinux/Grype">Grype&lt;/a> tools
+&lt;p>Engine 0.9.0 begins the migration of image inspection and vulnerability scanning to the &lt;a href="https://github.com/nextlinux/Syft">Syft&lt;/a> and &lt;a href="https://github.com/nextlinux/Govulners">Govulners&lt;/a> tools
 which allow re-use of that logic outside of a deployed stateful system. Engine now consumes Syft internally for generating container bills-of-materials for all
 OS and application packages.&lt;/p>
 &lt;h3 id="new-api-revision">New API Revision&lt;/h3>
@@ -325,7 +325,7 @@ OS and application packages.&lt;/p>
 &lt;li>Support for analysis archive rules to trigger based on total number of images in each account. Fixes #700&lt;/li>
 &lt;li>Exclusion filters for analysis archive rules to allow specific registries or repos to be excluded from a broader rule. Fixes #699&lt;/li>
 &lt;li>Ability to exclude paths from vulnerability.packages rules using path regex. Fixes #229&lt;/li>
-&lt;li>Integrates new Syft tool (&lt;a href="https://github.com/nextlinux/syft">https://github.com/nextlinux/syft&lt;/a>) as package bill of materials analyzer. Fixes #679, #685, #682&lt;/li>
+&lt;li>Integrates new Syft tool (&lt;a href="https://github.com/nextlinux/gosbom">https://github.com/nextlinux/gosbom&lt;/a>) as package bill of materials analyzer. Fixes #679, #685, #682&lt;/li>
 &lt;li>Ability to set an expiration for individual whitelist rules. Fixes #178,&lt;/li>
 &lt;li>Ability to test webhook delivery via API call and provide schemas for webhook payloads. Fixes #489, #490&lt;/li>
 &lt;li>Success and error counters in prometheus metrics exported by analyzers (&amp;ldquo;nextlinux_analysis_success&amp;rdquo; and &amp;ldquo;nextlinux_analysis_error&amp;rdquo;)&lt;/li>

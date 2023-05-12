@@ -16,7 +16,7 @@ from nextlinux_engine.utils import timer, NextlinuxException
 from nextlinux_engine.clients.services import internal_client_for
 from nextlinux_engine.clients.services.catalog import CatalogClient
 from nextlinux_engine.analyzers.utils import merge_nested_dict
-from nextlinux_engine.analyzers.syft import convert_syft_to_engine
+from nextlinux_engine.analyzers.gosbom import convert_gosbom_to_engine
 from nextlinux_engine.services.analyzer.utils import (
     update_analysis_complete,
     update_analysis_failed,
@@ -83,7 +83,7 @@ def process_import(
     # need all this
     analyzer_manifest = {}
     image_id = import_manifest.local_image_id or import_manifest.digest
-    syft_packages = sbom.get("packages")
+    gosbom_packages = sbom.get("packages")
     dockerfile = sbom.get("dockerfile")
     manifest = sbom.get("manifest")
     image_config = sbom.get("image_config")
@@ -132,24 +132,22 @@ def process_import(
 
         timer = time.time()
 
-        # Move data from the syft sbom into the analyzer output
+        # Move data from the gosbom sbom into the analyzer output
         analyzer_report = {
             "analyzer_meta": {
                 "analyzer_meta": {
                     "base": {
-                        "DISTRO": syft_packages.get("distro", {}).get("name"),
-                        "DISTROVERS": syft_packages.get("distro", {}).get("version"),
-                        "LIKEDISTRO": syft_packages.get("distro", {}).get("idLike"),
+                        "DISTRO": gosbom_packages.get("distro", {}).get("name"),
+                        "DISTROVERS": gosbom_packages.get("distro", {}).get("version"),
+                        "LIKEDISTRO": gosbom_packages.get("distro", {}).get("idLike"),
                     }
                 }
             }
         }
 
         try:
-            syft_results = convert_syft_to_engine(
-                syft_packages, None, handle_hints=False
-            )
-            merge_nested_dict(analyzer_report, syft_results)
+            gosbom_results = convert_gosbom_to_engine(gosbom_packages)
+            merge_nested_dict(analyzer_report, gosbom_results)
         except Exception as err:
             raise nextlinux_engine.clients.localnextlinux_standalone.AnalysisError(
                 cause=err, pull_string=pullstring, tag=fulltag
@@ -319,7 +317,9 @@ def import_image(operation_id, account, import_manifest: InternalImportManifest)
                 catalog_client, image_digest, image_record
             )
             try:
-                notify_analysis_complete(image_record, last_analysis_status)
+                analysis_events.extend(
+                    notify_analysis_complete(image_record, last_analysis_status)
+                )
             except Exception as err:
                 logger.warn(
                     "failed to enqueue notification on image analysis state update - exception: "

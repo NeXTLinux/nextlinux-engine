@@ -5,17 +5,17 @@ import shlex
 from nextlinux_engine.utils import run_check
 
 
-def run_syft(image):
+def run_gosbom(image):
     proc_env = os.environ.copy()
 
-    syft_env = {
-        "SYFT_CHECK_FOR_APP_UPDATE": "0",
-        "SYFT_LOG_STRUCTURED": "1",
+    gosbom_env = {
+        "GOSBOM_CHECK_FOR_APP_UPDATE": "0",
+        "GOSBOM_LOG_STRUCTURED": "1",
     }
 
-    proc_env.update(syft_env)
+    proc_env.update(gosbom_env)
 
-    cmd = "syft -vv -o json oci-dir:{image}".format(image=image)
+    cmd = "gosbom -vv -o json oci-dir:{image}".format(image=image)
 
     stdout, _ = run_check(shlex.split(cmd), env=proc_env)
 

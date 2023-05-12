@@ -12,7 +12,7 @@ def save_entry(findings, engine_entry, pkg_key=None):
 
 def translate_and_save_entry(findings, artifact):
     """
-    Handler function to map syft results for an alpine package type into the engine "raw" document format.
+    Handler function to map gosbom results for an alpine package type into the engine "raw" document format.
     """
     _all_package_files(findings, artifact)
     _all_packages(findings, artifact)
@@ -75,7 +75,7 @@ def _all_package_files(findings, artifact):
         original_path = file.get("path")
         if not original_path.startswith("/"):
             # the 'alpine-baselayout' package is installed relative to root,
-            # however, syft reports this as an absolute path
+            # however, gosbom reports this as an absolute path
             original_path = "/" + original_path
 
         # nextlinux-engine considers all parent paths to also be a registered apkg path (except root)

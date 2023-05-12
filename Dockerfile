@@ -46,7 +46,11 @@ RUN set -ex && \
 
 RUN set -ex && \
     echo "installing Syft" && \
-    curl -sSfL https://raw.githubusercontent.com/nextlinux/syft/main/install.sh | sh -s -- -b /nextlinux_engine/bin v0.9.2
+    <<<<<<< HEAD
+    curl -sSfL https://raw.githubusercontent.com/nextlinux/gosbom/main/install.sh | sh -s -- -b /nextlinux_engine/bin v0.9.2
+=======
+    curl -sSfL https://raw.githubusercontent.com/nextlinux/gosbom/main/install.sh | sh -s -- -b /build_output/deps v0.12.2
+>>>>>>> 6db48a19 (Merge v0.9.0 (#830))
 
 # stage RPM dependency binaries
 RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
@@ -61,16 +65,25 @@ FROM registry.access.redhat.com/ubi8/ubi:8.2 as nextlinux-engine-final
 ######## This is stage2 which does setup and install entirely from items from stage1's /build_output ########
 
 ARG CLI_COMMIT
+<<<<<<< HEAD
 ARG NEXTLINUX_COMMIT
 ARG NEXTLINUX_ENGINE_VERSION="0.8.2"
 ARG NEXTLINUX_ENGINE_RELEASE="r0"
+=======
+ARG NEXTLINUX_COMMIT
+ARG NEXTLINUX_ENGINE_VERSION="0.9.0"
+ARG NEXTLINUX_ENGINE_RELEASE="r0"
+>>>>>>> 6db48a19 (Merge v0.9.0 (#830))
 
 # Copy skopeo artifacts from build step
 COPY --from=nextlinux-engine-builder /build_output /build_output
 
-# Copy syft from build step
-COPY --from=nextlinux-engine-builder /nextlinux_engine/bin/syft /nextlinux_engine/bin/syft
+<<<<<<< HEAD
+# Copy gosbom from build step
+COPY --from=nextlinux-engine-builder /nextlinux_engine/bin/gosbom /nextlinux_engine/bin/gosbom
 
+=======
+>>>>>>> 6db48a19 (Merge v0.9.0 (#830))
 # Container metadata section
 
 MAINTAINER dev@next-linux.systems
@@ -174,6 +187,7 @@ RUN set -ex && \
 RUN set -ex && \
     pip3 install --no-index --find-links=./ /build_output/wheels/*.whl && \
     cp /build_output/deps/skopeo /usr/bin/skopeo && \
+    cp /build_output/deps/gosbom /usr/bin/gosbom && \
     mkdir -p /etc/containers && \
     cp /build_output/configs/skopeo-policy.json /etc/containers/policy.json && \
     yum install -y /build_output/deps/*.rpm && \
@@ -186,6 +200,9 @@ HEALTHCHECK --start-period=20s \
 
 USER 1000
 
+<<<<<<< HEAD
 ENV PATH="/nextlinux_engine/bin:${PATH}"
+=======
+>>>>>>> 6db48a19 (Merge v0.9.0 (#830))
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["nextlinux-manager", "service", "start", "--all"]

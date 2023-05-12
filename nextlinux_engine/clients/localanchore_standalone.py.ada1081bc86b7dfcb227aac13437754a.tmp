@@ -21,7 +21,7 @@ import nextlinux_engine.auth.common
 import nextlinux_engine.clients.skopeo_wrapper
 import nextlinux_engine.common.images
 import nextlinux_engine.analyzers.utils
-import nextlinux_engine.analyzers.syft
+import nextlinux_engine.analyzers.gosbom
 from nextlinux_engine.utils import NextlinuxException
 from nextlinux_engine.util.docker import (
     DockerV1ManifestMetadata,
@@ -956,11 +956,11 @@ def run_nextlinux_analyzers(staging_dirs, imageDigest, imageId, localconfig):
                     "base": data
                 }
 
-    syft_results = nextlinux_engine.analyzers.syft.catalog_image(
+    gosbom_results = nextlinux_engine.analyzers.gosbom.catalog_image(
         image=copydir, unpackdir=unpackdir)
 
     nextlinux_engine.analyzers.utils.merge_nested_dict(analyzer_report,
-                                                     syft_results)
+                                                     gosbom_results)
 
     return dict(analyzer_report)
 

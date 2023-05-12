@@ -42,11 +42,11 @@ sync:
 data:
 grypedb:
 enabled: true
-url: ${NEXTLINUX_GRYPE_DB_URL}
+url: ${NEXTLINUX_GOVULNERS_DB_URL}
 packages:
 enabled: true
 url: ${NEXTLINUX_FEEDS_URL}
-&lt;/code>&lt;/pre>&lt;p>&lt;em>&lt;strong>Note:&lt;/strong>&lt;/em> As shown above, Nextlinux Engine&amp;rsquo;s default is now Grype. The Grype feed is the default, and the only one that Nextlinux Engine syncs.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>&lt;em>&lt;strong>Note:&lt;/strong>&lt;/em> As shown above, Nextlinux Engine&amp;rsquo;s default is now Govulners. The Govulners feed is the default, and the only one that Nextlinux Engine syncs.&lt;/p>
 &lt;h4 id="read-timeout">Read Timeout&lt;/h4>
 &lt;p>Under rare circumstances you may see syncs failing with errors to fetch data due to timeouts. This is typically due to load on the feed service, network issues, or
 some other temporary condition. However, if you want to increase the timeout to improve the likelihood of success, modify the &lt;em>read_timeout_seconds&lt;/em> of the feeds configuration:&lt;/p>
@@ -108,8 +108,8 @@ vulnerabilities ubuntu:18.04 2020-03-27T20:37:35.077867 12547
 vulnerabilities ubuntu:18.10 2020-03-27T20:39:20.097963 8397
 vulnerabilities ubuntu:19.04 2020-03-27T20:40:18.628869 8664
 vulnerabilities ubuntu:19.10 2020-03-27T20:41:20.828796 7327
-&lt;/code>&lt;/pre>&lt;p>&lt;em>&lt;strong>Note:&lt;/strong>&lt;/em> The Grype feed is the only feed that will be synced. It will
-contain the records from all the other groups. It is not possible to include or exclude groups from the Grype feed.&lt;/p>
+&lt;/code>&lt;/pre>&lt;p>&lt;em>&lt;strong>Note:&lt;/strong>&lt;/em> The Govulners feed is the only feed that will be synced. It will
+contain the records from all the other groups. It is not possible to include or exclude groups from the Govulners feed.&lt;/p>
 &lt;h3 id="using-the-config-file-to-includeexclude-feeds-at-system-bootstrap">Using the Config File to Include/Exclude Feeds at System Bootstrap&lt;/h3>
 &lt;p>The most common way to set which feeds are synced is in the config.yaml for the policy engine. By default,
 the &lt;em>grypedb&lt;/em> and &lt;em>packages&lt;/em> feeds are synced to provide good vulnerability matching support for a variety of linux distros
