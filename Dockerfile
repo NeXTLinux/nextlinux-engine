@@ -12,8 +12,8 @@ ENV LANG=en_US.UTF-8
 ENV LC_ALL=C.UTF-8
 
 # environment variables for dependent binary versions
-ENV GOSBOM_VERSION=v0.33.0
-ENV GOVULNERS_VERSION=v0.27.3
+ENV GOSBOM_VERSION=null
+ENV GOVULNERS_VERSION=null
 ENV PIP_VERSION=21.0.1
 
 # setup build artifact directory
