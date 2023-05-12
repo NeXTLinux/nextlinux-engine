@@ -3,13 +3,13 @@ import re
 import time
 import collections
 
-import anchore_engine.utils
-from anchore_engine.subsys import logger
-from anchore_engine.configuration.localconfig import analyzer_paths
+import nextlinux_engine.utils
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.configuration.localconfig import analyzer_paths
 from pkg_resources import resource_filename
-from anchore_engine.analyzers import syft
-from anchore_engine.analyzers import binary
-from anchore_engine.analyzers import utils
+from nextlinux_engine.analyzers import syft
+from nextlinux_engine.analyzers import binary
+from nextlinux_engine.analyzers import utils
 
 
 def run(configdir, imageId, unpackdir, outputdir, copydir):
@@ -38,13 +38,13 @@ def apply_hints(analyzer_report, unpackdir):
 def _run_analyzer_modules(analyzer_report, configdir, imageId, unpackdir, outputdir):
     for f in list_modules():
         cmdstr = " ".join([f, configdir, imageId, unpackdir, outputdir, unpackdir])
-        with anchore_engine.utils.timer(
+        with nextlinux_engine.utils.timer(
             "Executing analyzer %s" % str(f), log_level="info"
         ):
             try:
-                rc, sout, serr = anchore_engine.utils.run_command(cmdstr)
-                sout = anchore_engine.utils.ensure_str(sout)
-                serr = anchore_engine.utils.ensure_str(serr)
+                rc, sout, serr = nextlinux_engine.utils.run_command(cmdstr)
+                sout = nextlinux_engine.utils.ensure_str(sout)
+                serr = nextlinux_engine.utils.ensure_str(serr)
                 if rc != 0:
                     logger.error(
                         "command failed: cmd=%s exitcode=%s stdout=%s stderr=%s".format(

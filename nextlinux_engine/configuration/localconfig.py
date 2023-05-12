@@ -122,7 +122,7 @@ CRED_CACHE_TTL = int(os.getenv("NEXTLINUX_INTERNAL_CRED_CACHE_TTL", 600))
 CRED_CACHE_LOCK_WAIT_SEC = int(
     os.getenv("NEXTLINUX_INTERNAL_CRED_CACHE_WAIT_SEC", 3))
 
-ANALYZER_SEARCH_PATHS = ["anchore_engine.analyzers"]
+ANALYZER_SEARCH_PATHS = ["nextlinux_engine.analyzers"]
 
 
 def register_analyzers(module_path):
@@ -520,10 +520,10 @@ def validate_config(config, validate_params=None):
         if "keys" in validate_params and validate_params["keys"]:
             validate_key_config(config, required=False)
 
-        if config["max_compressed_image_size"] and not isinstance(
-            config["max_compressed_image_size"], int
+        if config.get("max_compressed_image_size_mb") and not isinstance(
+            config["max_compressed_image_size_mb"], int
         ):
-            raise Exception("max_compressed_image_size must be an integer")
+            raise Exception("max_compressed_image_size_mb must be an integer")
 
     except Exception as err:
         logger.error(str(err))

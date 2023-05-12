@@ -2,7 +2,6 @@
 # To fully customize configuration, provide a different config.yaml to container at startup by mounting a directory
 # at /config that has the config.yaml
 
-
 # These defaults are intended to serve a deployment where each service is started in its own container with individual overrides
 # for values like the endpoint hostname. This config provides a uniform setting of those such that env vars passed in from
 # execution will overwrite values needed.
@@ -89,7 +88,6 @@ feeds:
   connection_timeout_seconds: 3
   read_timeout_seconds: 60
 
-
 # As of 0.3.0 this section is used instead of the credentials.users section
 # Can be omitted and will default to 'foobar' on db initialization
 default_admin_password: ${NEXTLINUX_ADMIN_PASSWORD}
@@ -99,7 +97,7 @@ default_admin_email: ${NEXTLINUX_ADMIN_EMAIL}
 
 credentials:
   database:
-    db_connect: 'postgresql://${NEXTLINUX_DB_USER}:${NEXTLINUX_DB_PASSWORD}@${NEXTLINUX_DB_HOST}:${NEXTLINUX_DB_PORT}/${NEXTLINUX_DB_NAME}'
+    db_connect: "postgresql://${NEXTLINUX_DB_USER}:${NEXTLINUX_DB_PASSWORD}@${NEXTLINUX_DB_HOST}:${NEXTLINUX_DB_PORT}/${NEXTLINUX_DB_NAME}"
     db_connect_args:
       timeout: 120
       ssl: false
@@ -109,8 +107,8 @@ services:
   apiext:
     enabled: true
     require_auth: true
-    endpoint_hostname: '${NEXTLINUX_ENDPOINT_HOSTNAME}'
-    listen: '0.0.0.0'
+    endpoint_hostname: "${NEXTLINUX_ENDPOINT_HOSTNAME}"
+    listen: "0.0.0.0"
     port: ${NEXTLINUX_SERVICE_PORT}
     authorization_handler: ${NEXTLINUX_AUTHZ_HANDLER}
     authorization_handler_config:
@@ -118,13 +116,13 @@ services:
   catalog:
     enabled: true
     require_auth: true
-    endpoint_hostname: '${NEXTLINUX_ENDPOINT_HOSTNAME}'
-    listen: '0.0.0.0'
+    endpoint_hostname: "${NEXTLINUX_ENDPOINT_HOSTNAME}"
+    listen: "0.0.0.0"
     port: ${NEXTLINUX_SERVICE_PORT}
-# NOTE: use the below external_* parameters to define the port/tls
-# setting that will allow other internal services to access this
-# service - if left unset services will use the above,
-# e.g. http://<endpoint_hostname>:<port>
+    # NOTE: use the below external_* parameters to define the port/tls
+    # setting that will allow other internal services to access this
+    # service - if left unset services will use the above,
+    # e.g. http://<endpoint_hostname>:<port>
     external_port: ${NEXTLINUX_EXTERNAL_PORT}
     external_tls: ${NEXTLINUX_EXTERNAL_TLS}
     archive:
@@ -151,12 +149,12 @@ services:
         enabled: ${NEXTLINUX_EVENTS_NOTIFICATIONS_ENABLED}
         # (optional) notify events that match these levels. If this section is commented, notifications for all events are sent
         level:
-        - error
+          - error
   simplequeue:
     enabled: true
     require_auth: true
-    endpoint_hostname: '${NEXTLINUX_ENDPOINT_HOSTNAME}'
-    listen: '0.0.0.0'
+    endpoint_hostname: "${NEXTLINUX_ENDPOINT_HOSTNAME}"
+    listen: "0.0.0.0"
     port: ${NEXTLINUX_SERVICE_PORT}
     external_port: ${NEXTLINUX_EXTERNAL_PORT}
     external_tls: ${NEXTLINUX_EXTERNAL_TLS}
@@ -165,9 +163,9 @@ services:
     require_auth: true
     cycle_timer_seconds: 1
     max_threads: 1
-    analyzer_driver: 'nodocker'
-    endpoint_hostname: '${NEXTLINUX_ENDPOINT_HOSTNAME}'
-    listen: '0.0.0.0'
+    analyzer_driver: "nodocker"
+    endpoint_hostname: "${NEXTLINUX_ENDPOINT_HOSTNAME}"
+    listen: "0.0.0.0"
     port: ${NEXTLINUX_SERVICE_PORT}
     external_port: ${NEXTLINUX_EXTERNAL_PORT}
     external_tls: ${NEXTLINUX_EXTERNAL_TLS}
@@ -175,8 +173,8 @@ services:
   policy_engine:
     enabled: true
     require_auth: true
-    endpoint_hostname: '${NEXTLINUX_ENDPOINT_HOSTNAME}'
-    listen: '0.0.0.0'
+    endpoint_hostname: "${NEXTLINUX_ENDPOINT_HOSTNAME}"
+    listen: "0.0.0.0"
     port: ${NEXTLINUX_SERVICE_PORT}
     external_port: ${NEXTLINUX_EXTERNAL_PORT}
     external_tls: ${NEXTLINUX_EXTERNAL_TLS}
@@ -185,8 +183,7 @@ services:
       feed_sync: ${NEXTLINUX_FEED_SYNC_INTERVAL_SEC} # 6 hours between feed syncs
       feed_sync_checker: 3600 # 1 hour between checks to see if there needs to be a task queued
 
-
 # Defines a maximum compressed image size (MB) to be added for analysis
 # Value < 0 disables feature
 # Disabled by default
-max_compressed_image_size: ${ANCHORE_MAX_COMPRESSED_IMAGE_SIZE}
+max_compressed_image_size_mb: ${NEXTLINUX_MAX_COMPRESSED_IMAGE_SIZE_MB}
