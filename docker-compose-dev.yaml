@@ -1,0 +1,113 @@
+# This is a docker-compose file for development purposes. It refereneces unstable developer builds from the HEAD of master branch in https://github.com/nextlinux/nextlinux-engine
+# For a compose file intended for use with a released version, see https://engine.next-linux.systems/docs/quickstart/
+#
+---
+version: '2.1'
+volumes:
+  nextlinux-db-volume:
+    # Set this to 'true' to use an external volume. In which case, it must be created manually with "docker volume create nextlinux-db-volume"
+    external: false
+
+services:
+  # The primary API endpoint service
+  api:
+    image: nextlinux/nextlinux-engine-dev:latest
+    depends_on:
+    - db
+    - catalog
+    ports:
+    - "8228:8228"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 100m
+    environment:
+    - NEXTLINUX_ENDPOINT_HOSTNAME=api
+    - NEXTLINUX_ADMIN_PASSWORD=foobar
+    - NEXTLINUX_DB_HOST=db
+    - NEXTLINUX_DB_PASSWORD=mysecretpassword
+    command: ["nextlinux-manager", "service", "start", "apiext"]
+
+  # Catalog is the primary persistence and state manager of the system
+  catalog:
+    image: nextlinux/nextlinux-engine-dev:latest
+    depends_on:
+    - db
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 100m
+    expose:
+    - 8228
+    environment:
+    - NEXTLINUX_ENDPOINT_HOSTNAME=catalog
+    - NEXTLINUX_ADMIN_PASSWORD=foobar
+    - NEXTLINUX_DB_HOST=db
+    - NEXTLINUX_DB_PASSWORD=mysecretpassword
+    command: ["nextlinux-manager", "service", "start", "catalog"]
+  queue:
+    image: nextlinux/nextlinux-engine-dev:latest
+    depends_on:
+    - db
+    - catalog
+    expose:
+    - 8228
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 100m
+    environment:
+    - NEXTLINUX_ENDPOINT_HOSTNAME=queue
+    - NEXTLINUX_ADMIN_PASSWORD=foobar
+    - NEXTLINUX_DB_HOST=db
+    - NEXTLINUX_DB_PASSWORD=mysecretpassword
+    command: ["nextlinux-manager", "service", "start", "simplequeue"]
+  policy-engine:
+    image: nextlinux/nextlinux-engine-dev:latest
+    depends_on:
+    - db
+    - catalog
+    expose:
+    - 8228
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 100m
+    environment:
+    - NEXTLINUX_ENDPOINT_HOSTNAME=policy-engine
+    - NEXTLINUX_ADMIN_PASSWORD=foobar
+    - NEXTLINUX_DB_HOST=db
+    - NEXTLINUX_DB_PASSWORD=mysecretpassword
+    command: ["nextlinux-manager", "service", "start", "policy_engine"]
+  analyzer:
+    image: nextlinux/nextlinux-engine-dev:latest
+    depends_on:
+    - db
+    - catalog
+    expose:
+    - 8228
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 100m
+    environment:
+    - NEXTLINUX_ENDPOINT_HOSTNAME=analyzer
+    - NEXTLINUX_ADMIN_PASSWORD=foobar
+    - NEXTLINUX_DB_HOST=db
+    - NEXTLINUX_DB_PASSWORD=mysecretpassword
+    volumes:
+    - /analysis_scratch
+    command: ["nextlinux-manager", "service", "start", "analyzer"]
+  db:
+    image: "postgres:9"
+    volumes:
+    - nextlinux-db-volume:/var/lib/postgresql/data
+    environment:
+    - POSTGRES_PASSWORD=mysecretpassword
+    expose:
+    - 5432
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 100m
+

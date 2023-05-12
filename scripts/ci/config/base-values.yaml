@@ -1,0 +1,66 @@
+nextlinuxGlobal:
+  defaultAdminPassword: foobar
+
+postgresql:
+  # image: nextlinux/engine-db-preload
+  # imageTag: latest
+  # postgresUser: postgres
+  # postgrsPassword: foobar123
+  # postgresDatabase: postgres
+  # probes:
+  #   liveness:
+  #     initialDelay: 500
+  resources:
+   limits:
+     cpu: 1
+     memory: 1G
+   requests:
+     cpu: 100m
+     memory: 100M
+
+nextlinuxAnalyzer:
+  resources:
+   limits:
+     cpu: 1
+     memory: 1G
+   requests:
+     cpu: 100m
+     memory: 100M
+
+nextlinuxApi:
+  service:
+    type: NodePort
+  resources:
+   limits:
+     cpu: 500m
+     memory: 500M
+   requests:
+     cpu: 100m
+     memory: 100M
+
+nextlinuxCatalog:
+  resources:
+   limits:
+     cpu: 1
+     memory: 1G
+   requests:
+     cpu: 100m
+     memory: 100M
+
+nextlinuxPolicyEngine:
+  resources:
+   limits:
+     cpu: 1
+     memory: 1G
+   requests:
+     cpu: 100m
+     memory: 100M
+
+nextlinuxSimpleQueue:
+  resources:
+   limits:
+     cpu: 500m
+     memory: 500M
+   requests:
+     cpu: 100m
+     memory: 100M

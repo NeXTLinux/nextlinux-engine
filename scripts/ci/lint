@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -euvo pipefail
+
+# Optional - only used for print_colorized
+source nextlinux-ci/utils
+
+hash pylint || python -m pip install -q pylint
+
+print_colorized INFO "Linting Nextlinux Engine code."; echo
+
+# This is specifically enabling checks because the output is too large to
+# fix in one go. As cleanups are done, more checks can be enabled
+pylint --rcfile=.pylintrc nextlinux_engine
+
+print_colorized INFO "Finished linting Nextlinux Engine code."; echo
+
+print_colorized INFO "Linting Nextlinux Engine tests."; echo
+
+# This is specifically enabling checks because the output is too large to
+# fix in one go. As cleanups are done, more checks can be enabled
+pylint --rcfile=.pylintrc tests
+
+print_colorized INFO "Finished linting Nextlinux Engine tests."; echo

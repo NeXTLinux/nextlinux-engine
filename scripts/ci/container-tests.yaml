@@ -1,0 +1,14 @@
+schemaVersion: "2.0.0"
+commandTests:
+  - name: "clamscan"
+    command: "clamscan"
+    args: ["-h"]
+  - name: "freshclam"
+    command: "freshclam"
+    args: ["-h"]
+  - name: "nextlinux-cli"
+    command: "/nextlinux-cli/bin/nextlinux-cli"
+    args: ["-h"]
+  - name: "nextlinux-manager"
+    command: "/usr/local/bin/nextlinux-manager"
+    args: ["--help"]
