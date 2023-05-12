@@ -16,7 +16,11 @@ from flask import g, jsonify
 
 from nextlinux_engine import monitors
 from nextlinux_engine.apis.authorization import get_authorizer, init_authz_handler
+<<<<<<< HEAD
 from nextlinux_engine.apis.exceptions import AnchoreApiError
+=======
+from nextlinux_engine.apis.exceptions import NextlinuxApiError
+>>>>>>> master
 from nextlinux_engine.clients.services import internal_client_for
 from nextlinux_engine.clients.services.catalog import CatalogClient
 from nextlinux_engine.common.helpers import make_response_error
@@ -62,9 +66,9 @@ _default_lifecycle_handlers = {
 }
 
 
-def handle_api_exception(ex: AnchoreApiError):
+def handle_api_exception(ex: NextlinuxApiError):
     """
-    Returns the proper json for marshalling an AnchoreApiError
+    Returns the proper json for marshalling an NextlinuxApiError
     :param ex:
     :return:
     """
@@ -272,7 +276,7 @@ class BaseService(object, metaclass=ServiceMeta):
             "task_handlers_enabled", True
         )
         env_setting = (
-            not os.environ.get("ANCHORE_ENGINE_DISABLE_MONITORS", "false").lower()
+            not os.environ.get("NEXTLINUX_ENGINE_DISABLE_MONITORS", "false").lower()
             == "true"
         )
         self.task_handlers_enabled = self.task_handlers_enabled and env_setting
@@ -280,7 +284,7 @@ class BaseService(object, metaclass=ServiceMeta):
         if not self.task_handlers_enabled:
             if env_setting:
                 logger.warn(
-                    "Task handlers disabled by setting ANCHORE_ENGINE_DISABLE_MONITORS in environment"
+                    "Task handlers disabled by setting NEXTLINUX_ENGINE_DISABLE_MONITORS in environment"
                 )
             else:
                 logger.warn("Task handlers disabled by configuration file value")
@@ -619,7 +623,7 @@ class ApiService(BaseService):
             self.init_auth()
 
             flask_app.before_request(self._inject_service)
-            flask_app.register_error_handler(AnchoreApiError, handle_api_exception)
+            flask_app.register_error_handler(NextlinuxApiError, handle_api_exception)
 
             metrics.init_flask_metrics(flask_app, servicename=service_name)
             self._application.add_api(

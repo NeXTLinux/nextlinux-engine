@@ -6,7 +6,11 @@ import re
 from pkg_resources import resource_filename
 
 import nextlinux_engine.utils
+<<<<<<< HEAD
 from nextlinux_engine.analyzers import binary, hints, syft, utils
+=======
+from nextlinux_engine.analyzers import binary, hints, gosbom, utils
+>>>>>>> master
 from nextlinux_engine.analyzers.hints import HintsTypeError
 from nextlinux_engine.configuration.localconfig import analyzer_paths
 from nextlinux_engine.subsys import logger
@@ -20,7 +24,7 @@ class AnalysisResult:
 
     analysis_report: dict
     image_export: list
-    syft_output: dict
+    gosbom_output: dict
     manifest: dict
 
 
@@ -34,7 +38,7 @@ def run(
 ) -> AnalysisResult:
     analyzer_report = collections.defaultdict(dict)
     _run_analyzer_modules(analyzer_report, configdir, imageId, unpackdir, outputdir)
-    syft_output = _run_syft(
+    gosbom_output = _run_gosbom(
         analyzer_report,
         unpackdir,
         copydir,
@@ -51,7 +55,7 @@ def run(
     result = AnalysisResult(
         analysis_report=dict_analyzer_report,
         image_export=[],
-        syft_output=syft_output,
+        gosbom_output=gosbom_output,
         manifest={},
     )
     return result
@@ -69,10 +73,10 @@ def apply_hints(analyzer_report, unpackdir):
         pkg_type = pkg_type.lower() if pkg_type else None
         if (
             pkg_type
-            and pkg_type in syft.modules_by_engine_type
+            and pkg_type in gosbom.modules_by_engine_type
             and pkg_type in hints.hints_by_type
         ):
-            handler = syft.modules_by_engine_type[pkg_type]
+            handler = gosbom.modules_by_engine_type[pkg_type]
             try:
                 hint = hints.hints_by_type[pkg_type](engine_entry).to_dict()
             except HintsTypeError:
@@ -80,7 +84,7 @@ def apply_hints(analyzer_report, unpackdir):
                 continue
             handler.save_entry(analyzer_report, hint)
         else:
-            logger.debug("pkg_type %s not supported for syft hints", pkg_type)
+            logger.debug("pkg_type %s not supported for gosbom hints", pkg_type)
 
 
 def _run_analyzer_modules(analyzer_report, configdir, imageId, unpackdir, outputdir):
@@ -135,19 +139,19 @@ def _run_internal_analyzers(analyzer_report, unpackdir):
     utils.merge_nested_dict(analyzer_report, results)
 
 
-def _run_syft(
+def _run_gosbom(
     analyzer_report, unpackdir, copydir, package_filtering_enabled=True
 ) -> dict:
     """
-    Execute syft and merge the results into the provided analyzer report
+    Execute gosbom and merge the results into the provided analyzer report
 
     :param analyzer_report:
     :param unpackdir:
     :param copydir: directory path to use fo r
     :param package_filtering_enabled: boolean to control if packages should be filtered out if they are "owned" by another package
-    :return: the raw syft output dict
+    :return: the raw gosbom output dict
     """
-    unified_results, raw_syft = syft.catalog_image(
+    unified_results, raw_gosbom = gosbom.catalog_image(
         tmp_dir=unpackdir,
         image_oci_dir=copydir,
         package_filtering_enabled=package_filtering_enabled,
@@ -155,7 +159,7 @@ def _run_syft(
 
     utils.merge_nested_dict(analyzer_report, unified_results)
 
-    return raw_syft
+    return raw_gosbom
 
 
 def analyzer_name_from_path(path):

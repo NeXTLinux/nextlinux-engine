@@ -33,7 +33,11 @@ from nextlinux_engine.db.entities.common import (
 from nextlinux_engine.util.time import datetime_to_rfc3339
 
 
+<<<<<<< HEAD
 class Anchore(Base, UtilMixin):
+=======
+class Nextlinux(Base, UtilMixin):
+>>>>>>> master
     __tablename__ = "nextlinux"
 
     service_version = Column(String, primary_key=True)

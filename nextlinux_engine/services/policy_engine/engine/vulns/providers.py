@@ -35,9 +35,15 @@ from nextlinux_engine.db import ImageVulnerabilitiesReport as DBImageVulnerabili
 from nextlinux_engine.db import VulnDBCpe, VulnDBMetadata, Vulnerability
 from nextlinux_engine.db import get_thread_scoped_session as get_session
 from nextlinux_engine.db import select_nvd_classes, session_scope
+<<<<<<< HEAD
 from nextlinux_engine.db.db_grype_db_feed_metadata import (
     NoActiveGrypeDB,
     get_most_recent_active_grypedb,
+=======
+from nextlinux_engine.db.db_govulners_db_feed_metadata import (
+    NoActiveGovulnersDB,
+    get_most_recent_active_govulnersdb,
+>>>>>>> master
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.config import (
     SyncConfig,
@@ -50,18 +56,26 @@ from nextlinux_engine.services.policy_engine.engine.feeds.db import (
     set_feed_enabled,
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.feeds import (
+<<<<<<< HEAD
     GrypeDBFeed,
+=======
+    GovulnersDBFeed,
+>>>>>>> master
     have_vulnerabilities_for,
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.sync import DataFeeds
 from nextlinux_engine.services.policy_engine.engine.feeds.sync_utils import (
+<<<<<<< HEAD
     GrypeDBSyncUtilProvider,
+=======
+    GovulnersDBSyncUtilProvider,
+>>>>>>> master
     LegacySyncUtilProvider,
     SyncUtilProvider,
 )
 from nextlinux_engine.services.policy_engine.engine.policy.gate_util_provider import (
     GateUtilProvider,
-    GrypeGateUtilProvider,
+    GovulnersGateUtilProvider,
     LegacyGateUtilProvider,
 )
 from nextlinux_engine.services.policy_engine.engine.vulnerabilities import (
@@ -77,10 +91,17 @@ from nextlinux_engine.services.policy_engine.engine.vulns.feed_display_mapper im
     FeedDisplayMapper,
 )
 from nextlinux_engine.services.policy_engine.engine.vulns.mappers import (
+<<<<<<< HEAD
     EngineGrypeDBMapper,
 )
 from nextlinux_engine.services.policy_engine.engine.vulns.scanners import (
     GrypeScanner,
+=======
+    EngineGovulnersDBMapper,
+)
+from nextlinux_engine.services.policy_engine.engine.vulns.scanners import (
+    GovulnersScanner,
+>>>>>>> master
     LegacyScanner,
 )
 from nextlinux_engine.services.policy_engine.engine.vulns.stores import (
@@ -186,7 +207,7 @@ class VulnerabilitiesProvider(ABC):
 
     def _get_db_feeds(self) -> List[FeedMetadata]:
         """
-        Returns all feeds excluding grypedb feed in detached state
+        Returns all feeds excluding govulnersdb feed in detached state
         """
         feeds = get_all_feeds_detached()
         return list(
@@ -1088,14 +1109,18 @@ class LegacyProvider(VulnerabilitiesProvider):
         return LegacyGateUtilProvider()
 
 
-class GrypeProvider(VulnerabilitiesProvider):
-    __scanner__ = GrypeScanner
+class GovulnersProvider(VulnerabilitiesProvider):
+    __scanner__ = GovulnersScanner
     __store__ = ImageVulnerabilitiesStore
-    __config__name__ = "grype"
+    __config__name__ = "govulners"
     __default_sync_config__ = {
-        "grypedb": SyncConfig(
+        "govulnersdb": SyncConfig(
             enabled=True,
+<<<<<<< HEAD
             url="https://toolbox-data.nextlinux.io/grype/databases/listing.json",
+=======
+            url="https://toolbox-data.next-linux.systems/govulners/databases/listing.json",
+>>>>>>> master
         ),
         "packages": SyncConfig(enabled=False, url="https://ancho.re/v1/service/feeds"),
     }
@@ -1106,12 +1131,12 @@ class GrypeProvider(VulnerabilitiesProvider):
         Populate the display mapper for this provider.
         """
         self._display_mapper.register(
-            internal_name="grypedb", display_name="vulnerabilities"
+            internal_name="govulnersdb", display_name="vulnerabilities"
         )
         self._display_mapper.register(internal_name="packages", display_name="packages")
 
     def load_image(self, image: Image, db_session, use_store=True):
-        with timer("grype provider load-image", log_level="info"):
+        with timer("govulners provider load-image", log_level="info"):
             return self._create_new_report(image, db_session, use_store)
 
     def get_image_vulnerabilities_json(
@@ -1122,7 +1147,7 @@ class GrypeProvider(VulnerabilitiesProvider):
         force_refresh: bool = False,
         use_store: bool = True,
     ):
-        with timer("grype provider get-image-vulnerabilities-json", log_level="info"):
+        with timer("govulners provider get-image-vulnerabilities-json", log_level="info"):
             if force_refresh:
                 report = self._create_new_report(image, db_session, use_store)
             else:
@@ -1148,7 +1173,7 @@ class GrypeProvider(VulnerabilitiesProvider):
         force_refresh: bool = False,
         use_store: bool = True,
     ) -> ImageVulnerabilitiesReport:
-        with timer("grype provider get-image-vulnerabilities", log_level="info"):
+        with timer("govulners provider get-image-vulnerabilities", log_level="info"):
             if force_refresh:
                 report = self._create_new_report(image, db_session, use_store)
             else:
@@ -1320,13 +1345,13 @@ class GrypeProvider(VulnerabilitiesProvider):
     ):
         scanner = self.__scanner__()
 
-        # Get vulnerability results from grype db, through the grype wrapper, via the scanner
+        # Get vulnerability results from govulners db, through the govulners wrapper, via the scanner
         unmapped_results, related_nvd_metadata_records = scanner.get_vulnerabilities(
             ids, affected_package, affected_package_version, namespace
         )
 
-        # Map grype db vulnerabilities into engine vulnerabilities
-        mapped_results = EngineGrypeDBMapper().to_engine_vulnerabilities(
+        # Map govulners db vulnerabilities into engine vulnerabilities
+        mapped_results = EngineGovulnersDBMapper().to_engine_vulnerabilities(
             unmapped_results, related_nvd_metadata_records
         )
         return mapped_results
@@ -1359,8 +1384,8 @@ class GrypeProvider(VulnerabilitiesProvider):
         #                     "db_built_at": "2021-06-03T12:30:51Z",
         #                     "db_checksum": "sha256:31e09fb931256cd6dabb54092727c56b3c2a0c9016edd3f90a207f92df4d8c1c",
         #                     "db_schema_version": 3,
-        #                     "grype_version": "0.13.0",
-        #                     "scanner": "GrypeScanner",
+        #                     "govulners_version": "0.13.0",
+        #                     "scanner": "GovulnersScanner",
         #                 },
         #                 "schema_version": "1.0",
         #             },
@@ -1396,7 +1421,7 @@ class GrypeProvider(VulnerabilitiesProvider):
         #             ],
         #         },
         #     }
-        with timer("grype provider get-images-by-vulnerability", log_level="info"):
+        with timer("govulners provider get-images-by-vulnerability", log_level="info"):
             vulnerable_images = []
             results = {"vulnerable_images": vulnerable_images}
 
@@ -1518,29 +1543,29 @@ class GrypeProvider(VulnerabilitiesProvider):
 
     def get_sync_util_provider(
         self, sync_configs: Dict[str, SyncConfig]
-    ) -> GrypeDBSyncUtilProvider:
+    ) -> GovulnersDBSyncUtilProvider:
         """
         Get a SyncUtilProvider.
         """
-        return GrypeDBSyncUtilProvider(sync_configs)
+        return GovulnersDBSyncUtilProvider(sync_configs)
 
     def rescan_images_loaded_during_feed_sync(
         self, uuid: str, from_time: datetime.datetime, to_time: datetime.datetime
     ):
         """
-        This is a no-op for grype provider since vulnerability matches are not computed the same way as the legacy provider.
-        grype-db feed sync will refresh the matches for all images in the system
+        This is a no-op for govulners provider since vulnerability matches are not computed the same way as the legacy provider.
+        govulners-db feed sync will refresh the matches for all images in the system
         """
         pass
 
     def _get_feed_groups(self, db_feed: FeedMetadata) -> List[APIFeedGroupMetadata]:
         """
-        Overrides function on parent class to handle grype feed. If feed is not grype it calls the super function
-        Otherwise, it builds the group response for the grype feed using the GrypeDBFeedMetadata record
+        Overrides function on parent class to handle govulners feed. If feed is not govulners it calls the super function
+        Otherwise, it builds the group response for the govulners feed using the GovulnersDBFeedMetadata record
         """
         groups = []
 
-        if db_feed.name != GrypeDBFeed.__feed_name__:
+        if db_feed.name != GovulnersDBFeed.__feed_name__:
             for group in db_feed.groups:
                 groups.append(
                     APIFeedGroupMetadata(
@@ -1555,17 +1580,17 @@ class GrypeProvider(VulnerabilitiesProvider):
         else:
             with session_scope() as session:
                 try:
-                    active_db = get_most_recent_active_grypedb(session)
+                    active_db = get_most_recent_active_govulnersdb(session)
                     for raw_group in active_db.groups:
                         groups.append(APIFeedGroupMetadata.from_json(raw_group))
-                except NoActiveGrypeDB:
-                    logger.info("No active grypedb present")
+                except NoActiveGovulnersDB:
+                    logger.info("No active govulnersdb present")
                     groups = []
         return groups
 
     def update_feed_group_counts(self) -> None:
         """
-        Counts on grypedb are static so no need to update
+        Counts on govulnersdb are static so no need to update
         """
         return
 
@@ -1576,9 +1601,9 @@ class GrypeProvider(VulnerabilitiesProvider):
         This function determines if the image vulnerabilities were updated based on the state of the report in the store.
         Returns True if a newer report is available or if the existing report needs a refresh. False otherwise
 
-        It does not intentionally use the same mechanism as the legacy provider i.e. grype-db feed last_sync timestamp,
+        It does not intentionally use the same mechanism as the legacy provider i.e. govulners-db feed last_sync timestamp,
         as that's not an accurate measure. The last_sync timestamp reflects when a sync was performed,
-        not if a new grype-db was synced. The more accurate approach is to compare the input with the report generation
+        not if a new govulners-db was synced. The more accurate approach is to compare the input with the report generation
         timestamp
         """
         # initialize store manager first
@@ -1589,15 +1614,15 @@ class GrypeProvider(VulnerabilitiesProvider):
     def delete_image_vulnerabilities(self, image: Image, db_session):
         ImageVulnerabilitiesStore(image_object=image).delete_all(session=db_session)
 
-    def get_gate_util_provider(self) -> GrypeGateUtilProvider:
+    def get_gate_util_provider(self) -> GovulnersGateUtilProvider:
         """
         Get a GateUtilProvider.
         """
-        return GrypeGateUtilProvider()
+        return GovulnersGateUtilProvider()
 
 
 # Override this map for associating different provider classes
-PROVIDER_CLASSES = [LegacyProvider, GrypeProvider]
+PROVIDER_CLASSES = [LegacyProvider, GovulnersProvider]
 PROVIDER = None
 
 
@@ -1618,7 +1643,7 @@ def set_provider():
 
     if not provider_class:
         raise ValueError(
-            'No vulnerabilities provider implementation found for configured provider %s. Supported providers are "grype" or "legacy"',
+            'No vulnerabilities provider implementation found for configured provider %s. Supported providers are "govulners" or "legacy"',
             provider_name,
         )
 

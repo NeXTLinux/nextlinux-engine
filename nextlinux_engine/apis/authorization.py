@@ -20,7 +20,11 @@ from yosai.core.authc.authc import token_info
 import nextlinux_engine
 from nextlinux_engine.apis.authentication import IdentityContext, idp_factory
 from nextlinux_engine.apis.context import ApiRequestContextProxy
+<<<<<<< HEAD
 from nextlinux_engine.apis.exceptions import AnchoreApiError
+=======
+from nextlinux_engine.apis.exceptions import NextlinuxApiError
+>>>>>>> master
 from nextlinux_engine.common.helpers import make_response_error
 from nextlinux_engine.configuration import localconfig
 from nextlinux_engine.db import AccountStates, AccountTypes, session_scope
@@ -525,7 +529,7 @@ class DbAuthorizationHandler(AuthorizationHandler):
                 status=401,
                 headers=[("WWW-Authenticate", 'basic realm="Authentication required"')],
             )
-        except AnchoreApiError:
+        except NextlinuxApiError:
             raise
         except Exception as ex:
             logger.exception("Unexpected exception: {}".format(ex))
@@ -582,7 +586,7 @@ class DbAuthorizationHandler(AuthorizationHandler):
                             )
                         ],
                     )
-                except AnchoreApiError:
+                except NextlinuxApiError:
                     raise
                 except Exception as ex:
                     logger.exception("Unexpected exception: {}".format(ex))
@@ -675,7 +679,7 @@ class DbAuthorizationHandler(AuthorizationHandler):
                             )
                         ],
                     )
-                except AnchoreApiError:
+                except NextlinuxApiError:
                     raise
                 except Exception as ex:
                     logger.exception("Unexpected exception: {}".format(ex))
@@ -860,7 +864,7 @@ class InternalServiceAuthorizer(DbAuthorizationHandler):
 def auth_function_factory():
     """
     An auth function factory that returns functions that can be used in before_request() calls to flask for doing
-    auth for things like subsystems that Anchore doesn't define each route for
+    auth for things like subsystems that Nextlinux doesn't define each route for
     :param authorizer_fetch_fn:
     :return:
     """

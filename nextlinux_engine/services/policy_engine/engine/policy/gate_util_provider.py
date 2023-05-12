@@ -3,9 +3,15 @@ from abc import ABC, abstractmethod
 from typing import Optional
 
 from nextlinux_engine.db import DistroNamespace, session_scope
+<<<<<<< HEAD
 from nextlinux_engine.db.db_grype_db_feed_metadata import (
     NoActiveGrypeDB,
     get_most_recent_active_grypedb,
+=======
+from nextlinux_engine.db.db_govulners_db_feed_metadata import (
+    NoActiveGovulnersDB,
+    get_most_recent_active_govulnersdb,
+>>>>>>> master
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.db import (
     get_feed_group_detached,
@@ -93,16 +99,16 @@ class LegacyGateUtilProvider(GateUtilProvider):
         return have_vulnerabilities_for(distro_namespace)
 
 
-class GrypeGateUtilProvider(GateUtilProvider):
+class GovulnersGateUtilProvider(GateUtilProvider):
     """
-    Gate-specific logic for the GrypeProvider.
+    Gate-specific logic for the GovulnersProvider.
     """
 
     def oldest_namespace_feed_sync(
         self, namespace: DistroNamespace
     ) -> Optional[datetime.datetime]:
         """
-        Get the namespace values using the grype feed metadata, returns the value for the whole grypdb, since it is synced
+        Get the namespace values using the govulners feed metadata, returns the value for the whole grypdb, since it is synced
         atomically, and the returned date is the build date of the db, not the sync date
 
         :param namespace: the namespace for which to fetch the oldest sync time
@@ -112,26 +118,26 @@ class GrypeGateUtilProvider(GateUtilProvider):
         """
         with session_scope() as session:
             try:
-                grypedb = get_most_recent_active_grypedb(session)
-                return grypedb.built_at
-            except NoActiveGrypeDB:
+                govulnersdb = get_most_recent_active_govulnersdb(session)
+                return govulnersdb.built_at
+            except NoActiveGovulnersDB:
                 return None
 
     def have_vulnerabilities_for(self, distro_namespace_obj: DistroNamespace) -> bool:
         with session_scope() as session:
             try:
-                grypedb = get_most_recent_active_grypedb(session)
-            except NoActiveGrypeDB:
+                govulnersdb = get_most_recent_active_govulnersdb(session)
+            except NoActiveGovulnersDB:
                 logger.info(
-                    "No vulnerabilities for image distro found because no active grype db found"
+                    "No vulnerabilities for image distro found because no active govulners db found"
                 )
                 return False
 
-            if not grypedb or not grypedb.groups:
+            if not govulnersdb or not govulnersdb.groups:
                 return False
 
             groups = [
-                group["name"] for group in grypedb.groups if group["record_count"] > 0
+                group["name"] for group in govulnersdb.groups if group["record_count"] > 0
             ]
 
         for namespace_name in distro_namespace_obj.like_namespace_names:

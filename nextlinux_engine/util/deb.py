@@ -243,7 +243,7 @@ def strict_compare_versions(v1, op, v2):
 
 def compare_versions(v1, op, v2):
     """
-    Anchore engine variation of dpkg comparison code.
+    Nextlinux engine variation of dpkg comparison code.
     Special handling for epoch - comparison of epochs is carried out only if both versions contain an epoch, otherwise
     epoch is ignored
 

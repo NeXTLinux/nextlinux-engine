@@ -13,7 +13,7 @@ def ingress_image(fetch_url: str, image_id: str) -> http_utils.APIResponse:
 
     payload = {
         "fetch_url": fetch_url,
-        "user_id": policy_engine_api_conf().get("ANCHORE_API_USER"),
+        "user_id": policy_engine_api_conf().get("NEXTLINUX_API_USER"),
         "image_id": image_id,
     }
 

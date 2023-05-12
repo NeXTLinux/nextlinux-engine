@@ -60,10 +60,10 @@
   "problems": [],
   "metadata": {
     "generated_by": {
-      "scanner": "GrypeScanner",
+      "scanner": "GovulnersScanner",
       "db_built_at": "2021-06-03T20:18:03Z",
       "db_checksum": "sha256:a949eef0aa14725a8a92772be738df9dfc385e6e4c63407a39204aa68cfe3452",
-      "grype_version": "0.13.0",
+      "govulners_version": "0.13.0",
       "db_schema_version": 3
     },
     "schema_version": "1.0",

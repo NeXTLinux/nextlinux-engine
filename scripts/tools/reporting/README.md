@@ -1,6 +1,6 @@
 # Unit Test Coverage Priority Tool
 
-We have had a hard time prioritizing how to improve our test coverage at Anchore, and that was a problem I had set out to try and make some progress on using this tool.
+We have had a hard time prioritizing how to improve our test coverage at Nextlinux, and that was a problem I had set out to try and make some progress on using this tool.
 
 This script that can analyze the code and spit out a list of functions that do not have unit tests and sort the list of functions in order of how much they're used across the project.
 

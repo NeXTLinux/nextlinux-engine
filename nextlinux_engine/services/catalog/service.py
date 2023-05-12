@@ -60,7 +60,11 @@ from nextlinux_engine.subsys.object_store.config import (
     ALT_OBJECT_STORE_CONFIG_KEY,
     DEFAULT_OBJECT_STORE_MANAGER_ID,
 )
+<<<<<<< HEAD
 from nextlinux_engine.utils import AnchoreException, bytes_to_mb
+=======
+from nextlinux_engine.utils import NextlinuxException, bytes_to_mb
+>>>>>>> master
 
 MAX_DELETION_WORKERS = 1
 ##########################################################
@@ -699,7 +703,7 @@ def handle_repo_watcher(*args, **kwargs):
                     curr_repotags = docker_registry.get_repo_tags(
                         userId, image_info, registry_creds=registry_creds
                     )
-                except AnchoreException as e:
+                except NextlinuxException as e:
                     event = events.ListTagsFailed(
                         user_id=userId,
                         registry=image_info.get("registry", None),
@@ -769,7 +773,7 @@ def handle_repo_watcher(*args, **kwargs):
                                         tag=fulltag,
                                         msg="No manifest from get_image_info",
                                     )
-                            except AnchoreException as e:
+                            except NextlinuxException as e:
                                 event = events.TagManifestParseFailed(
                                     user_id=userId, tag=fulltag, error=e.to_dict()
                                 )
@@ -994,7 +998,7 @@ def handle_image_watcher(*args, **kwargs):
                         raise TagManifestNotFoundError(
                             tag=fulltag, msg="No manifest from get_image_info"
                         )
-                except AnchoreException as e:
+                except NextlinuxException as e:
                     event = events.TagManifestParseFailed(
                         user_id=userId, tag=fulltag, error=e.to_dict()
                     )

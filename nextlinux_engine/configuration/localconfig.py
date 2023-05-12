@@ -32,7 +32,7 @@ DEFAULT_CONFIG = {
     "docker_conn_timeout": 600,
     "allow_awsecr_iam_auto": False,
     "skopeo_global_timeout": 0,
-    "grype_db_dir": "grype_db/",
+    "govulners_db_dir": "govulners_db/",
     "global_client_read_timeout": 0,
     "global_client_connect_timeout": 0,
     "user_authentication": {
@@ -83,8 +83,8 @@ default_required_config_params = {
     "credentials": True,
 }
 
-CRED_CACHE_TTL = int(os.getenv("ANCHORE_INTERNAL_CRED_CACHE_TTL", 600))
-CRED_CACHE_LOCK_WAIT_SEC = int(os.getenv("ANCHORE_INTERNAL_CRED_CACHE_WAIT_SEC", 3))
+CRED_CACHE_TTL = int(os.getenv("NEXTLINUX_INTERNAL_CRED_CACHE_TTL", 600))
+CRED_CACHE_LOCK_WAIT_SEC = int(os.getenv("NEXTLINUX_INTERNAL_CRED_CACHE_WAIT_SEC", 3))
 
 ANALYZER_SEARCH_PATHS = ["nextlinux_engine.analyzers"]
 POLICY_BUNDLE_SOURCE_DIRS = [
@@ -348,29 +348,42 @@ def read_config(configfile=None):
 
         try:
             nextlinux_envs = {}
+<<<<<<< HEAD
             if "ANCHORE_ENV_FILE" in os.environ and os.path.exists(
                 os.environ["ANCHORE_ENV_FILE"]
+=======
+            if "NEXTLINUX_ENV_FILE" in os.environ and os.path.exists(
+                os.environ["NEXTLINUX_ENV_FILE"]
+>>>>>>> master
             ):
                 try:
-                    with open(os.environ["ANCHORE_ENV_FILE"], "r") as FH:
+                    with open(os.environ["NEXTLINUX_ENV_FILE"], "r") as FH:
                         secret_envbuf = FH.read()
                     for line in secret_envbuf.splitlines():
                         try:
                             (k, v) = line.split("=", 1)
                             v = re.sub("^(\"|')+", "", v)
                             v = re.sub("(\"|')+$", "", v)
+<<<<<<< HEAD
                             if re.match("^ANCHORE.*", k):
+=======
+                            if re.match("^NEXTLINUX.*", k):
+>>>>>>> master
                                 nextlinux_envs[k] = str(v)
                         except Exception as err:
                             logger.warn(
-                                "cannot parse line from ANCHORE_ENV_FILE - exception: "
+                                "cannot parse line from NEXTLINUX_ENV_FILE - exception: "
                                 + str(err)
                             )
                 except Exception as err:
                     raise err
 
             for e in list(os.environ.keys()):
+<<<<<<< HEAD
                 if re.match("^ANCHORE.*", e):
+=======
+                if re.match("^NEXTLINUX.*", e):
+>>>>>>> master
                     nextlinux_envs[e] = str(os.environ[e])
 
             if nextlinux_envs:
@@ -413,7 +426,7 @@ def validate_config(config, validate_params=None):
     try:
         # ensure there aren't any left over unset variables
         confbuf = json.dumps(config)
-        patt = re.match(r".*(\${ANCHORE.*?}).*", confbuf, re.DOTALL)
+        patt = re.match(r".*(\${NEXTLINUX.*?}).*", confbuf, re.DOTALL)
         if patt:
             raise Exception(
                 "variable overrides found in configuration file that are unset ("

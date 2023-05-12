@@ -79,7 +79,7 @@ def cpes_for_image_packages(
     :param packages:
     :return:
     """
-    # If pre-Syft integration, there are no CPEs for distro packages
+    # If pre-Gosbom integration, there are no CPEs for distro packages
     cpe_generator = FuzzyCandidateCpeGenerator()
 
     # Capture the mapping of cpes to each distro package

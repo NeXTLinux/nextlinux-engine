@@ -725,10 +725,10 @@ def get_hintsfile(unpackdir=None, squashtar=None):
 
     This function makes the `unpackdir` and the `squashtar` arguments fully
     optional, falling back to retrieving the actual value of the `unpackdir`
-    from the `ANCHORE_ANALYZERS_UNPACKDIR` environment variable.
+    from the `NEXTLINUX_ANALYZERS_UNPACKDIR` environment variable.
 
     Finally, this function uses a caching closure , for up to 24 different
-    calls. The Syft handlers will consume this hints function without passing
+    calls. The Gosbom handlers will consume this hints function without passing
     any arguments at all for every package but relying on a unique path still,
     which is why it is useful to have the hints file contents cached.
     """
@@ -953,7 +953,7 @@ def rpm_get_file_package_metadata_from_squashtar(unpackdir, squashtar):
     cmdstr = (
         "rpm --dbpath="
         + rpmdbdir
-        + " -qa --queryformat [%{FILENAMES}|ANCHORETOK|%{FILEDIGESTS}|ANCHORETOK|%{FILEMODES:octal}|ANCHORETOK|%{FILEGROUPNAME}|ANCHORETOK|%{FILEUSERNAME}|ANCHORETOK|%{FILESIZES}|ANCHORETOK|%{=NAME}|ANCHORETOK|%{FILEFLAGS:fflags}|ANCHORETOK|%{=FILEDIGESTALGO}\\n]"
+        + " -qa --queryformat [%{FILENAMES}|NEXTLINUXTOK|%{FILEDIGESTS}|NEXTLINUXTOK|%{FILEMODES:octal}|NEXTLINUXTOK|%{FILEGROUPNAME}|NEXTLINUXTOK|%{FILEUSERNAME}|NEXTLINUXTOK|%{FILESIZES}|NEXTLINUXTOK|%{=NAME}|NEXTLINUXTOK|%{FILEFLAGS:fflags}|NEXTLINUXTOK|%{=FILEDIGESTALGO}\\n]"
     )
     cmd = cmdstr.split()
     print("{} - {}".format(rpmdbdir, cmd))
@@ -979,7 +979,7 @@ def rpm_get_file_package_metadata_from_squashtar(unpackdir, squashtar):
                             fpackage,
                             fflags,
                             fdigestalgonum,
-                        ) = l.split("|ANCHORETOK|")
+                        ) = l.split("|NEXTLINUXTOK|")
                         fname = re.sub('""', "", fname)
                         cfile = False
                         if "c" in str(fflags):

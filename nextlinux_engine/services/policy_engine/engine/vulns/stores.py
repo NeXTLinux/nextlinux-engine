@@ -6,9 +6,15 @@ import retrying
 from nextlinux_engine.common.models.policy_engine import ImageVulnerabilitiesReport
 from nextlinux_engine.db import Image
 from nextlinux_engine.db import ImageVulnerabilitiesReport as DbImageVulnerabilities
+<<<<<<< HEAD
 from nextlinux_engine.db.db_grype_db_feed_metadata import (
     NoActiveGrypeDB,
     get_most_recent_active_grypedb,
+=======
+from nextlinux_engine.db.db_govulners_db_feed_metadata import (
+    NoActiveGovulnersDB,
+    get_most_recent_active_govulnersdb,
+>>>>>>> master
 )
 from nextlinux_engine.subsys import logger
 
@@ -28,13 +34,13 @@ class Status(enum.Enum):
     missing = "missing"
 
 
-class GrypeDBKey:
+class GovulnersDBKey:
     """
     A key in the context of the image vulnerabilities store is the information that makes an entry in the store unique.
     The key class has functions for generating an instance from the store's report_key and a ImageVulnerabilitiesReport
     instance. It should also support a function for returning the status of the store entry
 
-    This key is based only on Grype DB details of the generated report.
+    This key is based only on Govulners DB details of the generated report.
 
     To swap key implementation create a new key class with get_report_status() and assign the class to
     ImageVulnerabilitiesStore.__report_key_class__
@@ -47,20 +53,20 @@ class GrypeDBKey:
 
     def get_report_status(self, db_report: DbImageVulnerabilities, session):
         logger.debug(
-            "Get report status by comparing grype-db checksums of the report and active-db"
+            "Get report status by comparing govulners-db checksums of the report and active-db"
         )
         report_db_checksum = db_report.report_key
 
         if report_db_checksum:
             # try getting the current active db checksum
             try:
-                active_db = get_most_recent_active_grypedb(session)
+                active_db = get_most_recent_active_govulnersdb(session)
                 active_db_checksum = active_db.db_checksum
-            except NoActiveGrypeDB:
+            except NoActiveGovulnersDB:
                 active_db_checksum = None
 
             logger.debug(
-                "grype-db checksums report=%s, active=%s",
+                "govulners-db checksums report=%s, active=%s",
                 report_db_checksum,
                 active_db_checksum,
             )
@@ -80,7 +86,7 @@ class GrypeDBKey:
 
 class ImageVulnerabilitiesStore:
 
-    __report_key_class__ = GrypeDBKey
+    __report_key_class__ = GovulnersDBKey
 
     def __init__(self, image_object: Image):
         self.image = image_object

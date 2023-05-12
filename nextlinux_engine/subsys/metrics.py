@@ -78,7 +78,7 @@ class disabled_flask_metrics(object):
 def metrics_auth(path):
     """
     An auth function factory that returns functions that can be used in before_request() calls to flask for doing
-    auth for things like subsystems that Anchore doesn't define each route for
+    auth for things like subsystems that Nextlinux doesn't define each route for
     :param authorizer_fetch_fn:
     :return:
     """
@@ -129,7 +129,11 @@ def init_flask_metrics(flask_app, export_defaults=True, **kwargs):
 
         flask_metrics.info(
             "nextlinux_service_info",
+<<<<<<< HEAD
             "Anchore Service Static Information",
+=======
+            "Nextlinux Service Static Information",
+>>>>>>> master
             version=version,
             **kwargs
         )

@@ -10,11 +10,15 @@ import ijson
 import requests
 import requests.exceptions
 
+<<<<<<< HEAD
 from nextlinux_engine.clients.grype_wrapper import GrypeWrapperSingleton
+=======
+from nextlinux_engine.clients.govulners_wrapper import GovulnersWrapperSingleton
+>>>>>>> master
 from nextlinux_engine.common.models.schemas import (
     FeedAPIGroupRecord,
     FeedAPIRecord,
-    GrypeDBListing,
+    GovulnersDBListing,
 )
 from nextlinux_engine.services.policy_engine.engine.feeds import (
     FeedGroupList,
@@ -26,7 +30,11 @@ from nextlinux_engine.services.policy_engine.engine.feeds.config import SyncConf
 from nextlinux_engine.subsys import logger
 from nextlinux_engine.util.time import rfc3339str_to_datetime
 from nextlinux_engine.utils import (
+<<<<<<< HEAD
     AnchoreException,
+=======
+    NextlinuxException,
+>>>>>>> master
     CommandException,
     ensure_bytes,
     ensure_str,
@@ -45,7 +53,7 @@ class HTTPClientResponse:
     headers: Dict[str, Any] = field(default_factory=dict)
 
 
-class HTTPClientException(AnchoreException):
+class HTTPClientException(NextlinuxException):
     pass
 
 
@@ -235,7 +243,7 @@ class HTTPBasicAuthClient(IAuthenticatedHTTPClientBase):
         return client_response
 
 
-class FeedClientError(AnchoreException):
+class FeedClientError(NextlinuxException):
     pass
 
 
@@ -437,30 +445,30 @@ class FeedServiceClient(IFeedSource):
         return next_token, response_text, count
 
 
-class GrypeDBUnavailable(FeedClientError):
+class GovulnersDBUnavailable(FeedClientError):
     def __init__(self, db_version: str):
         super().__init__(
-            f"No valid Grype DBs matching version {db_version} are available on the upstream service."
+            f"No valid Govulners DBs matching version {db_version} are available on the upstream service."
         )
 
 
-class GrypeVersionCommandError(FeedClientError):
+class GovulnersVersionCommandError(FeedClientError):
     pass
 
 
-class InvalidGrypeVersionResponse(GrypeVersionCommandError):
+class InvalidGovulnersVersionResponse(GovulnersVersionCommandError):
     def __init__(self, response_string: str):
         super().__init__(
-            f"The 'grype version' command did not return the expected response. Response: {response_string}"
+            f"The 'govulners version' command did not return the expected response. Response: {response_string}"
         )
 
 
-class GrypeDBServiceClient(IFeedSource):
+class GovulnersDBServiceClient(IFeedSource):
     """
-    Client for upstream service (toolbox service or feeds service) serving Grype DB.
+    Client for upstream service (toolbox service or feeds service) serving Govulners DB.
 
-    :param grype_db_endpoint: base URL of toolbox service
-    :type grype_db_endpoint: str
+    :param govulners_db_endpoint: base URL of toolbox service
+    :type govulners_db_endpoint: str
     :param http_client: configured and instantiated http client to use
     :type http_client: HTTPBasicAuthClient
     """
@@ -469,17 +477,17 @@ class GrypeDBServiceClient(IFeedSource):
 
     def __init__(
         self,
-        grype_db_endpoint: str,
+        govulners_db_endpoint: str,
         http_client: HTTPBasicAuthClient,
     ):
-        self.feed_url = grype_db_endpoint
+        self.feed_url = govulners_db_endpoint
         self.http_client = http_client
 
     def list_feeds(self) -> FeedList:
         """
         Returns metadata to support existing Feeds Service metadata model.
-        This is what essentially creates the FeedMetadata object for 'grypedb'.
-        Shoehorning the GrypeDB into the Feeds Service metadata model is a hack,
+        This is what essentially creates the FeedMetadata object for 'govulnersdb'.
+        Shoehorning the GovulnersDB into the Feeds Service metadata model is a hack,
         but is likely necessary evil until legacy feeds are deprecated and the model
         can be redesigned and refactored.
 
@@ -489,8 +497,8 @@ class GrypeDBServiceClient(IFeedSource):
         return FeedList(
             feeds=[
                 FeedAPIRecord(
-                    name="grypedb",
-                    description="grypedb feed",
+                    name="govulnersdb",
+                    description="govulnersdb feed",
                     access_tier="0",
                 )
             ]
@@ -499,71 +507,71 @@ class GrypeDBServiceClient(IFeedSource):
     def _list_feed_groups(self) -> Dict[str, Union[int, str]]:
         """
         Sends HTTP request to toolbox service's listing.json endpoint.
-        loads and parses the response, returning the first result with the version that applies to the version of Grype
+        loads and parses the response, returning the first result with the version that applies to the version of Govulners
         that is installed in the container.
 
-        :return: Grype DB listing.json
+        :return: Govulners DB listing.json
         :rtype: Dict[str, Union[int, str]
         """
-        logger.info("Downloading grypedb listing.json from %s", self.feed_url)
+        logger.info("Downloading govulnersdb listing.json from %s", self.feed_url)
         listing_response = self.http_client.execute_request(
             requests.get, self.feed_url, retries=self.RETRY_COUNT
         )
         if not listing_response.success:
             raise HTTPStatusException(listing_response)
         listings_json = json.loads(listing_response.content.decode("utf-8"))
-        required_grype_db_version = self._get_supported_grype_db_version()
-        available_dbs = listings_json.get("available").get(required_grype_db_version)
+        required_govulners_db_version = self._get_supported_govulners_db_version()
+        available_dbs = listings_json.get("available").get(required_govulners_db_version)
         if not available_dbs:
-            raise GrypeDBUnavailable(required_grype_db_version)
+            raise GovulnersDBUnavailable(required_govulners_db_version)
         raw_db_listing = available_dbs[0]
-        logger.info("Found relevant grypedb listing: %s", raw_db_listing)
+        logger.info("Found relevant govulnersdb listing: %s", raw_db_listing)
         return raw_db_listing
 
     def list_feed_groups(self, feed: str) -> FeedGroupList:
         """
-        Retrieves the latest Grype DB listing.json.
+        Retrieves the latest Govulners DB listing.json.
 
         :param feed:
         :type feed: str
-        :return: FeedGroupList object, containing one FeedAPIGroupRecord that has the GrypeDBListing information
+        :return: FeedGroupList object, containing one FeedAPIGroupRecord that has the GovulnersDBListing information
         :rtype: FeedGroupList
         """
         raw_db_listing = self._list_feed_groups()
-        grype_db_listing = dict(raw_db_listing)
-        grype_db_listing["built"] = rfc3339str_to_datetime(raw_db_listing["built"])
+        govulners_db_listing = dict(raw_db_listing)
+        govulners_db_listing["built"] = rfc3339str_to_datetime(raw_db_listing["built"])
         return FeedGroupList(
             groups=[
                 FeedAPIGroupRecord(
-                    name="grypedb:vulnerabilities",
-                    description="grypedb:vulnerabilities group",
+                    name="govulnersdb:vulnerabilities",
+                    description="govulnersdb:vulnerabilities group",
                     access_tier="0",
-                    grype_listing=GrypeDBListing(**grype_db_listing),
+                    govulners_listing=GovulnersDBListing(**govulners_db_listing),
                 )
             ]
         )
 
     @staticmethod
-    def _get_supported_grype_db_version() -> str:
+    def _get_supported_govulners_db_version() -> str:
         """
-        Retrieves the supported Grype DB version from the installed copy of Grype using the grype wrapper.
+        Retrieves the supported Govulners DB version from the installed copy of Govulners using the govulners wrapper.
 
-        :return: supported grype DB version
+        :return: supported govulners DB version
         :rtype: str
         """
-        grype_wrapper = GrypeWrapperSingleton.get_instance()
+        govulners_wrapper = GovulnersWrapperSingleton.get_instance()
         try:
-            version_response = grype_wrapper.get_grype_version()
+            version_response = govulners_wrapper.get_govulners_version()
         except CommandException as exc:
-            raise GrypeVersionCommandError() from exc
+            raise GovulnersVersionCommandError() from exc
         try:
             return str(version_response["supportedDbSchema"])
         except KeyError as exc:
-            raise InvalidGrypeVersionResponse(json.dumps(version_response)) from exc
+            raise InvalidGovulnersVersionResponse(json.dumps(version_response)) from exc
 
     def _get_feed_group_data(self) -> Tuple[Dict, HTTPClientResponse]:
         """
-        Sends HTTP request to toolbox service URL in listing.json to retrieve a single grype DB.
+        Sends HTTP request to toolbox service URL in listing.json to retrieve a single govulners DB.
         This is painfully written because of legacy compatibility constraints.
         Ideally, listing.json would be passed in by download machinery. We're calling _list_feed_groups()
         here, as changing the signature would break Liskov substitution principle and cluttering a soon-to-be
@@ -572,15 +580,15 @@ class GrypeDBServiceClient(IFeedSource):
         :return: tuple containing the raw listing.json and the HTTPClientResponse for the DB download
         :rtype: Tuple[Dict, HTTPClientResponse]
         """
-        grype_db_listing = self._list_feed_groups()
-        grype_db_url = grype_db_listing["url"]
-        logger.info("Downloading grypedb %s", grype_db_url)
-        grype_db_download_response = self.http_client.execute_request(
-            requests.get, grype_db_url, retries=self.RETRY_COUNT
+        govulners_db_listing = self._list_feed_groups()
+        govulners_db_url = govulners_db_listing["url"]
+        logger.info("Downloading govulnersdb %s", govulners_db_url)
+        govulners_db_download_response = self.http_client.execute_request(
+            requests.get, govulners_db_url, retries=self.RETRY_COUNT
         )
-        if not grype_db_download_response.success:
-            raise HTTPStatusException(grype_db_download_response)
-        return grype_db_listing, grype_db_download_response
+        if not govulners_db_download_response.success:
+            raise HTTPStatusException(govulners_db_download_response)
+        return govulners_db_listing, govulners_db_download_response
 
     def get_feed_group_data(
         self,
@@ -590,7 +598,7 @@ class GrypeDBServiceClient(IFeedSource):
         next_token: str = None,
     ) -> GroupData:
         """
-        Retrieves a single Grype DB, storing the raw bytes in GroupData.data.
+        Retrieves a single Govulners DB, storing the raw bytes in GroupData.data.
 
         :param feed: feed name (unused)
         :type feed: str
@@ -619,7 +627,7 @@ class GrypeDBServiceClient(IFeedSource):
                 },
             )
         except (HTTPStatusException, json.JSONDecodeError, UnicodeDecodeError) as e:
-            logger.debug("Error executing grype DB data download: %s", e)
+            logger.debug("Error executing govulners DB data download: %s", e)
             raise e
 
 
@@ -653,25 +661,25 @@ def get_feeds_client(sync_config: SyncConfig) -> FeedServiceClient:
     )
 
 
-def get_grype_db_client(sync_config: SyncConfig) -> GrypeDBServiceClient:
+def get_govulners_db_client(sync_config: SyncConfig) -> GovulnersDBServiceClient:
     """
     Returns a configured client based on the local config.
 
     :param sync_config: configuration
     :type sync_config: SyncConfig
-    :return: initialized GrypeDBServiceClient
-    :rtype: GrypeDBServiceClient
+    :return: initialized GovulnersDBServiceClient
+    :rtype: GovulnersDBServiceClient
     """
 
     logger.debug(
-        "Initializing a grype db client: url=%s, conn_timeout=%d, read_timeout=%d",
+        "Initializing a govulners db client: url=%s, conn_timeout=%d, read_timeout=%d",
         sync_config.url,
         sync_config.connection_timeout_seconds,
         sync_config.read_timeout_seconds,
     )
 
-    return GrypeDBServiceClient(
-        grype_db_endpoint=sync_config.url,
+    return GovulnersDBServiceClient(
+        govulners_db_endpoint=sync_config.url,
         http_client=HTTPBasicAuthClient(
             username=None,
             password=None,

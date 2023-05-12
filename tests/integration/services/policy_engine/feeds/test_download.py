@@ -20,7 +20,7 @@ from tests.utils import init_test_logging
 
 init_test_logging(level="debug")
 
-ANCHOREIO_URI = "https://ancho.re/v1/service/feeds"
+NEXTLINUXIO_URI = "https://ancho.re/v1/service/feeds"
 
 
 def test_feed_downloader():
@@ -44,7 +44,7 @@ def test_feed_downloader():
         # GroupDownloadOperationConfiguration(feed='nvdv2', group='nvdv2:cves', parameters=GroupDownloadOperationParams(since=None))
     ]
     dl_conf = DownloadOperationConfiguration(
-        groups=groups_to_sync, uuid=uuid.uuid4().hex, source_uri=ANCHOREIO_URI
+        groups=groups_to_sync, uuid=uuid.uuid4().hex, source_uri=NEXTLINUXIO_URI
     )
     tmpdir = tempfile.mkdtemp(prefix="nextlinuxtest_repo-")
     data_repo = None
@@ -52,7 +52,7 @@ def test_feed_downloader():
         client = get_feeds_client(
             SyncConfig(
                 enabled=True,
-                url=ANCHOREIO_URI,
+                url=NEXTLINUXIO_URI,
                 username="something",
                 password="something",
                 connection_timeout_seconds=1,

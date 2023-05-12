@@ -17,7 +17,11 @@ import nextlinux_engine.subsys.events
 import nextlinux_engine.subsys.metrics
 import nextlinux_engine.subsys.object_store.manager
 from nextlinux_engine import utils as nextlinux_utils
+<<<<<<< HEAD
 from nextlinux_engine.apis.exceptions import AnchoreApiError, BadRequest
+=======
+from nextlinux_engine.apis.exceptions import NextlinuxApiError, BadRequest
+>>>>>>> master
 from nextlinux_engine.auth import aws_ecr
 from nextlinux_engine.clients import docker_registry
 from nextlinux_engine.clients.services import internal_client_for
@@ -490,7 +494,7 @@ def image(dbsession, request_inputs, bodycontent=None):
                 image_info,
                 input_string,
             )
-    except AnchoreApiError as err:
+    except NextlinuxApiError as err:
         logger.exception("Error processing image request")
         return_object = nextlinux_engine.common.helpers.make_response_error(
             err.message, in_httpcode=err.__response_code__, details=err.detail
@@ -2310,7 +2314,7 @@ def _delete_image_artifacts(account_id, image_digest, image_ids, full_tags, db_s
         "image_summary_data",
         "manifest_data",
         "parent_manifest_data",
-        "syft_sbom",
+        "gosbom_sbom",
     ]:
         # try-except block ensures an attempt to delete every artifact despite errors
         try:

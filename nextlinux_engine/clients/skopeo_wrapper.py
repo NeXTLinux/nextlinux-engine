@@ -8,10 +8,17 @@ from collections import OrderedDict
 from urllib.request import urlretrieve
 
 import nextlinux_engine.configuration.localconfig
+<<<<<<< HEAD
 from nextlinux_engine.common.errors import AnchoreError
 from nextlinux_engine.subsys import logger
 from nextlinux_engine.utils import (
     AnchoreException,
+=======
+from nextlinux_engine.common.errors import NextlinuxError
+from nextlinux_engine.subsys import logger
+from nextlinux_engine.utils import (
+    NextlinuxException,
+>>>>>>> master
     ensure_str,
     run_command,
     run_command_list,
@@ -218,7 +225,7 @@ def download_image(
                 rc, sout, serr = run_command_list(cmd, env=proc_env)
                 if rc != 0:
                     skopeo_error = SkopeoError(cmd=cmd, rc=rc, out=sout, err=serr)
-                    if skopeo_error.error_code != AnchoreError.OSARCH_MISMATCH.name:
+                    if skopeo_error.error_code != NextlinuxError.OSARCH_MISMATCH.name:
                         raise SkopeoError(cmd=cmd, rc=rc, out=sout, err=serr)
                 else:
                     logger.debug(
@@ -239,7 +246,7 @@ def download_image(
                 blobs_dir = os.path.join(copydir, "blobs")
 
                 if use_cache_dir:
-                    # syft expects blobs to be nested inside of the oci image directory. If the --dest-shared-blob-dir skopeo option is used we need to
+                    # gosbom expects blobs to be nested inside of the oci image directory. If the --dest-shared-blob-dir skopeo option is used we need to
                     # provide access to the blobs via a symlink, as if the blobs were stored within the oci image directory
                     if os.path.exists(blobs_dir) and os.path.isdir(blobs_dir):
                         # if this directory is not empty, there is an issue and we should expect an exception
@@ -472,7 +479,7 @@ def get_image_manifest_skopeo_raw(pullstring, user=None, pw=None, verify=True):
                     rc, sout, serr = run_command_list(cmd, env=proc_env)
                     if rc != 0:
                         skopeo_error = SkopeoError(cmd=cmd, rc=rc, out=sout, err=serr)
-                        if skopeo_error.error_code != AnchoreError.OSARCH_MISMATCH.name:
+                        if skopeo_error.error_code != NextlinuxError.OSARCH_MISMATCH.name:
                             raise SkopeoError(cmd=cmd, rc=rc, out=sout, err=serr)
                     else:
                         logger.debug(
@@ -585,7 +592,7 @@ def get_image_manifest_skopeo(
     return manifest, digest, topdigest, topmanifest
 
 
-class SkopeoError(AnchoreException):
+class SkopeoError(NextlinuxException):
     def __init__(
         self,
         cmd=None,
@@ -605,24 +612,24 @@ class SkopeoError(AnchoreException):
         self.msg = msg
         try:
             if "unauthorized" in self.stderr:
-                self.error_code = AnchoreError.REGISTRY_PERMISSION_DENIED.name
+                self.error_code = NextlinuxError.REGISTRY_PERMISSION_DENIED.name
             elif "manifest unknown" in self.stderr:
-                self.error_code = AnchoreError.REGISTRY_IMAGE_NOT_FOUND.name
+                self.error_code = NextlinuxError.REGISTRY_IMAGE_NOT_FOUND.name
             elif (
                 "connection refused" in self.stderr or "no route to host" in self.stderr
             ):
-                self.error_code = AnchoreError.REGISTRY_NOT_ACCESSIBLE.name
+                self.error_code = NextlinuxError.REGISTRY_NOT_ACCESSIBLE.name
             elif "error pinging registry" in self.stderr:
-                self.error_code = AnchoreError.REGISTRY_NOT_SUPPORTED.name
+                self.error_code = NextlinuxError.REGISTRY_NOT_SUPPORTED.name
             elif (
                 "no image found in manifest list for architecture amd64, OS linux"
                 in self.stderr
             ):
-                self.error_code = AnchoreError.OSARCH_MISMATCH.name
+                self.error_code = NextlinuxError.OSARCH_MISMATCH.name
             else:
-                self.error_code = AnchoreError.SKOPEO_UNKNOWN_ERROR.name
+                self.error_code = NextlinuxError.SKOPEO_UNKNOWN_ERROR.name
         except:
-            self.error_code = AnchoreError.UNKNOWN.name
+            self.error_code = NextlinuxError.UNKNOWN.name
 
     def __repr__(self):
         return "{}. cmd={}, rc={}, stdout={}, stderr={}, error_code={}".format(

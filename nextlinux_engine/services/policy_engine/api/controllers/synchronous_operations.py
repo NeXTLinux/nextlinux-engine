@@ -83,12 +83,12 @@ DEFAULT_CACHE_READ_TIMEOUT = (
 feed_sync_locking_enabled = True
 
 evaluation_cache_enabled = (
-    os.getenv("ANCHORE_POLICY_ENGINE_EVALUATION_CACHE_ENABLED", "true").lower()
+    os.getenv("NEXTLINUX_POLICY_ENGINE_EVALUATION_CACHE_ENABLED", "true").lower()
     == "true"
 )
 
 vulnerabilities_cache_enabled = (
-    os.getenv("ANCHORE_POLICY_ENGINE_VULNERABILITIES_CACHE_ENABLED", "true").lower()
+    os.getenv("NEXTLINUX_POLICY_ENGINE_VULNERABILITIES_CACHE_ENABLED", "true").lower()
     == "true"
 )
 

@@ -439,7 +439,7 @@ def import_image_archive(archive_file):
         return_object = [make_response_image(image_record, include_detail=True)]
         httpcode = 200
 
-    except api_exceptions.AnchoreApiError as err:
+    except api_exceptions.NextlinuxApiError as err:
         return_object = make_response_error(err, in_httpcode=err.__response_code__)
         httpcode = err.__response_code__
     except Exception as err:
@@ -472,7 +472,7 @@ def list_images(
         )
 
         httpcode = 200
-    except api_exceptions.AnchoreApiError as err:
+    except api_exceptions.NextlinuxApiError as err:
         return_object = make_response_error(err, in_httpcode=err.__response_code__)
         httpcode = err.__response_code__
     except Exception as err:
@@ -556,7 +556,7 @@ def add_image(image, force=False, autosubscribe=False):
         try:
             normalized = normalize_image_add_source(analysis_request_dict=image)
             validate_image_add_source(normalized, spec)
-        except api_exceptions.AnchoreApiError:
+        except api_exceptions.NextlinuxApiError:
             raise
         except Exception as e:
             raise api_exceptions.BadRequest(
@@ -580,7 +580,7 @@ def add_image(image, force=False, autosubscribe=False):
         )
         httpcode = 200
 
-    except api_exceptions.AnchoreApiError as err:
+    except api_exceptions.NextlinuxApiError as err:
         raise err
         # httpcode = err.__response_code__
         # return_object = make_response_error(err.message, details=err.detail, in_httpcode=httpcode)
@@ -1521,7 +1521,7 @@ def list_retrieved_files(imageDigest):
             user_id=account, image_id=imageId, artifact_type="retrieved_files"
         )
         return resp, 200
-    except api_exceptions.AnchoreApiError:
+    except api_exceptions.NextlinuxApiError:
         raise
     except Exception as err:
         raise api_exceptions.InternalError(str(err), detail={})
@@ -1545,7 +1545,7 @@ def list_file_content_search_results(imageDigest):
             user_id=account, image_id=imageId, artifact_type="file_content_search"
         )
         return resp, 200
-    except api_exceptions.AnchoreApiError:
+    except api_exceptions.NextlinuxApiError:
         raise
     except Exception as err:
         raise api_exceptions.InternalError(str(err), detail={})
@@ -1569,7 +1569,7 @@ def list_secret_search_results(imageDigest):
             user_id=account, image_id=imageId, artifact_type="secret_search"
         )
         return resp, 200
-    except api_exceptions.AnchoreApiError:
+    except api_exceptions.NextlinuxApiError:
         raise
     except Exception as err:
         raise api_exceptions.InternalError(str(err), detail={})
@@ -1581,7 +1581,11 @@ def get_image_sbom_native(imageDigest: str):
     GET /images/{digest}/sboms/native
 
     :param imageDigest:
+<<<<<<< HEAD
     :return: A native nextlinux (syft) formatted sbom for the image
+=======
+    :return: A native nextlinux (gosbom) formatted sbom for the image
+>>>>>>> master
     """
 
     account = ApiRequestContextProxy.namespace()
@@ -1589,7 +1593,7 @@ def get_image_sbom_native(imageDigest: str):
         _get_image_ok(account, imageDigest)
 
         client = internal_client_for(CatalogClient, account)
-        resp = client.get_document("syft_sbom", imageDigest)
+        resp = client.get_document("gosbom_sbom", imageDigest)
 
         # Do
         compressed_bytes = json_content_gzipper(resp)
@@ -1602,7 +1606,7 @@ def get_image_sbom_native(imageDigest: str):
             filename="%s_%s.json.gzip" % (imageDigest, "native"),
         )
         return resp
-    except api_exceptions.AnchoreApiError:
+    except api_exceptions.NextlinuxApiError:
         raise
     except Exception as err:
         raise api_exceptions.InternalError(str(err), detail={})

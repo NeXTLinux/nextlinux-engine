@@ -28,7 +28,7 @@ enable_dangerous_debug_cli = False
 
 # Thread dumper is safer since read-only and only on local-host, so allow it to configure from env var
 enable_thread_dumper = (
-    os.getenv("ANCHORE_ENABLE_DANGEROUS_THREAD_DUMP_API", "false").lower() == "true"
+    os.getenv("NEXTLINUX_ENABLE_DANGEROUS_THREAD_DUMP_API", "false").lower() == "true"
 )
 
 if enable_dangerous_debug_cli or enable_thread_dumper:
@@ -42,7 +42,7 @@ if enable_dangerous_debug_cli or enable_thread_dumper:
 
 class CommonOptions(usage.Options):
     """
-    Default Anchore CLI options for the twistd plugins
+    Default Nextlinux CLI options for the twistd plugins
     """
 
     optParameters = [
@@ -116,7 +116,11 @@ class WsgiApiServiceMaker(object):
 
     service_cls = None
     tapname = None  # e.g. "nextlinux-api"
+<<<<<<< HEAD
     description = None  # e.g. "Anchore Service"
+=======
+    description = None  # e.g. "Nextlinux Service"
+>>>>>>> master
     options = CommonOptions
 
     def __init__(self, *args, **kwargs):
@@ -241,7 +245,7 @@ class WsgiApiServiceMaker(object):
                 lc.start(1)
             else:
                 logger.warn(
-                    "Skipped start of monitor threads due to task_handlers_enabled=false in config, or found ANCHORE_ENGINE_DISABLE_MONITORS in env"
+                    "Skipped start of monitor threads due to task_handlers_enabled=false in config, or found NEXTLINUX_ENGINE_DISABLE_MONITORS in env"
                 )
 
             thread_stats_interval = int(

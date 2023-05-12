@@ -1,5 +1,9 @@
 # This is a docker-compose file for development purposes. It refereneces unstable developer builds from the HEAD of master branch in https://github.com/nextlinux/nextlinux-engine
+<<<<<<< HEAD
 # For a compose file intended for use with a released version, see https://engine.nextlinux.io/docs/quickstart/
+=======
+# For a compose file intended for use with a released version, see https://engine.next-linux.systems/docs/quickstart/
+>>>>>>> master
 #
 ---
 version: '2.1'
@@ -22,10 +26,17 @@ services:
       options:
         max-size: 100m
     environment:
+<<<<<<< HEAD
     - ANCHORE_ENDPOINT_HOSTNAME=api
     - ANCHORE_ADMIN_PASSWORD=foobar
     - ANCHORE_DB_HOST=db
     - ANCHORE_DB_PASSWORD=mysecretpassword
+=======
+    - NEXTLINUX_ENDPOINT_HOSTNAME=api
+    - NEXTLINUX_ADMIN_PASSWORD=foobar
+    - NEXTLINUX_DB_HOST=db
+    - NEXTLINUX_DB_PASSWORD=mysecretpassword
+>>>>>>> master
     command: ["nextlinux-manager", "service", "start", "apiext"]
 
   # Catalog is the primary persistence and state manager of the system
@@ -40,10 +51,17 @@ services:
     expose:
     - 8228
     environment:
+<<<<<<< HEAD
     - ANCHORE_ENDPOINT_HOSTNAME=catalog
     - ANCHORE_ADMIN_PASSWORD=foobar
     - ANCHORE_DB_HOST=db
     - ANCHORE_DB_PASSWORD=mysecretpassword
+=======
+    - NEXTLINUX_ENDPOINT_HOSTNAME=catalog
+    - NEXTLINUX_ADMIN_PASSWORD=foobar
+    - NEXTLINUX_DB_HOST=db
+    - NEXTLINUX_DB_PASSWORD=mysecretpassword
+>>>>>>> master
     command: ["nextlinux-manager", "service", "start", "catalog"]
   queue:
     image: nextlinux/nextlinux-engine-dev:latest
@@ -57,10 +75,17 @@ services:
       options:
         max-size: 100m
     environment:
+<<<<<<< HEAD
     - ANCHORE_ENDPOINT_HOSTNAME=queue
     - ANCHORE_ADMIN_PASSWORD=foobar
     - ANCHORE_DB_HOST=db
     - ANCHORE_DB_PASSWORD=mysecretpassword
+=======
+    - NEXTLINUX_ENDPOINT_HOSTNAME=queue
+    - NEXTLINUX_ADMIN_PASSWORD=foobar
+    - NEXTLINUX_DB_HOST=db
+    - NEXTLINUX_DB_PASSWORD=mysecretpassword
+>>>>>>> master
     command: ["nextlinux-manager", "service", "start", "simplequeue"]
   policy-engine:
     image: nextlinux/nextlinux-engine-dev:latest
@@ -74,10 +99,17 @@ services:
       options:
         max-size: 100m
     environment:
+<<<<<<< HEAD
     - ANCHORE_ENDPOINT_HOSTNAME=policy-engine
     - ANCHORE_ADMIN_PASSWORD=foobar
     - ANCHORE_DB_HOST=db
     - ANCHORE_DB_PASSWORD=mysecretpassword
+=======
+    - NEXTLINUX_ENDPOINT_HOSTNAME=policy-engine
+    - NEXTLINUX_ADMIN_PASSWORD=foobar
+    - NEXTLINUX_DB_HOST=db
+    - NEXTLINUX_DB_PASSWORD=mysecretpassword
+>>>>>>> master
     command: ["nextlinux-manager", "service", "start", "policy_engine"]
   analyzer:
     image: nextlinux/nextlinux-engine-dev:latest
@@ -91,10 +123,10 @@ services:
       options:
         max-size: 100m
     environment:
-    - ANCHORE_ENDPOINT_HOSTNAME=analyzer
-    - ANCHORE_ADMIN_PASSWORD=foobar
-    - ANCHORE_DB_HOST=db
-    - ANCHORE_DB_PASSWORD=mysecretpassword
+    - NEXTLINUX_ENDPOINT_HOSTNAME=analyzer
+    - NEXTLINUX_ADMIN_PASSWORD=foobar
+    - NEXTLINUX_DB_HOST=db
+    - NEXTLINUX_DB_PASSWORD=mysecretpassword
     volumes:
     - /analysis_scratch
     command: ["nextlinux-manager", "service", "start", "analyzer"]

@@ -34,7 +34,7 @@ class UserTypes(enum.Enum):
     """
 
     native = "native"  # Users authenticated by the internal db (e.g. with passwords)
-    external = "external"  # Users that exist in Anchore but are authenticated externally (e.g. SAML or LDAP)
+    external = "external"  # Users that exist in Nextlinux but are authenticated externally (e.g. SAML or LDAP)
     internal = "internal"  # Internal service users that may only authenticate via generated tokens by services themselves (e.g. jwt)
 
 

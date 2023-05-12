@@ -1,7 +1,11 @@
 from nextlinux_engine import db
+<<<<<<< HEAD
 from nextlinux_engine.db import Anchore
+=======
+from nextlinux_engine.db import Nextlinux
+>>>>>>> master
 
-# for the Anchore class/table
+# for the Nextlinux class/table
 
 
 def get(session=None):
@@ -10,7 +14,7 @@ def get(session=None):
 
     ret = {}
 
-    result = session.query(Anchore).first()
+    result = session.query(Nextlinux).first()
 
     if result:
         obj = dict(
@@ -27,10 +31,10 @@ def add(service_version, db_version, inobj, session=None):
     if not session:
         session = db.Session
 
-    # our_result = session.query(Anchore).filter_by(service_version=service_version, db_version=db_version).first()
-    our_result = session.query(Anchore).first()
+    # our_result = session.query(Nextlinux).filter_by(service_version=service_version, db_version=db_version).first()
+    our_result = session.query(Nextlinux).first()
     if not our_result:
-        new_service = Anchore(service_version=service_version, db_version=db_version)
+        new_service = Nextlinux(service_version=service_version, db_version=db_version)
         new_service.update(inobj)
 
         session.add(new_service)
@@ -58,7 +62,7 @@ def update_record(input_record, session=None):
         session = db.Session
 
     our_result = (
-        session.query(Anchore)
+        session.query(Nextlinux)
         .filter_by(
             service_version=input_record["service_version"],
             db_version=input_record["db_version"],

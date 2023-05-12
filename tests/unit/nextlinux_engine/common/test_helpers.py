@@ -209,7 +209,7 @@ class TestMakeResponseError:
         assert actual["detail"] == param["expected"]["detail"]
 
 
-class TestMakeAnchoreException:
+class TestMakeNextlinuxException:
 
     # This handles the case where attributes are already set on the exception passed in
     err_with_attrs = Exception("test")

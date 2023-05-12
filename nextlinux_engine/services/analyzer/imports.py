@@ -2,7 +2,11 @@ import json
 import time
 
 import nextlinux_engine.clients.localnextlinux_standalone
+<<<<<<< HEAD
 from nextlinux_engine.analyzers.syft.adapters import FilteringEngineAdapter
+=======
+from nextlinux_engine.analyzers.gosbom.adapters import FilteringEngineAdapter
+>>>>>>> master
 from nextlinux_engine.analyzers.utils import merge_nested_dict
 from nextlinux_engine.clients.services import internal_client_for
 from nextlinux_engine.clients.services.catalog import CatalogClient
@@ -31,7 +35,11 @@ from nextlinux_engine.util.docker import (
     DockerV1ManifestMetadata,
     DockerV2ManifestMetadata,
 )
+<<<<<<< HEAD
 from nextlinux_engine.utils import AnchoreException
+=======
+from nextlinux_engine.utils import NextlinuxException
+>>>>>>> master
 
 from .tasks import WorkerTask
 
@@ -81,7 +89,7 @@ def process_import(
     # need all this
     analyzer_manifest = {}
     image_id = import_manifest.local_image_id or import_manifest.digest
-    syft_packages = sbom.get("packages")
+    gosbom_packages = sbom.get("packages")
     dockerfile = sbom.get("dockerfile")
     manifest = sbom.get("manifest")
     image_config = sbom.get("image_config")
@@ -130,19 +138,19 @@ def process_import(
 
         timer = time.time()
 
-        distro = syft_packages.get("distro", {}).get("name")
-        # Map 'redhat' distro to 'rhel' distro for consistency between internal metadata fetch from squashtar and the syft implementation used for import
+        distro = gosbom_packages.get("distro", {}).get("name")
+        # Map 'redhat' distro to 'rhel' distro for consistency between internal metadata fetch from squashtar and the gosbom implementation used for import
         if distro == "redhat":
             distro = "rhel"
 
-        # Move data from the syft sbom into the analyzer output
+        # Move data from the gosbom sbom into the analyzer output
         analyzer_report = {
             "analyzer_meta": {
                 "analyzer_meta": {
                     "base": {
                         "DISTRO": distro,
-                        "DISTROVERS": syft_packages.get("distro", {}).get("version"),
-                        "LIKEDISTRO": syft_packages.get("distro", {}).get("idLike"),
+                        "DISTROVERS": gosbom_packages.get("distro", {}).get("version"),
+                        "LIKEDISTRO": gosbom_packages.get("distro", {}).get("idLike"),
                     }
                 }
             }
@@ -150,14 +158,14 @@ def process_import(
 
         try:
             adapter = FilteringEngineAdapter(
-                syft_output=syft_packages,
+                gosbom_output=gosbom_packages,
                 enable_package_filtering=enable_package_filtering,
             )
-            syft_results = adapter.convert()
-            # syft_results = convert_syft_to_engine(
-            #     syft_packages, enable_package_filtering=enable_package_filtering
+            gosbom_results = adapter.convert()
+            # gosbom_results = convert_gosbom_to_engine(
+            #     gosbom_packages, enable_package_filtering=enable_package_filtering
             # )
-            merge_nested_dict(analyzer_report, syft_results)
+            merge_nested_dict(analyzer_report, gosbom_results)
         except Exception as err:
             raise nextlinux_engine.clients.localnextlinux_standalone.AnalysisError(
                 cause=err, pull_string=pullstring, tag=fulltag
@@ -190,7 +198,7 @@ def process_import(
                 cause=err, pull_string=pullstring, tag=fulltag
             )
 
-    except AnchoreException:
+    except NextlinuxException:
         raise
     except Exception as err:
         raise nextlinux_engine.clients.localnextlinux_standalone.AnalysisError(
@@ -301,7 +309,7 @@ def import_image(
                 image_data, analysis_manifest = process_import(
                     image_record, sbom_map, import_manifest, enable_package_filtering
                 )
-            except AnchoreException as e:
+            except NextlinuxException as e:
                 event = events.ImageAnalysisFailed(
                     user_id=account, image_digest=image_digest, error=e.to_dict()
                 )
@@ -314,7 +322,7 @@ def import_image(
                 bucket="manifest_data", name=image_digest, inobj=json.dumps(manifest)
             )
 
-            syft_analysis = sbom_map["packages"]
+            gosbom_analysis = sbom_map["packages"]
 
             # Save the results to the upstream components and data stores
             logger.info("storing import result")
@@ -328,7 +336,7 @@ def import_image(
                 manifest,
                 analysis_events,
                 all_content_types,
-                syft_report=syft_analysis,
+                gosbom_report=gosbom_analysis,
             )
 
             logger.info("updating image catalog record analysis_status")

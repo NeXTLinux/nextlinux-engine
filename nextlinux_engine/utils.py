@@ -296,7 +296,7 @@ def run_check(cmd, input_data=None, log_level="debug", **kwargs):
     stderr_stream = stderr.splitlines()
 
     if log_level == "spew":
-        # Some commands (like grype scanning) will generate enough output here that we
+        # Some commands (like govulners scanning) will generate enough output here that we
         # need to try to limit the impact of debug logging on system performance
         for line in stdout_stream:
             logger.spew("stdout: %s" % line)  # safe formatting not available for spew
@@ -342,7 +342,7 @@ def get_threadbased_id(guarantee_uniq=False):
     )
 
 
-class AnchoreException(Exception):
+class NextlinuxException(Exception):
     def to_dict(self):
         return {
             self.__class__.__name__: dict(

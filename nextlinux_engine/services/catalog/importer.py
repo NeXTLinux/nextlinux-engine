@@ -19,9 +19,13 @@ from nextlinux_engine.subsys.object_store import get_manager
 from nextlinux_engine.util.docker import DockerImageReference
 
 IMPORT_QUEUE = "images_to_analyze"
+<<<<<<< HEAD
 ANCHORE_SYSTEM_ANNOTATION_KEY_PREFIX = "nextlinux.system/"
+=======
+NEXTLINUX_SYSTEM_ANNOTATION_KEY_PREFIX = "nextlinux.system/"
+>>>>>>> master
 IMPORT_OPERATION_ANNOTATION_KEY = (
-    ANCHORE_SYSTEM_ANNOTATION_KEY_PREFIX + "import_operation_id"
+    NEXTLINUX_SYSTEM_ANNOTATION_KEY_PREFIX + "import_operation_id"
 )
 
 

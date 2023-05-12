@@ -11,7 +11,7 @@ def delete_image(image_id: str) -> http_utils.APIResponse:
         raise ValueError("Cannot ingress image to policy engine without image id")
 
     delete_image_resp = http_utils.http_del(
-        ["users", policy_engine_api_conf().get("ANCHORE_API_USER"), "images", image_id],
+        ["users", policy_engine_api_conf().get("NEXTLINUX_API_USER"), "images", image_id],
         config=policy_engine_api_conf,
     )
 
@@ -30,7 +30,7 @@ def get_image_vulnerabilities(image_id: str) -> http_utils.APIResponse:
     image_vulnerabilities_resp = http_utils.http_get(
         [
             "users",
-            policy_engine_api_conf().get("ANCHORE_API_USER"),
+            policy_engine_api_conf().get("NEXTLINUX_API_USER"),
             "images",
             image_id,
             "vulnerabilities",
@@ -68,7 +68,7 @@ def get_images_by_vulnerability(
     image_by_vuln_resp = http_utils.http_get(
         [
             "users",
-            policy_engine_api_conf().get("ANCHORE_API_USER"),
+            policy_engine_api_conf().get("NEXTLINUX_API_USER"),
             "query",
             "images",
             "by_vulnerability",

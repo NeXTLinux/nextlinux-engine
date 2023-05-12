@@ -1,5 +1,5 @@
 ############################################################
-# Makefile for the Anchore Engine, a service that analyzes
+# Makefile for the Nextlinux Engine, a service that analyzes
 # Docker images and applies user-defined policies for automated
 # container image validation and certification. The rules, directives, and variables in this
 # Makefile enable testing, Docker image generation, and pushing Docker
@@ -104,7 +104,7 @@ clean-all: ## Clean everything (without prompts)
 ######################
 
 .PHONY: test
-test: test-unit test-integration setup-and-test-functional-grype setup-and-test-cli ## Run unit, integration, functional, and end-to-end tests
+test: test-unit test-integration setup-and-test-functional-govulners setup-and-test-cli ## Run unit, integration, functional, and end-to-end tests
 
 .PHONY: test-unit
 test-unit: export TOX_ENV = py38 ## Run unit tests (tox)
@@ -131,17 +131,17 @@ test-functional: venv setup-test-infra ## Run functional tests, assuming compose
 		$(ACTIVATE_VENV) && $(CI_CMD) $(CI_CMD) test-functional "${CI_COMPOSE_FILE}"  ; \
 	fi
 
-PHONY: setup-and-test-functional-grype
-setup-and-test-functional-grype: venv setup-test-infra ## Stand up/start docker-compose, run functional tests, tear down/stop docker-compose
+PHONY: setup-and-test-functional-govulners
+setup-and-test-functional-govulners: venv setup-test-infra ## Stand up/start docker-compose, run functional tests, tear down/stop docker-compose
 	@$(ACTIVATE_VENV) && $(CI_CMD) prep-local-docker-registry-credentials
-	@$(MAKE) compose-up ANCHORE_VULNERABILITIES_PROVIDER="grype"
+	@$(MAKE) compose-up NEXTLINUX_VULNERABILITIES_PROVIDER="govulners"
 	@$(MAKE) test-functional
 	@$(MAKE) compose-down
 
 .PHONY: setup-and-test-functional-legacy
 setup-and-test-functional-legacy: venv setup-test-infra ## Stand up/start docker-compose, run functional tests, tear down/stop docker-compose
 	@$(ACTIVATE_VENV) && $(CI_CMD) prep-local-docker-registry-credentials
-	@$(MAKE) compose-up ANCHORE_VULNERABILITIES_PROVIDER="legacy"
+	@$(MAKE) compose-up NEXTLINUX_VULNERABILITIES_PROVIDER="legacy"
 	@$(MAKE) test-functional
 	@$(MAKE) compose-down
 
@@ -168,27 +168,27 @@ test-container: setup-test-infra venv ## CI ONLY Run container-structure-tests o
 #######################
 
 .PHONY: push-nightly
-push-nightly: setup-test-infra ## Push nightly Anchore Engine Docker image to Docker Hub
+push-nightly: setup-test-infra ## Push nightly Nextlinux Engine Docker image to Docker Hub
 	@$(CI_CMD) push-nightly-image "$(COMMIT_SHA)" "$(DEV_IMAGE_REPO)" "$(GIT_BRANCH)" "$(TEST_IMAGE_NAME)"
 
 .PHONY: push-dev
-push-dev: setup-test-infra ## Push dev Anchore Engine Docker image to Docker Hub
+push-dev: setup-test-infra ## Push dev Nextlinux Engine Docker image to Docker Hub
 	@$(CI_CMD) push-dev-image "$(COMMIT_SHA)" "$(DEV_IMAGE_REPO)" "$(GIT_BRANCH)" "$(TEST_IMAGE_NAME)"
 
 .PHONY: push-rc
-push-rc: setup-test-infra ## Push RC Anchore Engine Docker image to Docker Hub (not available outside of CI)
+push-rc: setup-test-infra ## Push RC Nextlinux Engine Docker image to Docker Hub (not available outside of CI)
 	@$(CI_CMD) push-rc-image "$(DEV_IMAGE_REPO)" "$(GIT_TAG)" "$(TEST_IMAGE_NAME)"
 
 .PHONY: push-prod
-push-prod: setup-test-infra ## Push release Anchore Engine Docker image to Docker Hub (not available outside of CI
+push-prod: setup-test-infra ## Push release Nextlinux Engine Docker image to Docker Hub (not available outside of CI
 	@$(CI_CMD) push-prod-image-release "$(DEV_IMAGE_REPO)" "$(GIT_BRANCH)" "$(GIT_TAG)"
 
 .PHONY: push-redhat
-push-redhat: setup-test-infra ## (Not available outside of CI) Push prod Anchore Engine docker image to RedHat Connect
+push-redhat: setup-test-infra ## (Not available outside of CI) Push prod Nextlinux Engine docker image to RedHat Connect
 	@$(CI_CMD) push-redhat-image "$(GIT_TAG)"
 
 .PHONY: push-rebuild
-push-rebuild: setup-test-infra ## Rebuild and push prod Anchore Engine docker image to Docker Hub (not available outside of CI)
+push-rebuild: setup-test-infra ## Rebuild and push prod Nextlinux Engine docker image to Docker Hub (not available outside of CI)
 	@$(CI_CMD) push-prod-image-rebuild "$(COMMIT_SHA)" "$(DEV_IMAGE_REPO)" "$(GIT_TAG)"
 
 .PHONY: ironbank-artifacts
@@ -201,7 +201,7 @@ ironbank-artifacts: nextlinux-ci ## (Not available outside of CI) Create and upl
 .PHONY: compose-up
 compose-up: venv setup-test-infra ## Stand up/start docker-compose with dev image
 	@export TEST_IMAGE_NAME="$(TEST_IMAGE_NAME)";\
-	export ANCHORE_VULNERABILITIES_PROVIDER := "legacy" ;\
+	export NEXTLINUX_VULNERABILITIES_PROVIDER := "legacy" ;\
 	if [ "$(OS)" = "Darwin" ]; then \
 		export GID_DOCKER=0;\
 		export GID_CI=$(shell id -g);\
@@ -279,6 +279,7 @@ endif
 # Code change targets
 #######################
 
+<<<<<<< HEAD
 SYFT_LATEST_VERSION = $(shell curl "https://api.github.com/repos/nextlinux/syft/releases/latest" 2>/dev/null | jq -r '.tag_name')
 .PHONY: upgrade-syft
 upgrade-syft: jq-installed ## Upgrade Syft to the latest release
@@ -296,3 +297,22 @@ upgrade-grype: jq-installed ## Upgrade Grype to the latest release
 # TODO: Intent is to create a weekly/daily/continuous GitHub Action that runs the following and auto-opens a PR
 .PHONY: upgrade-nextlinux-tools
 upgrade-nextlinux-tools: upgrade-syft upgrade-grype ## Upgrade Syft and Grype to the latest release
+=======
+GOSBOM_LATEST_VERSION = $(shell curl "https://api.github.com/repos/nextlinux/gosbom/releases/latest" 2>/dev/null | jq -r '.tag_name')
+.PHONY: upgrade-gosbom
+upgrade-gosbom: jq-installed ## Upgrade Gosbom to the latest release
+	if [ -n "$$GITHUB_ENV" ]; then echo "gosbom_v=${GOSBOM_LATEST_VERSION}" >> $$GITHUB_ENV; fi
+	# Setting Gosbom to ${GOSBOM_LATEST_VERSION}
+	$(SEDI) 's/^(ENV GOSBOM_VERSION=).+$$/\1${GOSBOM_LATEST_VERSION}/' Dockerfile
+
+GOVULNERS_LATEST_VERSION = $(shell curl "https://api.github.com/repos/nextlinux/govulners/releases/latest" 2>/dev/null | jq -r '.tag_name')
+.PHONY: upgrade-govulners
+upgrade-govulners: jq-installed ## Upgrade Govulners to the latest release
+	if [ -n "$$GITHUB_ENV" ]; then echo "govulners_v=${GOVULNERS_LATEST_VERSION}" >> $$GITHUB_ENV; fi
+	# Setting Govulners to ${GOVULNERS_LATEST_VERSION}
+	$(SEDI) 's/^(ENV GOVULNERS_VERSION=).+$$/\1${GOVULNERS_LATEST_VERSION}/' Dockerfile
+
+# TODO: Intent is to create a weekly/daily/continuous GitHub Action that runs the following and auto-opens a PR
+.PHONY: upgrade-nextlinux-tools
+upgrade-nextlinux-tools: upgrade-gosbom upgrade-govulners ## Upgrade Gosbom and Govulners to the latest release
+>>>>>>> master

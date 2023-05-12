@@ -4,7 +4,11 @@ from flask import jsonify
 
 from nextlinux_engine.apis.authorization import INTERNAL_SERVICE_ALLOWED, get_authorizer
 from nextlinux_engine.apis.exceptions import (
+<<<<<<< HEAD
     AnchoreApiError,
+=======
+    NextlinuxApiError,
+>>>>>>> master
     BadRequest,
     ConflictingRequest,
     HTTPNotImplementedError,
@@ -14,18 +18,30 @@ from nextlinux_engine.clients.services.simplequeue import (
     LeaseAcquisitionFailedError,
     LeaseUnavailableError,
 )
+<<<<<<< HEAD
 from nextlinux_engine.common.errors import AnchoreError
+=======
+from nextlinux_engine.common.errors import NextlinuxError
+>>>>>>> master
 from nextlinux_engine.common.helpers import make_response_error
 from nextlinux_engine.common.models.policy_engine import FeedGroupMetadata, FeedMetadata
 from nextlinux_engine.db import FeedGroupMetadata as DbFeedGroupMetadata
 from nextlinux_engine.db import FeedMetadata as DbFeedMetadata
 from nextlinux_engine.services.policy_engine.engine.feeds import db, sync
 from nextlinux_engine.services.policy_engine.engine.feeds.sync_utils import (
+<<<<<<< HEAD
     GRYPE_DB_FEED_NAME,
 )
 from nextlinux_engine.services.policy_engine.engine.tasks import FeedsUpdateTask
 from nextlinux_engine.services.policy_engine.engine.vulns.providers import (
     GrypeProvider,
+=======
+    GOVULNERS_DB_FEED_NAME,
+)
+from nextlinux_engine.services.policy_engine.engine.tasks import FeedsUpdateTask
+from nextlinux_engine.services.policy_engine.engine.vulns.providers import (
+    GovulnersProvider,
+>>>>>>> master
     InvalidFeed,
     get_vulnerabilities_provider,
 )
@@ -117,9 +133,9 @@ def sync_feeds(sync=True, force_flush=False):
                     in_httpcode=409,
                     details={
                         "error_codes": [
-                            AnchoreError.FEED_SYNC_ALREADY_IN_PROGRESS.name
+                            NextlinuxError.FEED_SYNC_ALREADY_IN_PROGRESS.name
                         ],
-                        "message": AnchoreError.FEED_SYNC_ALREADY_IN_PROGRESS.value,
+                        "message": NextlinuxError.FEED_SYNC_ALREADY_IN_PROGRESS.value,
                     },
                 ),
                 409,
@@ -167,9 +183,9 @@ def toggle_group_enabled(feed, group, enabled):
         raise BadRequest(message="state must be a boolean", detail={"value": enabled})
     provider = get_vulnerabilities_provider()
     internal_feed_name = provider.display_mapper.get_internal_name(feed)
-    if isinstance(provider, GrypeProvider) and internal_feed_name == GRYPE_DB_FEED_NAME:
+    if isinstance(provider, GovulnersProvider) and internal_feed_name == GOVULNERS_DB_FEED_NAME:
         raise HTTPNotImplementedError(
-            message=f"Enabling and disabling groups for {feed} feed with the grype vulnerability provider enabled is not currently supported.",
+            message=f"Enabling and disabling groups for {feed} feed with the govulners vulnerability provider enabled is not currently supported.",
             detail={},
         )
     session = db.get_session()
@@ -186,7 +202,7 @@ def toggle_group_enabled(feed, group, enabled):
         session.commit()
 
         return jsonify(grp), 200
-    except AnchoreApiError:
+    except NextlinuxApiError:
         session.rollback()
         raise
     except Exception:
@@ -199,9 +215,9 @@ def toggle_group_enabled(feed, group, enabled):
 def delete_feed(feed):
     provider = get_vulnerabilities_provider()
     internal_feed_name = provider.display_mapper.get_internal_name(feed)
-    if isinstance(provider, GrypeProvider) and internal_feed_name == GRYPE_DB_FEED_NAME:
+    if isinstance(provider, GovulnersProvider) and internal_feed_name == GOVULNERS_DB_FEED_NAME:
         raise HTTPNotImplementedError(
-            message=f"Deleting the {feed} feed with the grype vulnerability provider enabled is not yet supported.",
+            message=f"Deleting the {feed} feed with the govulners vulnerability provider enabled is not yet supported.",
             detail={},
         )
     session = db.get_session()
@@ -214,7 +230,7 @@ def delete_feed(feed):
                 message="Cannot delete an enabled feed. Disable the feed first",
                 detail={},
             )
-    except AnchoreApiError:
+    except NextlinuxApiError:
         raise
     except Exception as exc:
         return jsonify(make_response_error(exc, in_httpcode=500)), 500
@@ -229,7 +245,7 @@ def delete_feed(feed):
             raise ResourceNotFound(feed, detail={})
     except KeyError as exc:
         raise ResourceNotFound(resource=str(exc), detail={"feed": feed})
-    except AnchoreApiError:
+    except NextlinuxApiError:
         raise
     except Exception as exc:
         return jsonify(make_response_error(exc, in_httpcode=500)), 500
@@ -239,9 +255,9 @@ def delete_feed(feed):
 def delete_group(feed, group):
     provider = get_vulnerabilities_provider()
     internal_feed_name = provider.display_mapper.get_internal_name(feed)
-    if isinstance(provider, GrypeProvider) and internal_feed_name == GRYPE_DB_FEED_NAME:
+    if isinstance(provider, GovulnersProvider) and internal_feed_name == GOVULNERS_DB_FEED_NAME:
         raise HTTPNotImplementedError(
-            message=f"Deleting individual groups for the {feed} feed with the grype vulnerability provider enabled is not yet supported.",
+            message=f"Deleting individual groups for the {feed} feed with the govulners vulnerability provider enabled is not yet supported.",
             detail={},
         )
     session = db.get_session()
@@ -256,7 +272,7 @@ def delete_group(feed, group):
                 message="Cannot delete an enabled feed group. Disable the feed group first",
                 detail={},
             )
-    except AnchoreApiError:
+    except NextlinuxApiError:
         raise
     except Exception as exc:
         return jsonify(make_response_error(exc, in_httpcode=500)), 500
@@ -274,7 +290,7 @@ def delete_group(feed, group):
             raise ResourceNotFound(group, detail={})
     except KeyError as exc:
         raise ResourceNotFound(resource=str(exc), detail={"feed": feed, "group": group})
-    except AnchoreApiError:
+    except NextlinuxApiError:
         raise
     except Exception as exc:
         log.error("Could not flush feed group %s/%s", feed, group)

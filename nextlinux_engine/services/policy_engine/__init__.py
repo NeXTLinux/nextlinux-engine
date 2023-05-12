@@ -10,14 +10,23 @@ from sqlalchemy.exc import IntegrityError
 import nextlinux_engine.clients.services.common
 import nextlinux_engine.subsys.metrics
 import nextlinux_engine.subsys.servicestatus
+<<<<<<< HEAD
 from nextlinux_engine.clients.grype_wrapper import GrypeWrapperSingleton
+=======
+from nextlinux_engine.clients.govulners_wrapper import GovulnersWrapperSingleton
+>>>>>>> master
 from nextlinux_engine.clients.services import internal_client_for, simplequeue
 from nextlinux_engine.clients.services.simplequeue import SimpleQueueClient
 from nextlinux_engine.common.models.schemas import BatchImageVulnerabilitiesQueueMessage
 from nextlinux_engine.configuration import localconfig
 from nextlinux_engine.service import ApiService, LifeCycleStages
+<<<<<<< HEAD
 from nextlinux_engine.services.policy_engine.engine.feeds import (  # Import grypedb_sync so that class variables are initialized before twistd threads start
     grypedb_sync,
+=======
+from nextlinux_engine.services.policy_engine.engine.feeds import (  # Import govulnersdb_sync so that class variables are initialized before twistd threads start
+    govulnersdb_sync,
+>>>>>>> master
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.config import (
     get_provider_name,
@@ -26,7 +35,7 @@ from nextlinux_engine.services.policy_engine.engine.feeds.config import (
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.feeds import (
     GithubFeed,
-    GrypeDBFeed,
+    GovulnersDBFeed,
     NvdFeed,
     NvdV2Feed,
     PackagesFeed,
@@ -48,20 +57,20 @@ feed_sync_msg = {"task_type": "feed_sync", "enabled": True}
 
 # These are user-configurable but mostly for debugging and testing purposes
 try:
-    FEED_SYNC_RETRIES = int(os.getenv("ANCHORE_FEED_SYNC_CHECK_RETRIES", 5))
+    FEED_SYNC_RETRIES = int(os.getenv("NEXTLINUX_FEED_SYNC_CHECK_RETRIES", 5))
 except ValueError:
     logger.exception(
-        "Error parsing env value ANCHORE_FEED_SYNC_CHECK_RETRIES into int, using default value of 5"
+        "Error parsing env value NEXTLINUX_FEED_SYNC_CHECK_RETRIES into int, using default value of 5"
     )
     FEED_SYNC_RETRIES = 5
 
 try:
     FEED_SYNC_RETRY_BACKOFF = int(
-        os.getenv("ANCHORE_FEED_SYNC_CHECK_FAILURE_BACKOFF", 5)
+        os.getenv("NEXTLINUX_FEED_SYNC_CHECK_FAILURE_BACKOFF", 5)
     )
 except ValueError:
     logger.exception(
-        "Error parsing env value ANCHORE_FEED_SYNC_CHECK_FAILURE_BACKOFF into int, using default value of 5"
+        "Error parsing env value NEXTLINUX_FEED_SYNC_CHECK_FAILURE_BACKOFF into int, using default value of 5"
     )
     FEED_SYNC_RETRY_BACKOFF = 5
 
@@ -185,7 +194,7 @@ def init_feed_registry():
         (PackagesFeed, False),
         (GithubFeed, False),
         (NvdFeed, False),
-        (GrypeDBFeed, True),
+        (GovulnersDBFeed, True),
     ]:
         logger.info("Registering feed handler {}".format(cls_tuple[0].__feed_name__))
         feed_registry.register(cls_tuple[0], is_vulnerability_feed=cls_tuple[1])
@@ -333,9 +342,9 @@ def handle_feed_sync_trigger(*args, **kwargs):
     return True
 
 
-def handle_grypedb_sync(*args, **kwargs):
+def handle_govulnersdb_sync(*args, **kwargs):
     """
-    Calls function to run GrypeDBSyncTask
+    Calls function to run GovulnersDBSyncTask
 
     :param args:
     :param kwargs:
@@ -344,24 +353,32 @@ def handle_grypedb_sync(*args, **kwargs):
     # import code in function so that it is not imported to all contexts that import policy engine
     # this is an issue caused by these handlers being declared within the __init__.py file
     # See https://github.com/nextlinux/nextlinux-engine/issues/991
+<<<<<<< HEAD
     from nextlinux_engine.services.policy_engine.engine.tasks import GrypeDBSyncTask
+=======
+    from nextlinux_engine.services.policy_engine.engine.tasks import GovulnersDBSyncTask
+>>>>>>> master
 
     logger.info("init args: {}".format(kwargs))
     cycle_time = kwargs["mythread"]["cycle_timer"]
 
     while True:
         provider = get_provider_name(get_section_for_vulnerabilities())
-        if provider == "grype":  # TODO fix this
+        if provider == "govulners":  # TODO fix this
             try:
+<<<<<<< HEAD
                 GrypeDBSyncTask().execute()
+=======
+                GovulnersDBSyncTask().execute()
+>>>>>>> master
             # TODO narrow scope of exceptions in handlers. see https://github.com/nextlinux/nextlinux-engine/issues/1005
             except Exception:
                 logger.exception(
-                    "Error encountered when running GrypeDBSyncTask from async monitor"
+                    "Error encountered when running GovulnersDBSyncTask from async monitor"
                 )
         else:
             logger.debug(
-                "Grype DB sync not supported for vulnerabilities provider %s, skipping",
+                "Govulners DB sync not supported for vulnerabilities provider %s, skipping",
                 provider,
             )
         time.sleep(cycle_time)
@@ -466,10 +483,10 @@ def handle_image_vulnerabilities_refresh(*args, **kwargs):
     return True
 
 
-def initialize_grype_wrapper():
-    logger.debug("Initializing Grype wrapper singleton.")
-    GrypeWrapperSingleton.get_instance()
-    logger.debug("Grype wrapper initialized.")
+def initialize_govulners_wrapper():
+    logger.debug("Initializing Govulners wrapper singleton.")
+    GovulnersWrapperSingleton.get_instance()
+    logger.debug("Govulners wrapper initialized.")
 
 
 class PolicyEngineService(ApiService):
@@ -509,9 +526,9 @@ class PolicyEngineService(ApiService):
             "last_return": False,
             "initialized": False,
         },
-        "grypedb_sync": {
-            "handler": handle_grypedb_sync,
-            "taskType": "handle_grypedb_sync",
+        "govulnersdb_sync": {
+            "handler": handle_govulnersdb_sync,
+            "taskType": "handle_govulnersdb_sync",
             "args": [],
             "cycle_timer": 60,
             "min_cycle_timer": 60,
@@ -538,6 +555,6 @@ class PolicyEngineService(ApiService):
             (process_preflight, None),
         ],
         LifeCycleStages.post_bootstrap: [
-            (initialize_grype_wrapper, None),
+            (initialize_govulners_wrapper, None),
         ],
     }

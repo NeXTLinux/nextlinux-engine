@@ -35,15 +35,15 @@ def begin_import() -> APIResponse:
 
 @pytest.mark.incremental
 @pytest.mark.parametrize(
-    "syft_json_name, dockerfile_name",
+    "gosbom_json_name, dockerfile_name",
     [
-        ("syft-0.12.2-lean.json", "Dockerfile_lean"),
+        ("gosbom-0.12.2-lean.json", "Dockerfile_lean"),
     ],
 )
 class TestImports:
     def test_begin_imports(
         self,
-        syft_json_name: str,
+        gosbom_json_name: str,
         dockerfile_name: str,
         begin_import: APIResponse,
     ):
@@ -53,7 +53,7 @@ class TestImports:
 
     def test_delete_imports(
         self,
-        syft_json_name: str,
+        gosbom_json_name: str,
         dockerfile_name: str,
         begin_import: APIResponse,
     ):
@@ -63,7 +63,7 @@ class TestImports:
 
     def test_list_imports(
         self,
-        syft_json_name: str,
+        gosbom_json_name: str,
         dockerfile_name: str,
         begin_import: APIResponse,
     ):
@@ -75,7 +75,7 @@ class TestImports:
 
     def test_upload_dockerfile(
         self,
-        syft_json_name: str,
+        gosbom_json_name: str,
         dockerfile_name: str,
         module_path: str,
         begin_import: APIResponse,
@@ -89,7 +89,7 @@ class TestImports:
 
     def test_list_dockerfiles(
         self,
-        syft_json_name: str,
+        gosbom_json_name: str,
         dockerfile_name: str,
         module_path: str,
         begin_import: APIResponse,
@@ -106,13 +106,13 @@ class TestImports:
 
     def test_upload_packages(
         self,
-        syft_json_name: str,
+        gosbom_json_name: str,
         dockerfile_name: str,
         module_path: str,
         begin_import: APIResponse,
     ):
-        syft_json = imports.load_file(module_path, syft_json_name)
-        packages = json.loads(syft_json)
+        gosbom_json = imports.load_file(module_path, gosbom_json_name)
+        packages = json.loads(gosbom_json)
         result: APIResponse = http_post(
             ["imports", "images", begin_import.body["uuid"], "packages"],
             payload=packages,
@@ -121,14 +121,14 @@ class TestImports:
 
     def test_list_packages(
         self,
-        syft_json_name: str,
+        gosbom_json_name: str,
         dockerfile_name: str,
         module_path: str,
         begin_import: APIResponse,
     ):
-        syft_json = imports.load_file(module_path, syft_json_name)
+        gosbom_json = imports.load_file(module_path, gosbom_json_name)
         operation_uuid = begin_import.body["uuid"]
-        packages = json.loads(syft_json)
+        packages = json.loads(gosbom_json)
         result: APIResponse = http_post(
             ["imports", "images", operation_uuid, "packages"], payload=packages
         )
@@ -139,7 +139,7 @@ class TestImports:
 
     def test_upload_manifest(
         self,
-        syft_json_name: str,
+        gosbom_json_name: str,
         dockerfile_name: str,
         module_path: str,
         begin_import: APIResponse,
@@ -151,8 +151,8 @@ class TestImports:
         keys or adding/removing whitespace. This should enable the output of
         `sha256sum <file>` to match the digests returned during this test
         """
-        syft_json = imports.load_file(module_path, syft_json_name)
-        manifest = imports.extract_syft_metadata(syft_json)["manifest"]
+        gosbom_json = imports.load_file(module_path, gosbom_json_name)
+        manifest = imports.extract_gosbom_metadata(gosbom_json)["manifest"]
         result: APIResponse = http_post_bytes(
             ["imports", "images", begin_import.body["uuid"], "manifest"],
             payload=manifest,
@@ -161,14 +161,14 @@ class TestImports:
 
     def test_list_manifests(
         self,
-        syft_json_name: str,
+        gosbom_json_name: str,
         dockerfile_name: str,
         module_path: str,
         begin_import: APIResponse,
     ):
         operation_uuid = begin_import.body["uuid"]
-        syft_json = imports.load_file(module_path, syft_json_name)
-        manifest = imports.extract_syft_metadata(syft_json)["manifest"]
+        gosbom_json = imports.load_file(module_path, gosbom_json_name)
+        manifest = imports.extract_gosbom_metadata(gosbom_json)["manifest"]
         result: APIResponse = http_post_bytes(
             ["imports", "images", operation_uuid, "manifest"], payload=manifest
         )
@@ -179,7 +179,7 @@ class TestImports:
 
     def test_upload_image_config(
         self,
-        syft_json_name: str,
+        gosbom_json_name: str,
         dockerfile_name: str,
         module_path: str,
         begin_import: APIResponse,
@@ -191,8 +191,8 @@ class TestImports:
         keys or adding/removing whitespace. This should enable the output of
         `sha256sum <file>` to match the digests returned during this test
         """
-        syft_json = imports.load_file(module_path, syft_json_name)
-        image_config = imports.extract_syft_metadata(syft_json)["image_config"]
+        gosbom_json = imports.load_file(module_path, gosbom_json_name)
+        image_config = imports.extract_gosbom_metadata(gosbom_json)["image_config"]
         result: APIResponse = http_post_bytes(
             ["imports", "images", begin_import.body["uuid"], "image_config"],
             payload=image_config,
@@ -201,14 +201,14 @@ class TestImports:
 
     def test_list_image_configs(
         self,
-        syft_json_name: str,
+        gosbom_json_name: str,
         dockerfile_name: str,
         module_path: str,
         begin_import: APIResponse,
     ):
         operation_uuid = begin_import.body["uuid"]
-        syft_json = imports.load_file(module_path, syft_json_name)
-        image_config = imports.extract_syft_metadata(syft_json)["image_config"]
+        gosbom_json = imports.load_file(module_path, gosbom_json_name)
+        image_config = imports.extract_gosbom_metadata(gosbom_json)["image_config"]
         result: APIResponse = http_post_bytes(
             ["imports", "images", operation_uuid, "image_config"],
             payload=image_config,
@@ -220,15 +220,15 @@ class TestImports:
 
     def test_full_upload(
         self,
-        syft_json_name: str,
+        gosbom_json_name: str,
         dockerfile_name: str,
         module_path: str,
         begin_import: APIResponse,
     ):
         operation_uuid = begin_import.body["uuid"]
-        syft_json = imports.load_file(module_path, syft_json_name)
+        gosbom_json = imports.load_file(module_path, gosbom_json_name)
         dockerfile = imports.load_file(module_path, dockerfile_name)
-        metadata = imports.extract_syft_metadata(syft_json)
+        metadata = imports.extract_gosbom_metadata(gosbom_json)
         # upload dockerfile
         upload_dockerfile_response: APIResponse = http_post(
             ["imports", "images", operation_uuid, "dockerfile"],
@@ -237,7 +237,7 @@ class TestImports:
         assert upload_dockerfile_response.code == 200
         dockerfile_digest = upload_dockerfile_response.body["digest"]
         # upload packages
-        packages = json.loads(syft_json)
+        packages = json.loads(gosbom_json)
         upload_packages_response: APIResponse = http_post(
             ["imports", "images", operation_uuid, "packages"], payload=packages
         )

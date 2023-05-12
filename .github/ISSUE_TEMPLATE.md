@@ -1,4 +1,4 @@
-<!-- Thanks for trying Anchore Engine and filing an issue! To help ensure that we can quickly and efficiently process issues and get fixes please answer a few questions-->
+<!-- Thanks for trying Nextlinux Engine and filing an issue! To help ensure that we can quickly and efficiently process issues and get fixes please answer a few questions-->
 
 **Is this a request for help?**:
 
@@ -21,7 +21,7 @@ questions go unanswered for too long, we may close the issue. If we're wrong, PL
 nextlinux-cli --version
 docker exec <engine_container> pip show nextlinux-engine
 -->
-**Version of Anchore Engine and Anchore CLI if applicable**:
+**Version of Nextlinux Engine and Nextlinux CLI if applicable**:
 
 
 **What happened**:

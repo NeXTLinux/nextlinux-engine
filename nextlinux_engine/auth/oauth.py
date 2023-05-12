@@ -16,8 +16,13 @@ from nextlinux_engine.configuration.localconfig import (
 from nextlinux_engine.subsys import logger
 from nextlinux_engine.utils import ensure_bytes
 
+<<<<<<< HEAD
 ANCHORE_ISSUER = "nextlinux-engine"
 ANCHORE_AUDIENCE = "nextlinux-engine"
+=======
+NEXTLINUX_ISSUER = "nextlinux-engine"
+NEXTLINUX_AUDIENCE = "nextlinux-engine"
+>>>>>>> master
 EXPIRATION_LEEWAY_SECONDS = 10
 SUPPORTED_ALGORITHMS = ["HS256", "HS512", "RS256", "RS512"]
 
@@ -81,7 +86,7 @@ class TokenIssuer(object):
     Creates oauth tokens signed by a specific private key
     """
 
-    def __init__(self, key: bytes, alg: str, expiration: int, issuer=ANCHORE_ISSUER):
+    def __init__(self, key: bytes, alg: str, expiration: int, issuer=NEXTLINUX_ISSUER):
         assert alg in SUPPORTED_ALGORITHMS
 
         self.signing_key = key
@@ -130,7 +135,7 @@ class TokenVerifier(object):
 
     def __init__(self, key: bytes, alg: str, issuers=None):
         if issuers is None:
-            issuers = [ANCHORE_ISSUER]
+            issuers = [NEXTLINUX_ISSUER]
         if alg not in SUPPORTED_ALGORITHMS:
             raise ValueError(alg)
 
@@ -165,12 +170,12 @@ class JwtTokenManager(object):
         self.issuers = {
             name: TokenIssuer(key, "RS256", expiration)
             if name != "secret"
-            else TokenIssuer(key, "HS256", expiration, issuer=ANCHORE_ISSUER)
+            else TokenIssuer(key, "HS256", expiration, issuer=NEXTLINUX_ISSUER)
             for name, key in self.keys.items()
             if name in ["private", "secret"]
         }
         self.verifiers = {
-            name: TokenVerifier(key, "RS256", issuers=[ANCHORE_ISSUER])
+            name: TokenVerifier(key, "RS256", issuers=[NEXTLINUX_ISSUER])
             if name != "secret"
             else TokenVerifier(key, "HS256")
             for name, key in self.keys.items()

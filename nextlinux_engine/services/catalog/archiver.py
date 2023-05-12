@@ -47,7 +47,7 @@ from nextlinux_engine.subsys.object_store.manager import ObjectStorageManager
 from nextlinux_engine.util.time import datetime_to_rfc3339
 from nextlinux_engine.utils import ensure_bytes, ensure_str
 
-DRY_RUN_ENV_VAR = "ANCHORE_ANALYSIS_ARCHIVE_DRYRUN_ENABLED"
+DRY_RUN_ENV_VAR = "NEXTLINUX_ANALYSIS_ARCHIVE_DRYRUN_ENABLED"
 DRY_RUN_MODE = os.getenv(DRY_RUN_ENV_VAR, "false").lower() == "true"
 
 _add_event_fn = None
@@ -1269,9 +1269,9 @@ class ArchiveImageTask(object):
             ),
             ArtifactRequirement(
                 Artifact(
-                    name="syft_sbom",
+                    name="gosbom_sbom",
                     source=ObjectStoreLocation(
-                        bucket="syft_sbom", key=self.image_digest
+                        bucket="gosbom_sbom", key=self.image_digest
                     ),
                     dest=None,
                     metadata={},

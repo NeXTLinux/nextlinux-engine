@@ -1,5 +1,5 @@
 """
-Module for centralizing cpe generation code. Most of this will be removed as syft takes over all the cpe generation
+Module for centralizing cpe generation code. Most of this will be removed as gosbom takes over all the cpe generation
 duty, so this module is not expected to grow.
 """
 # Note: this duplicates a lot of code from the policy engine loader, that code will be removed in the future so refactoring

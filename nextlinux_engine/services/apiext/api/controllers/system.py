@@ -13,7 +13,11 @@ from nextlinux_engine.apis.context import ApiRequestContextProxy
 from nextlinux_engine.clients.services import internal_client_for
 from nextlinux_engine.clients.services.catalog import CatalogClient
 from nextlinux_engine.clients.services.policy_engine import PolicyEngineClient
+<<<<<<< HEAD
 from nextlinux_engine.common.errors import AnchoreError
+=======
+from nextlinux_engine.common.errors import NextlinuxError
+>>>>>>> master
 from nextlinux_engine.configuration import localconfig
 from nextlinux_engine.configuration.localconfig import GLOBAL_RESOURCE_DOMAIN
 from nextlinux_engine.subsys import logger, notifications
@@ -422,7 +426,7 @@ def describe_error_codes():
     return_object = []
     httpcode = 500
     try:
-        for e in AnchoreError:
+        for e in NextlinuxError:
             el = {
                 "name": e.name,
                 "description": e.value,

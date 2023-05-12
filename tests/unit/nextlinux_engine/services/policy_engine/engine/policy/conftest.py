@@ -3,7 +3,11 @@ from unittest.mock import Mock
 
 import pytest
 
+<<<<<<< HEAD:tests/unit/nextlinux_engine/services/policy_engine/engine/policy/conftest.py
 from nextlinux_engine.db.db_grype_db_feed_metadata import NoActiveGrypeDB
+=======
+from nextlinux_engine.db.db_govulners_db_feed_metadata import NoActiveGovulnersDB
+>>>>>>> master:tests/unit/anchore_engine/services/policy_engine/engine/policy/conftest.py
 from nextlinux_engine.db.entities.policy_engine import DistroMapping
 from nextlinux_engine.services.policy_engine import init_feed_registry
 
@@ -49,11 +53,11 @@ def mock_gate_util_provider_feed_data(monkeypatch, mock_distromapping_query):
         """
         yield None
 
-    def raise_no_active_grypedb(session):
-        raise NoActiveGrypeDB
+    def raise_no_active_govulnersdb(session):
+        raise NoActiveGovulnersDB
 
     def _setup_mocks(
-        feed_group_metadata=None, grype_db_feed_metadata=None, feed_metadata=None
+        feed_group_metadata=None, govulners_db_feed_metadata=None, feed_metadata=None
     ):
         # required for FeedOutOfDateTrigger.evaluate
         # mocks nextlinux_engine.services.policy_engine.engine.feeds.db.get_feed_group_detached
@@ -75,8 +79,9 @@ def mock_gate_util_provider_feed_data(monkeypatch, mock_distromapping_query):
                 lambda db_session, feed_name: feed_metadata.to_json(),
             )
 
-        if grype_db_feed_metadata:
+        if govulners_db_feed_metadata:
             monkeypatch.setattr(
+<<<<<<< HEAD:tests/unit/nextlinux_engine/services/policy_engine/engine/policy/conftest.py
                 "nextlinux_engine.services.policy_engine.engine.policy.gate_util_provider.get_most_recent_active_grypedb",
                 lambda x: grype_db_feed_metadata,
             )
@@ -86,6 +91,17 @@ def mock_gate_util_provider_feed_data(monkeypatch, mock_distromapping_query):
                 raise_no_active_grypedb,
             )
         # mocks nextlinux_engine.db.db_grype_db_feed_metadata.get_most_recent_active_grypedb
+=======
+                "nextlinux_engine.services.policy_engine.engine.policy.gate_util_provider.get_most_recent_active_govulnersdb",
+                lambda x: govulners_db_feed_metadata,
+            )
+        else:
+            monkeypatch.setattr(
+                "nextlinux_engine.services.policy_engine.engine.policy.gate_util_provider.get_most_recent_active_govulnersdb",
+                raise_no_active_govulnersdb,
+            )
+        # mocks nextlinux_engine.db.db_govulners_db_feed_metadata.get_most_recent_active_govulnersdb
+>>>>>>> master:tests/unit/anchore_engine/services/policy_engine/engine/policy/conftest.py
         # if feed_group_metadata:
         monkeypatch.setattr(
             "nextlinux_engine.services.policy_engine.engine.policy.gate_util_provider.get_feed_group_detached",

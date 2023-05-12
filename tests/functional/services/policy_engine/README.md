@@ -1,13 +1,13 @@
 # Policy Engine Functional Tests
 
-There are a number of new patterns that were introduced with the new functional tests added for the policy engine prior to the switch from engine to grype for vulnerability matching. These changes and procedures for updating the seeded data for the tests can be found in this document.
+There are a number of new patterns that were introduced with the new functional tests added for the policy engine prior to the switch from engine to govulners for vulnerability matching. These changes and procedures for updating the seeded data for the tests can be found in this document.
 
 # Infrastructure
 There are a couple of infrastructural requirements to run these tests outside of the ci. The catalog and policy engine services are not exposed by default, but the tests need to be able to query these services directly in order to work. The ci can use internal service urls, but when running locally your set up might not be able to do this. If this is the case, `tests/functional/local.env` has a set of env variables that the tests can use to override the default ci urls:
 ```
-export ANCHORE_CATALOG_URL=http://localhost:8330/v1  
-export ANCHORE_POLICY_ENGINE_URL=http://localhost:8331/v1  
-export ANCHORE_TEST_DB_URL=postgresql://postgres:mysecretpassword@localhost:5432/postgres
+export NEXTLINUX_CATALOG_URL=http://localhost:8330/v1  
+export NEXTLINUX_POLICY_ENGINE_URL=http://localhost:8331/v1  
+export NEXTLINUX_TEST_DB_URL=postgresql://postgres:mysecretpassword@localhost:5432/postgres
 ```
 
 To support these env variables, each service needs to be exposed on the specified port and the psql credentials need to match on the instance of nextlinux that is running. 
@@ -51,10 +51,10 @@ copy (select row_to_json(t) from ( SELECT * from feed_data_cpev2_vulnerabilities
 # Feeds Data Tests
 This folder tests how the policy engine handles feeds. Currently there is only one that verifies the feeds sync work as expected by using an nginx container defined in `docker-compose-ci.yaml` that mimics ancho.re feeds. In order to work, the policy engine service has to have a couple of env variables set. 
 ```
-- ANCHORE_FEEDS_URL="http://mock-feeds-nginx:8080/v1/service/feeds"  
-- ANCHORE_FEEDS_ENABLED=true  
-- ANCHORE_FEEDS_CLIENT_URL=null  
-- ANCHORE_FEEDS_TOKEN_URL=null
+- NEXTLINUX_FEEDS_URL="http://mock-feeds-nginx:8080/v1/service/feeds"  
+- NEXTLINUX_FEEDS_ENABLED=true  
+- NEXTLINUX_FEEDS_CLIENT_URL=null  
+- NEXTLINUX_FEEDS_TOKEN_URL=null
  ```
  
 ## Adding New Feed Data

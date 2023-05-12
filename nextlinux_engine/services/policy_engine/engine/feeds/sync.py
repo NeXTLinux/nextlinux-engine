@@ -107,12 +107,12 @@ class DataFeeds(object):
                 )
 
     # @staticmethod
-    # def get_grype_db_listing(
-    #         feed_group_information, grypedb_feed_name
-    # ) -> GrypeDBListing:
+    # def get_govulners_db_listing(
+    #         feed_group_information, govulnersdb_feed_name
+    # ) -> GovulnersDBListing:
     #     for feed_name, feed_api_record in feed_group_information.items():
-    #         if feed_name == grypedb_feed_name:
-    #             return next(group.grype_listing for group in feed_api_record["groups"])
+    #         if feed_name == govulnersdb_feed_name:
+    #             return next(group.govulners_listing for group in feed_api_record["groups"])
 
     @staticmethod
     def get_feed_group_information(
@@ -258,7 +258,7 @@ class DataFeeds(object):
         """
         Sync all feeds.
 
-        :param sync_util_provider: provider for sync utils (switches logic for legacy / grypedb feeds)
+        :param sync_util_provider: provider for sync utils (switches logic for legacy / govulnersdb feeds)
         :type sync_util_provider: SyncUtilProvider
         :param full_flush: whether not not to flush out the existing records before sync
         :type full_flush: bool
@@ -500,7 +500,7 @@ class DataFeeds(object):
         :param group_name:
         :return:
         """
-        # TODO throw exception if feed is grypedb
+        # TODO throw exception if feed is govulnersdb
         f = feed_instance_by_name(feed_name)
         if not f:
             raise KeyError(feed_name)

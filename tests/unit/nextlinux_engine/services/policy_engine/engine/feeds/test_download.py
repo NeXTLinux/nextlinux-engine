@@ -30,7 +30,7 @@ from tests.utils import init_test_logging
 
 init_test_logging(level="debug")
 
-ANCHOREIO_URI = "https://ancho.re/v1/service/feeds"
+NEXTLINUXIO_URI = "https://ancho.re/v1/service/feeds"
 
 SIMPLE_DATA = {
     "next_token": "sometokenvalue",

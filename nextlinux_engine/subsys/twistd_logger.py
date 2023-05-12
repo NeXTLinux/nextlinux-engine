@@ -5,8 +5,8 @@ from twisted.python import log, logfile
 
 def logger():
     try:
-        if "ANCHORE_LOGFILE" in os.environ:
-            thefile = os.environ["ANCHORE_LOGFILE"]
+        if "NEXTLINUX_LOGFILE" in os.environ:
+            thefile = os.environ["NEXTLINUX_LOGFILE"]
         else:
             thefile = "nextlinux-general.log"
     except:

@@ -4,7 +4,11 @@ import re
 import uuid
 from typing import Dict, List, Optional
 
+<<<<<<< HEAD
 from nextlinux_engine.clients.grype_wrapper import GrypeVulnerabilityMetadata
+=======
+from nextlinux_engine.clients.govulners_wrapper import GovulnersVulnerabilityMetadata
+>>>>>>> master
 from nextlinux_engine.common import nonos_package_types
 from nextlinux_engine.common.models.policy_engine import (
     CVSS,
@@ -29,32 +33,32 @@ from nextlinux_engine.util.rpm import split_fullversion
 
 class DistroMapper:
     engine_distro = None
-    grype_os = None
-    grype_like_os = None
+    govulners_os = None
+    govulners_like_os = None
 
-    def __init__(self, engine_distro, grype_os, grype_like_os):
+    def __init__(self, engine_distro, govulners_os, govulners_like_os):
         self.engine_distro = engine_distro
-        self.grype_os = grype_os
-        self.grype_like_os = grype_like_os
+        self.govulners_os = govulners_os
+        self.govulners_like_os = govulners_like_os
 
-    def to_grype_distro(self, version):
+    def to_govulners_distro(self, version):
         return {
-            "name": self.grype_os,
+            "name": self.govulners_os,
             "version": version,
-            "idLike": self.grype_like_os,
+            "idLike": self.govulners_like_os,
         }
 
 
 class PackageMapper:
-    def __init__(self, engine_type, grype_type, grype_language=None):
+    def __init__(self, engine_type, govulners_type, govulners_language=None):
         self.engine_type = engine_type
-        self.grype_type = grype_type
+        self.govulners_type = govulners_type
         # default language to blank string
-        self.grype_language = grype_language if grype_language else ""
+        self.govulners_language = govulners_language if govulners_language else ""
 
-    def image_content_to_grype_sbom(self, record: Dict):
+    def image_content_to_govulners_sbom(self, record: Dict):
         """
-        Creates a grype sbom formatted record from a single image content API response record
+        Creates a govulners sbom formatted record from a single image content API response record
 
         Refer to specific mappers for example input
         """
@@ -63,7 +67,7 @@ class PackageMapper:
             "id": str(uuid.uuid4()),
             "name": record.get("package"),
             "version": record.get("version"),
-            "type": self.grype_type,
+            "type": self.govulners_type,
             "cpes": record.get("cpes", [])
             # Package type specific mappers add metadata attribute
         }
@@ -77,49 +81,54 @@ class KBMapper(PackageMapper):
     """
 
     def __init__(self):
-        super(KBMapper, self).__init__(engine_type="kb", grype_type="msrc-kb")
+        super(KBMapper, self).__init__(engine_type="kb", govulners_type="msrc-kb")
 
-    def image_content_to_grype_sbom(self, record: Dict):
+    def image_content_to_govulners_sbom(self, record: Dict):
         artifact = {
             "id": str(uuid.uuid4()),
             "name": record.get("sourcepkg"),
             "version": record.get("version"),
-            "type": self.grype_type,
+            "type": self.govulners_type,
             "locations": [{"path": "registry"}],
         }
         return artifact
 
 
 class LinuxDistroPackageMapper(PackageMapper):
-    def image_content_to_grype_sbom(self, record: Dict):
+    def image_content_to_govulners_sbom(self, record: Dict):
         """
-        Initializes grype sbom artifact and sets the default location to pkgdb - base for rpm, dpkg and apkg types
+        Initializes govulners sbom artifact and sets the default location to pkgdb - base for rpm, dpkg and apkg types
         """
-        artifact = super().image_content_to_grype_sbom(record)
+        artifact = super().image_content_to_govulners_sbom(record)
         artifact["locations"] = [{"path": "pkgdb"}]
         return artifact
 
 
 class RpmMapper(LinuxDistroPackageMapper):
     def __init__(self):
-        super(RpmMapper, self).__init__(engine_type="rpm", grype_type="rpm")
+        super(RpmMapper, self).__init__(engine_type="rpm", govulners_type="rpm")
 
-    def image_content_to_grype_sbom(self, record: Dict):
+    def image_content_to_govulners_sbom(self, record: Dict):
         """
-        Adds the source package information to grype sbom
+        Adds the source package information to govulners sbom
 
+<<<<<<< HEAD
         Source package has been through a transformation before this point - from syft sbom to analyzer manifest
         in nextlinux_engine/analyzers/syft/handlers/rpm.py. Fortunately the value remains unchanged and does not require
+=======
+        Source package has been through a transformation before this point - from gosbom sbom to analyzer manifest
+        in nextlinux_engine/analyzers/gosbom/handlers/rpm.py. Fortunately the value remains unchanged and does not require
+>>>>>>> master
         additional processing
 
         """
-        artifact = super().image_content_to_grype_sbom(record)
+        artifact = super().image_content_to_govulners_sbom(record)
 
         # Handle Epoch
 
         # This epoch handling is necessary because in RPMs the epoch of the binary package is often not part of the
-        # sourceRpm name, but Grype needs it to do the version comparison correctly.
-        # Without this step Grype will use the wrong version string for the vulnerability match
+        # sourceRpm name, but Govulners needs it to do the version comparison correctly.
+        # Without this step Govulners will use the wrong version string for the vulnerability match
         full_version = record.get("version")
         epoch = None
 
@@ -148,19 +157,24 @@ class RpmMapper(LinuxDistroPackageMapper):
 
 class DpkgMapper(LinuxDistroPackageMapper):
     def __init__(self):
-        super(DpkgMapper, self).__init__(engine_type="dpkg", grype_type="deb")
+        super(DpkgMapper, self).__init__(engine_type="dpkg", govulners_type="deb")
 
-    def image_content_to_grype_sbom(self, record: Dict):
+    def image_content_to_govulners_sbom(self, record: Dict):
         """
-        Adds the source package information to grype sbom
+        Adds the source package information to govulners sbom
 
+<<<<<<< HEAD
         Source package has already been through a transformations before this point - from syft sbom to analyzer manifest
         in nextlinux_engine/analyzers/syft/handlers/debian.py. Fortunately the value remains unchanged and does not require
+=======
+        Source package has already been through a transformations before this point - from gosbom sbom to analyzer manifest
+        in nextlinux_engine/analyzers/gosbom/handlers/debian.py. Fortunately the value remains unchanged and does not require
+>>>>>>> master
         additional processing
 
         """
 
-        artifact = super().image_content_to_grype_sbom(record)
+        artifact = super().image_content_to_govulners_sbom(record)
         if record.get("sourcepkg") not in [None, "N/A", "n/a"]:
             artifact["metadataType"] = "DpkgMetadata"
             artifact["metadata"] = {"source": record.get("sourcepkg")}
@@ -169,18 +183,23 @@ class DpkgMapper(LinuxDistroPackageMapper):
 
 class ApkgMapper(LinuxDistroPackageMapper):
     def __init__(self):
-        super(ApkgMapper, self).__init__(engine_type="APKG", grype_type="apk")
+        super(ApkgMapper, self).__init__(engine_type="APKG", govulners_type="apk")
 
-    def image_content_to_grype_sbom(self, record: Dict):
+    def image_content_to_govulners_sbom(self, record: Dict):
         """
-        Adds the origin package information to grype sbom
+        Adds the origin package information to govulners sbom
 
+<<<<<<< HEAD
         Origin package has already been through a transformations before this point - from syft sbom to analyzer manifest
         in nextlinux_engine/analyzers/syft/handlers/alpine.py. Fortunately the value remains unchanged and does not require
+=======
+        Origin package has already been through a transformations before this point - from gosbom sbom to analyzer manifest
+        in nextlinux_engine/analyzers/gosbom/handlers/alpine.py. Fortunately the value remains unchanged and does not require
+>>>>>>> master
         additional processing
         """
 
-        artifact = super().image_content_to_grype_sbom(record)
+        artifact = super().image_content_to_govulners_sbom(record)
         if record.get("sourcepkg") not in [None, "N/A", "n/a"]:
             artifact["metadataType"] = "ApkMetadata"
             artifact["metadata"] = {"originPackage": record.get("sourcepkg")}
@@ -193,9 +212,9 @@ class CPEMapper(PackageMapper):
             record.get("package"), record.get("version"), self.engine_type
         )
 
-    def image_content_to_grype_sbom(self, record: Dict):
+    def image_content_to_govulners_sbom(self, record: Dict):
         """
-        Initializes grype sbom artifact and sets the location
+        Initializes govulners sbom artifact and sets the location
 
         {
           "cpes": [
@@ -212,8 +231,8 @@ class CPEMapper(PackageMapper):
           "version": "1.3.1-hudson-8"
         }
         """
-        artifact = super().image_content_to_grype_sbom(record)
-        artifact["language"] = self.grype_language
+        artifact = super().image_content_to_govulners_sbom(record)
+        artifact["language"] = self.govulners_language
         if record.get("location") not in [None, "N/A", "n/a"]:
             artifact["locations"] = [{"path": record.get("location")}]
 
@@ -230,7 +249,7 @@ class GoMapper(CPEMapper):
 
 class JavaMapper(CPEMapper):
     @staticmethod
-    def _image_content_to_grype_metadata(metadata: Optional[Dict]) -> Dict:
+    def _image_content_to_govulners_metadata(metadata: Optional[Dict]) -> Dict:
         result = {}
 
         if not metadata or not isinstance(metadata, dict):
@@ -260,12 +279,12 @@ class JavaMapper(CPEMapper):
                 )
         return result
 
-    def image_content_to_grype_sbom(self, record: Dict):
-        artifact = super().image_content_to_grype_sbom(record)
-        grype_metadata = self._image_content_to_grype_metadata(record.get("metadata"))
-        if grype_metadata:
+    def image_content_to_govulners_sbom(self, record: Dict):
+        artifact = super().image_content_to_govulners_sbom(record)
+        govulners_metadata = self._image_content_to_govulners_metadata(record.get("metadata"))
+        if govulners_metadata:
             artifact["metadataType"] = "JavaMetadata"
-            artifact["metadata"] = grype_metadata
+            artifact["metadata"] = govulners_metadata
         return artifact
 
     def fallback_cpe_generator(self, record: Dict) -> List[str]:
@@ -309,7 +328,7 @@ class VulnerabilityMapper:
         vulns: List[Dict],
     ) -> List[NVDReference]:
         """
-        Best effort attempt at parsing other vulnerabilities from grype response. Ignores any errors raised and chugs along
+        Best effort attempt at parsing other vulnerabilities from govulners response. Ignores any errors raised and chugs along
         """
         nvd_objects = []
         if isinstance(vulns, list) and vulns:
@@ -340,7 +359,7 @@ class VulnerabilityMapper:
         advisories: List[Dict],
     ) -> List[Advisory]:
         """
-        Best effort attempt at parsing advisories from grype response. Ignores any errors raised and chugs along
+        Best effort attempt at parsing advisories from govulners response. Ignores any errors raised and chugs along
         """
         advisory_objects = []
         if isinstance(advisories, list) and advisories:
@@ -363,9 +382,9 @@ class VulnerabilityMapper:
     @staticmethod
     def _try_parse_matched_cpes(match_dict: Dict) -> List[str]:
         """
-        Best effort attempt at parsing cpes that were matched from matchDetails of grype response.
+        Best effort attempt at parsing cpes that were matched from matchDetails of govulners response.
 
-        Input is a dictionary representing a single grype match output, the attribute of interest here is matchDetails
+        Input is a dictionary representing a single govulners match output, the attribute of interest here is matchDetails
         {
           "matchDetails": [
             {
@@ -442,7 +461,7 @@ class VulnerabilityMapper:
         else:
             return "N/A"
 
-    def grype_to_engine_image_vulnerability(
+    def govulners_to_engine_image_vulnerability(
         self,
         result: Dict,
         package_mapper: PackageMapper,
@@ -514,35 +533,35 @@ class VulnerabilityMapper:
 # key is the engine distro
 ENGINE_DISTRO_MAPPERS = {
     "rhel": DistroMapper(
-        engine_distro="rhel", grype_os="redhat", grype_like_os="fedora"
+        engine_distro="rhel", govulners_os="redhat", govulners_like_os="fedora"
     ),
     "debian": DistroMapper(
-        engine_distro="debian", grype_os="debian", grype_like_os="debian"
+        engine_distro="debian", govulners_os="debian", govulners_like_os="debian"
     ),
     "ubuntu": DistroMapper(
-        engine_distro="ubuntu", grype_os="ubuntu", grype_like_os="debian"
+        engine_distro="ubuntu", govulners_os="ubuntu", govulners_like_os="debian"
     ),
     "alpine": DistroMapper(
-        engine_distro="alpine", grype_os="alpine", grype_like_os="alpine"
+        engine_distro="alpine", govulners_os="alpine", govulners_like_os="alpine"
     ),
     "ol": DistroMapper(
-        engine_distro="ol", grype_os="oraclelinux", grype_like_os="fedora"
+        engine_distro="ol", govulners_os="oraclelinux", govulners_like_os="fedora"
     ),
     "amzn": DistroMapper(
-        engine_distro="amzn", grype_os="amazonlinux", grype_like_os="fedora"
+        engine_distro="amzn", govulners_os="amazonlinux", govulners_like_os="fedora"
     ),
     "centos": DistroMapper(
-        engine_distro="centos", grype_os="centos", grype_like_os="fedora"
+        engine_distro="centos", govulners_os="centos", govulners_like_os="fedora"
     ),
     "busybox": DistroMapper(
-        engine_distro="busybox", grype_os="busybox", grype_like_os=""
+        engine_distro="busybox", govulners_os="busybox", govulners_like_os=""
     ),
-    "sles": DistroMapper(engine_distro="sles", grype_os="sles", grype_like_os="sles"),
+    "sles": DistroMapper(engine_distro="sles", govulners_os="sles", govulners_like_os="sles"),
     "windows": DistroMapper(
-        engine_distro="windows", grype_os="windows", grype_like_os=""
+        engine_distro="windows", govulners_os="windows", govulners_like_os=""
     ),
     "rocky": DistroMapper(
-        engine_distro="rocky", grype_os="rockylinux", grype_like_os="fedora"
+        engine_distro="rocky", govulners_os="rockylinux", govulners_like_os="fedora"
     ),
 }
 
@@ -554,54 +573,54 @@ ENGINE_PACKAGE_MAPPERS = {
     "APKG": ApkgMapper(),
     "apkg": ApkgMapper(),
     "python": CPEMapper(
-        engine_type="python", grype_type="python", grype_language="python"
+        engine_type="python", govulners_type="python", govulners_language="python"
     ),
-    "npm": CPEMapper(engine_type="npm", grype_type="npm", grype_language="javascript"),
-    "gem": CPEMapper(engine_type="gem", grype_type="gem", grype_language="ruby"),
+    "npm": CPEMapper(engine_type="npm", govulners_type="npm", govulners_language="javascript"),
+    "gem": CPEMapper(engine_type="gem", govulners_type="gem", govulners_language="ruby"),
     "java": JavaMapper(
-        engine_type="java", grype_type="java-archive", grype_language="java"
+        engine_type="java", govulners_type="java-archive", govulners_language="java"
     ),
-    "go": GoMapper(engine_type="go", grype_type="go-module", grype_language="go"),
-    "binary": CPEMapper(engine_type="binary", grype_type="binary"),
+    "go": GoMapper(engine_type="go", govulners_type="go-module", govulners_language="go"),
+    "binary": CPEMapper(engine_type="binary", govulners_type="binary"),
     "maven": CPEMapper(
-        engine_type="maven", grype_type="java-archive", grype_language="java"
+        engine_type="maven", govulners_type="java-archive", govulners_language="java"
     ),
-    "js": CPEMapper(engine_type="js", grype_type="js", grype_language="javascript"),
-    "composer": CPEMapper(engine_type="composer", grype_type="composer"),
-    "nuget": CPEMapper(engine_type="nuget", grype_type="nuget"),
+    "js": CPEMapper(engine_type="js", govulners_type="js", govulners_language="javascript"),
+    "composer": CPEMapper(engine_type="composer", govulners_type="composer"),
+    "nuget": CPEMapper(engine_type="nuget", govulners_type="nuget"),
     "kb": KBMapper(),
 }
 
-# key is the grype package type
-GRYPE_PACKAGE_MAPPERS = {
+# key is the govulners package type
+GOVULNERS_PACKAGE_MAPPERS = {
     "rpm": RpmMapper(),
     "deb": DpkgMapper(),
     "apk": ApkgMapper(),
     "python": CPEMapper(
-        engine_type="python", grype_type="python", grype_language="python"
+        engine_type="python", govulners_type="python", govulners_language="python"
     ),
-    "npm": CPEMapper(engine_type="npm", grype_type="npm", grype_language="javascript"),
-    "gem": CPEMapper(engine_type="gem", grype_type="gem", grype_language="ruby"),
+    "npm": CPEMapper(engine_type="npm", govulners_type="npm", govulners_language="javascript"),
+    "gem": CPEMapper(engine_type="gem", govulners_type="gem", govulners_language="ruby"),
     "java-archive": JavaMapper(
-        engine_type="java", grype_type="java-archive", grype_language="java"
+        engine_type="java", govulners_type="java-archive", govulners_language="java"
     ),
     "jenkins-plugin": JavaMapper(
-        engine_type="java", grype_type="jenkins-plugin", grype_language="java"
+        engine_type="java", govulners_type="jenkins-plugin", govulners_language="java"
     ),
     "go-module": GoMapper(
-        engine_type="go", grype_type="go-module", grype_language="go"
+        engine_type="go", govulners_type="go-module", govulners_language="go"
     ),
-    "binary": CPEMapper(engine_type="binary", grype_type="binary"),
-    "js": CPEMapper(engine_type="js", grype_type="js", grype_language="javascript"),
-    "composer": CPEMapper(engine_type="composer", grype_type="composer"),
-    "nuget": CPEMapper(engine_type="nuget", grype_type="nuget"),
+    "binary": CPEMapper(engine_type="binary", govulners_type="binary"),
+    "js": CPEMapper(engine_type="js", govulners_type="js", govulners_language="javascript"),
+    "composer": CPEMapper(engine_type="composer", govulners_type="composer"),
+    "nuget": CPEMapper(engine_type="nuget", govulners_type="nuget"),
     "msrc-kb": KBMapper(),
 }
 
-GRYPE_MATCH_MAPPER = VulnerabilityMapper()
+GOVULNERS_MATCH_MAPPER = VulnerabilityMapper()
 
 
-def image_content_to_grype_sbom(image: Image, image_content_map: Dict) -> Dict:
+def image_content_to_govulners_sbom(image: Image, image_content_map: Dict) -> Dict:
 
     # select the distro
     distro_mapper = ENGINE_DISTRO_MAPPERS.get(image.distro_name)
@@ -620,11 +639,15 @@ def image_content_to_grype_sbom(image: Image, image_content_map: Dict) -> Dict:
     # not refactoring since use of source sbom will make this transformation moot
     sbom["schema"] = {
         "version": "1.1.0",
+<<<<<<< HEAD
         "url": "https://raw.githubusercontent.com/nextlinux/syft/main/schema/json/schema-1.1.0.json",
+=======
+        "url": "https://raw.githubusercontent.com/nextlinux/gosbom/main/schema/json/schema-1.1.0.json",
+>>>>>>> master
     }
 
     # set the distro information
-    sbom["distro"] = distro_mapper.to_grype_distro(image.distro_version)
+    sbom["distro"] = distro_mapper.to_govulners_distro(image.distro_version)
     sbom["source"] = {
         "type": "image",
         "target": {
@@ -651,55 +674,55 @@ def image_content_to_grype_sbom(image: Image, image_content_map: Dict) -> Dict:
                     package,
                 )
                 pkg_mapper = CPEMapper(
-                    engine_type=package.get("type"), grype_type=package.get("type")
+                    engine_type=package.get("type"), govulners_type=package.get("type")
                 )
 
             try:
-                artifacts.append(pkg_mapper.image_content_to_grype_sbom(package))
+                artifacts.append(pkg_mapper.image_content_to_govulners_sbom(package))
             except Exception:
                 log.exception(
-                    "Skipping sbom entry due to error in engine->grype transformation for engine image content %s",
+                    "Skipping sbom entry due to error in engine->govulners transformation for engine image content %s",
                     package,
                 )
 
     return sbom
 
 
-def grype_to_engine_image_vulnerabilities(grype_response):
+def govulners_to_engine_image_vulnerabilities(govulners_response):
     """
-    Transform grype results into engine vulnerabilities
+    Transform govulners results into engine vulnerabilities
     """
 
     now = datetime.datetime.utcnow()
-    matches = grype_response.get("matches", []) if grype_response else []
+    matches = govulners_response.get("matches", []) if govulners_response else []
     results = []
 
     for item in matches:
         artifact = item.get("artifact")
 
-        pkg_mapper = GRYPE_PACKAGE_MAPPERS.get(artifact.get("type"))
+        pkg_mapper = GOVULNERS_PACKAGE_MAPPERS.get(artifact.get("type"))
         if not pkg_mapper:
             log.warn(
-                "No mapper found for grype artifact type %s, skipping vulnerability match",
+                "No mapper found for govulners artifact type %s, skipping vulnerability match",
                 artifact.get("type"),
             )
             continue
 
         try:
             results.append(
-                GRYPE_MATCH_MAPPER.grype_to_engine_image_vulnerability(
+                GOVULNERS_MATCH_MAPPER.govulners_to_engine_image_vulnerability(
                     item, pkg_mapper, now
                 )
             )
         except Exception:
             log.exception(
-                "Ignoring error in grype->engine transformation for vulnerability match, skipping it from report",
+                "Ignoring error in govulners->engine transformation for vulnerability match, skipping it from report",
             )
 
     return results
 
 
-class EngineGrypeDBMapper:
+class EngineGovulnersDBMapper:
     return_el_template = {
         "id": None,
         "namespace": None,
@@ -786,18 +809,18 @@ class EngineGrypeDBMapper:
 
         return result
 
-    def _cvss_from_grype_raw_result(
-        self, grype_vulnerability_metadata: GrypeVulnerabilityMetadata
+    def _cvss_from_govulners_raw_result(
+        self, govulners_vulnerability_metadata: GovulnersVulnerabilityMetadata
     ) -> List:
         """
-        Given the raw grype vulnerability input, returns a dict of its cvss scores
+        Given the raw govulners vulnerability input, returns a dict of its cvss scores
         """
         # Transform the cvss blocks
-        cvss_combined = grype_vulnerability_metadata.deserialized_cvss
+        cvss_combined = govulners_vulnerability_metadata.deserialized_cvss
         vulnerability_cvss_data = []
 
         for cvss in cvss_combined:
-            result = self._transform_cvss(grype_vulnerability_metadata.id, cvss)
+            result = self._transform_cvss(govulners_vulnerability_metadata.id, cvss)
             if result:
                 vulnerability_cvss_data.append(result)
 
@@ -815,29 +838,29 @@ class EngineGrypeDBMapper:
 
     def to_engine_vulnerabilities(
         self,
-        grype_vulnerabilities: List,
-        related_nvd_metadata_records: List[GrypeVulnerabilityMetadata],
+        govulners_vulnerabilities: List,
+        related_nvd_metadata_records: List[GovulnersVulnerabilityMetadata],
     ):
         """
-        Receives query results from grype_db and returns a list of vulnerabilities mapped
+        Receives query results from govulners_db and returns a list of vulnerabilities mapped
         into the data structure engine expects.
         """
         intermediate_tuple_list = {}
 
         # construct the dictionary that maps cve-id->cvss-score
         nvd_cvss_data_map = {
-            item.id: self._cvss_from_grype_raw_result(item)
+            item.id: self._cvss_from_govulners_raw_result(item)
             for item in related_nvd_metadata_records
         }
 
-        for grype_raw_result in grype_vulnerabilities:
-            grype_vulnerability = grype_raw_result.GrypeVulnerability
-            grype_vulnerability_metadata = grype_raw_result.GrypeVulnerabilityMetadata
+        for govulners_raw_result in govulners_vulnerabilities:
+            govulners_vulnerability = govulners_raw_result.GovulnersVulnerability
+            govulners_vulnerability_metadata = govulners_raw_result.GovulnersVulnerabilityMetadata
 
             vuln_dict = intermediate_tuple_list.get(
                 (
-                    grype_vulnerability_metadata.id,
-                    grype_vulnerability_metadata.namespace,
+                    govulners_vulnerability_metadata.id,
+                    govulners_vulnerability_metadata.namespace,
                 )
             )
 
@@ -845,38 +868,38 @@ class EngineGrypeDBMapper:
                 vuln_dict = copy.deepcopy(self.return_el_template)
                 intermediate_tuple_list[
                     (
-                        grype_vulnerability_metadata.id,
-                        grype_vulnerability_metadata.namespace,
+                        govulners_vulnerability_metadata.id,
+                        govulners_vulnerability_metadata.namespace,
                     )
                 ] = vuln_dict
 
-                vuln_dict["id"] = grype_vulnerability_metadata.id
-                vuln_dict["namespace"] = grype_vulnerability_metadata.namespace
-                vuln_dict["description"] = grype_vulnerability_metadata.description
-                vuln_dict["severity"] = grype_vulnerability_metadata.severity
+                vuln_dict["id"] = govulners_vulnerability_metadata.id
+                vuln_dict["namespace"] = govulners_vulnerability_metadata.namespace
+                vuln_dict["description"] = govulners_vulnerability_metadata.description
+                vuln_dict["severity"] = govulners_vulnerability_metadata.severity
                 vuln_dict["link"] = VulnerabilityMapper._try_make_link(
-                    grype_vulnerability_metadata.id,
-                    grype_vulnerability_metadata.data_source,
+                    govulners_vulnerability_metadata.id,
+                    govulners_vulnerability_metadata.data_source,
                 )
                 vuln_dict["references"] = self._transform_urls(
-                    grype_vulnerability_metadata.deserialized_urls
+                    govulners_vulnerability_metadata.deserialized_urls
                 )
 
                 # populate nvd and vendor cvss data depending on the namespace
-                if "nvd" in grype_vulnerability_metadata.namespace.lower():
+                if "nvd" in govulners_vulnerability_metadata.namespace.lower():
                     vuln_dict["nvd_data"] = nvd_cvss_data_map.get(
-                        grype_vulnerability_metadata.id
+                        govulners_vulnerability_metadata.id
                     )
                     vuln_dict["vendor_data"] = []
                 else:
-                    vuln_dict["vendor_data"] = self._cvss_from_grype_raw_result(
-                        grype_vulnerability_metadata
+                    vuln_dict["vendor_data"] = self._cvss_from_govulners_raw_result(
+                        govulners_vulnerability_metadata
                     )
 
                     # populate nvd data of related vulnerabilities
                     vuln_dict["nvd_data"] = []
                     related_vulns = (
-                        grype_vulnerability.deserialized_related_vulnerabilities
+                        govulners_vulnerability.deserialized_related_vulnerabilities
                     )
                     if related_vulns:
                         for related_vuln in related_vulns:
@@ -890,13 +913,13 @@ class EngineGrypeDBMapper:
                                 vuln_dict["nvd_data"].extend(nvd_cvss)
 
             # results are produced by left outer join, hence the check
-            if grype_vulnerability:
+            if govulners_vulnerability:
 
                 # Transform the versions block
-                if grype_vulnerability.version_constraint:
+                if govulners_vulnerability.version_constraint:
                     version_strings = [
                         version.strip(" '\"")
-                        for version in grype_vulnerability.version_constraint.split(
+                        for version in govulners_vulnerability.version_constraint.split(
                             "||"
                         )
                     ]
@@ -907,10 +930,10 @@ class EngineGrypeDBMapper:
                 # Populate affected_packages
                 vuln_dict["affected_packages"].append(
                     {
-                        "name": grype_vulnerability.package_name,
-                        "type": grype_vulnerability.version_format,
+                        "name": govulners_vulnerability.package_name,
+                        "type": govulners_vulnerability.version_format,
                         "version": version,
-                        "will_not_fix": grype_vulnerability.fix_state == "wont-fix",
+                        "will_not_fix": govulners_vulnerability.fix_state == "wont-fix",
                     }
                 )
 

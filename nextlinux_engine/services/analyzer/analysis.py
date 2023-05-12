@@ -30,7 +30,11 @@ from nextlinux_engine.subsys.events.util import (
     analysis_complete_notification_factory,
     fulltag_from_detail,
 )
+<<<<<<< HEAD
 from nextlinux_engine.utils import AnchoreException
+=======
+from nextlinux_engine.utils import NextlinuxException
+>>>>>>> master
 
 ANALYSIS_TIME_SECONDS_BUCKETS = [
     1.0,
@@ -317,7 +321,7 @@ def process_analyzer_job(
                     parent_manifest=parent_manifest,
                     owned_package_filtering_enabled=owned_package_filtering_enabled,
                 )
-            except AnchoreException as e:
+            except NextlinuxException as e:
                 event = events.ImageAnalysisFailed(
                     user_id=account, image_digest=image_digest, error=e.to_dict()
                 )
@@ -325,7 +329,7 @@ def process_analyzer_job(
                 raise
 
             image_data = analysis_result.image_export
-            syft_analysis = analysis_result.syft_output
+            gosbom_analysis = analysis_result.gosbom_output
 
             # Save the results to the upstream components and data stores
             store_analysis_results(
@@ -336,7 +340,7 @@ def process_analyzer_job(
                 manifest,
                 analysis_events,
                 all_content_types,
-                syft_report=syft_analysis,
+                gosbom_report=gosbom_analysis,
             )
 
             logger.debug("updating image catalog record analysis_status")
@@ -462,7 +466,7 @@ def store_analysis_results(
     image_manifest: dict,
     analysis_events: list,
     image_content_types: list,
-    syft_report: dict = None,
+    gosbom_report: dict = None,
 ):
     """
 
@@ -473,7 +477,7 @@ def store_analysis_results(
     :param image_manifest:
     :param analysis_events: list of events that any new events may be added to
     :param image_content_types:
-    :param syft_report:
+    :param gosbom_report:
     :return:
     """
 
@@ -498,10 +502,10 @@ def store_analysis_results(
         )
     )
 
-    if syft_report:
+    if gosbom_report:
         try:
-            logger.info("Saving raw syft output data to catalog object store")
-            rc = catalog_client.put_document("syft_sbom", image_digest, syft_report)
+            logger.info("Saving raw gosbom output data to catalog object store")
+            rc = catalog_client.put_document("gosbom_sbom", image_digest, gosbom_report)
             if not rc:
                 # Ugh this ia big ugly, but need to be sure. Should review CatalogClient and ensure this cannot happen, but for now just handle it.
                 raise CatalogClientError(

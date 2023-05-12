@@ -10,7 +10,7 @@ from nextlinux_engine.db import Image
 from nextlinux_engine.db.entities.policy_engine import (
     FeedGroupMetadata,
     FeedMetadata,
-    GrypeDBFeedMetadata,
+    GovulnersDBFeedMetadata,
 )
 from nextlinux_engine.services.policy_engine.engine.policy.gate import ExecutionContext
 from nextlinux_engine.services.policy_engine.engine.policy.gates.vulnerabilities import (
@@ -21,6 +21,7 @@ from nextlinux_engine.services.policy_engine.engine.policy.gates.vulnerabilities
     VulnerabilityMatchTrigger,
 )
 from nextlinux_engine.services.policy_engine.engine.vulns.providers import (
+<<<<<<< HEAD:tests/unit/nextlinux_engine/services/policy_engine/engine/policy/gates/test_vulnerabilities.py
     GrypeProvider,
     LegacyProvider,
 )
@@ -30,6 +31,17 @@ from tests.unit.nextlinux_engine.clients.test_grype_wrapper import (  # pylint: 
     patch_grype_wrapper_singleton,
     production_grype_db_dir,
     test_grype_wrapper_singleton,
+=======
+    GovulnersProvider,
+    LegacyProvider,
+)
+from tests.unit.nextlinux_engine.clients.test_govulners_wrapper import (  # pylint: disable=W0611
+    GOVULNERS_DB_VERSION,
+    TestGovulnersWrapperSingleton,
+    patch_govulners_wrapper_singleton,
+    production_govulners_db_dir,
+    test_govulners_wrapper_singleton,
+>>>>>>> master:tests/unit/anchore_engine/services/policy_engine/engine/policy/gates/test_vulnerabilities.py
 )
 
 
@@ -37,8 +49,8 @@ from tests.unit.nextlinux_engine.clients.test_grype_wrapper import (  # pylint: 
 def set_provider(monkeypatch):
     def _set_provider(provider_name=None):
         provider = LegacyProvider
-        if provider_name == "grype":
-            provider = GrypeProvider
+        if provider_name == "govulners":
+            provider = GovulnersProvider
         monkeypatch.setattr(
             "nextlinux_engine.services.policy_engine.engine.policy.gates.vulnerabilities.get_vulnerabilities_provider",
             lambda: provider(),
@@ -75,7 +87,11 @@ def setup_mocks_vulnerabilities_gate(
     )
     # required for VulnerabilitiesGate.prepare_context
     # mocks nextlinux_engine.services.policy_engine.engine.vulns.providers.LegacyProvider.get_image_vulnerabilities
+<<<<<<< HEAD:tests/unit/nextlinux_engine/services/policy_engine/engine/policy/gates/test_vulnerabilities.py
     # mocks nextlinux_engine.services.policy_engine.engine.vulns.providers.GrypeProvider.get_image_vulnerabilities
+=======
+    # mocks nextlinux_engine.services.policy_engine.engine.vulns.providers.GovulnersProvider.get_image_vulnerabilities
+>>>>>>> master:tests/unit/anchore_engine/services/policy_engine/engine/policy/gates/test_vulnerabilities.py
     # mocks nextlinux_engine.db.session_scope
     def _setup_mocks_vulnerabilities_gate(file_name, provider_name):
         set_provider(provider_name)
@@ -86,9 +102,13 @@ def setup_mocks_vulnerabilities_gate(
                     file_name
                 ),
             )
-        if provider_name == "grype":
+        if provider_name == "govulners":
             monkeypatch.setattr(
+<<<<<<< HEAD:tests/unit/nextlinux_engine/services/policy_engine/engine/policy/gates/test_vulnerabilities.py
                 "nextlinux_engine.services.policy_engine.engine.vulns.providers.GrypeProvider.get_image_vulnerabilities",
+=======
+                "nextlinux_engine.services.policy_engine.engine.vulns.providers.GovulnersProvider.get_image_vulnerabilities",
+>>>>>>> master:tests/unit/anchore_engine/services/policy_engine/engine/policy/gates/test_vulnerabilities.py
                 lambda instance, image, db_session: load_vulnerabilities_report_file(
                     file_name
                 ),
@@ -99,7 +119,7 @@ def setup_mocks_vulnerabilities_gate(
 
 class TestVulnerabilitiesGate:
     @pytest.mark.parametrize(
-        "vuln_provider, image_obj, mock_vuln_report, feed_group_metadata, grype_db_feed_metadata, expected_trigger_fired",
+        "vuln_provider, image_obj, mock_vuln_report, feed_group_metadata, govulners_db_feed_metadata, expected_trigger_fired",
         [
             (
                 "legacy",
@@ -128,25 +148,25 @@ class TestVulnerabilitiesGate:
                 False,
             ),
             (
-                "grype",
+                "govulners",
                 Image(
                     id="1", user_id="admin", distro_name="debian", distro_version="10"
                 ),
                 "debian_1_os_will-fix.json",
                 None,
-                GrypeDBFeedMetadata(
+                GovulnersDBFeedMetadata(
                     built_at=datetime.datetime.now() - datetime.timedelta(days=2)
                 ),
                 True,
             ),
             (
-                "grype",
+                "govulners",
                 Image(
                     id="1", user_id="admin", distro_name="debian", distro_version="10"
                 ),
                 "debian_1_os_will-fix.json",
                 None,
-                GrypeDBFeedMetadata(built_at=datetime.datetime.now()),
+                GovulnersDBFeedMetadata(built_at=datetime.datetime.now()),
                 False,
             ),
         ],
@@ -157,7 +177,7 @@ class TestVulnerabilitiesGate:
         image_obj,
         mock_vuln_report,
         feed_group_metadata,
-        grype_db_feed_metadata,
+        govulners_db_feed_metadata,
         expected_trigger_fired,
         setup_mocks_vulnerabilities_gate,
         mock_gate_util_provider_feed_data,
@@ -165,7 +185,7 @@ class TestVulnerabilitiesGate:
         setup_mocks_vulnerabilities_gate(mock_vuln_report, vuln_provider)
         mock_gate_util_provider_feed_data(
             feed_group_metadata=feed_group_metadata,
-            grype_db_feed_metadata=grype_db_feed_metadata,
+            govulners_db_feed_metadata=govulners_db_feed_metadata,
         )
         vulns_gate = VulnerabilitiesGate()
         trigger = FeedOutOfDateTrigger(
@@ -182,7 +202,7 @@ class TestVulnerabilitiesGate:
             )
 
     @pytest.mark.parametrize(
-        "vuln_provider, image_obj, mock_vuln_report, feed_metadata, grypedb, expected_trigger_fired",
+        "vuln_provider, image_obj, mock_vuln_report, feed_metadata, govulnersdb, expected_trigger_fired",
         [
             (
                 "legacy",
@@ -209,31 +229,31 @@ class TestVulnerabilitiesGate:
                 True,
             ),
             (
-                "grype",
+                "govulners",
                 Image(
                     id="1", user_id="admin", distro_name="debian", distro_version="9"
                 ),
                 "debian_1_os_will-fix.json",
                 None,
-                GrypeDBFeedMetadata(
+                GovulnersDBFeedMetadata(
                     groups=[{"name": "debian:10", "record_count": 200}]
                 ),
                 True,
             ),
             (
-                "grype",
+                "govulners",
                 Image(
                     id="1", user_id="admin", distro_name="debian", distro_version="10"
                 ),
                 "debian_1_os_will-fix.json",
                 None,
-                GrypeDBFeedMetadata(
+                GovulnersDBFeedMetadata(
                     groups=[{"name": "debian:10", "record_count": 200}]
                 ),
                 False,
             ),
             (
-                "grype",
+                "govulners",
                 Image(
                     id="1", user_id="admin", distro_name="debian", distro_version="10"
                 ),
@@ -250,14 +270,14 @@ class TestVulnerabilitiesGate:
         image_obj,
         mock_vuln_report,
         feed_metadata,
-        grypedb,
+        govulnersdb,
         expected_trigger_fired,
         setup_mocks_vulnerabilities_gate,
         mock_gate_util_provider_feed_data,
     ):
         setup_mocks_vulnerabilities_gate(mock_vuln_report, vuln_provider)
         mock_gate_util_provider_feed_data(
-            feed_metadata=feed_metadata, grype_db_feed_metadata=grypedb
+            feed_metadata=feed_metadata, govulners_db_feed_metadata=govulnersdb
         )
         vulns_gate = VulnerabilitiesGate()
         trigger = UnsupportedDistroTrigger(parent_gate_cls=VulnerabilitiesGate)

@@ -170,7 +170,7 @@ def hints_image(monkeypatch, tmpdir):
         path = os.path.join(work_dir, "nextlinux_hints.json")
         with open(path, "w") as _f:
             json.dump(contents, _f)
-        monkeypatch.setenv("ANCHORE_TEST_HINTSFILE", path)
+        monkeypatch.setenv("NEXTLINUX_TEST_HINTSFILE", path)
         image_kwargs = pre_baked_images[image]
         standalone.main(
             work_dir=work_dir,

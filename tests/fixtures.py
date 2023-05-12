@@ -28,7 +28,7 @@ def nextlinux_db(connection_str=None, do_echo=False):
     )
     from nextlinux_engine.db.entities.upgrade import do_create_tables
 
-    conn_str = connection_str if connection_str else os.getenv("ANCHORE_TEST_DB_URL")
+    conn_str = connection_str if connection_str else os.getenv("NEXTLINUX_TEST_DB_URL")
 
     config = {"credentials": {"database": {"db_connect": conn_str, "db_echo": do_echo}}}
 
@@ -73,7 +73,7 @@ def cls_nextlinux_db(connection_str=None, do_echo=False):
     )
     from nextlinux_engine.db.entities.upgrade import do_create_tables
 
-    conn_str = connection_str if connection_str else os.getenv("ANCHORE_TEST_DB_URL")
+    conn_str = connection_str if connection_str else os.getenv("NEXTLINUX_TEST_DB_URL")
 
     config = {"credentials": {"database": {"db_connect": conn_str, "db_echo": do_echo}}}
 

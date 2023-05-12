@@ -144,9 +144,13 @@ def set_env_vars(monkeysession) -> None:
     """
     Setup environment variables for database connection.
     """
-    if not os.getenv("ANCHORE_TEST_DB_URL"):
+    if not os.getenv("NEXTLINUX_TEST_DB_URL"):
         monkeysession.setenv(
+<<<<<<< HEAD
             "ANCHORE_TEST_DB_URL",
+=======
+            "NEXTLINUX_TEST_DB_URL",
+>>>>>>> master
             "postgresql://postgres:mysecretpassword@nextlinux-db:5432/postgres",
         )
 
@@ -160,7 +164,7 @@ def nextlinux_db() -> ContextManager[bool]:
     :rtype: ContextManager[bool]
     """
 
-    conn_str = os.getenv("ANCHORE_TEST_DB_URL")
+    conn_str = os.getenv("NEXTLINUX_TEST_DB_URL")
     assert conn_str
     config = {"credentials": {"database": {"db_connect": conn_str}}}
     try:
@@ -188,7 +192,7 @@ def is_legacy_provider():
     """
     Returns bool based on if the running context has an env var set to indicate that its testing against legacy vuln provider
     """
-    return os.getenv("TEST_VULNERABILITIES_PROVIDER", "grype") == "legacy"
+    return os.getenv("TEST_VULNERABILITIES_PROVIDER", "govulners") == "legacy"
 
 
 @pytest.fixture()

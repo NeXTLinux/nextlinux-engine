@@ -12,8 +12,8 @@ class TestDefaultAPIPostReturns200:
         api_conf = get_api_conf()
         payload = {
             "grant_type": "password",
-            "username": api_conf["ANCHORE_API_USER"],
-            "password": api_conf["ANCHORE_API_PASS"],
+            "username": api_conf["NEXTLINUX_API_USER"],
+            "password": api_conf["NEXTLINUX_API_PASS"],
             "client_id": "anonymous",
         }
         resp = http_post_url_encoded(["oauth", "token"], payload)

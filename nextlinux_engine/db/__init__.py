@@ -1,5 +1,5 @@
 from .entities.catalog import (
-    Anchore,
+    Nextlinux,
     ArchivedImage,
     ArchivedImageDocker,
     ArchiveTransitionHistoryEntry,
@@ -58,7 +58,7 @@ from .entities.policy_engine import (
     FixedArtifact,
     GemMetadata,
     GenericFeedDataRecord,
-    GrypeDBFeedMetadata,
+    GovulnersDBFeedMetadata,
     Image,
     ImageCpe,
     ImageGem,

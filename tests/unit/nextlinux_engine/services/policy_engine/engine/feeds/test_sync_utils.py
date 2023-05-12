@@ -5,23 +5,31 @@ import pytest
 from nextlinux_engine.common.models.schemas import (
     FeedAPIGroupRecord,
     FeedAPIRecord,
-    GrypeDBListing,
+    GovulnersDBListing,
 )
 from nextlinux_engine.db import FeedGroupMetadata, FeedMetadata
 from nextlinux_engine.db.entities.common import nextlinux_now_datetime
 from nextlinux_engine.services.policy_engine.engine.feeds import FeedList
 from nextlinux_engine.services.policy_engine.engine.feeds.client import (
     FeedServiceClient,
-    GrypeDBServiceClient,
+    GovulnersDBServiceClient,
     IFeedSource,
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.config import SyncConfig
 from nextlinux_engine.services.policy_engine.engine.feeds.feeds import (
+<<<<<<< HEAD:tests/unit/nextlinux_engine/services/policy_engine/engine/feeds/test_sync_utils.py
     GrypeDBFeed,
     VulnerabilityFeed,
 )
 from nextlinux_engine.services.policy_engine.engine.feeds.sync_utils import (
     GrypeDBSyncUtilProvider,
+=======
+    GovulnersDBFeed,
+    VulnerabilityFeed,
+)
+from nextlinux_engine.services.policy_engine.engine.feeds.sync_utils import (
+    GovulnersDBSyncUtilProvider,
+>>>>>>> master:tests/unit/anchore_engine/services/policy_engine/engine/feeds/test_sync_utils.py
     LegacySyncUtilProvider,
     SyncUtilProvider,
 )
@@ -45,17 +53,27 @@ class TestSyncUtilProvider:
                 ["nvdv2", "vulnerabilities"],
             ),
             (
+<<<<<<< HEAD:tests/unit/nextlinux_engine/services/policy_engine/engine/feeds/test_sync_utils.py
                 GrypeDBSyncUtilProvider,
                 {"grypedb": SyncConfig(url="www.nextlinux.com", enabled=True)},
                 ["grypedb"],
+=======
+                GovulnersDBSyncUtilProvider,
+                {"govulnersdb": SyncConfig(url="www.nextlinux.com", enabled=True)},
+                ["govulnersdb"],
+>>>>>>> master:tests/unit/anchore_engine/services/policy_engine/engine/feeds/test_sync_utils.py
             ),
             (
-                GrypeDBSyncUtilProvider,
+                GovulnersDBSyncUtilProvider,
                 {
+<<<<<<< HEAD:tests/unit/nextlinux_engine/services/policy_engine/engine/feeds/test_sync_utils.py
                     "grypedb": SyncConfig(url="www.nextlinux.com", enabled=True),
+=======
+                    "govulnersdb": SyncConfig(url="www.nextlinux.com", enabled=True),
+>>>>>>> master:tests/unit/anchore_engine/services/policy_engine/engine/feeds/test_sync_utils.py
                     "packages": SyncConfig(url="www.nextlinux.com", enabled=True),
                 },
-                ["grypedb"],
+                ["govulnersdb"],
             ),
         ],
     )
@@ -69,15 +87,15 @@ class TestSyncUtilProvider:
         This is a bit confusing and probably should be changed, which is why i've written a test for it.
         There are two SyncUtilProviders.
         The LegacySyncUtilProvider works for all feeds that follow the legacy format.
-        The GrypeDBSyncUtilProvider works for the GrypeDB feed format.
+        The GovulnersDBSyncUtilProvider works for the GovulnersDB feed format.
         However, the VulnerabilitiesProvider has two implementations.
         The LegacyProvider contains all vulnerability logic that changes when the provider is set to "legacy"
-        The GrypeProvider contains all vulnerability logic that changes when the provider is set to "grype"
-        As such, the GrypeProvider actually returns both "packages" and "grypedb" SyncConfigs,
+        The GovulnersProvider contains all vulnerability logic that changes when the provider is set to "govulners"
+        As such, the GovulnersProvider actually returns both "packages" and "govulnersdb" SyncConfigs,
         while "packages" is actually a Legacy style feed.
         Meanwhile, the "packages" feed can only be synced by the LegacySyncUtilProvider.
         The solution is likely to wrap the entire sync method with the SyncUtilProvider, that way LegacySyncUtilProvider
-        can just do legacy feeds, while GrypeDBSyncUtilProvider will first do "grypedb" feed with the grype logic
+        can just do legacy feeds, while GovulnersDBSyncUtilProvider will first do "govulnersdb" feed with the govulners logic
         and then do "packages" feed with the legacy logic.
         """
         filtered_configs = sync_util_provider._get_filtered_sync_configs(sync_configs)
@@ -92,9 +110,15 @@ class TestSyncUtilProvider:
                 FeedServiceClient,
             ),
             (
+<<<<<<< HEAD:tests/unit/nextlinux_engine/services/policy_engine/engine/feeds/test_sync_utils.py
                 GrypeDBSyncUtilProvider,
                 {"grypedb": SyncConfig(url="www.nextlinux.com", enabled=True)},
                 GrypeDBServiceClient,
+=======
+                GovulnersDBSyncUtilProvider,
+                {"govulnersdb": SyncConfig(url="www.nextlinux.com", enabled=True)},
+                GovulnersDBServiceClient,
+>>>>>>> master:tests/unit/anchore_engine/services/policy_engine/engine/feeds/test_sync_utils.py
             ),
         ],
     )
@@ -111,38 +135,42 @@ class TestSyncUtilProvider:
         "metadata, expected_number_groups, expected_feed_group_metadata",
         [
             (
-                FeedMetadata(name="grypedb", enabled=True),
+                FeedMetadata(name="govulnersdb", enabled=True),
                 1,
                 FeedGroupMetadata(
-                    name="grypedb:vulnerabilities", feed_name="grypedb", enabled=True
+                    name="govulnersdb:vulnerabilities", feed_name="govulnersdb", enabled=True
                 ),
             ),
-            (FeedMetadata(name="grypedb", enabled=False), 0, None),
+            (FeedMetadata(name="govulnersdb", enabled=False), 0, None),
         ],
     )
-    def test_get_groups_to_download_grype(
+    def test_get_groups_to_download_govulners(
         self,
         metadata: FeedMetadata,
         expected_number_groups: int,
         expected_feed_group_metadata: FeedMetadata,
     ):
         source_feeds = {
-            "grypedb": {
+            "govulnersdb": {
                 "meta": FeedList(
                     feeds=[
                         FeedAPIRecord(
-                            name="grypedb",
-                            description="grypedb feed",
+                            name="govulnersdb",
+                            description="govulnersdb feed",
                             access_tier="0",
                         )
                     ]
                 ),
                 "groups": [
                     FeedAPIGroupRecord(
-                        name="grypedb:vulnerabilities",
-                        description="grypedb:vulnerabilities group",
+                        name="govulnersdb:vulnerabilities",
+                        description="govulnersdb:vulnerabilities group",
                         access_tier="0",
+<<<<<<< HEAD:tests/unit/nextlinux_engine/services/policy_engine/engine/feeds/test_sync_utils.py
                         grype_listing=GrypeDBListing(
+=======
+                        govulners_listing=GovulnersDBListing(
+>>>>>>> master:tests/unit/anchore_engine/services/policy_engine/engine/feeds/test_sync_utils.py
                             built=nextlinux_now_datetime(),
                             version="2",
                             url="www.nextlinux.com",
@@ -152,9 +180,15 @@ class TestSyncUtilProvider:
                 ],
             }
         }
+<<<<<<< HEAD:tests/unit/nextlinux_engine/services/policy_engine/engine/feeds/test_sync_utils.py
         feeds_to_sync = [GrypeDBFeed(metadata=metadata)]
         sync_config = {"grypedb": SyncConfig(enabled=True, url="www.nextlinux.com")}
         groups_to_download = GrypeDBSyncUtilProvider(
+=======
+        feeds_to_sync = [GovulnersDBFeed(metadata=metadata)]
+        sync_config = {"govulnersdb": SyncConfig(enabled=True, url="www.nextlinux.com")}
+        groups_to_download = GovulnersDBSyncUtilProvider(
+>>>>>>> master:tests/unit/anchore_engine/services/policy_engine/engine/feeds/test_sync_utils.py
             sync_config
         ).get_groups_to_download(source_feeds, feeds_to_sync, "0")
         assert len(groups_to_download) == expected_number_groups

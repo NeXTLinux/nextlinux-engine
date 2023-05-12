@@ -122,14 +122,14 @@ class TestBaseHint:
                     "pkg": {
                         "name": "zlib",
                         "version": "1.0.0",
-                        "origin": "Anchore, Inc.",
+                        "origin": "Nextlinux, Inc.",
                     },
                     "type": "apkg",
                     "expected": {
                         "type": "apkg",
                         "name": "zlib",
                         "version": "1.0.0",
-                        "origin": "Anchore, Inc.",
+                        "origin": "Nextlinux, Inc.",
                     },
                     "expected_error": "",
                 },
@@ -549,7 +549,11 @@ class TestGoHint:
                     "pkg": {
                         "name": "rem",
                         "version": "v0.1.8",
+<<<<<<< HEAD:tests/unit/nextlinux_engine/analyzers/hints/test_hints_models.py
                         "origin": "Anchore Engineering <engineering@nextlinux.com>",
+=======
+                        "origin": "Nextlinux Engineering <engineering@nextlinux.com>",
+>>>>>>> master:tests/unit/anchore_engine/analyzers/hints/test_hints_models.py
                         "license": "Apache2.0",
                         "arch": "x86_64",
                         "source": "rem",
@@ -561,7 +565,11 @@ class TestGoHint:
                         "type": "go",
                         "name": "rem",
                         "version": "v0.1.8",
+<<<<<<< HEAD:tests/unit/nextlinux_engine/analyzers/hints/test_hints_models.py
                         "origin": "Anchore Engineering <engineering@nextlinux.com>",
+=======
+                        "origin": "Nextlinux Engineering <engineering@nextlinux.com>",
+>>>>>>> master:tests/unit/anchore_engine/analyzers/hints/test_hints_models.py
                         "license": "Apache2.0",
                         "arch": "x86_64",
                         "sourcepkg": "rem",
@@ -696,7 +704,11 @@ class TestBinaryHint:
                     "pkg": {
                         "name": "rem",
                         "version": "v0.1.8",
+<<<<<<< HEAD:tests/unit/nextlinux_engine/analyzers/hints/test_hints_models.py
                         "origin": "Anchore Engineering <engineering@nextlinux.com>",
+=======
+                        "origin": "Nextlinux Engineering <engineering@nextlinux.com>",
+>>>>>>> master:tests/unit/anchore_engine/analyzers/hints/test_hints_models.py
                         "license": "Apache2.0",
                         "files": [
                             "file1",
@@ -708,7 +720,11 @@ class TestBinaryHint:
                         "type": "binary",
                         "name": "rem",
                         "version": "v0.1.8",
+<<<<<<< HEAD:tests/unit/nextlinux_engine/analyzers/hints/test_hints_models.py
                         "origin": "Anchore Engineering <engineering@nextlinux.com>",
+=======
+                        "origin": "Nextlinux Engineering <engineering@nextlinux.com>",
+>>>>>>> master:tests/unit/anchore_engine/analyzers/hints/test_hints_models.py
                         "license": "Apache2.0",
                         "files": [
                             "file1",
@@ -1035,7 +1051,11 @@ class TestGemHint:
                     "pkg": {
                         "name": "rubylib",
                         "version": "1.0.0",
+<<<<<<< HEAD:tests/unit/nextlinux_engine/analyzers/hints/test_hints_models.py
                         "origin": "Anchore <nextlinux@nextlinux.com>",
+=======
+                        "origin": "Nextlinux <nextlinux@nextlinux.com>",
+>>>>>>> master:tests/unit/anchore_engine/analyzers/hints/test_hints_models.py
                         "license": "Apache2.0",
                         "source": "sourctest",
                         "files": [
@@ -1053,7 +1073,11 @@ class TestGemHint:
                     "pkg": {
                         "name": "rubylib",
                         "versions": "1.0.0",
+<<<<<<< HEAD:tests/unit/nextlinux_engine/analyzers/hints/test_hints_models.py
                         "origin": "Anchore <nextlinux@nextlinux.com>",
+=======
+                        "origin": "Nextlinux <nextlinux@nextlinux.com>",
+>>>>>>> master:tests/unit/anchore_engine/analyzers/hints/test_hints_models.py
                         "license": "Apache2.0",
                         "source": "sourctest",
                         "files": [
@@ -1071,7 +1095,11 @@ class TestGemHint:
                     "pkg": {
                         "name": "rubylib",
                         "version": "1.0.0",
+<<<<<<< HEAD:tests/unit/nextlinux_engine/analyzers/hints/test_hints_models.py
                         "origin": "Anchore <nextlinux@nextlinux.com>",
+=======
+                        "origin": "Nextlinux <nextlinux@nextlinux.com>",
+>>>>>>> master:tests/unit/anchore_engine/analyzers/hints/test_hints_models.py
                         "licenses": "Apache2.0",
                         "source": "sourctest",
                         "files": [
@@ -1089,7 +1117,11 @@ class TestGemHint:
                     "pkg": {
                         "name": "rubylib",
                         "version": "1.0.0",
+<<<<<<< HEAD:tests/unit/nextlinux_engine/analyzers/hints/test_hints_models.py
                         "origins": "Anchore <nextlinux@nextlinux.com>",
+=======
+                        "origins": "Nextlinux <nextlinux@nextlinux.com>",
+>>>>>>> master:tests/unit/anchore_engine/analyzers/hints/test_hints_models.py
                         "license": "Apache2.0",
                         "source": "sourctest",
                         "files": [
@@ -1107,7 +1139,11 @@ class TestGemHint:
                     "pkg": {
                         "name": "rubylib",
                         "versions": "1.0.0",
+<<<<<<< HEAD:tests/unit/nextlinux_engine/analyzers/hints/test_hints_models.py
                         "origin": "Anchore <nextlinux@nextlinux.com>",
+=======
+                        "origin": "Nextlinux <nextlinux@nextlinux.com>",
+>>>>>>> master:tests/unit/anchore_engine/analyzers/hints/test_hints_models.py
                         "license": "Apache2.0",
                         "source": "sourctest",
                         "files": "file1",
@@ -1123,7 +1159,11 @@ class TestGemHint:
                     "pkg": {
                         "name": "rubylib",
                         "version": "1.0.0",
+<<<<<<< HEAD:tests/unit/nextlinux_engine/analyzers/hints/test_hints_models.py
                         "origin": "Anchore <nextlinux@nextlinux.com>",
+=======
+                        "origin": "Nextlinux <nextlinux@nextlinux.com>",
+>>>>>>> master:tests/unit/anchore_engine/analyzers/hints/test_hints_models.py
                         "license": "Apache2.0",
                         "source": "sourctest",
                         "files": [
@@ -1230,7 +1270,11 @@ class TestNPMHint:
                     "pkg": {
                         "name": "nodelib",
                         "version": "1.0.0",
+<<<<<<< HEAD:tests/unit/nextlinux_engine/analyzers/hints/test_hints_models.py
                         "origin": "Anchore <nextlinux@nextlinux.com>",
+=======
+                        "origin": "Nextlinux <nextlinux@nextlinux.com>",
+>>>>>>> master:tests/unit/anchore_engine/analyzers/hints/test_hints_models.py
                         "license": "Apache2.0",
                         "source": "sourctest",
                         "files": [
@@ -1248,7 +1292,11 @@ class TestNPMHint:
                     "pkg": {
                         "name": "nodelib",
                         "versions": "1.0.0",
+<<<<<<< HEAD:tests/unit/nextlinux_engine/analyzers/hints/test_hints_models.py
                         "origin": "Anchore <nextlinux@nextlinux.com>",
+=======
+                        "origin": "Nextlinux <nextlinux@nextlinux.com>",
+>>>>>>> master:tests/unit/anchore_engine/analyzers/hints/test_hints_models.py
                         "license": "Apache2.0",
                         "source": "sourctest",
                         "files": [
@@ -1266,7 +1314,11 @@ class TestNPMHint:
                     "pkg": {
                         "name": "nodelib",
                         "version": "1.0.0",
+<<<<<<< HEAD:tests/unit/nextlinux_engine/analyzers/hints/test_hints_models.py
                         "origin": "Anchore <nextlinux@nextlinux.com>",
+=======
+                        "origin": "Nextlinux <nextlinux@nextlinux.com>",
+>>>>>>> master:tests/unit/anchore_engine/analyzers/hints/test_hints_models.py
                         "licenses": "Apache2.0",
                         "source": "sourctest",
                         "files": [
@@ -1284,7 +1336,11 @@ class TestNPMHint:
                     "pkg": {
                         "name": "nodelib",
                         "version": "1.0.0",
+<<<<<<< HEAD:tests/unit/nextlinux_engine/analyzers/hints/test_hints_models.py
                         "origins": "Anchore <nextlinux@nextlinux.com>",
+=======
+                        "origins": "Nextlinux <nextlinux@nextlinux.com>",
+>>>>>>> master:tests/unit/anchore_engine/analyzers/hints/test_hints_models.py
                         "license": "Apache2.0",
                         "source": "sourctest",
                         "files": [
@@ -1302,7 +1358,11 @@ class TestNPMHint:
                     "pkg": {
                         "name": "nodelib",
                         "versions": "1.0.0",
+<<<<<<< HEAD:tests/unit/nextlinux_engine/analyzers/hints/test_hints_models.py
                         "origin": "Anchore <nextlinux@nextlinux.com>",
+=======
+                        "origin": "Nextlinux <nextlinux@nextlinux.com>",
+>>>>>>> master:tests/unit/anchore_engine/analyzers/hints/test_hints_models.py
                         "license": "Apache2.0",
                         "source": "sourctest",
                         "files": "file1",
@@ -1318,7 +1378,11 @@ class TestNPMHint:
                     "pkg": {
                         "name": "nodelib",
                         "version": "1.0.0",
+<<<<<<< HEAD:tests/unit/nextlinux_engine/analyzers/hints/test_hints_models.py
                         "origin": "Anchore <nextlinux@nextlinux.com>",
+=======
+                        "origin": "Nextlinux <nextlinux@nextlinux.com>",
+>>>>>>> master:tests/unit/anchore_engine/analyzers/hints/test_hints_models.py
                         "license": "Apache2.0",
                         "source": "sourctest",
                         "files": [

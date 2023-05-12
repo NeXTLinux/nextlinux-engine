@@ -6,7 +6,7 @@ from tests.functional.services.utils import http_utils
 
 def feeds_sync(force_flush=None, feed=None):
     payload = {
-        "user_id": policy_engine_api_conf().get("ANCHORE_API_USER"),
+        "user_id": policy_engine_api_conf().get("NEXTLINUX_API_USER"),
     }
     query = {
         "force_flush": force_flush,

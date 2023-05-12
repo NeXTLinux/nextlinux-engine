@@ -35,7 +35,7 @@ def create_operation():
         )
         resp = client.create_image_import()
         return resp, 200
-    except api_exceptions.AnchoreApiError as ex:
+    except api_exceptions.NextlinuxApiError as ex:
         return (
             make_response_error(ex, in_httpcode=ex.__response_code__),
             ex.__response_code__,
@@ -59,7 +59,7 @@ def list_operations():
         )
         resp = client.list_image_import_operations()
         return resp, 200
-    except api_exceptions.AnchoreApiError as ex:
+    except api_exceptions.NextlinuxApiError as ex:
         return (
             make_response_error(ex, in_httpcode=ex.__response_code__),
             ex.__response_code__,
@@ -84,7 +84,7 @@ def get_operation(operation_id):
         )
         resp = client.get_image_import_operation(operation_id)
         return resp, 200
-    except api_exceptions.AnchoreApiError as ex:
+    except api_exceptions.NextlinuxApiError as ex:
         return (
             make_response_error(ex, in_httpcode=ex.__response_code__),
             ex.__response_code__,
@@ -109,7 +109,7 @@ def invalidate_operation(operation_id):
         )
         resp = client.cancel_image_import(operation_id)
         return resp, 200
-    except api_exceptions.AnchoreApiError as ex:
+    except api_exceptions.NextlinuxApiError as ex:
         return (
             make_response_error(ex, in_httpcode=ex.__response_code__),
             ex.__response_code__,
@@ -133,7 +133,7 @@ def list_import_packages(operation_id):
         )
         resp = client.list_import_content(operation_id, "packages")
         return resp, 200
-    except api_exceptions.AnchoreApiError as ex:
+    except api_exceptions.NextlinuxApiError as ex:
         return (
             make_response_error(ex, in_httpcode=ex.__response_code__),
             ex.__response_code__,
@@ -157,7 +157,7 @@ def list_import_dockerfiles(operation_id):
         )
         resp = client.list_import_content(operation_id, "dockerfile")
         return resp, 200
-    except api_exceptions.AnchoreApiError as ex:
+    except api_exceptions.NextlinuxApiError as ex:
         return (
             make_response_error(ex, in_httpcode=ex.__response_code__),
             ex.__response_code__,
@@ -181,7 +181,7 @@ def list_import_image_manifests(operation_id):
         )
         resp = client.list_import_content(operation_id, "manifest")
         return resp, 200
-    except api_exceptions.AnchoreApiError as ex:
+    except api_exceptions.NextlinuxApiError as ex:
         return (
             make_response_error(ex, in_httpcode=ex.__response_code__),
             ex.__response_code__,
@@ -205,7 +205,7 @@ def list_import_parent_manifests(operation_id):
         )
         resp = client.list_import_content(operation_id, "parent_manifest")
         return resp, 200
-    except api_exceptions.AnchoreApiError as ex:
+    except api_exceptions.NextlinuxApiError as ex:
         return (
             make_response_error(ex, in_httpcode=ex.__response_code__),
             ex.__response_code__,
@@ -229,7 +229,7 @@ def list_import_image_configs(operation_id):
         )
         resp = client.list_import_content(operation_id, "image_config")
         return resp, 200
-    except api_exceptions.AnchoreApiError as ex:
+    except api_exceptions.NextlinuxApiError as ex:
         return (
             make_response_error(ex, in_httpcode=ex.__response_code__),
             ex.__response_code__,
@@ -320,7 +320,7 @@ def content_upload(operation_id, content_type, request):
             ),
             200,
         )
-    except api_exceptions.AnchoreApiError as ex:
+    except api_exceptions.NextlinuxApiError as ex:
         return (
             make_response_error(ex, in_httpcode=ex.__response_code__),
             ex.__response_code__,

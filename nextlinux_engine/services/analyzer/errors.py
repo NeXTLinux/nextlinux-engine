@@ -1,10 +1,14 @@
 """
 Exception types for the analyzer service
 """
+<<<<<<< HEAD
 from nextlinux_engine.utils import AnchoreException
+=======
+from nextlinux_engine.utils import NextlinuxException
+>>>>>>> master
 
 
-class ClientError(AnchoreException):
+class ClientError(NextlinuxException):
     def __init__(self, cause, msg="Failed to execute client call"):
         self.cause = str(cause)
         self.msg = msg

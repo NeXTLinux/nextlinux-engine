@@ -5,9 +5,9 @@ from tests.functional.services.utils import http_utils
 
 test_params = [
     (
-        "grypedb:vulnerabilities",
+        "govulnersdb:vulnerabilities",
         "eef3b1bcd5728346cb1b30eae09647348bacfbde3ba225d70cb0374da249277c",
-        "grypedb.tar.gz",
+        "govulnersdb.tar.gz",
     ),
     ("test_text_bucket", "test", "test_text.txt"),
 ]

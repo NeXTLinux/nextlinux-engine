@@ -145,7 +145,11 @@ class UnsupportedDistroTrigger(BaseTrigger):
     __lifecycle_state__ = LifecycleStates.eol
 
 
+<<<<<<< HEAD
 class AnchoreSecGate(Gate):
+=======
+class NextlinuxSecGate(Gate):
+>>>>>>> master
     __gate_name__ = "nextlinuxsec"
     __description__ = "Vulnerability checks against distro packages"
     __lifecycle_state__ = LifecycleStates.eol

@@ -169,7 +169,7 @@ def update_operation(operation_id, operation):
                 raise api_exceptions.ResourceNotFound(resource=operation_id, detail={})
 
         return resp, 200
-    except api_exceptions.AnchoreApiError as err:
+    except api_exceptions.NextlinuxApiError as err:
         return (
             make_response_error(err, in_httpcode=err.__response_code__),
             err.__response_code__,
@@ -358,7 +358,7 @@ def content_upload(operation_id, content_type, request):
         resp = {"digest": digest, "created_at": datetime_to_rfc3339(created_at)}
 
         return resp, 200
-    except api_exceptions.AnchoreApiError as ex:
+    except api_exceptions.NextlinuxApiError as ex:
         return (
             make_response_error(ex, in_httpcode=ex.__response_code__),
             ex.__response_code__,

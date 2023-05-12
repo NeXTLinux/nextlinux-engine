@@ -17,7 +17,7 @@ from nextlinux_engine.db import DistroMapping as DbDistroMapping
 from nextlinux_engine.db import get_thread_scoped_session as get_session
 
 log = logging.getLogger()
-ANCHORE_PUBLIC_USER = "0"
+NEXTLINUX_PUBLIC_USER = "0"
 
 authorizer = get_authorizer()
 

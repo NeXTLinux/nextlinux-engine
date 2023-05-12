@@ -26,7 +26,11 @@ from nextlinux_engine.util.docker import (
     DockerV1ManifestMetadata,
     DockerV2ManifestMetadata,
 )
+<<<<<<< HEAD
 from nextlinux_engine.utils import AnchoreException
+=======
+from nextlinux_engine.utils import NextlinuxException
+>>>>>>> master
 
 nextlinuxlock = threading.Lock()
 nextlinuxlocks = {}
@@ -582,11 +586,16 @@ def make_staging_dirs(rootdir, use_cache_dir=None):
     # found to programmatically inject hintsfiles without requiring the
     # hintsfile to exist in the image. Otherwise, it would require every
     # permutation of a hintsfile to be an actual unique image. It leverages the
-    # fact that Anchore Engine will not try to extract the hinstfile if it has
+    # fact that Nextlinux Engine will not try to extract the hinstfile if it has
     # already been unpacked in the unpack directory.
     try:
+<<<<<<< HEAD
         if os.environ.get("ANCHORE_TEST_HINTSFILE"):
             test_hints = os.environ["ANCHORE_TEST_HINTSFILE"]
+=======
+        if os.environ.get("NEXTLINUX_TEST_HINTSFILE"):
+            test_hints = os.environ["NEXTLINUX_TEST_HINTSFILE"]
+>>>>>>> master
             destination = os.path.join(unpackdir, "nextlinux_hints.json")
             shutil.copyfile(test_hints, destination)
     except Exception as err:
@@ -1173,7 +1182,7 @@ def analyze_image(
             raise Exception("failed to analyze")
 
 
-class AnalysisError(AnchoreException):
+class AnalysisError(NextlinuxException):
     def __init__(self, cause, pull_string, tag, msg):
         self.cause = str(cause)
         self.msg = msg

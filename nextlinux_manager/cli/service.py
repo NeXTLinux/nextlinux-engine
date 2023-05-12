@@ -29,7 +29,11 @@ service_map = {
 }
 
 
+<<<<<<< HEAD
 class AnchoreLogWatcher(RegexMatchingEventHandler):
+=======
+class NextlinuxLogWatcher(RegexMatchingEventHandler):
+>>>>>>> master
     regexes = [re.compile(".*/nextlinux-.*\.log$")]
     files = {}
 
@@ -168,7 +172,11 @@ def terminate_service(service, flush_pidfile=False):
 def startup_service(service, configdir):
     pidfile = "/var/run/nextlinux/" + service + ".pid"
     logfile = "/var/log/nextlinux/" + service + ".log"
+<<<<<<< HEAD
     # os.environ['ANCHORE_LOGFILE'] = logfile
+=======
+    # os.environ['NEXTLINUX_LOGFILE'] = logfile
+>>>>>>> master
 
     logger.info("cleaning up service: {}".format(str(service)))
     terminate_service(service, flush_pidfile=True)
@@ -193,7 +201,7 @@ def startup_service(service, configdir):
 
     try:
         newenv = os.environ.copy()
-        newenv["ANCHORE_LOGFILE"] = logfile
+        newenv["NEXTLINUX_LOGFILE"] = logfile
         pipes = subprocess.Popen(cmd, env=newenv)
         sout, serr = pipes.communicate()
         rc = pipes.returncode
@@ -282,7 +290,7 @@ def start(
         module_name = str(nextlinux_module)
 
     if os.environ.get(
-        "ANCHORE_ENGINE_SKIP_DB_COMPAT_CHECK", str(skip_db_compat_check)
+        "NEXTLINUX_ENGINE_SKIP_DB_COMPAT_CHECK", str(skip_db_compat_check)
     ).lower() in ["true", "t", "y", "yes"]:
         skip_db_compat_check = True
     else:
@@ -291,11 +299,11 @@ def start(
     if services:
         input_services = list(services)
     else:
-        input_services = os.getenv("ANCHORE_ENGINE_SERVICES", "").strip().split()
+        input_services = os.getenv("NEXTLINUX_ENGINE_SERVICES", "").strip().split()
 
     if not input_services and not all:
         raise click.exceptions.BadArgumentUsage(
-            "No services defined to start. Must either provide service arguments, ANCHORE_ENGINE_SERVICES env var, or --all option"
+            "No services defined to start. Must either provide service arguments, NEXTLINUX_ENGINE_SERVICES env var, or --all option"
         )
 
     try:
@@ -373,7 +381,7 @@ def start(
 
         if not services:
             logger.error(
-                "No services found in ANCHORE_ENGINE_SERVICES or as enabled in config.yaml to start - exiting"
+                "No services found in NEXTLINUX_ENGINE_SERVICES or as enabled in config.yaml to start - exiting"
             )
             sys.exit(1)
 
@@ -448,7 +456,11 @@ def start(
                     + ") but we discovered nextlinux DB version ("
                     + str(db_versions["db_version"])
                     + ") in the running DB - please perform the DB upgrade process and retry\n"
+<<<<<<< HEAD
                     "See: https://engine.nextlinux.io/docs/install/upgrade/#advanced--manual-upgrade-procedure"
+=======
+                    "See: https://engine.next-linux.systems/docs/install/upgrade/#advanced--manual-upgrade-procedure"
+>>>>>>> master
                 )
 
         except Exception as err:
@@ -535,7 +547,11 @@ def start(
             # start up the log watchers
             try:
                 observer = Observer()
+<<<<<<< HEAD
                 observer.schedule(AnchoreLogWatcher(), path="/var/log/nextlinux/")
+=======
+                observer.schedule(NextlinuxLogWatcher(), path="/var/log/nextlinux/")
+>>>>>>> master
                 observer.start()
 
                 try:

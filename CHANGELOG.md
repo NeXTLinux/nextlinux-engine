@@ -8,9 +8,9 @@ DB Schema version - 0.0.16
 Engine v1.1.0 fixes some bugs that arose from 1.0.1
 
 ### Changes
-+ Added - Vulnerability scanning support for Rocky Linux in both legacy and Grype scanners
++ Added - Vulnerability scanning support for Rocky Linux in both legacy and Govulners scanners
 + Fixed - Images with Go content and hints enabled failing analysis
-+ Fixed - Missing NVD CVSS scores in query vulnerabilities API with "grype" vulnerabilities provider
++ Fixed - Missing NVD CVSS scores in query vulnerabilities API with "govulners" vulnerabilities provider
 
 
 ## 1.0.1
@@ -22,9 +22,15 @@ Engine v1.0.1 fixes some bugs that arose from 1.0.0
 
 ### Changes
 + Fixed - policy-engine feeds failing for GitHub group due to a constraint violation
+<<<<<<< HEAD
 + Fixed - Upgrade to Syft v0.26.0 fixed issue in analysis caused by unexpected python package format 
 + Fixed - Content hints now correctly use '*' for vendor field instead of '-' in generated cpes. Fixes [#1279](https://github.com/nextlinux/nextlinux-engine/issues/1279).
 + Fixed - Syft invocation during image analysis uses analyzer unpack directory configured in engine as opposed to OS default temp directory
+=======
++ Fixed - Upgrade to Gosbom v0.26.0 fixed issue in analysis caused by unexpected python package format 
++ Fixed - Content hints now correctly use '*' for vendor field instead of '-' in generated cpes. Fixes [#1279](https://github.com/nextlinux/nextlinux-engine/issues/1279).
++ Fixed - Gosbom invocation during image analysis uses analyzer unpack directory configured in engine as opposed to OS default temp directory
+>>>>>>> master
 
 
 ## 1.0.0
@@ -33,12 +39,16 @@ API version - 0.1.19
 
 DB Schema version - 0.0.15
 
-Engine 1.0.0 makes the Grype-based vulnerabilities provider, introduced in v0.10.0, the default for new deployments. This release
-also improves the scanning results and API consistency when using the "grype" provider. The "legacy" provider is deprecated 
+Engine 1.0.0 makes the Govulners-based vulnerabilities provider, introduced in v0.10.0, the default for new deployments. This release
+also improves the scanning results and API consistency when using the "govulners" provider. The "legacy" provider is deprecated 
 and will be removed in a future release. Current deployments and upgrades will not automatically convert to the new provider, so 
-please update your configurations and templates to use the new Grype provider.
+please update your configurations and templates to use the new Govulners provider.
 
+<<<<<<< HEAD
 See the [documentation](https://engine.nextlinux.io/docs/releasenotes/) for more information on the transition process and upgrade options.
+=======
+See the [documentation](https://engine.next-linux.systems/docs/releasenotes/) for more information on the transition process and upgrade options.
+>>>>>>> master
 
 ### Deprecations
 
@@ -46,19 +56,19 @@ The "legacy" vulnerability provider mode is deprecated. It will be removed in a 
 
 ### Changes
 
-+ Added - Sets default vulnerabilities provider to Grype for new deployments via Docker Compose or Helm. Note: the "legacy" provider is deprecated.
-+ Added - Support for vuln scanning binary and go content types with Grype provider
-+ Added - Updates Syft to 0.24.1 and Grype to 0.21.0
-+ Added - Vulnerability scanning support for SLES/SUSE in both legacy and Grype scanners
++ Added - Sets default vulnerabilities provider to Govulners for new deployments via Docker Compose or Helm. Note: the "legacy" provider is deprecated.
++ Added - Support for vuln scanning binary and go content types with Govulners provider
++ Added - Updates Gosbom to 0.24.1 and Govulners to 0.21.0
++ Added - Vulnerability scanning support for SLES/SUSE in both legacy and Govulners scanners
 + Fixed - Add logic to the gate util providers for UnsupportedDistroTrigger to call, so the trigger works for both vuln providers. Fixes #1184
-+ Fixed - Support for FeedOutOfDateTrigger in Vulnerabilities gate for Grype provider. Fixes #1179
-+ Fixed - Content hints vulnerability scanning for Grype-mode provider including golang and binary-type hints
-+ Fixed - Adds epoch to rpm metadata SBoM generation for Syft to fix version mismatch in Grype mode.
++ Fixed - Support for FeedOutOfDateTrigger in Vulnerabilities gate for Govulners provider. Fixes #1179
++ Fixed - Content hints vulnerability scanning for Govulners-mode provider including golang and binary-type hints
++ Fixed - Adds epoch to rpm metadata SBoM generation for Gosbom to fix version mismatch in Govulners mode.
 + Fixed - Set will_not_fix in Vulnerability definition to Boolean type in the Swagger specification of external API 
 + Improved - Update Click dependency version to 8.0.1 and SQLAlchemy dependency version to 1.4.23.  Fixes #908, #1204 
-+ Improved - When using the Grype provider, the ability to enable, disable, and delete groups within the "vulnerabilities" feed is not supported and returns a clear error message.
-+ Improved - Make the Syft invocation only log the full output of the command at spew level instead of debug to ensure logs are not flooded with large Syft SBoMs.
-+ Improved - Rename "grypedb" feed to be called "vulnerabilities" for clarity and consistency. Fixes #1192
++ Improved - When using the Govulners provider, the ability to enable, disable, and delete groups within the "vulnerabilities" feed is not supported and returns a clear error message.
++ Improved - Make the Gosbom invocation only log the full output of the command at spew level instead of debug to ensure logs are not flooded with large Gosbom SBoMs.
++ Improved - Rename "govulnersdb" feed to be called "vulnerabilities" for clarity and consistency. Fixes #1192
 + Improved - Removes default config fallback for vulnerability provider, users must now explicitly specify this configuration value
 
 
@@ -81,7 +91,7 @@ DB Schema version - 0.0.15
 ### Changes
 + Added - 'will_not_fix' field added to vulnerability report API response and vulnerability information query. Fixes #1160
 + Fixed - /tmp directory not cleaned up after an image analysis
-+ Fixed - Updates syft version to 0.19.1
++ Fixed - Updates gosbom version to 0.19.1
 + Fixed - Update certifi path in the docker entrypoint script to ensure cert updates are set properly. Fixes #1171 
 + Fixed - Incorrect handling of hints file input. Fixes #1165
 + Fixed - Ensures all tags attempted for image pull if multiple tags on image being analyzed. Fixes #1139
@@ -101,19 +111,29 @@ This release contains a database schema update. There are no data migrations, on
 
 ### Configurable Vulnerability Providers
 
+<<<<<<< HEAD
 0.10.0 is a significant release for Engine as it now has both [Syft](https://github.com/nextlinux/syft) and [Grype](https://github.com/nextlinux/grype) 
 integrations in place to move to a unified vulnerability scanning core across local tools as well as stateful Engine services. 
 This release adds [Grype](https://github.com/nextlinux/grype) integration as a new vulnerability scanning option in the policy 
+=======
+0.10.0 is a significant release for Engine as it now has both [Gosbom](https://github.com/nextlinux/gosbom) and [Govulners](https://github.com/nextlinux/govulners) 
+integrations in place to move to a unified vulnerability scanning core across local tools as well as stateful Engine services. 
+This release adds [Govulners](https://github.com/nextlinux/govulners) integration as a new vulnerability scanning option in the policy 
+>>>>>>> master
 engine. There is now a configuration option for specifying a vulnerability scanning provider in the policy engine service 
-configuration. The legacy provider (non-Grype) is the default to ensure smooth upgrades and allow operators to choose when to make the switch.
-The new Grype provider syncs vulnerability data from the same upstream sources as Engine, but uses the Grype DB update mechanism 
+configuration. The legacy provider (non-Govulners) is the default to ensure smooth upgrades and allow operators to choose when to make the switch.
+The new Govulners provider syncs vulnerability data from the same upstream sources as Engine, but uses the Govulners DB update mechanism 
 to achieve much faster feed updates, and no longer uses the https://ancho.re endpoint for retrieving data. See 
+<<<<<<< HEAD
 [Release Notes](https://engine.nextlinux.io/docs/releasenotes/0100) for more information and links on Grype mode.
+=======
+[Release Notes](https://engine.next-linux.systems/docs/releasenotes/0100) for more information and links on Govulners mode.
+>>>>>>> master
 
 Note:
-- Grype mode is a beta release and not recommended for production use, but we encourage feedback and use in dev environments.
+- Govulners mode is a beta release and not recommended for production use, but we encourage feedback and use in dev environments.
 - The `vulnerability_data_unavailable` and `stale_feed_data` policy triggers in the `vulnerabilities` gate are not yet 
-  supported for the Grype provider. They will return incorrect results when used with the Grype provider.
+  supported for the Govulners provider. They will return incorrect results when used with the Govulners provider.
 - The `GET /query/images_by_vulnerability` result set may be stale for some images after a feed sync due to differences 
   in how vulnerabilities are scanned for images in the new provider. The system will rescan each image and updated results 
   will become available then. Importantly, however, scan results for an individual image are always up-to-date whenever requested via `GET /imges/<digest>/vulnerabilities`
@@ -122,10 +142,10 @@ The vulnerability provider is now configurable in the `policy_engine` service co
 [Default Config](./conf/default_config.yaml) for more info.
 
 ### Deprecations
-- The `affected_package_version` query parameter in `GET /query/vulnerabilities` is not supported in Grype mode and has 
+- The `affected_package_version` query parameter in `GET /query/vulnerabilities` is not supported in Govulners mode and has 
   known correctness issues in the legacy mode. It is deprecated and will be removed in a future release.
 - The legacy feed service endpoint (https://ancho.re) used by the legacy vulnerability provider is now officially 
-  deprecated, and will be replaced by the Grype DB sync introduced in this release. We will be announcing an End-of-Life timeline 
+  deprecated, and will be replaced by the Govulners DB sync introduced in this release. We will be announcing an End-of-Life timeline 
   for the service along with the upcoming 1.0 Engine release in the next few months. The timeline will include reasonable 
   time to upgrade and migrate deployments to 1.0+ versions. This deprecation notice serves as an early notice ahead of 
   the actual 1.0 release and formal timeline announcement. For 0.10.0, there are no changes to the service or user actions required.
@@ -136,7 +156,7 @@ The vulnerability provider is now configurable in the `policy_engine` service co
 
 ### Changes
 
-+ Added - Policy engine should leverage Grype. Fixes #706 and #707
++ Added - Policy engine should leverage Govulners. Fixes #706 and #707
 + Added - Improved alpine vulnerability scanning by using NVD matches for OS packages for CVEs that are not yet present in Alpine SecDB. Fixes #268
 + Added - Analyzer service configuration option to control package-ownership filtering. Allows exposing all packages regardless of ownership relationship. Fixes #1122
 + Fixed - Adds missing fields and fixes errors in the swagger spec for the API
@@ -156,27 +176,32 @@ The vulnerability provider is now configurable in the `policy_engine` service co
 + Fixed - Server-side connection timeout of 75 seconds if client holds connection open after bytes sent, caused image load errors in some resource constrained situations. Now defaults to 3 minutes and is configurable. Fixes #990
 + Fixed - Incorrect CPE v2.3 string construction in some cases. Fixes #959
 + Fixed - Hints behavior regression. Fixes #1006
-+ Improved - Reduced false positive matches for vulnerabilities in java artifacts by update to CPE generation logic via Syft upgrade to 0.15.1
++ Improved - Reduced false positive matches for vulnerabilities in java artifacts by update to CPE generation logic via Gosbom upgrade to 0.15.1
 + Improved - Better vulnerability listing performance by removing unnecessary CPE hashing
 
 ## 0.9.3
 
+<<<<<<< HEAD
 + Fixed - Fixes issue where java artifacts are not being matched against records from GHSA feed - synthesize pom properties contents in syft mapper.  Fixes #950
 + Fixed - Updates syft to 0.14.0 to fix missing java elements from image SBOM, for embedded java artifacts combined with malformed pom.properties metadata (see https://github.com/nextlinux/syft Issue #349)
+=======
++ Fixed - Fixes issue where java artifacts are not being matched against records from GHSA feed - synthesize pom properties contents in gosbom mapper.  Fixes #950
++ Fixed - Updates gosbom to 0.14.0 to fix missing java elements from image SBOM, for embedded java artifacts combined with malformed pom.properties metadata (see https://github.com/nextlinux/gosbom Issue #349)
+>>>>>>> master
 
 ## 0.9.2
 
 + Fixed - Fixes empty string value for "metadata" field which should be empty array in response for GET /images/{digest}/metadata/dockerfile when no actual dockerfile is presented. Fixes #937
 + Fixed - Fixes oauth2_clients table upgrade to include all needed keys in client_metadata field. Fixes #931
-+ Fixed - Updates syft to 0.13.1 and adds filtering of packages by new 'relationship' field to remove duplicate packages that are application packages provided by distro packages managers (e.g. RPMs that install python eggs, will only use the RPM version). Fixes #460
-+ Fixed - Updates syft to 0.12.7 to fix analysis failure due to malformed python egg files. Fixes #910
++ Fixed - Updates gosbom to 0.13.1 and adds filtering of packages by new 'relationship' field to remove duplicate packages that are application packages provided by distro packages managers (e.g. RPMs that install python eggs, will only use the RPM version). Fixes #460
++ Fixed - Updates gosbom to 0.12.7 to fix analysis failure due to malformed python egg files. Fixes #910
 + Fixed - Updates cryptography version from 3.3.1 to 3.3.2. Fixes #909
 + Fixed - Updates jsonschema version to avoid legacy validator import issues.
 
 
 ## 0.9.1
 
-NOTE: To ensure that Anchore Engine cannot be accidentally deployed with a weak default password for the admin user, this release includes
+NOTE: To ensure that Nextlinux Engine cannot be accidentally deployed with a weak default password for the admin user, this release includes
 a change that requires the default_admin_password configuration value to be set at system bootstrap. After bootstrap it is no longer needed. This
 may break previous deployment configurations that relied on the code using a default value if none specified by the configuration. We have updated
 our quick-start docker-compose.yaml file in the Engine docs and helm chart to accomodate this change. It will *not* impact upgrading deployments
@@ -185,7 +210,7 @@ since the database bootstrap is already completed.
 + Added - Ability to block image analysis operations if the image's compressed size is above a configured value. Fixes #786 
 + Improved - Updated output messages and description for vulnerability_data_unavailable trigger and stale_feeds_data trigger to clarify only OS packages impacted. Fixes #879
 + Improved - Do not allow selectors to be empty unless using max_images_per_account_rule. Fixes #863
-+ Improved - Updates Syft to version 0.12.4 to fix several issues in image analysis including empty package names/versions in invalid package.json files and java jar parent references being Nil.
++ Improved - Updates Gosbom to version 0.12.4 to fix several issues in image analysis including empty package names/versions in invalid package.json files and java jar parent references being Nil.
 + Improved - Require user to set explicit default admin password at bootstrap instead of defaulting to a value if none found. Fixes #810
 + Improved - Update PyYAML to 5.4.1
 + Improved - Update Passlib to 1.7.4
@@ -199,16 +224,20 @@ since the database bootstrap is already completed.
 
 ## 0.9.0
 
-0.9.0 is a big step towards full integration of Syft and Grype into Anchore Engine as planned for 1.0. In this release, Syft is used for all package identification, and
-a new API is also added to support uploads of Syft results into the system but with less analysis depth than an in-deployment analysis. This release 
+0.9.0 is a big step towards full integration of Gosbom and Govulners into Nextlinux Engine as planned for 1.0. In this release, Gosbom is used for all package identification, and
+a new API is also added to support uploads of Gosbom results into the system but with less analysis depth than an in-deployment analysis. This release 
 also involves an API update to 0.1.16 and a db schema update to 0.0.14, and resolves a long-standing issue with db varchar field lengths in the
 policy engine.
 
-+ Added - New APIs for uploading externally run Syft analysis of an image to generate an SBoM and importing results as an image into engine. Fixes #783
++ Added - New APIs for uploading externally run Gosbom analysis of an image to generate an SBoM and importing results as an image into engine. Fixes #783
 + Added - Support for analysis archive rules to trigger based on total number of images in each account. Fixes #700
 + Added - Exclusion filters for analysis archive rules. Fixes #699
 + Added - Ability to exclude paths from vulnerability.packages rules using path regex. Fixes #229
+<<<<<<< HEAD
 + Added - Integrates new Syft tool (https://github.com/nextlinux/syft) as package bill of materials analyzer. Fixes #679, #685, #682
+=======
++ Added - Integrates new Gosbom tool (https://github.com/nextlinux/gosbom) as package bill of materials analyzer. Fixes #679, #685, #682
+>>>>>>> master
 + Added - Ability to set an expiration for individual whitelist rules. Fixes #178, 
 + Added - Ability to test webhook delivery via API call and provide schemas for webhook payloads. Fixes #489, #490
 + Added - Success and error counters in prometheus metrics exported by analyzers ("nextlinux_analysis_success" and "nextlinux_analysis_error")  
@@ -367,7 +396,7 @@ policy engine.
 
 + Added - Store a set of digests in a subscription record, allowing engine to run vuln_update/policy_eval checks over specified digests as well as latest. Contribution by Mattia Pagnozzi <mattia.pagnozzi@gmail.com>
 + Added - New debug_exception logger function to dump stack only at debug or higher log level, otherwise just print error.
-+ Added - Adds global internal client timeouts configurable in the config.yaml file. Fixes #210 add annotations key to AnchoreImage response definition type in.
++ Added - Adds global internal client timeouts configurable in the config.yaml file. Fixes #210 add annotations key to NextlinuxImage response definition type in.
 + Fix - GET /images?history=true not returning full history list. Fixes #215
 + Fix - Allow distro discovery routine to handle case where system os metadata files are broken softlinks inside the container image. Fixes #213
 + Fix - Update to analyzer code, to keep a consistent map of files regardless of any file name slash and dot prefixes that may be present in the layer tars.  Fixes #209
@@ -377,7 +406,7 @@ policy engine.
 + Fix - On image add, ensure that subscriptions are (re)activated based on API input. Fixes #195
 + Fix - Use of body in GET /images to filter by tag and/or digest rather than only using query param
 + Fix - Don't require type and key on PUT /subscriptions, reconciling code behavior with swagger spec. Contribution by by Mattia Pagnozzi <mattia.pagnozzi@gmail.com>
-+ Fix - Add missing 'annotations' key to AnchoreImage response definition type in swagger spec.
++ Fix - Add missing 'annotations' key to NextlinuxImage response definition type in swagger spec.
 + Fix - Add correct DB filter on userId to prevent images deleted from one user account from resulting in deletions of images in other accounts, when Image Digests align across accounts.  Fixes #224.
 + Improved - Update Dockerfile using multi-stage model
 
@@ -420,7 +449,7 @@ policy engine.
 ## 0.3.3 (2019-02-22)
 
 + Added - new ssl_verify option in feeds section of default/example config yamls and related environment settings in Dockerfile, to handle cases where default feed endpoint (ancho.re) is behind proxy with site-specific cert. Fixes #141
-+ Added - the parentDigest to AnchoreImageTagSummary definition in apiext swagger.yaml.  Fixes #140
++ Added - the parentDigest to NextlinuxImageTagSummary definition in apiext swagger.yaml.  Fixes #140
 + Added - imageDigest and more elements (package name, version, type, feed, feed group) to the vuln_update webhook payload. Fixes #130
 + Added - regex support for mapping rules using value prefix 'regexp:'. Fixes #128
 + Fix - only emit events into the event log for orphaned or down services when they transition, mitigating condition where simplequeue service can getting highly loaded when many orphaned service records are in place. Fixes #147
@@ -428,7 +457,7 @@ policy engine.
 + Fix - make updates to RFC3339 format validation and parsing for the add image by digest request input to correctly handle strings that contain millis. Fixes #136. Fixes #135.
 + Fix - update to routine that generates a digest from a manifest, removing intermediate parse that computed the wrong digest in cases where manifest contained un-indented json.  Fixes #131
 + Fix - improve feed sync error handling. Fixes #125
-+ Improved - update default config to allow external setting of ANCHORE_EXTERNAL_TLS and ANCHORE_LOG_LEVEL.  Contribution by Jeremy T. Bouse <Jeremy.Bouse@UnderGrid.net> (PR #137 and #139)
++ Improved - update default config to allow external setting of NEXTLINUX_EXTERNAL_TLS and NEXTLINUX_LOG_LEVEL.  Contribution by Jeremy T. Bouse <Jeremy.Bouse@UnderGrid.net> (PR #137 and #139)
 + Improved - several updates to circleCI/build configs, unit tests
 + Minor bug fixes
 
@@ -514,7 +543,11 @@ NOTE: For users upgrading from 0.2.X to 0.3.X, please note that the upgrade proc
   + Information about internal processes like vulnerability feed sync start and end events
   + Troubleshooting information on image and repository watcher failures
   + Troubleshooting information about distributed nextlinux-engine services orphaned due to network connectivity or other issues
+<<<<<<< HEAD
   + Details about policy sync failures from nextlinux.io if the automatic policy sync is turned on in the config
+=======
+  + Details about policy sync failures from next-linux.systems if the automatic policy sync is turned on in the config
+>>>>>>> master
   + Troubleshooting information that presents details when other asynchronous engine operations experience failures
 + Improved java artifact analysis - Add support for scanning Jenkins plugins. This adds the file extension ".hpi" and ".jpi" to the list of recognized Java library filenames. (contributed by Matt Sicker <boards@gmail.com>)
 + Improved 'metadata' content implementation for handling the addition of dockerfile contents after an image has already been added

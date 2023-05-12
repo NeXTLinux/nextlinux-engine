@@ -803,7 +803,7 @@ class VulnerabilityMatch(JsonSerializable):
         """
         scores = []
 
-        # check the vulnerability type using the feed group. legacy feed group for nvd is "nvdv2:cves", grype counterpart is "nvd"
+        # check the vulnerability type using the feed group. legacy feed group for nvd is "nvdv2:cves", govulners counterpart is "nvd"
         if self.vulnerability.feed_group and "nvd" in self.vulnerability.feed_group:
             scores = self.vulnerability.cvss
         else:
@@ -828,7 +828,7 @@ class VulnerabilityMatch(JsonSerializable):
         """
         scores = []
 
-        # check the vulnerability type using the feed group. legacy feed group for nvd is "nvdv2:cves", grype counterpart is "nvd"
+        # check the vulnerability type using the feed group. legacy feed group for nvd is "nvdv2:cves", govulners counterpart is "nvd"
         if self.vulnerability.feed_group and "nvd" in self.vulnerability.feed_group:
             scores = []
         else:

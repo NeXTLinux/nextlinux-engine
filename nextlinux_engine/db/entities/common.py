@@ -17,7 +17,11 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.orm.session import Session as SessionObject
 
+<<<<<<< HEAD
 from nextlinux_engine.utils import AnchoreException
+=======
+from nextlinux_engine.utils import NextlinuxException
+>>>>>>> master
 
 try:
     # Separate logger for use during bootstrap when logging may not be fully configured
@@ -309,7 +313,7 @@ def initialize(localconfig=None, versions=None):
     return ret
 
 
-class ScopedSessionNotInitializedError(AnchoreException):
+class ScopedSessionNotInitializedError(NextlinuxException):
     def __init__(self):
         super().__init__(
             "Invoked get_thread_scoped_session without first calling init_thread_session to initialize "

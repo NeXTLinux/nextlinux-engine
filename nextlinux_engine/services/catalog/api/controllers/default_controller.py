@@ -9,7 +9,11 @@ import nextlinux_engine.subsys.servicestatus
 from nextlinux_engine import db
 from nextlinux_engine.apis.authorization import INTERNAL_SERVICE_ALLOWED, get_authorizer
 from nextlinux_engine.apis.context import ApiRequestContextProxy
+<<<<<<< HEAD
 from nextlinux_engine.apis.exceptions import AnchoreApiError, BadRequest
+=======
+from nextlinux_engine.apis.exceptions import NextlinuxApiError, BadRequest
+>>>>>>> master
 from nextlinux_engine.common.helpers import make_response_error
 from nextlinux_engine.common.models.schemas import ImportManifest
 from nextlinux_engine.services.catalog import archiver
@@ -208,7 +212,7 @@ def add_image(
                     session, request_inputs, bodycontent=image_metadata
                 )
 
-    except AnchoreApiError:
+    except NextlinuxApiError:
         raise
     except ImageConflict as img_err:
         httpcode = 409

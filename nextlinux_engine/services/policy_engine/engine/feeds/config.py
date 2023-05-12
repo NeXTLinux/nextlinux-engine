@@ -68,9 +68,9 @@ def compute_selected_configs_to_sync(
 ) -> Dict[str, SyncConfig]:
     """
     Returns the feeds to be synced from the configuration after filtering required/allowed by the provider
-    Handles both legacy and grype vulnerabilities provider configurations
+    Handles both legacy and govulners vulnerabilities provider configurations
 
-    :param provider: name of the provider such as legacy or grype
+    :param provider: name of the provider such as legacy or govulners
     :param vulnerabilities_config: vulnerabilities section of config file
     {
        "provider": "legacy",
@@ -98,7 +98,11 @@ def compute_selected_configs_to_sync(
     :param default_provider_sync_config: the default sync configuration for the provider.
     A dictionary with feed names each mapped to its respective SyncConfig
     {
+<<<<<<< HEAD
         "grypedb": SyncConfig(enabled=True, url="https://toolbox-data.nextlinux.io/grype/databases/listing.json"),
+=======
+        "govulnersdb": SyncConfig(enabled=True, url="https://toolbox-data.next-linux.systems/govulners/databases/listing.json"),
+>>>>>>> master
         "packages": SyncConfig(enabled=False, url="https://ancho.re/v1/service/feeds")
     }
     :return: dictionary with feed names each mapped to its respective SyncConfig

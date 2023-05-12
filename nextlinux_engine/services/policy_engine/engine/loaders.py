@@ -188,7 +188,7 @@ class ImageLoader(object):
 
         # CPEs
         logger.info("Loading image cpes")
-        image.cpes = self.load_cpes_from_syft_output_with_fallback(
+        image.cpes = self.load_cpes_from_gosbom_output_with_fallback(
             analysis_report, image
         )
 
@@ -1132,35 +1132,35 @@ class ImageLoader(object):
 
         return ret_names, ret_versions
 
-    def load_cpes_from_syft_output_with_fallback(self, analysis_json, image):
+    def load_cpes_from_gosbom_output_with_fallback(self, analysis_json, image):
         allcpes = {}
         cpes = []
         package_list = analysis_json.get("package_list", {})
 
         java_base = package_list.get("pkgs.java", {}).get("base", {})
         if java_base:
-            java_cpes = self.extract_syft_cpes(allcpes, java_base, image, "java")
+            java_cpes = self.extract_gosbom_cpes(allcpes, java_base, image, "java")
             if not java_cpes:
                 java_cpes = self.get_fuzzy_java_cpes(analysis_json, allcpes, image)
             cpes.extend(java_cpes)
 
         python_base = package_list.get("pkgs.python", {}).get("base", {})
         if python_base:
-            python_cpes = self.extract_syft_cpes(allcpes, python_base, image, "python")
+            python_cpes = self.extract_gosbom_cpes(allcpes, python_base, image, "python")
             if not python_cpes:
                 python_cpes = self.get_fuzzy_python_cpes(analysis_json, allcpes, image)
             cpes.extend(python_cpes)
 
         gems_base = package_list.get("pkgs.gems", {}).get("base", {})
         if gems_base:
-            gems_cpes = self.extract_syft_cpes(allcpes, gems_base, image, "gem")
+            gems_cpes = self.extract_gosbom_cpes(allcpes, gems_base, image, "gem")
             if not gems_cpes:
                 gems_cpes = self.get_fuzzy_gem_cpes(analysis_json, allcpes, image)
             cpes.extend(gems_cpes)
 
         npms_base = package_list.get("pkgs.npms", {}).get("base", {})
         if npms_base:
-            npms_cpes = self.extract_syft_cpes(allcpes, npms_base, image, "npm")
+            npms_cpes = self.extract_gosbom_cpes(allcpes, npms_base, image, "npm")
             if not npms_cpes:
                 npms_cpes = self.get_fuzzy_npm_cpes(analysis_json, allcpes, image)
             cpes.extend(npms_cpes)
@@ -1168,18 +1168,18 @@ class ImageLoader(object):
         cpes.extend(self.get_fuzzy_go_cpes(analysis_json, allcpes, image))
         cpes.extend(self.get_fuzzy_binary_cpes(analysis_json, allcpes, image))
 
-        # temporary workaround for supporting nvd matching for alpine os packages in grype integration
-        if get_provider_name(get_section_for_vulnerabilities()) == "grype":
+        # temporary workaround for supporting nvd matching for alpine os packages in govulners integration
+        if get_provider_name(get_section_for_vulnerabilities()) == "govulners":
             os_pkgs_base = package_list.get("pkgs.allinfo", {}).get("base", {})
             if os_pkgs_base:
-                os_pkgs_cpes = self.extract_syft_cpes_for_os_packages(
+                os_pkgs_cpes = self.extract_gosbom_cpes_for_os_packages(
                     allcpes, os_pkgs_base, image
                 )
                 cpes.extend(os_pkgs_cpes)
 
         return cpes
 
-    def extract_syft_cpes(self, allcpes, package_dict, image, pkg_type):
+    def extract_gosbom_cpes(self, allcpes, package_dict, image, pkg_type):
         cpes = []
         for pkg_key, pkg_json_str in package_dict.items():
             pkg = safe_extract_json_value(pkg_json_str)
@@ -1214,9 +1214,9 @@ class ImageLoader(object):
 
         return cpes
 
-    def extract_syft_cpes_for_os_packages(self, allcpes, package_dict, image):
+    def extract_gosbom_cpes_for_os_packages(self, allcpes, package_dict, image):
         """
-        Utility function for parsing cpes for os packages only. Mostly a duplicate of extract_syft_cpes with the exception of pkg_type and pkg_path.
+        Utility function for parsing cpes for os packages only. Mostly a duplicate of extract_gosbom_cpes with the exception of pkg_type and pkg_path.
         For os packages pkg_path is always pkgdb. pkg_type is picked up from the data instead of passing it as a function argument
 
         """

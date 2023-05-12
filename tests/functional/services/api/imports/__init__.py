@@ -24,11 +24,11 @@ def load_file(module_path: str, filename: str) -> str:
     return text
 
 
-def extract_syft_metadata(data: str) -> Dict[str, Union[str, List[str], bytes]]:
+def extract_gosbom_metadata(data: str) -> Dict[str, Union[str, List[str], bytes]]:
     """
-    Parse metadata from the syft output string
+    Parse metadata from the gosbom output string
 
-    :param data: syft SBOM json string
+    :param data: gosbom SBOM json string
     :type data: str
     :return: dict with metadata
     :rtype: Dict[str, Union[str, List[str], bytes]]

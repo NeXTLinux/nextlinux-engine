@@ -9,7 +9,11 @@ from typing import Dict, List, Tuple, Union
 
 from sqlalchemy.orm.session import Session
 
+<<<<<<< HEAD
 from nextlinux_engine.clients.grype_wrapper import GrypeWrapperSingleton
+=======
+from nextlinux_engine.clients.govulners_wrapper import GovulnersWrapperSingleton
+>>>>>>> master
 from nextlinux_engine.clients.services import internal_client_for
 from nextlinux_engine.clients.services.catalog import CatalogClient
 from nextlinux_engine.common import nonos_package_types
@@ -27,8 +31,13 @@ from nextlinux_engine.db.entities.policy_engine import (
     NvdV2Metadata,
 )
 from nextlinux_engine.services.policy_engine.engine import vulnerabilities
+<<<<<<< HEAD
 from nextlinux_engine.services.policy_engine.engine.feeds.grypedb_sync import (
     GrypeDBSyncManager,
+=======
+from nextlinux_engine.services.policy_engine.engine.feeds.govulnersdb_sync import (
+    GovulnersDBSyncManager,
+>>>>>>> master
     NoActiveDBSyncError,
 )
 from nextlinux_engine.subsys import logger
@@ -36,16 +45,16 @@ from nextlinux_engine.utils import timer
 
 from .cpe_matchers import DistroEnabledCpeMatcher, NonOSCpeMatcher
 from .dedup import get_image_vulnerabilities_deduper
-from .mappers import grype_to_engine_image_vulnerabilities, image_content_to_grype_sbom
+from .mappers import govulners_to_engine_image_vulnerabilities, image_content_to_govulners_sbom
 
 # debug option for saving image sbom, defaults to not saving
 SAVE_SBOM_TO_FILE = (
-    os.getenv("ANCHORE_POLICY_ENGINE_SAVE_SBOM_TO_FILE", "false").lower() == "true"
+    os.getenv("NEXTLINUX_POLICY_ENGINE_SAVE_SBOM_TO_FILE", "false").lower() == "true"
 )
 
 # Distros that only add a CVE record to their secdb entries when a fix is available
 nvd_distro_matching_enabled = (
-    os.getenv("ANCHORE_ENABLE_DISTRO_NVD_MATCHES", "true").lower() == "true"
+    os.getenv("NEXTLINUX_ENABLE_DISTRO_NVD_MATCHES", "true").lower() == "true"
 )
 
 FIX_ONLY_DISTROS = ["alpine"]
@@ -95,9 +104,9 @@ class LegacyScanner:
         return matches
 
 
-class GrypeScanner:
+class GovulnersScanner:
     """
-    The scanner sits a level above the grype_wrapper. It orchestrates dependencies such as grype-db for the wrapper
+    The scanner sits a level above the govulners_wrapper. It orchestrates dependencies such as govulners-db for the wrapper
     and interacts with the wrapper for all things vulnerabilities
 
     Scanners are typically used by a provider to serve data
@@ -178,15 +187,15 @@ class GrypeScanner:
 
         return all_content
 
-    def _get_report_generated_by(self, grype_response):
+    def _get_report_generated_by(self, govulners_response):
         generated_by = {"scanner": self.__class__.__name__}
 
         try:
-            descriptor_dict = grype_response.get("descriptor", {})
+            descriptor_dict = govulners_response.get("descriptor", {})
             db_dict = descriptor_dict.get("db", {})
             generated_by.update(
                 {
-                    "grype_version": descriptor_dict.get("version"),
+                    "govulners_version": descriptor_dict.get("version"),
                     "db_checksum": db_dict.get("checksum"),
                     "db_schema_version": db_dict.get("schemaVersion"),
                     "db_built_at": db_dict.get("built"),
@@ -194,7 +203,7 @@ class GrypeScanner:
             )
         except (AttributeError, ValueError):
             logger.exception(
-                "Ignoring error parsing report metadata from grype response"
+                "Ignoring error parsing report metadata from govulners response"
             )
 
         return generated_by
@@ -220,9 +229,9 @@ class GrypeScanner:
             problems=[],
         )
 
-        # check and run grype sync if necessary
+        # check and run govulners sync if necessary
         try:
-            GrypeDBSyncManager.run_grypedb_sync(db_session)
+            GovulnersDBSyncManager.run_govulnersdb_sync(db_session)
         except NoActiveDBSyncError:
             logger.exception("Failed to initialize local vulnerability database")
             report.problems.append(
@@ -234,7 +243,7 @@ class GrypeScanner:
 
         # create the image sbom
         try:
-            sbom = image_content_to_grype_sbom(image, self._get_image_content(image))
+            sbom = image_content_to_govulners_sbom(image, self._get_image_content(image))
         except Exception:
             logger.exception(
                 "Failed to create the image sbom for %s/%s", image.user_id, image.id
@@ -244,7 +253,7 @@ class GrypeScanner:
             )
             return report
 
-        # submit the sbom to grype wrapper and get results
+        # submit the sbom to govulners wrapper and get results
         try:
             if SAVE_SBOM_TO_FILE:
                 # don't bail on errors writing to file since this is for debugging only
@@ -263,35 +272,35 @@ class GrypeScanner:
                         image.id,
                     )
 
-            # submit the image for analysis to grype
-            grype_response = (
-                GrypeWrapperSingleton.get_instance().get_vulnerabilities_for_sbom(
+            # submit the image for analysis to govulners
+            govulners_response = (
+                GovulnersWrapperSingleton.get_instance().get_vulnerabilities_for_sbom(
                     json.dumps(sbom)
                 )
             )
         except Exception:
             logger.exception(
-                "Failed to scan image sbom for vulnerabilities using grype for %s/%s",
+                "Failed to scan image sbom for vulnerabilities using govulners for %s/%s",
                 image.user_id,
                 image.id,
             )
             report.problems.append(
                 VulnerabilityScanProblem(
-                    details="Failed to scan image sbom for vulnerabilities using grype"
+                    details="Failed to scan image sbom for vulnerabilities using govulners"
                 )
             )
             return report
 
-        # transform grype response to engine vulnerabilities and dedup
+        # transform govulners response to engine vulnerabilities and dedup
         try:
-            results = grype_to_engine_image_vulnerabilities(grype_response)
+            results = govulners_to_engine_image_vulnerabilities(govulners_response)
             report.results = get_image_vulnerabilities_deduper().execute(results)
-            report.metadata.generated_by = self._get_report_generated_by(grype_response)
+            report.metadata.generated_by = self._get_report_generated_by(govulners_response)
         except Exception:
-            logger.exception("Failed to transform grype vulnerabilities response")
+            logger.exception("Failed to transform govulners vulnerabilities response")
             report.problems.append(
                 VulnerabilityScanProblem(
-                    details="Failed to transform grype vulnerabilities response"
+                    details="Failed to transform govulners vulnerabilities response"
                 )
             )
             return report
@@ -302,12 +311,12 @@ class GrypeScanner:
         self, ids, affected_package, affected_package_version, namespace
     ) -> Tuple[List, List]:
         """
-        Searches for grype db vulnerability and metadata records that match the ids and namespaces. Additionally queries
+        Searches for govulners db vulnerability and metadata records that match the ids and namespaces. Additionally queries
         and returns the metadata records of related vulnerabilities from the first query
         """
         # Query requested vulnerabilities
         vulnerabilities_result = (
-            GrypeWrapperSingleton.get_instance().query_vulnerabilities(
+            GovulnersWrapperSingleton.get_instance().query_vulnerabilities(
                 vuln_id=ids,
                 affected_package=affected_package,
                 affected_package_version=affected_package_version,
@@ -323,7 +332,7 @@ class GrypeScanner:
         if self._is_only_nvd_namespace(namespace):
             return (
                 vulnerabilities_result,
-                [item.GrypeVulnerabilityMetadata for item in vulnerabilities_result],
+                [item.GovulnersVulnerabilityMetadata for item in vulnerabilities_result],
             )
 
         # Get set of related nvd vulnerabilities
@@ -332,18 +341,18 @@ class GrypeScanner:
 
         for raw_result in vulnerabilities_result:
             related_vulns = (
-                raw_result.GrypeVulnerability.deserialized_related_vulnerabilities
+                raw_result.GovulnersVulnerability.deserialized_related_vulnerabilities
             )
             if related_vulns:
                 for related_vuln in related_vulns:
                     if self._is_only_nvd_namespace(related_vuln["Namespace"]):
-                        # set nvd namespace. This allows it to be dynamic based on changes in grypedb
+                        # set nvd namespace. This allows it to be dynamic based on changes in govulnersdb
                         nvd_namespace = nvd_namespace or related_vuln["Namespace"]
                         related_nvd_vulnerabilities.add(related_vuln["ID"])
 
         if related_nvd_vulnerabilities:
             related_nvd_metadata_records = (
-                GrypeWrapperSingleton.get_instance().query_vulnerability_metadata(
+                GovulnersWrapperSingleton.get_instance().query_vulnerability_metadata(
                     vuln_ids=related_nvd_vulnerabilities,
                     namespaces=[nvd_namespace],
                 )

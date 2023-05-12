@@ -11,7 +11,7 @@ class DbAccountStore(
     account_abcs.CredentialsAccountStore, account_abcs.AuthorizationAccountStore
 ):
     """
-    Basic Anchore account management, uses the internal subsystem for accessing db objects.
+    Basic Nextlinux account management, uses the internal subsystem for accessing db objects.
 
     Very simple data model: Accounts -> Users. Exactly one account and user is the system admin.
 
@@ -136,7 +136,7 @@ class DbAccountStore(
 
 class TokenAccountStore(DbAccountStore):
     """
-    Basic Anchore account management, uses the internal subsystem for accessing db objects.
+    Basic Nextlinux account management, uses the internal subsystem for accessing db objects.
 
     Very simple data model: Accounts -> Users. Exactly one account and user is the system admin.
 

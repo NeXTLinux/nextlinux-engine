@@ -46,7 +46,7 @@ class TestBasicStore(unittest.TestCase):
             AccessCredential,
             Account,
             AccountUser,
-            Anchore,
+            Nextlinux,
             initialize,
         )
         from nextlinux_engine.db.entities.common import do_create
@@ -61,7 +61,7 @@ class TestBasicStore(unittest.TestCase):
                 Account.__table__,
                 AccountUser.__table__,
                 AccessCredential.__table__,
-                Anchore.__table__,
+                Nextlinux.__table__,
             ]
         )
 

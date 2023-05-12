@@ -75,7 +75,7 @@ class TestApplyHints:
 
     @pytest.mark.parametrize("hints_filename", hint_file_pkg_type_map.keys())
     def test_hints_defines_path(self, hints_filename, patch_hints_read, get_hints):
-        # There was a bug that was causing issues when syft did not process a certain type of artifact that was then
+        # There was a bug that was causing issues when gosbom did not process a certain type of artifact that was then
         # processed as a hint. Certain paths of nested attributes were being accessed without being defined
         # This test is designed to ensure that each handler can set the attributes it needs when hints are applied
         analyzer_report = {}

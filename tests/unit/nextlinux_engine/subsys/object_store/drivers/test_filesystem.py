@@ -42,7 +42,7 @@ class TestFilesystemObjectStorageDriver:
         "param",
         [
             pytest.param(
-                {"uri": "/usr/local/bin/grype", "expected": "/usr/local/bin/grype"},
+                {"uri": "/usr/local/bin/govulners", "expected": "/usr/local/bin/govulners"},
                 id="unix-path",
             ),
             pytest.param(

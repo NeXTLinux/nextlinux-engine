@@ -12,7 +12,7 @@ class TestIdentityAPIPostReturns200:
         """
         resp = http_post(
             ["user", "credentials"],
-            {"type": "password", "value": api_conf()["ANCHORE_API_PASS"]},
+            {"type": "password", "value": api_conf()["NEXTLINUX_API_PASS"]},
             config=api_conf,
         )
         assert resp == APIResponse(200)

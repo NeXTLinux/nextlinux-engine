@@ -97,7 +97,7 @@ class TriggerMatch(object):
         self.id = match_instance_id
         self.msg = msg
 
-        # Compute a hash-based trigger_id for matching purposes (this is legacy from Anchore CLI)
+        # Compute a hash-based trigger_id for matching purposes (this is legacy from Nextlinux CLI)
         if not self.id:
             gate_id = self.trigger.gate_cls.__gate_name__
             self.id = hashlib.new(
@@ -416,7 +416,7 @@ class Gate(LifecycleMixin, metaclass=GateMeta):
          __params__ = {'Danger': bool, 'Zone': str}
 
     To ensure a gate is updated on data changes, configure __watches__ to include the list of WatchFilters for
-    the entity classes that impact this gate. Example: AnchoreSec gate watches Vulnerabilities, and GemCheck watches AppliationPackages
+    the entity classes that impact this gate. Example: NextlinuxSec gate watches Vulnerabilities, and GemCheck watches AppliationPackages
 
     A gate is a collection of Triggers and a configured execution environment for each. It receives a basic execution
     context from the caller, but can customize it before executing each trigger. Generally a gate groups a set of triggers

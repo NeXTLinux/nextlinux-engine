@@ -1114,12 +1114,12 @@ class HybridTriggerIdKeyedItemIndex(IWhitelistItemIndex):
 
 class StandardCVETriggerIdKey(object):
     cve_trigger_id_regex = re.compile(r"([A-Za-z0-9\-])+\+\*")
-    supported_gates = [AnchoreSecGate.__gate_name__.lower()]
+    supported_gates = [NextlinuxSecGate.__gate_name__.lower()]
 
     @classmethod
     def whitelist_item_key(cls, item):
         """
-        Return a key value for the item if the item is an ANCHORESEC gate with trigger_id of the
+        Return a key value for the item if the item is an NEXTLINUXSEC gate with trigger_id of the
         form <CVE>+<pkg> where <pkg> may be '*'. Else return None
 
         :param item: a whitelist item json

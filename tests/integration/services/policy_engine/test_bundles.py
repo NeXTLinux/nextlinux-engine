@@ -484,7 +484,7 @@ def test_deprecated_gate_evaluation_error(test_data_env_with_images_loaded):
                         "params": [],
                     },
                     {
-                        "gate": "ANCHORESEC",
+                        "gate": "NEXTLINUXSEC",
                         "trigger": "VULNLOW",
                         "action": "warn",
                         "params": [],
@@ -551,7 +551,7 @@ def testDeprecatedGateEvaluationOk(test_data_env_with_images_loaded):
                         "params": [],
                     },
                     {
-                        "gate": "ANCHORESEC",
+                        "gate": "NEXTLINUXSEC",
                         "trigger": "VULNLOW",
                         "action": "warn",
                         "params": [],
